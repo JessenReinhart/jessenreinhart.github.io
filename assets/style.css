@@ -4,7 +4,7 @@
 html {
     font-family: 'DM Sans', sans-serif;
     overflow-x: hidden;
-    font-size: 0.9em;
+    /* font-size: 0.9em; */
 }
 
 #home {
@@ -453,6 +453,7 @@ footer {
 
 .main-thumbnail > img {
     margin-bottom: 16px;
+    width: 30vw;
 }
 
 .item-thumbnail > img {
@@ -596,8 +597,57 @@ th,td {
 }
 
 .rectangles {
-    padding: 0px 120px;
+    padding: 4em 120px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.asseen {
+    padding: 4em 120px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.imgcontainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.imgcontainer > img {
+    width: 18vw;
+}
+
+.customer-review {
+    background-color: #fcfcfc;
+    display: flex;
+    flex-direction: column;
+    padding: 4em 240px;
+}
+
+.customer-review > h1 {
+    text-align: center;
+}
+
+.review-score {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2em;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.review-score > span:not(.left):last-of-type {
+    margin-left: auto;
+}
+
+.review-score > button {
+    margin-left: 2em;
+}
+
+.review-score > img {
+    height: 1.5em;
+    margin: 0 2px;
 }

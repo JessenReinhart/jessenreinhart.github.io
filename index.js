@@ -127,8 +127,51 @@ function pageTwo() {
     </div>
     <div class="middle-text2">
         <p>
-        Vel exercitationem quia nam. Quod saepe illo tempore quos voluptatem ut. Quis veritatis asperiores ea rerum. Cupiditate id neque esse necessitatibus sed delectus delectus accusamus.
+        Vel exercitationem quia nam. Quod saepe illo tempore quos voluptatem ut. Quis veritatis asperiores ea rerum. Cupiditate id neque esse necessitatibus sed delectus delectus accusamus. Vel exercitationem quia nam. Quod saepe illo tempore quos voluptatem ut. Quis veritatis asperiores ea rerum. Cupiditate id neque esse necessitatibus sed delectus delectus accusamus. Vel exercitationem quia nam. Quod saepe illo tempore quos voluptatem ut. Quis veritatis asperiores ea rerum. Cupiditate id neque esse necessitatibus sed delectus delectus accusamus.
         </p>
+    </div>
+    <div class="asseen">
+        <h1>As Seen On Instagram</h1>
+        <div class="imgcontainer">
+            <img src="./assets/images/asd.png" alt="" srcset="">  
+            <img src="./assets/images/asdwq.png" alt="" srcset="">  
+            <img src="./assets/images/zcx.png" alt="" srcset="">  
+            <img src="./assets/images/zxcvf.png" alt="" srcset="">  
+        </div>
+    </div>
+    <div class="customer-review">
+        <h1>Customer Reviews</h1>
+        <div class="review-score">
+            <img src="./assets/images/Star Copy 3.png" alt="" srcset="">
+            <img src="./assets/images/Star Copy 3.png" alt="" srcset="">
+            <img src="./assets/images/Star Copy 3.png" alt="" srcset="">
+            <img src="./assets/images/Star Copy 3.png" alt="" srcset="">
+            <img src="./assets/images/Star Copy 3.png" alt="" srcset="">
+            <span>4.8 of 5</span>
+            <span>Share your thoughts with other customers</span>
+            <button class="main-btn">WRITE A REVIEW</button>
+        </div>
+        <span>Top Customer Reviews</span>
+        <div class="review-score">
+            <img src="./assets/images/Star Copy 3.png" alt="" srcset="">
+            <img src="./assets/images/Star Copy 3.png" alt="" srcset="">
+            <img src="./assets/images/Star Copy 3.png" alt="" srcset="">
+            <img src="./assets/images/Star Copy 3.png" alt="" srcset="">
+            <img src="./assets/images/Star Copy 3.png" alt="" srcset="">
+            <span class="left">4.8 of 5</span>
+        </div>
+        <span>By Customer Name on February 18, 2017</span>
+        <p class="review">selfies food truck authentic High Life VHS ethical meggings bitters fashion axe tote bag artisan locavore scenester YOLO occupy 3 wolf moon banjo cardigan roof party hella XOXO forage before they sold out brunch pug lo-fi aesthetic Bushwick Schlitz sartorial Portland Austin tattooed Thundercats Banksy tousled disrupt Shoreditch iPhone hoodie church-key Etsy literally sriracha Tonx fingerstache meh trust fund Carles Wes Anderson kogi fanny pack keffiyeh put a bird on it letterpress distillery cliche American Apparel leggings skateboard banh mi dreamcatcher polaroid tofu mumblecore you probably haven't heard of them photo booth PBR ugh raw denim post-ironic four loko irony gluten-free pickled semiotics butcher Helvetica Echo Park ennui Intelligentsia twee umami vinyl readymade McSweeney's next level swag kitsch viral cred Pitchfork freegan Odd Future wayfarers organic mixtape actually try-hard Williamsburg pop-up farm-to-table pour-over plaid fixie cornhole vegan keytar shabby chic deep v bespoke Vice Cosby sweater 90's flannel whatever flexitarian Brooklyn yr gastropub master cleanse Neutra Blue Bottle selvage synth blog small batch Godard craft beer narwhal single-origin coffee mlkshk seitan Truffaut pork belly PBR&B sustainable Pinterest Kickstarter chambray art party bicycle rights direct trade  messenger bag kale chips DIY quinoa stumptown hashtag +1 fap gentrify chillwave 8-bit crucifix beard slow-carb drinking vinegar paleo lomo retro Marfa squid chia typewriter asymmetrical cray biodiesel salvia jean shorts Tumblr heirloom normcore wolf street art mustache</p>
+        <a href="#">SHOW MORE REVIEWS</a>
+    </div>
+    <div class="asseen">
+        <h1>You May Also Like</h1>
+        <div class="imgcontainer">
+            <img src="./assets/images/Product/Product Card Copy 12.png" alt="" srcset=""> 
+            <img src="./assets/images/Product/Product Card Copy 13.png" alt="" srcset=""> 
+            <img src="./assets/images/Product/Product Card Copy 16.png" alt="" srcset=""> 
+            <img src="./assets/images/Product/Product Card Copy 17.png" alt="" srcset=""> 
+        </div>
     </div>
     `
     document.documentElement.scrollTop = 0;

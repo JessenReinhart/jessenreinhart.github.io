@@ -653,6 +653,11 @@ th,td {
 }
 
 @media screen and (max-width: 1280px) {
+    
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
         
     nav {
         background-color: white;
@@ -665,7 +670,6 @@ th,td {
         top: 0;
         left: 0;
         z-index: 10;
-        overflow-x: hidden;
     }
 
 

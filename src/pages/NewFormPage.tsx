@@ -175,6 +175,12 @@ const NewFormPage: Component = () => {
     setSkills(skills().filter(skill => skill !== skillToRemove));
   };
 
+  const handleSkillKeyPress: JSX.EventHandler<HTMLInputElement, KeyboardEvent> = (e) => {
+    if (e.key === 'Enter') {
+      addSkill();
+    }
+  };
+
   const addExperience = () => {
     setExperiences([...experiences, {
       companyName: '',
@@ -347,6 +353,7 @@ const NewFormPage: Component = () => {
                     value={userSkill()}
                     onInput={handleSkillInputChange}
                     placeholder="Enter a skill"
+                    onKeyPress={handleSkillKeyPress}
                     class="flex-grow bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white focus:border-green-400 focus:outline-none transition-colors"
                   />
                   <button

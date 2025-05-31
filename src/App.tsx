@@ -1,8 +1,8 @@
 import "./styles/main.css";
 import Layout from "./layout/Layout";
-import { Routes, Route, useLocation } from "@solidjs/router";
+import { useLocation } from "@solidjs/router";
 import { appRoutes } from "./routes";
-import { createEffect, For } from "solid-js";
+import { createEffect, Show } from "solid-js";
 
 const App = () => {
   const location = useLocation();
@@ -17,7 +17,7 @@ const App = () => {
       // Basic support for parameterized routes (if any added later)
       // This is a simplified matcher; for complex scenarios, a more robust solution might be needed.
       if (route.path.includes(":")) {
-        const pattern = new RegExp("^" + route.path.replace(/:\w+/g, "([^/]+)") + "$");
+        const pattern = new RegExp("^" + route.path.replace(/:\w+/g, "([^/]+)") + "$", "i");
         return pattern.test(currentPath);
       }
       return false;
@@ -35,15 +35,32 @@ const App = () => {
     document.title = newTitle;
   });
 
+  // Find the matching route
+  const currentRoute = () => {
+    const currentPath = location.pathname;
+    return (
+      appRoutes.find(route => {
+        // Exact match for defined paths
+        if (route.path === currentPath) return true;
+        // Basic support for parameterized routes (if any added later)
+        // This is a simplified matcher; for complex scenarios, a more robust solution might be needed.
+        if (route.path.includes(":")) {
+          const pattern = new RegExp("^" + route.path.replace(/:\w+/g, "([^/]+)") + "$", "i");
+          return pattern.test(currentPath);
+        }
+        return false;
+      }) || appRoutes.find(r => r.path === "*")
+    );
+  };
+
   return (
     <Layout>
-      <Routes>
-        <For each={appRoutes}>
-          {route => (
-            <Route path={route.path} component={route.component} />
-          )}
-        </For>
-      </Routes>
+      <Show when={currentRoute()} keyed>
+        {route => {
+          const Component = route.component;
+          return <Component />;
+        }}
+      </Show>
     </Layout>
   );
 };

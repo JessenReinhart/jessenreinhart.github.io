@@ -71,6 +71,10 @@ async function fetchWithTimeout(resource: RequestInfo | URL, options: RequestIni
  * @throws Error if the VITE_OPENROUTER_API_KEY environment variable is not set.
  */
 function useOpenRouterAI(model: string) {
+    if (!import.meta.env.VITE_OPENROUTER_API_KEY) {
+        throw new Error("VITE_OPENROUTER_API_KEY environment variable is not set.");
+    }
+
     const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY;
 
     // Signal to hold the prompt that triggers the API call

@@ -10,4 +10,5 @@ export default defineConfig({
   build: {
     target: 'esnext',
   },
+  base: '/jessenreinhart.github.io/', // Add this line - should match your repository name
 });

@@ -7,8 +7,5 @@ export default defineConfig({
   base: '/', // Change this line to use relative paths
   build: {
     target: 'esnext',
-  },
-  define: {
-    'import.meta.env.VITE_OPENROUTER_API_KEY': JSON.stringify(process.env.VITE_OPENROUTER_API_KEY)
   }
 });

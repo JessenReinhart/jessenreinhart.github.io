@@ -9,7 +9,7 @@ const App = () => {
 
   createEffect(() => {
     const currentPath = location.pathname;
-    let newTitle = "Jessen Reinhart"; // Default title
+    let newTitle = "Jessen Reinhart - Frontend Engineer"; // Default title
 
     const matchedRoute = appRoutes.find(route => {
       // Exact match for defined paths

@@ -4,7 +4,7 @@ import { Router } from '@solidjs/router';
 import App from './App';
 import './styles/main.css';
 
-const root = document.getElementById('app');
+const root = document.getElementById('root');
 
 if (root) {
   render(() => (

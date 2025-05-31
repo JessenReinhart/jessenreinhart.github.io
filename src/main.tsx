@@ -9,7 +9,7 @@ const root = document.getElementById('app');
 if (root) {
   render(() => (
     <Router>
-    <App />
+      <App />
     </Router>
   ), root);
 }

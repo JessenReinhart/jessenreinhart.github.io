@@ -2,11 +2,11 @@ import { Experience, EducationInfo, SkillCategory, NavLink } from "./types";
 
 export const NAV_LINKS: NavLink[] = [
   { href: "/", label: "home" },
-  { href: "#about", label: "about" },
-  { href: "#skills", label: "skills" },
-  { href: "#experience", label: "experience" },
-  { href: "#education", label: "education" },
-  { href: "#contact", label: "contact" },
+  { href: "/#about", label: "about" },
+  { href: "/#skills", label: "skills" },
+  { href: "/#experience", label: "experience" },
+  { href: "/#education", label: "education" },
+  { href: "/#contact", label: "contact" },
 ];
 
 export const TYPING_TEXTS: string[] = [

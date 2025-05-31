@@ -4,23 +4,7 @@ import EducationSection from "../components/EducationSection";
 import ExperienceSection from "../components/ExperienceSection";
 import HeroSection from '../components/HeroSection';
 import SkillsSection from "../components/SkillSection";
-
-const smoothScroll = (e: Event) => {
-    const anchor = e.target as HTMLAnchorElement;
-    if (anchor.matches('a[href^="#"]')) {
-        e.preventDefault();
-        const targetId = anchor.getAttribute('href');
-        if (targetId) {
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        }
-    }
-};
+import Layout from "../layout/Layout";
 
 const handleMouseMove = (e: MouseEvent) => {
     const mouseX = e.clientX / window.innerWidth;
@@ -30,17 +14,18 @@ const handleMouseMove = (e: MouseEvent) => {
 };
 
 document.addEventListener('mousemove', handleMouseMove);
-document.addEventListener('click', smoothScroll);
 
 const Home = () => (
-    <main>
-        <HeroSection />
-        <AboutSection />
-        <SkillsSection />
-        <ExperienceSection />
-        <EducationSection />
-        <ContactSection />
-    </main>
+    <Layout>
+        <main>
+            <HeroSection />
+            <AboutSection />
+            <SkillsSection />
+            <ExperienceSection />
+            <EducationSection />
+            <ContactSection />
+        </main>
+    </Layout>
 );
 
 export default Home;

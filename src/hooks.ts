@@ -44,6 +44,25 @@ export interface AiResumeJsonResponse {
 // --- End of New Interfaces ---
 
 /**
+ * Fetches a resource with a specified timeout.
+ * @param resource The URL to fetch.
+ * @param options Fetch options.
+ * @param timeout Timeout in milliseconds.
+ * @returns A Promise that resolves with the Response object.
+ * @throws {Error} If the request times out (AbortError).
+ */
+async function fetchWithTimeout(resource: RequestInfo | URL, options: RequestInit = {}, timeout: number = 15000): Promise<Response> {
+    const controller = new AbortController();
+    const id = setTimeout(() => controller.abort(), timeout);
+
+    const response = await fetch(resource, {
+        ...options,
+        signal: controller.signal  // Pass the AbortSignal to fetch
+    });
+    clearTimeout(id);
+    return response;
+}
+/**
  * Custom SolidJS hook for interacting with the OpenRouter AI API.
  * Encapsulates the fetching logic, loading state, and error handling.
  *
@@ -69,7 +88,7 @@ function useOpenRouterAI(model: string) {
         }
 
         try {
-            const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            const res = await fetchWithTimeout("https://openrouter.ai/api/v1/chat/completions", {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${apiKey}`,
@@ -84,12 +103,29 @@ function useOpenRouterAI(model: string) {
                         { role: "user", content: currentPrompt },
                     ],
                 }),
-            });
+            }, 15000); // 15 second timeout
 
             // Check if the response was successful
             if (!res.ok) {
-                const errorData = await res.json();
-                throw new Error(`API error: ${res.status} - ${errorData.message || res.statusText}`);
+                let errorMessage = `API error: ${res.status} ${res.statusText || '(Unknown Status)'}`;
+                try {
+                    const errorBody = await res.text(); // Read body as text first
+                    if (errorBody) {
+                        try {
+                            const errorJson = JSON.parse(errorBody); // Try to parse as JSON
+                            if (errorJson.error && errorJson.error.message) {
+                                errorMessage += ` - Message: ${errorJson.error.message}`;
+                            } else if (errorJson.message) { // Some APIs use 'message' at the root
+                                errorMessage += ` - Message: ${errorJson.message}`;
+                            } else { // Fallback to showing part of the body if parsing fails or structure is unexpected
+                                errorMessage += ` - Body: ${errorBody.substring(0, 200)}${errorBody.length > 200 ? "..." : ""}`;
+                            }
+                        } catch (parseError) { // Not JSON
+                            errorMessage += ` - Body: ${errorBody.substring(0, 200)}${errorBody.length > 200 ? "..." : ""}`;
+                        }
+                    }
+                } catch (bodyError) { /* Failed to read error body, errorMessage already has status */ }
+                throw new Error(errorMessage);
             }
 
             const data = await res.json();
@@ -119,7 +155,8 @@ function useOpenRouterAI(model: string) {
                 throw new Error("AI response was not valid JSON. Raw content logged to console.");
             }
         } catch (error) {
-            console.error("Error fetching AI response:", error);
+            // Diagnostic log
+            console.error("Error caught in useOpenRouterAI fetcher:", error);
             // Re-throw the error so createResource can catch and expose it
             throw error;
         }

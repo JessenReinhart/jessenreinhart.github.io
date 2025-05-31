@@ -3,7 +3,12 @@ import { createStore, SetStoreFunction } from 'solid-js/store';
 import Section from '../layout/Section';
 import type { JSX } from 'solid-js';
 import useOpenRouterAI, { type ResumeData, type AiResumeJsonResponse } from '../hooks'; // Import the hook and types
+import pdfMake from "pdfmake/build/pdfmake";
+import pdfFonts from "pdfmake/build/vfs_fonts";
+import type { TDocumentDefinitions, Content, ContentText, ContentUnorderedList } from 'pdfmake/interfaces'; // Import specific content types
+
 import StyledResumeOutput from '../components/StyledResumeOutput'; // Import the new component
+import Layout from '../layout/Layout';
 
 interface ExperienceEntry {
   companyName: string;
@@ -20,6 +25,17 @@ interface ExperienceFormProps {
   removeExperience: (index: number) => void;
   handleSubmit: () => void;
   setExperiences: SetStoreFunction<ExperienceEntry[]>;
+}
+
+// Setup pdfmake
+pdfMake.vfs = pdfFonts.vfs;
+pdfMake.fonts = {
+  Roboto: {
+    normal: 'Roboto-Regular.ttf',
+    bold: 'Roboto-Medium.ttf',
+    italics: 'Roboto-Italic.ttf',
+    bolditalics: 'Roboto-MediumItalic.ttf'
+  }
 }
 
 const ExperienceForm: Component<ExperienceFormProps> = (props) => {
@@ -197,155 +213,223 @@ const NewFormPage: Component = () => {
     generateResume(resumePayload);
   };
 
+  const createResumePdfDefinition = (data: AiResumeJsonResponse): TDocumentDefinitions => {
+    // Use flatMap to build a flat array of Content items directly
+    const workExperienceContent: Content[] = data.workExperience.flatMap(exp => {
+      const items: Content[] = [ // Explicitly type the array of items for each experience
+        { text: `${exp.position} at ${exp.company}`, style: 'itemHeader', margin: [0, 8, 0, 2] } as ContentText,
+        { text: exp.duration, style: 'dateRange', margin: [0, 0, 0, 4] } as ContentText,
+        {
+          ul: exp.responsibilities.map(r => ({ text: r, margin: [0, 0, 0, 2] } as ContentText)), // Assert inner list items
+          margin: [15, 0, 0, 10] // Indent responsibilities list
+        } as ContentUnorderedList // Assert the UL object itself
+      ];
+      return items; // flatMap will incorporate these items into workExperienceContent
+    });
+
+    const docDefinition: TDocumentDefinitions = {
+      content: [
+        { text: data.name, style: 'header' } as ContentText,
+        { text: data.aspiringRole, style: 'subheader' } as ContentText,
+        { text: data.summary, style: 'paragraph', margin: [0, 0, 0, 15] } as ContentText,
+
+        { text: 'Skills', style: 'sectionHeader' } as ContentText,
+        {
+          ul: data.skills.map(s => ({ text: s, margin: [0, 0, 0, 2] } as ContentText)),
+          margin: [0, 5, 0, 15]
+        } as ContentUnorderedList,
+
+        { text: 'Education', style: 'sectionHeader' } as ContentText,
+        { text: data.education.degreeAndUniversity, style: 'itemHeader', margin: [0, 5, 0, 2] } as ContentText,
+        { text: `Graduation: ${data.education.graduationDate}`, style: 'paragraph', margin: [0, 2, 0, 15] } as ContentText,
+
+        { text: 'Work Experience', style: 'sectionHeader' } as ContentText,
+        ...workExperienceContent, // Spread the already flattened and typed Content[]
+      ],
+      styles: {
+        header: { fontSize: 22, bold: true, alignment: 'center', margin: [0, 0, 0, 5] },
+        subheader: { fontSize: 16, bold: true, alignment: 'center', margin: [0, 0, 0, 20], color: 'gray' },
+        sectionHeader: { fontSize: 14, bold: true, margin: [0, 10, 0, 5], color: '#16a34a' /* A green color */ },
+        itemHeader: { fontSize: 12, bold: true },
+        dateRange: { fontSize: 10, italics: true, color: '#555555' },
+        paragraph: { fontSize: 10, margin: [0, 0, 0, 10], lineHeight: 1.3 },
+      },
+      defaultStyle: {
+        font: 'Roboto',
+        fontSize: 10,
+      }
+    };
+    return docDefinition;
+  };
+
+  const handleDownloadPdf = () => {
+    const resumeJson = aiResponse();
+    if (resumeJson) {
+      const docDefinition = createResumePdfDefinition(resumeJson as AiResumeJsonResponse);
+      pdfMake.createPdf(docDefinition).download(`${resumeJson.name.replace(/\s+/g, '_')}_Resume.pdf`);
+    }
+  };
+
+
   return (
-    <Section id="new-form">
-      <div class="container mx-auto px-6 py-12">
-        <h2 class="text-3xl font-bold mb-12 text-center text-white">
-          <span class="text-gray-500">{"//"}</span> Submit Your Profile
-        </h2>
-        <form onSubmit={handleSubmit} class="card p-8 rounded-lg max-w-3xl mx-auto">
-          <div class="space-y-6">
-            {/* Personal Information */}
-            <div>
-              <label for="name" class="block text-gray-400 text-sm mb-2">Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={name()}
-                onInput={(e) => setName((e.target as HTMLInputElement).value)}
-                class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white focus:border-green-400 focus:outline-none transition-colors"
-                required
-                aria-labelledby="name-label"
-              />
-            </div>
-            <div>
-              <label for="job" class="block text-gray-400 text-sm mb-2">Current Job/Role</label>
-              <input
-                type="text" id="job"
-                value={job()}
-                onInput={(e) => setJob((e.target as HTMLInputElement).value)}
-                class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white focus:border-green-400 focus:outline-none transition-colors"
-                required
-              />
-            </div>
-            <div>
-              <label for="description" class="block text-gray-400 text-sm mb-2">Brief Description/Bio</label>
-              <textarea
-                id="description"
-                value={description()}
-                onInput={(e) => setDescription(e.currentTarget.value)}
-                rows={3}
-                class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white focus:border-green-400 focus:outline-none transition-colors"
-                required
-              />
-            </div>
-
-            {/* Education */}
-            <div>
-              <label for="education" class="block text-gray-400 text-sm mb-2">Education (e.g., Degree and University)</label>
-              <input
-                type="text" id="education"
-                value={education()}
-                onInput={(e) => setEducation((e.target as HTMLInputElement).value)}
-                class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white focus:border-green-400 focus:outline-none transition-colors"
-                required
-              />
-            </div>
-            <div>
-              <label for="educationFinishDate" class="block text-gray-400 text-sm mb-2">Education Finish Date</label>
-              <input
-                type="date" id="educationFinishDate"
-                value={educationFinishDate()}
-                onInput={(e) => setEducationFinishDate(e.currentTarget.value)}
-                class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white focus:border-green-400 focus:outline-none transition-colors"
-                required
-              />
-            </div>
-
-            {/* Skills */}
-            <div class="space-y-2">
-              <label class="block text-gray-400 text-sm mb-2">Skills</label>
-              <div class="flex items-center space-x-2">
+    <Layout>
+      <Section id="new-form">
+        <div class="container mx-auto px-6 py-12">
+          <h2 class="text-3xl font-bold mb-12 text-center text-white">
+            <span class="text-gray-500">{"//"}</span> Submit Your Profile
+          </h2>
+          <form onSubmit={handleSubmit} class="card p-8 rounded-lg max-w-3xl mx-auto">
+            <div class="space-y-6">
+              {/* Personal Information */}
+              <div>
+                <label for="name" class="block text-gray-400 text-sm mb-2">Name</label>
                 <input
                   type="text"
-                  value={userSkill()}
-                  onInput={handleSkillInputChange}
-                  placeholder="Enter a skill"
-                  class="flex-grow bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white focus:border-green-400 focus:outline-none transition-colors"
+                  id="name"
+                  name="name"
+                  value={name()}
+                  onInput={(e) => setName((e.target as HTMLInputElement).value)}
+                  class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white focus:border-green-400 focus:outline-none transition-colors"
+                  required
+                  aria-labelledby="name-label"
                 />
-                <button
-                  type="button"
-                  onClick={addSkill}
-                  class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded transition-colors cursor-pointer"
-                >
-                  Add Skill
-                </button>
               </div>
-              <div class="flex flex-wrap gap-2 mt-2">
-                <For each={skills()}>
-                  {(skill) => (
-                    <span class="bg-gray-700 text-green-400 px-3 py-1 rounded-full text-sm flex items-center">
-                      {skill}
-                      <button
-                        type="button"
-                        onClick={() => removeSkill(skill)}
-                        class="ml-2 text-red-400 hover:text-red-600 cursor-pointer"
-                      >
-                        &times;
-                      </button>
-                    </span>
+              <div>
+                <label for="job" class="block text-gray-400 text-sm mb-2">Current Job/Role</label>
+                <input
+                  type="text" id="job"
+                  value={job()}
+                  onInput={(e) => setJob((e.target as HTMLInputElement).value)}
+                  class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white focus:border-green-400 focus:outline-none transition-colors"
+                  required
+                />
+              </div>
+              <div>
+                <label for="description" class="block text-gray-400 text-sm mb-2">Brief Description/Bio</label>
+                <textarea
+                  id="description"
+                  value={description()}
+                  onInput={(e) => setDescription(e.currentTarget.value)}
+                  rows={3}
+                  class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white focus:border-green-400 focus:outline-none transition-colors"
+                  required
+                />
+              </div>
+
+              {/* Education */}
+              <div>
+                <label for="education" class="block text-gray-400 text-sm mb-2">Education (e.g., Degree and University)</label>
+                <input
+                  type="text" id="education"
+                  value={education()}
+                  onInput={(e) => setEducation((e.target as HTMLInputElement).value)}
+                  class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white focus:border-green-400 focus:outline-none transition-colors"
+                  required
+                />
+              </div>
+              <div>
+                <label for="educationFinishDate" class="block text-gray-400 text-sm mb-2">Education Finish Date</label>
+                <input
+                  type="date" id="educationFinishDate"
+                  value={educationFinishDate()}
+                  onInput={(e) => setEducationFinishDate(e.currentTarget.value)}
+                  class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white focus:border-green-400 focus:outline-none transition-colors"
+                  required
+                />
+              </div>
+
+              {/* Skills */}
+              <div class="space-y-2">
+                <label class="block text-gray-400 text-sm mb-2">Skills</label>
+                <div class="flex items-center space-x-2">
+                  <input
+                    type="text"
+                    value={userSkill()}
+                    onInput={handleSkillInputChange}
+                    placeholder="Enter a skill"
+                    class="flex-grow bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white focus:border-green-400 focus:outline-none transition-colors"
+                  />
+                  <button
+                    type="button"
+                    onClick={addSkill}
+                    class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded transition-colors cursor-pointer"
+                  >
+                    Add Skill
+                  </button>
+                </div>
+                <div class="flex flex-wrap gap-2 mt-2">
+                  <For each={skills()}>
+                    {(skill) => (
+                      <span class="bg-gray-700 text-green-400 px-3 py-1 rounded-full text-sm flex items-center">
+                        {skill}
+                        <button
+                          type="button"
+                          onClick={() => removeSkill(skill)}
+                          class="ml-2 text-red-400 hover:text-red-600 cursor-pointer"
+                        >
+                          &times;
+                        </button>
+                      </span>
+                    )}
+                  </For>
+                </div>
+              </div>
+
+              {/* Experiences */}
+              <div class="space-y-4">
+                <h3 class="text-lg font-semibold text-green-400 mb-2">Work Experiences</h3>
+                <For each={experiences}>
+                  {(exp, index) => (
+                    <ExperienceForm
+                      exp={exp}
+                      index={index()}
+                      removeExperience={removeExperience}
+                      handleSubmit={handleExperienceSubmit}
+                      setExperiences={setExperiences}
+                    />
                   )}
                 </For>
               </div>
+
+              <button
+                type="submit"
+                disabled={aiLoading()}
+                class="disabled:bg-gray-600 disabled:cursor-not-allowed w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded transition-colors glow text-lg font-semibold cursor-pointer"
+              >
+                <i class="fas fa-paper-plane mr-2"></i>{
+                  aiLoading() ? 'Generating...' :
+                    'Submit Profile'}
+              </button>
             </div>
+          </form>
 
-            {/* Experiences */}
-            <div class="space-y-4">
-              <h3 class="text-lg font-semibold text-green-400 mb-2">Work Experiences</h3>
-              <For each={experiences}>
-                {(exp, index) => (
-                  <ExperienceForm
-                    exp={exp}
-                    index={index()}
-                    removeExperience={removeExperience}
-                    handleSubmit={handleExperienceSubmit}
-                    setExperiences={setExperiences}
-                  />
-                )}
-              </For>
+          {/* Display AI Response, Loading, or Error */}
+          <Show when={aiLoading()}>
+            <div class="mt-8 p-6 card rounded-lg text-center">
+              <p class="text-lg text-yellow-400 animate-pulse">Generating your ATS-friendly resume...</p>
+              <p class="text-sm text-gray-400 mt-2">This might take a moment. Please wait.</p>
             </div>
-
-            <button
-              type="submit"
-              disabled={aiLoading()}
-              class="disabled:bg-gray-600 disabled:cursor-not-allowed w-full bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded transition-colors glow text-lg font-semibold cursor-pointer"
-            >
-              <i class="fas fa-paper-plane mr-2"></i>{
-                aiLoading() ? 'Generating...' :
-                  'Submit Profile'}
-            </button>
-          </div>
-        </form>
-
-        {/* Display AI Response, Loading, or Error */}
-        <Show when={aiLoading()}>
-          <div class="mt-8 p-6 card rounded-lg text-center">
-            <p class="text-lg text-yellow-400 animate-pulse">Generating your ATS-friendly resume...</p>
-            <p class="text-sm text-gray-400 mt-2">This might take a moment. Please wait.</p>
-          </div>
-        </Show>
-        <Show when={aiError()}>
-          <div class="mt-8 p-6 card rounded-lg bg-red-900 border border-red-700">
-            <h3 class="text-xl font-semibold text-red-400 mb-2">Error Generating Resume</h3>
-            <p class="text-red-300">{(aiError() as Error)?.message || 'An unknown error occurred.'}</p>
-          </div>
-        </Show>
-        <Show when={aiResponse() && !aiLoading() && !aiError()}>
-          <StyledResumeOutput resumeData={aiResponse() as AiResumeJsonResponse | null} />
-        </Show>
-      </div>
-    </Section>
+          </Show>
+          <Show when={aiError()}>
+            <div class="mt-8 p-6 card rounded-lg bg-red-900 border border-red-700">
+              <h3 class="text-xl font-semibold text-red-400 mb-2">Error Generating Resume</h3>
+              <p class="text-red-300">{(aiError() as Error)?.message || 'An unknown error occurred.'}</p>
+            </div>
+          </Show>
+          <Show when={aiResponse() && !aiLoading() && !aiError()}>
+            <StyledResumeOutput resumeData={aiResponse() as AiResumeJsonResponse | null} />
+            <div class="mt-6 text-center">
+              <button
+                onClick={handleDownloadPdf}
+                class="bg-purple-600 hover:bg-purple-700 text-white py-2 px-6 rounded transition-colors glow text-md font-semibold cursor-pointer"
+              >
+                <i class="fas fa-file-pdf mr-2"></i>Download Resume as PDF
+              </button>
+            </div>
+          </Show>
+        </div>
+      </Section>
+    </Layout>
   );
 };
 

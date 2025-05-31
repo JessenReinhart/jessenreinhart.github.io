@@ -1,14 +1,10 @@
-import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
 import solidPlugin from 'vite-plugin-solid';
 
 export default defineConfig({
-  plugins: [solidPlugin(), tailwindcss()],
-  server: {
-    port: 3000,
-  },
+  plugins: [solidPlugin()],
+  base: './', // Change this line to use relative paths
   build: {
     target: 'esnext',
   },
-  base: '/jessenreinhart.github.io/', // Add this line - should match your repository name
 });

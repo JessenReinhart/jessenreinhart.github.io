@@ -81,7 +81,7 @@ function useOpenRouterAI(model: string) {
     const [inputPrompt, setInputPrompt] = createSignal<string | null>(null);
 
     // createResource to handle the asynchronous data fetching
-    const [resource, { refetch }] = createResource(inputPrompt, async (currentPrompt) => {
+    const [resource, { mutate, refetch }] = createResource(inputPrompt, async (currentPrompt) => {
         // If no prompt is provided, don't make a request
         if (!currentPrompt) {
             return null;
@@ -222,18 +222,35 @@ ${experiencesString.trim()}
 Remember to output ONLY the JSON object.
 `;
         setInputPrompt(constructedPrompt); // Update the signal, which triggers createResource
-    };
-
-    // Explicitly create accessors for loading and error states from the resource.
+    };    // Explicitly create accessors for loading and error states from the resource.
     // This makes the hook's returned reactive values consistently accessors.
     const loadingAccessor = () => resource.loading;
-    const errorAccessor = () => resource.error;
+    const errorAccessor = () => {
+        const error = resource.error;
+        if (!error) return undefined;
+
+        // If it's already an Error instance, return it
+        if (error instanceof Error) return error;
+
+        // If it's a string, wrap it in an Error
+        if (typeof error === 'string') return new Error(error);
+
+        // If it's an object with a message property
+        if (error && typeof error === 'object' && 'message' in error) {
+            return new Error(error.message as string);
+        }
+
+        // For any other case, stringify the error
+        return new Error(JSON.stringify(error));
+    };
 
     return {
         response: resource as Accessor<AiResumeJsonResponse | null>, // Updated response type
         loading: loadingAccessor, // Accessor: () => boolean
         error: errorAccessor,     // Accessor: () => Error | undefined
         generate,
+        refetch,   // Add refetch capability
+        mutate,    // Add mutate capability
     };
 }
 

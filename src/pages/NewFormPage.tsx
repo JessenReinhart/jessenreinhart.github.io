@@ -200,23 +200,24 @@ const NewFormPage: Component = () => {
     addExperience();
   };
 
+  const createResumePayload = () => ({
+    name: name(),
+    job: job(),
+    description: description(),
+    education: education(),
+    educationFinishDate: educationFinishDate(),
+    skills: skills(),
+    experiences: experiences.map(exp => ({ ...exp })),
+  });
+
+  const submit = () => {
+    const resumePayload = createResumePayload();
+    generateResume(resumePayload);
+  }
+
   const handleSubmit: JSX.EventHandler<HTMLFormElement, Event> = (e) => {
     e.preventDefault();
-
-    const resumePayload: ResumeData = {
-      name: name(),
-      job: job(),
-      description: description(),
-      education: education(),
-      educationFinishDate: educationFinishDate(),
-      skills: skills(),
-      // Make sure the experiences store matches the structure expected by ResumeData
-      // The current 'experiences' store is already compatible.
-      experiences: experiences.map(exp => ({ ...exp })), // Create a shallow copy if needed, or pass directly
-    };
-
-    // Call the AI to generate the resume
-    generateResume(resumePayload);
+    submit()
   };
 
   const createResumePdfDefinition = (data: AiResumeJsonResponse): TDocumentDefinitions => {
@@ -420,7 +421,13 @@ const NewFormPage: Component = () => {
           <Show when={aiError()}>
             <div class="mt-8 p-6 card rounded-lg bg-red-900 border border-red-700">
               <h3 class="text-xl font-semibold text-red-400 mb-2">Error Generating Resume</h3>
-              <p class="text-red-300">{(aiError() as Error)?.message || 'An unknown error occurred.'}</p>
+              <p class="text-red-300">{aiError()?.message}</p>
+              <button
+                onClick={submit}
+                class="mt-4 bg-red-700 hover:bg-red-800 text-white py-2 px-4 rounded text-sm"
+              >
+                Try Again
+              </button>
             </div>
           </Show>
           <Show when={aiResponse() && !aiLoading() && !aiError()}>

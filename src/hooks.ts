@@ -204,6 +204,7 @@ The JSON object must conform to the following structure:
     // ... more work experience objects if applicable
   ]
 }
+note: the date format that i've sent you is YYYY-MM-DD, you must convert it to a more human-readable format like 'January 2021 - Present' or 'March 2019 - December 2020'.
 **Personal Information:**
 Name: ${resumeDetails.name}
 Current Role/Aspiring Role: ${resumeDetails.job}

@@ -7,5 +7,24 @@ export default defineConfig({
   base: '/', // Change this line to use relative paths
   build: {
     target: 'esnext',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor': ['solid-js', '@solidjs/router'],
+          'styles': ['tailwindcss']
+        }
+      }
+    },
+    cssCodeSplit: true,
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    }
+  },
+  optimizeDeps: {
+    include: ['solid-js', '@solidjs/router']
   }
 });

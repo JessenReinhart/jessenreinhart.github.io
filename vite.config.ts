@@ -9,9 +9,18 @@ export default defineConfig({
     target: 'esnext',
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor': ['solid-js', '@solidjs/router'],
-          'styles': ['tailwindcss']
+        manualChunks: (id) => {
+          // Split large dependencies into separate chunks
+          if (id.includes('node_modules')) {
+            if (id.includes('pdfmake')) return 'pdfmake';
+            if (id.includes('solid-js')) return 'solid';
+            if (id.includes('@solidjs/router')) return 'router';
+            if (id.includes('tailwindcss')) return 'styles';
+            return 'vendor';
+          }
+          // Split components by type
+          if (id.includes('/components/')) return 'components';
+          if (id.includes('/pages/')) return 'pages';
         }
       }
     },
@@ -20,9 +29,14 @@ export default defineConfig({
     terserOptions: {
       compress: {
         drop_console: true,
-        drop_debugger: true
+        drop_debugger: true,
+        pure_funcs: ['console.log']
+      },
+      format: {
+        comments: false
       }
-    }
+    },
+    chunkSizeWarningLimit: 1000
   },
   optimizeDeps: {
     include: ['solid-js', '@solidjs/router']

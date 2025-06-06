@@ -1,0 +1,1 @@
+.typing-cursor{overflow:hidden;white-space:nowrap;margin:0 auto;letter-spacing:.15em;animation:typing-erasing 5s steps(40,end) infinite}@keyframes typing-erasing{0%{width:0}40%{width:100%}60%{width:100%}to{width:0}}.typing-cursor:after{content:"|";animation:blink 1s infinite;color:#10b981}@keyframes blink{0%,50%{opacity:1}51%,to{opacity:0}}

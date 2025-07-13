@@ -50,11 +50,17 @@ const HeroSection = () => {
                     <a href="#contact" class="bg-green-600 hover:bg-green-700 px-6 py-3 rounded-md transition-colors glow text-white">
                         <i class="fas fa-terminal mr-2"></i>Get In Touch
                     </a>
-                    <a href="#about" class="border border-green-600 hover:bg-green-600 hover:text-gray-900 px-6 py-3 rounded-md transition-colors text-green-400">
-                        <i class="fas fa-user mr-2"></i>Learn More
-
+                    <a href="/portfolio" class="border border-green-600 hover:bg-green-600 hover:text-gray-900 px-6 py-3 rounded-md transition-colors text-green-400">
+                        <i class="fas fa-briefcase mr-2"></i>My Works
                     </a>
                 </div>
+            </div>
+            <div class="absolute bottom-10 w-full flex justify-center items-center">
+                <a href="#about" class="animate-bounce">
+                    <svg class="w-10 h-10 text-green-400" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                        <path d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </a>
             </div>
         </section>
     );

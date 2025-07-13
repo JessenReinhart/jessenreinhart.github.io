@@ -7,7 +7,7 @@ import { createSignal } from 'solid-js';
 
 const UPDATED_NAV_LINKS: NavLink[] = [
   ...NAV_LINKS,
-  { href: "/resume-generator", label: "Resume Generator" },
+  { href: "/portfolio", label: "Portfolio" },
 ];
 
 

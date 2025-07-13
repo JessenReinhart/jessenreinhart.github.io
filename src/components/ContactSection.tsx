@@ -1,14 +1,41 @@
+import { createSignal } from "solid-js";
 import Section from "../layout/Section";
+import emailjs from 'emailjs-com';
+import { showToast } from "../stores/toast";
 
 const ContactSection = () => {
-    const handleSubmit = (e: FormDataEvent) => {
+    const [loading, isLoading] = createSignal(false);
+
+    const handleSubmit = (e: SubmitEvent) => {
         e.preventDefault();
-        const formData = new FormData(e.target as HTMLFormElement);
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const message = formData.get('message');
-        // Basic form submission alert, can be replaced with actual API call
-        alert(`Message sent (simulated): \nName: ${name}\nEmail: ${email}\nMessage: ${message}`);
+        //throw error if environment variables are not set
+        if (!import.meta.env.VITE_SERVICE_ID || !import.meta.env.VITE_TEMPLATE_ID || !import.meta.env.VITE_EMAIL_PUBLIC_KEY) {
+            throw new Error("EmailJS environment variables are not set. Please check your .env file.");
+        }
+
+        //get keys from environment variables
+        const SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
+        const TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID;
+        const PUBLIC_KEY = import.meta.env.VITE_EMAIL_PUBLIC_KEY;
+        const form = e.target as HTMLFormElement;
+        isLoading(true);
+        emailjs.sendForm(
+            SERVICE_ID,
+            TEMPLATE_ID,
+            form,
+            PUBLIC_KEY
+        )
+            .then((result) => {
+                console.log('Email sent:', result.text);
+                showToast({ message: 'Message sent successfully!', type: 'success' });
+                form.reset();
+            }, (error) => {
+                console.error('Error:', error.text);
+                showToast({ message: 'Failed to send message. Please try again later.', type: 'error' });
+            })
+            .finally(() => {
+                isLoading(false);
+            })
     };
 
     return (
@@ -46,7 +73,7 @@ const ContactSection = () => {
                             <h3 class="text-xl font-semibold mb-6 text-green-400">Quick Message</h3>
                             <div class="space-y-4">
                                 <div>
-                                    <label htmlFor="name" class="block text-gray-400 text-sm mb-2">Name</label>
+                                    <label for="name" class="block text-gray-400 text-sm mb-2">Name</label>
                                     <input
                                         type="text" id="name" name="name"
                                         class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white focus:border-green-400 focus:outline-none transition-colors"
@@ -54,7 +81,7 @@ const ContactSection = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="email" class="block text-gray-400 text-sm mb-2">Email</label>
+                                    <label for="email" class="block text-gray-400 text-sm mb-2">Email</label>
                                     <input
                                         type="email" id="email" name="email"
                                         class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white focus:border-green-400 focus:outline-none transition-colors"
@@ -62,15 +89,15 @@ const ContactSection = () => {
                                     />
                                 </div>
                                 <div>
-                                    <label htmlFor="message" class="block text-gray-400 text-sm mb-2">Message</label>
+                                    <label for="message" class="block text-gray-400 text-sm mb-2">Message</label>
                                     <textarea
                                         id="message" name="message" rows={4}
                                         class="w-full bg-gray-800 border border-gray-600 rounded px-3 py-2 text-white focus:border-green-400 focus:outline-none transition-colors"
                                         required
                                     ></textarea>
                                 </div>
-                                <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-colors glow">
-                                    <i class="fas fa-paper-plane mr-2"></i>Send Message
+                                <button disabled={loading()} type="submit" class="w-full disabled:bg-green-200 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-colors glow">
+                                    <i class="fas fa-paper-plane mr-2"></i>{loading() ? 'Sending...' : 'Send Message'}
                                 </button>
                             </div>
                         </form>

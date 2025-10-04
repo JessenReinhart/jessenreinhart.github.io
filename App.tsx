@@ -9,50 +9,50 @@ import Navbar from './components/Navbar';
 type Theme = 'light' | 'dark';
 
 interface ThemeContextType {
-  theme: () => Theme;
-  toggleTheme: () => void;
+    theme: () => Theme;
+    toggleTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType>();
 
 export const ThemeProvider = (props: { children: JSX.Element }) => {
-  const [theme, setTheme] = createSignal<Theme>('light');
+    const [theme, setTheme] = createSignal<Theme>('light');
 
-  createEffect(() => {
-    const isDarkMode = localStorage.getItem('theme') === 'dark' || 
-      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    
-    setTheme(isDarkMode ? 'dark' : 'light');
-  });
-  
-  createEffect(() => {
-    const root = window.document.documentElement;
-    if (theme() === 'dark') {
-      root.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      root.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-  });
+    createEffect(() => {
+        const isDarkMode = localStorage.getItem('theme') === 'dark' ||
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-  const toggleTheme = () => {
-    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
-  };
+        setTheme(isDarkMode ? 'dark' : 'light');
+    });
 
-  return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
-      {props.children}
-    </ThemeContext.Provider>
-  );
+    createEffect(() => {
+        const root = window.document.documentElement;
+        if (theme() === 'dark') {
+            root.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            root.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+
+    const toggleTheme = () => {
+        setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
+    };
+
+    return (
+        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+            {props.children}
+        </ThemeContext.Provider>
+    );
 };
 
 export const useTheme = () => {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
-  }
-  return context;
+    const context = useContext(ThemeContext);
+    if (!context) {
+        throw new Error('useTheme must be used within a ThemeProvider');
+    }
+    return context;
 };
 
 const GrainyBackground = () => {
@@ -89,8 +89,8 @@ const GrainyBackground = () => {
                 class="absolute inset-0 bg-black transition-opacity duration-300"
                 style={{ opacity: scrollOpacity() }}
             />
-            <div 
-                class="absolute inset-0 mix-blend-overlay" 
+            <div
+                class="absolute inset-0 mix-blend-overlay"
                 style={{
                     "background-image": `url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>')`,
                     opacity: 0.30
@@ -175,9 +175,9 @@ const App = () => {
                         </div>
                     </Section>
 
-                     <footer id="contact" class="text-center mt-20 pt-8 border-t border-brand-dark-blue/50 dark:border-gray-700/50 scroll-mt-20">
+                    <footer id="contact" class="text-center mt-20 pt-8 border-t border-brand-dark-blue/50 dark:border-gray-700/50 scroll-mt-20">
                         <p class="text-gray-400 text-sm mb-4 font-serif text-lg">Get in Touch</p>
-                         <div class="flex justify-center items-center space-x-6 text-brand-yellow mb-6">
+                        <div class="flex flex-col md:flex-row justify-center items-center space-x-6 space-y-2 md:space-y-0 text-brand-yellow mb-6">
                             <a href={`mailto:${personalData.email}`} class="flex items-center space-x-2 hover:text-brand-gold transition-colors">
                                 <MailIcon class="w-5 h-5" />
                                 <span class="text-sm">{personalData.email}</span>

@@ -1,0 +1,43 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "eslint:recommended"
+  ],
+  "plugins": ["@typescript-eslint", "solid"],
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "es2022": true,
+    "node": true
+  },
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-unused-vars": "off",
+    "spaced-comment": ["error", "never"],
+    "no-inline-comments": "error",
+    "line-comment-position": ["error", { "position": "above" }],
+    "multiline-comment-style": ["error", "starred-block"],
+    "no-warning-comments": ["error", { 
+      "terms": ["todo", "fixme", "xxx", "hack", "bug", "note", "comment"],
+      "location": "anywhere"
+    }],
+    "capitalized-comments": ["error", "never"],
+    "no-console": "warn",
+    "no-undef": "off"
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off"
+      }
+    }
+  ]
+}

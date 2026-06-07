@@ -91,6 +91,7 @@ export const PROJECTS: Project[] = [
     ],
     imageSrc: "",
     liveUrl: "https://tripcore-beta.vercel.app",
+    githubUrl: "https://github.com/JessenReinhart/tripcore",
     iconName: "Compass"
   },
   {
@@ -123,6 +124,7 @@ export const PROJECTS: Project[] = [
       "Liquid visual layout supporting mobile coordinates"
     ],
     imageSrc: "",
+    liveUrl: "https://wedding-invitation-tau-two.vercel.app",
     githubUrl: "https://github.com/JessenReinhart/wedding-invitation",
     iconName: "Heart"
   },

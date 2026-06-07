@@ -106,6 +106,7 @@ export const PROJECTS: Project[] = [
       "Client-side synchronization writing to browser storage"
     ],
     imageSrc: "",
+    liveUrl: "https://invoicr-eight.vercel.app",
     githubUrl: "https://github.com/JessenReinhart/invoicr",
     iconName: "FileText"
   },
@@ -138,6 +139,7 @@ export const PROJECTS: Project[] = [
       "Minimalist interface styled with high contrast"
     ],
     imageSrc: "",
+    liveUrl: "https://soulsync-gamma.vercel.app",
     githubUrl: "https://github.com/JessenReinhart/soulsync",
     iconName: "Activity"
   }

@@ -25,15 +25,15 @@ export const STATS: StatItem[] = [
 export const EXPERIENCES: Experience[] = [
   {
     id: "exp-pgi",
-    role: "Full Stack Engineer",
-    company: "PGI Data (Platinumetrix Global Inovasi)",
+    role: "Software Engineer",
+    company: "LG Sinarmas — via PGI Data",
     period: "Nov 2025 - Present",
     location: "Jakarta Raya, Indonesia",
     technologies: ["Java", "Spring Boot", "Thymeleaf", "PostgreSQL"],
     highlights: [
-      "Developed and deployed an enterprise web application using Spring Boot and Thymeleaf templates.",
-      "Designed Java business systems using sequence diagram modeling to maintain domain model integrity.",
-      "Optimized PostgreSQL schema schemas and query execution plans to secure data persistence."
+      "Developing a Card Management System — an enterprise web application for credit and debit card lifecycle operations.",
+      "Building backend features in Spring Boot and integrating them with Thymeleaf templates for the frontend layer.",
+      "Working across the full stack on card issuance, activation, and reporting workflows."
     ]
   },
   {
@@ -93,10 +93,10 @@ export const PROJECTS: Project[] = [
     id: "proj-tripcore",
     title: "TripCore",
     tagline: "Collaborative Trip Planner",
-    description: "A trip planning and budgeting application that lets users invite friends to collaborate on itineraries and budgets in real-time.",
-    technologies: ["ReactJS", "TypeScript", "Vite", "Real-time Sync", "Budget Estimator"],
+    description: "A Firebase-powered trip planning app with real-time collaborative itineraries, budget splitting, and guest invitation sharing.",
+    technologies: ["ReactJS", "TypeScript", "Vite", "Firebase", "Real-time Sync"],
     features: [
-      "Real-time collaborative itinerary builder",
+      "Real-time collaborative itinerary builder via Firebase",
       "Split expenses and trip budget estimates",
       "Interactive travel map pins and transit tracker",
       "Guest invitation link sharing for shared planning"

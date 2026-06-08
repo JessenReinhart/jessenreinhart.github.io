@@ -79,7 +79,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             PROFESSIONAL SUMMARY
           </h3>
           <p className="text-neutral-700 font-light text-[14px] leading-relaxed">
-            Frontend engineer with seven years of experience building web applications, auditing client execution, and designing system layouts. Experience includes developing digital banking interfaces, content management dashboards, and ecommerce storefronts. Focuses on codebase loading speed, strict TypeScript configurations, and modular base elements.
+            Software engineer with seven years of experience across banking, ecommerce, and CMS platforms. Shipped interfaces serving 30 million portal users, processing 2 million monthly orders, and dashboards for 100,000 retail merchants. Currently building a Card Management System at LG Sinarmas and seeking a senior frontend or full-stack role.
           </p>
         </div>
 
@@ -157,13 +157,23 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
               </div>
             </div>
 
-            <div className="col-span-2">
+            <div>
               <h4 className="text-xs sm:text-sm font-bold text-neutral-900">TripCore</h4>
               <p className="text-[11px] sm:text-xs text-neutral-600 mt-1 font-light leading-relaxed">
-                A trip planning and budgeting application that lets users invite friends to collaborate on itineraries and budgets in real-time.
+                A Firebase-powered trip planning app with real-time collaborative itineraries, budget splitting, and guest invitation sharing.
               </p>
               <div className="text-[9px] sm:text-[10px] font-mono text-neutral-500 mt-2 select-none">
-                ReactJS, TypeScript, Vite, Real-time Sync
+                ReactJS, TypeScript, Vite, Firebase
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-xs sm:text-sm font-bold text-neutral-900">SoulSync</h4>
+              <p className="text-[11px] sm:text-xs text-neutral-600 mt-1 font-light leading-relaxed">
+                An offline personal log and goal tracker with daily diary entries, mood ratings, milestone tracking, and D3 progress graphs. Data encrypted and stored locally in the browser.
+              </p>
+              <div className="text-[9px] sm:text-[10px] font-mono text-neutral-500 mt-2 select-none">
+                React, TailwindCSS, Local Storage, D3.js
               </div>
             </div>
           </div>
@@ -192,13 +202,13 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
           </h3>
           <div className="space-y-2.5 text-xs text-neutral-700 font-light">
             <div>
-              <strong className="font-mono text-neutral-800 tracking-wider">FRONTEND:</strong> ReactJS, Next.js, TypeScript, TailwindCSS, HTML5, CSS3, JavaScript (ES6+), Vite, Micro-frontends.
+              <strong className="font-mono text-neutral-800 tracking-wider">FRONTEND:</strong> ReactJS, Next.js, TypeScript, TailwindCSS, HTML5, CSS3, JavaScript (ES6+), Vite.
             </div>
             <div>
-              <strong className="font-mono text-neutral-800 tracking-wider">BACKEND &amp; DB:</strong> Java, Spring Boot, PostgreSQL, Thymeleaf, SQL Optimization.
+              <strong className="font-mono text-neutral-800 tracking-wider">BACKEND &amp; DB:</strong> Java, Spring Boot, PostgreSQL, Thymeleaf.
             </div>
             <div>
-              <strong className="font-mono text-neutral-800 tracking-wider">SPECIALTIES:</strong> Performance Speed Audit, SSR Engine, CMS Development, Banking Architecture Systems, i18n, Enterprise Scale.
+              <strong className="font-mono text-neutral-800 tracking-wider">SPECIALTIES:</strong> Performance Optimization, Server-Side Rendering, CMS Development, Banking Architecture, i18n, Reusable Component Libraries.
             </div>
           </div>
         </div>

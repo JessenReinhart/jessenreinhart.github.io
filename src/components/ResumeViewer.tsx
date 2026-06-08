@@ -16,7 +16,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] bg-black overflow-y-auto px-4 py-8 md:p-12 print:bg-white print:fixed print:inset-0 print:overflow-visible print:p-0 print-resume"
+      className="fixed inset-0 z-[100] bg-black overflow-y-auto px-4 py-8 md:p-12 print:static print:bg-white print:overflow-visible print:p-0 print-resume"
     >
       {/* Visual Controls Header (Omitted during print) */}
       <div className="max-w-4xl mx-auto flex items-center justify-between border-b border-white/10 pb-4 mb-8 print:hidden select-none">

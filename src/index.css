@@ -125,13 +125,13 @@ body {
 }
 
 @media print {
-  body > * {
-    visibility: hidden !important;
+  html, body {
+    margin: 0;
+    padding: 0;
   }
 
-  .print-resume,
-  .print-resume * {
-    visibility: visible !important;
+  #root > div > :not(.print-resume) {
+    display: none !important;
   }
 
   .print-resume {

@@ -17,6 +17,7 @@ export interface Project {
   technologies: string[];
   features?: string[];
   imageSrc: string;
+  images?: string[];
   liveUrl?: string;
   githubUrl?: string;
   iconName?: string;

@@ -15,11 +15,11 @@ export const TRIPCORE_IMAGES = [tc00, tc01, tc10, tc11, tc20, tc21];
 export const SOULSYNC_IMAGES = [ss00, ss01, ss10];
 
 export const STATS: StatItem[] = [
-  { value: "7+", label: "Years Experience", numericVal: 7 },
-  { value: "20+", label: "Banking Platforms", numericVal: 20 },
-  { value: "30M+", label: "End Users Impacted", numericVal: 30000000 },
-  { value: "100k+", label: "Brands Served", numericVal: 100000 },
-  { value: "2M+", label: "Monthly Transactions", numericVal: 2000000 }
+  { value: "7", label: "Years Experience", numericVal: 7 },
+  { value: "20", label: "Financial Institutions", numericVal: 20 },
+  { value: "30M", label: "Portal Users", numericVal: 30000000 },
+  { value: "100k", label: "Retail Merchants", numericVal: 100000 },
+  { value: "2M", label: "Monthly Orders", numericVal: 2000000 }
 ];
 
 export const EXPERIENCES: Experience[] = [

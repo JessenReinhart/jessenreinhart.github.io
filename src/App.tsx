@@ -85,7 +85,7 @@ export default function App() {
               <span className="text-zinc-600">//</span>
               <span>CREATIVE CODER</span>
               <span className="text-zinc-600">//</span>
-              <span>7+ YEARS EXPERIENCE</span>
+              <span>2M MONTHLY ORDERS</span>
               <span className="text-zinc-600">//</span>
               <span>DIGITAL BANKING TOOLS</span>
               <span className="text-zinc-600">//</span>
@@ -99,7 +99,7 @@ export default function App() {
               <span className="text-zinc-600">//</span>
               <span>CREATIVE CODER</span>
               <span className="text-zinc-600">//</span>
-              <span>7+ YEARS EXPERIENCE</span>
+              <span>2M MONTHLY ORDERS</span>
               <span className="text-zinc-600">//</span>
               <span>DIGITAL BANKING TOOLS</span>
               <span className="text-zinc-600">//</span>
@@ -113,7 +113,7 @@ export default function App() {
               <span className="text-zinc-600">//</span>
               <span>CREATIVE CODER</span>
               <span className="text-zinc-600">//</span>
-              <span>7+ YEARS EXPERIENCE</span>
+              <span>2M MONTHLY ORDERS</span>
               <span className="text-zinc-600">//</span>
               <span>DIGITAL BANKING TOOLS</span>
               <span className="text-zinc-600">//</span>

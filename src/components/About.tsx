@@ -100,7 +100,7 @@ export default function About() {
           {/* Main Story Text */}
           <div className="lg:col-span-7 space-y-6 text-left">
             <h3 className="text-xl md:text-2xl font-light text-zinc-200 tracking-wide leading-relaxed">
-              Based in Jakarta, Indonesia, Jessen structures applications around{" "}
+              Jessen structures applications around{" "}
               <strong className="text-white font-medium">performance tuning, responsive layouts, and clean codebase logic</strong>.
             </h3>
             <p className="text-zinc-400 font-light leading-relaxed text-sm md:text-base">

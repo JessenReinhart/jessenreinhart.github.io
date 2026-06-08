@@ -91,7 +91,7 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
               className="px-5 py-2.5 rounded-full border border-white/10 text-xs font-mono tracking-wider text-white hover:bg-white hover:text-black transition-all duration-300 flex items-center gap-2 group cursor-pointer"
               data-cursor="button"
             >
-              LET'S WORK TOGETHER
+              GET IN TOUCH
               <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </button>
           </div>
@@ -139,7 +139,7 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
                 onClick={() => handleClick("contact")}
                 className="w-full py-4 text-center border border-white rounded-full bg-white text-black font-semibold flex items-center justify-center gap-2"
               >
-                LET'S WORK TOGETHER
+                GET IN TOUCH
                 <ArrowUpRight className="w-4 h-4" />
               </button>
               <div className="text-zinc-500 text-center text-[10px] tracking-wider uppercase mt-4">

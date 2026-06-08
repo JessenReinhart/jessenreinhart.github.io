@@ -138,10 +138,10 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
           {/* Titles matching mockup proportions */}
           <div className="relative mb-6">
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-medium text-white tracking-tight leading-none mb-1">
-              Senior Frontend Engineer
+              Muhammad Jessen Reinhart Sugiarto
             </h2>
             <div className="text-2xl sm:text-3xl md:text-4xl font-mono text-zinc-300 font-medium tracking-normal leading-none mt-2 select-none">
-              &amp; Creative Problem Solver
+              Senior Frontend Engineer &amp; Creative Problem Solver
             </div>
           </div>
 
@@ -152,7 +152,7 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-base md:text-lg text-zinc-400 max-w-lg font-light leading-relaxed mb-10"
           >
-            Seven years of experience building web applications, digital banking tools, and custom administration layouts.
+            I build frontend interfaces for financial platforms, merchant dashboards, and content management systems.
           </motion.p>
 
           {/* CTAs */}
@@ -248,20 +248,20 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
           
           {/* Card 1 */}
           <div className="border border-white/8 bg-zinc-950/40 backdrop-blur-md rounded-2xl p-4 hover:border-white/20 transition-colors text-left overflow-hidden">
-            <div className="font-display font-black text-xl text-white">7+</div>
-            <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5 leading-tight break-words">Years Experience</div>
+            <div className="font-display font-black text-xl text-white">20</div>
+            <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5 leading-tight break-words">Financial Institutions</div>
           </div>
 
           {/* Card 2 */}
           <div className="border border-white/8 bg-zinc-950/40 backdrop-blur-md rounded-2xl p-4 hover:border-white/20 transition-colors text-left overflow-hidden">
-            <div className="font-display font-black text-xl text-white">20+</div>
-            <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5 leading-tight break-words">Projects Delivered</div>
+            <div className="font-display font-black text-xl text-white">30M</div>
+            <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5 leading-tight break-words">Portal Users</div>
           </div>
 
           {/* Card 3 */}
           <div className="border border-white/8 bg-zinc-950/40 backdrop-blur-md rounded-2xl p-4 hover:border-white/20 transition-colors text-left overflow-hidden">
-            <div className="font-display font-black text-xl text-white">30M+</div>
-            <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5 leading-tight break-words">End Users Impacted</div>
+            <div className="font-display font-black text-xl text-white">2M</div>
+            <div className="text-[10px] font-mono text-zinc-500 uppercase tracking-wider mt-0.5 leading-tight break-words">Monthly Orders</div>
           </div>
 
           {/* Card 4 - Location Box */}

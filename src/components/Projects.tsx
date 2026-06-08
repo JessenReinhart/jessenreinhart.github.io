@@ -1,18 +1,28 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowUpRight, Github, Code, CheckCircle, X, ExternalLink, Compass, FileText, Heart, Activity } from "lucide-react";
+import { ArrowUpRight, Github, Code, CheckCircle, X, ExternalLink, Compass, FileText, Heart, Activity, ChevronLeft, ChevronRight } from "lucide-react";
 import { PROJECTS } from "../data";
 import { Project } from "../types";
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [slideIndex, setSlideIndex] = useState(0);
 
   const handleOpenProject = (proj: Project) => {
+    setSlideIndex(0);
     setSelectedProject(proj);
   };
 
   const handleCloseProject = () => {
     setSelectedProject(null);
+  };
+
+  const nextSlide = (total: number) => {
+    setSlideIndex((prev) => (prev + 1) % total);
+  };
+
+  const prevSlide = (total: number) => {
+    setSlideIndex((prev) => (prev - 1 + total) % total);
   };
 
   const renderProjectIcon = (id: string, className = "w-10 h-10") => {
@@ -169,12 +179,62 @@ export default function Projects() {
                   </button>
                 </div>
 
-                {/* Showcase icon inside drawer */}
-                <div className="w-full aspect-[16/10] rounded-xl overflow-hidden border border-white/5 mb-8 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-zinc-900/50 via-zinc-950 to-black flex items-center justify-center p-8">
-                  <div className="p-10 rounded-2xl border border-white/5 bg-zinc-900/40 text-zinc-400 shadow-2xl">
-                    {renderProjectIcon(selectedProject.id, "w-16 h-16")}
+                {/* Showcase: carousel for projects with images, icon for others */}
+                {selectedProject.images && selectedProject.images.length > 0 ? (
+                  <div className="w-full aspect-[16/10] rounded-xl overflow-hidden border border-white/5 mb-8 bg-zinc-950 relative group/carousel">
+                    <AnimatePresence mode="wait">
+                      <motion.img
+                        key={slideIndex}
+                        src={selectedProject.images[slideIndex]}
+                        alt={`${selectedProject.title} screenshot ${slideIndex + 1}`}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                        className="w-full h-full object-contain"
+                      />
+                    </AnimatePresence>
+
+                    {/* Nav arrows */}
+                    {selectedProject.images.length > 1 && (
+                      <>
+                        <button
+                          onClick={() => prevSlide(selectedProject.images!.length)}
+                          className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 border border-white/10 flex items-center justify-center text-white opacity-0 group-hover/carousel:opacity-100 transition-opacity hover:bg-white hover:text-black cursor-pointer"
+                        >
+                          <ChevronLeft className="w-4 h-4" />
+                        </button>
+                        <button
+                          onClick={() => nextSlide(selectedProject.images!.length)}
+                          className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 border border-white/10 flex items-center justify-center text-white opacity-0 group-hover/carousel:opacity-100 transition-opacity hover:bg-white hover:text-black cursor-pointer"
+                        >
+                          <ChevronRight className="w-4 h-4" />
+                        </button>
+
+                        {/* Dot indicators */}
+                        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                          {selectedProject.images.map((_, i) => (
+                            <button
+                              key={i}
+                              onClick={() => setSlideIndex(i)}
+                              className={`w-2 h-2 rounded-full transition-all cursor-pointer ${
+                                i === slideIndex
+                                  ? "bg-white w-4"
+                                  : "bg-white/30 hover:bg-white/60"
+                              }`}
+                            />
+                          ))}
+                        </div>
+                      </>
+                    )}
                   </div>
-                </div>
+                ) : (
+                  <div className="w-full aspect-[16/10] rounded-xl overflow-hidden border border-white/5 mb-8 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-zinc-900/50 via-zinc-950 to-black flex items-center justify-center p-8">
+                    <div className="p-10 rounded-2xl border border-white/5 bg-zinc-900/40 text-zinc-400 shadow-2xl">
+                      {renderProjectIcon(selectedProject.id, "w-16 h-16")}
+                    </div>
+                  </div>
+                )}
 
                 {/* Titles */}
                 <div className="text-left mb-6">

@@ -7,7 +7,7 @@ import { Layers, Zap, Award, Users, ShoppingCart } from "lucide-react";
 function CountingNumber({ targetVal, duration = 2000, suffix = "" }: { targetVal: number; duration?: number; suffix?: string }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true });
 
   useEffect(() => {
     if (!isInView) return;

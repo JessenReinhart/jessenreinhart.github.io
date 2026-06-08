@@ -1,6 +1,7 @@
 import { Experience, Project, SkillCategory, StatItem } from "./types";
+import portraitImg from "./assets/images/jessen-portrait-removed-bg.png";
 
-export const PORTRAIT_IMAGE = "/src/assets/images/jessen-portrait-removed-bg.png";
+export const PORTRAIT_IMAGE = portraitImg;
 
 export const STATS: StatItem[] = [
   { value: "7+", label: "Years Experience", numericVal: 7 },

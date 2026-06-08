@@ -123,3 +123,22 @@ body {
   display: inline-block;
   animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
+
+@media print {
+  body > * {
+    visibility: hidden !important;
+  }
+
+  .print-resume,
+  .print-resume * {
+    visibility: visible !important;
+  }
+
+  .print-resume {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+}

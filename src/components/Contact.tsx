@@ -8,21 +8,32 @@ export default function Contact() {
   const [isSent, setIsSent] = useState(false);
   const [txReceipt, setTxReceipt] = useState("");
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
     setIsSubmitting(true);
-    
-    // Simulate real ledger transmission API delay
-    setTimeout(() => {
-      // Create a dummy hash simulating a ledger transaction
-      const randomHash = "TX-" + Math.floor(100000 + Math.random() * 900000).toString() + "-JR";
-      setTxReceipt(randomHash);
+
+    try {
+      const res = await fetch("https://formsubmit.co/ajax/jessen_1206@yahoo.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+
+      if (res.ok) {
+        const randomHash = "TX-" + Math.floor(100000 + Math.random() * 900000).toString() + "-JR";
+        setTxReceipt(randomHash);
+        setIsSent(true);
+        setFormData({ name: "", email: "", message: "" });
+      }
+    } finally {
       setIsSubmitting(false);
-      setIsSent(true);
-      setFormData({ name: "", email: "", message: "" });
-    }, 1500);
+    }
   };
 
   const handleReset = () => {

@@ -46,14 +46,14 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
       </div>
 
       {/* Styled Resume Sheet Card */}
-      <div className="max-w-4xl mx-auto bg-white text-black p-8 md:p-14 rounded-2xl print:rounded-none print:shadow-none print:p-0 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.9)] text-left font-sans leading-relaxed">
+      <div className="max-w-4xl mx-auto bg-white text-black p-6 sm:p-8 md:p-14 rounded-2xl print:rounded-none print:shadow-none print:p-0 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.9)] text-left font-sans leading-relaxed">
         {/* Top Header Group */}
-        <div className="border-b-2 border-black pb-8 mb-8 flex flex-col md:flex-row md:items-start justify-between gap-6">
+        <div className="border-b-2 border-black pb-8 mb-8 flex flex-row items-start justify-between gap-6">
           <div>
-            <h1 className="text-4xl md:text-5xl font-display font-black tracking-tight text-neutral-900 leading-none">
+            <h1 className="text-2xl sm:text-3xl md:text-5xl font-display font-black tracking-tight text-neutral-900 leading-none">
               Muhammad Jessen Reinhart Sugiarto
             </h1>
-            <h2 className="text-lg md:text-xl font-medium text-neutral-600 mt-2 font-display">
+            <h2 className="text-sm sm:text-base md:text-xl font-medium text-neutral-600 mt-2 font-display">
               Senior Frontend Engineer &amp; Creative Problem Solver
             </h2>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono text-neutral-500 mt-4 leading-none select-all">
@@ -92,20 +92,20 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
           <div className="space-y-8">
             {EXPERIENCES.map((exp) => (
               <div key={exp.id} className="group">
-                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-3">
-                  <div>
-                    <h4 className="text-lg font-bold text-neutral-900 leading-tight">
+                <div className="flex flex-row items-baseline justify-between gap-2 mb-3">
+                  <div className="min-w-0">
+                    <h4 className="text-sm sm:text-base md:text-lg font-bold text-neutral-900 leading-tight">
                       {exp.role}
                     </h4>
-                    <span className="text-xs font-mono font-semibold text-neutral-600 uppercase tracking-wide">
+                    <span className="text-[10px] sm:text-xs font-mono font-semibold text-neutral-600 uppercase tracking-wide">
                       {exp.company}
                     </span>
                   </div>
-                  <div className="text-left sm:text-right">
-                    <span className="text-xs font-mono text-neutral-500 block">
+                  <div className="text-right flex-shrink-0">
+                    <span className="text-[10px] sm:text-xs font-mono text-neutral-500 block whitespace-nowrap">
                       {exp.period}
                     </span>
-                    <span className="text-[10px] font-mono text-neutral-400 block uppercase font-medium">
+                    <span className="text-[9px] sm:text-[10px] font-mono text-neutral-400 block uppercase font-medium whitespace-nowrap">
                       {exp.location}
                     </span>
                   </div>
@@ -121,7 +121,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
                   </ul>
                 )}
 
-                <div className="flex flex-wrap gap-1 md:gap-1.5 font-mono text-[10px] text-neutral-500 mt-2">
+                <div className="flex flex-wrap gap-1 sm:gap-1.5 font-mono text-[9px] sm:text-[10px] text-neutral-500 mt-2">
                   <span className="font-semibold text-neutral-400 select-none">STACK:</span>
                   {exp.technologies.join(", ")}
                 </div>
@@ -136,33 +136,33 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             SIDE PROJECTS
           </h3>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 gap-4 sm:gap-6">
             <div>
-              <h4 className="text-sm font-bold text-neutral-900">Invoicr</h4>
-              <p className="text-xs text-neutral-600 mt-1 font-light leading-relaxed">
+              <h4 className="text-xs sm:text-sm font-bold text-neutral-900">Invoicr</h4>
+              <p className="text-[11px] sm:text-xs text-neutral-600 mt-1 font-light leading-relaxed">
                 Invoice Generator &amp; Time Tracker app with custom time log (manual &amp; automated), hourly rate billing, direct layout PDF export, local data persistence, and sync dark/light settings.
               </p>
-              <div className="text-[10px] font-mono text-neutral-500 mt-2 select-none">
+              <div className="text-[9px] sm:text-[10px] font-mono text-neutral-500 mt-2 select-none">
                 React, TypeScript, Vite, TailwindCSS
               </div>
             </div>
 
             <div>
-              <h4 className="text-sm font-bold text-neutral-900">Wedding E-Invitation</h4>
-              <p className="text-xs text-neutral-600 mt-1 font-light leading-relaxed">
+              <h4 className="text-xs sm:text-sm font-bold text-neutral-900">Wedding E-Invitation</h4>
+              <p className="text-[11px] sm:text-xs text-neutral-600 mt-1 font-light leading-relaxed">
                 Digital Wedding Invitation Portal featuring functional RSVP database grids, event schedule timelines, leaflet geography interactive maps, and digital guestbook entries. Serving over 200+ guests.
               </p>
-              <div className="text-[10px] font-mono text-neutral-500 mt-2 select-none">
+              <div className="text-[9px] sm:text-[10px] font-mono text-neutral-500 mt-2 select-none">
                 React, TailwindCSS, Maps API
               </div>
             </div>
 
-            <div className="md:col-span-2">
-              <h4 className="text-sm font-bold text-neutral-900">TripCore</h4>
-              <p className="text-xs text-neutral-600 mt-1 font-light leading-relaxed">
+            <div className="col-span-2">
+              <h4 className="text-xs sm:text-sm font-bold text-neutral-900">TripCore</h4>
+              <p className="text-[11px] sm:text-xs text-neutral-600 mt-1 font-light leading-relaxed">
                 A trip planning and budgeting application that lets users invite friends to collaborate on itineraries and budgets in real-time.
               </p>
-              <div className="text-[10px] font-mono text-neutral-500 mt-2 select-none">
+              <div className="text-[9px] sm:text-[10px] font-mono text-neutral-500 mt-2 select-none">
                 ReactJS, TypeScript, Vite, Real-time Sync
               </div>
             </div>

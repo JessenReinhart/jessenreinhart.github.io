@@ -54,11 +54,11 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
               Muhammad Jessen Reinhart Sugiarto
             </h1>
             <h2 className="text-sm sm:text-base md:text-xl font-medium text-neutral-600 mt-2 font-display">
-              Senior Frontend Engineer &amp; Creative Problem Solver
+              Senior Frontend Engineer
             </h2>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono text-neutral-500 mt-4 leading-none select-all">
               <span className="flex items-center gap-1.5 break-all">
-                <Mail className="w-3.5 h-3.5" /> jessen_1206@yahoo.com
+                <Mail className="w-3.5 h-3.5" /> jessenreinharts@gmail.com
               </span>
               <span className="flex items-center gap-1.5 cursor-pointer">
                 <Linkedin className="w-3.5 h-3.5" /> linkedin.com/in/jessenreinhart

@@ -1,107 +1,72 @@
 import { useState, useRef, MouseEvent } from "react";
 import { motion } from "motion/react";
 import { SKILL_CATEGORIES } from "../data";
-import { Code2, Settings, Compass, HelpCircle } from "lucide-react";
+import { Code2, Settings, Compass } from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext";
+import { translations } from "../i18n/translations";
 
-// Individual Magnetic Tag wrapper
-function MagneticTag({ text, key }: { text: string; key?: string }) {
+function MagneticTag({ text }: { text: string; key?: string }) {
   const cardRef = useRef<HTMLSpanElement>(null);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseMove = (e: MouseEvent<HTMLSpanElement>) => {
     if (!cardRef.current) return;
-    
     const { left, top, width, height } = cardRef.current.getBoundingClientRect();
-    const centerX = left + width / 2;
-    const centerY = top + height / 2;
-    
-    // Distances from center
-    const dx = e.clientX - centerX;
-    const dy = e.clientY - centerY;
-    
-    // Dampen coordinate pull (e.g., maximum 12px shift)
-    const factorX = dx * 0.15;
-    const factorY = dy * 0.15;
-    
-    setCoords({ x: factorX, y: factorY });
+    const dx = e.clientX - (left + width / 2);
+    const dy = e.clientY - (top + height / 2);
+    setCoords({ x: dx * 0.15, y: dy * 0.15 });
   };
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setCoords({ x: 0, y: 0 });
-  };
+  const handleMouseLeave = () => { setIsHovered(false); setCoords({ x: 0, y: 0 }); };
 
   return (
     <motion.span
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
+      onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
       animate={{
-        x: coords.x,
-        y: coords.y,
-        scale: isHovered ? 1.05 : 1,
-        borderColor: isHovered ? "rgba(255, 255, 255, 0.3)" : "rgba(255, 255, 255, 0.06)",
-        backgroundColor: isHovered ? "rgba(255, 255, 255, 0.05)" : "rgba(10, 10, 10, 0.6)"
+        x: coords.x, y: coords.y, scale: isHovered ? 1.05 : 1,
+        borderColor: isHovered ? "var(--color-border-hover)" : "var(--color-border-primary)",
+        backgroundColor: isHovered ? "var(--color-bg-glass-hover)" : "var(--color-bg-glass)"
       }}
       transition={{ type: "spring", stiffness: 350, damping: 25 }}
-      className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg border text-xs font-mono text-zinc-300 backdrop-blur-md relative cursor-none select-none"
+      className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg border text-xs font-mono backdrop-blur-md relative cursor-none select-none"
     >
-      <span className="text-zinc-600 font-medium mr-0.5 select-none font-sans">#</span>
-      <span>{text}</span>
+      <span className="font-medium mr-0.5 select-none font-sans" style={{ color: "var(--color-text-dim)" }}>#</span>
+      <span style={{ color: "var(--color-text-secondary)" }}>{text}</span>
     </motion.span>
   );
 }
 
 export default function Skills() {
+  const { lang } = useLanguage();
+  const t = translations[lang];
+
+  const categoryNames = [t.catFrontend, t.catBackend, t.catEngineering];
   const categoryIcons = [
-    <Code2 className="w-5 h-5 text-zinc-500" />,
-    <Settings className="w-5 h-5 text-zinc-500" />,
-    <Compass className="w-5 h-5 text-zinc-500" />
+    <Code2 className="w-5 h-5" style={{ color: "var(--color-text-muted)" }} />,
+    <Settings className="w-5 h-5" style={{ color: "var(--color-text-muted)" }} />,
+    <Compass className="w-5 h-5" style={{ color: "var(--color-text-muted)" }} />
   ];
 
   return (
-    <section
-      id="skills"
-      className="relative py-24 md:py-32 bg-[#050505] overflow-hidden scroll-mt-20 border-t border-white/5"
-    >
-      <div className="absolute bottom-0 right-10 w-96 h-96 rounded-full bg-white/[0.01] blur-[150px] pointer-events-none" />
-
+    <section id="skills" className="relative py-24 md:py-32 overflow-hidden scroll-mt-20 border-t" style={{ backgroundColor: "var(--color-bg-primary)", borderColor: "var(--color-border-primary)" }}>
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        {/* Section Heading */}
         <div className="mb-20 text-left">
-          <span className="block font-mono text-[10px] tracking-[0.3em] text-zinc-500 uppercase mb-3">
-            04 // CAPABILITIES MATRIX
-          </span>
-          <h2 className="font-display font-black text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-none">
-            Technical Skills
-          </h2>
-          <p className="max-w-md text-zinc-400 font-light mt-4 text-sm leading-relaxed">
-            Core technologies, programming languages, and development frameworks used across systems.
-          </p>
+          <span className="block font-mono text-[10px] tracking-[0.3em] uppercase mb-3" style={{ color: "var(--color-text-muted)" }}>{t.skillsSection}</span>
+          <h2 className="font-display font-black text-4xl md:text-5xl lg:text-6xl tracking-tight leading-none" style={{ color: "var(--color-text-primary)" }}>{t.skillsTitle}</h2>
+          <p className="max-w-md font-light mt-4 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>{t.skillsSubtitle}</p>
         </div>
 
-        {/* Skills Categories and Tags Panel */}
         <div className="space-y-12">
           {SKILL_CATEGORIES.map((category, idx) => (
-            <div
-              key={category.name}
-              className="glass-panel border border-white/8 rounded-2xl p-8 md:p-10 text-left relative glass-panel-hover"
-            >
-              {/* Category Header */}
-              <div className="flex items-center gap-3 border-b border-white/5 pb-4 mb-6">
+            <div key={category.name} className="glass-panel glass-panel-hover rounded-2xl p-8 md:p-10 text-left relative">
+              <div className="flex items-center gap-3 pb-4 mb-6" style={{ borderBottom: "1px solid var(--color-border-primary)" }}>
                 {categoryIcons[idx]}
-                <h3 className="text-sm font-mono tracking-widest text-zinc-400 uppercase font-semibold">
-                  {category.name}
-                </h3>
+                <h3 className="text-sm font-mono tracking-widest uppercase font-semibold" style={{ color: "var(--color-text-muted)" }}>{categoryNames[idx]}</h3>
               </div>
-
-              {/* Flex wall of skills */}
               <div className="flex flex-wrap gap-3">
                 {category.skills.map((skill) => (
                   <MagneticTag key={skill} text={skill} />

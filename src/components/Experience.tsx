@@ -1,132 +1,75 @@
 import { motion } from "motion/react";
-import { Briefcase, Calendar, MapPin, Code2 } from "lucide-react";
+import { Calendar, MapPin, Code2 } from "lucide-react";
 import { EXPERIENCES } from "../data";
+import { useLanguage } from "../contexts/LanguageContext";
+import { translations } from "../i18n/translations";
 
 export default function Experience() {
-  return (
-    <section
-      id="experience"
-      className="relative py-24 md:py-32 bg-[#050505] overflow-hidden scroll-mt-20"
-    >
-      {/* Decorative vertical blueprint coordinate rails */}
-      <div className="absolute top-0 bottom-0 left-[20%] w-px bg-zinc-900/40 hidden xl:block" />
-      <div className="absolute top-0 bottom-0 left-[80%] w-px bg-zinc-900/40 hidden xl:block" />
+  const { lang } = useLanguage();
+  const t = translations[lang];
 
+  return (
+    <section id="experience" className="relative py-24 md:py-32 overflow-hidden scroll-mt-20" style={{ backgroundColor: "var(--color-bg-primary)" }}>
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        {/* Section Heading */}
         <div className="mb-20 text-left">
-          <span className="block font-mono text-[10px] tracking-[0.3em] text-zinc-500 uppercase mb-3">
-            02 // PROFESSIONAL JOURNEY
-          </span>
-          <h2 className="font-display font-black text-4xl md:text-5xl lg:text-6xl text-white tracking-tight leading-none">
-            Professional Experience
-          </h2>
-          <p className="max-w-md text-zinc-400 font-light mt-4 text-sm leading-relaxed">
-            A timeline of custom banking applications, performance tuning, and database optimization built since 2019.
-          </p>
+          <span className="block font-mono text-[10px] tracking-[0.3em] uppercase mb-3" style={{ color: "var(--color-text-muted)" }}>{t.expSection}</span>
+          <h2 className="font-display font-black text-4xl md:text-5xl lg:text-6xl tracking-tight leading-none" style={{ color: "var(--color-text-primary)" }}>{t.expTitle}</h2>
+          <p className="max-w-md font-light mt-4 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>{t.expSubtitle}</p>
         </div>
 
-        {/* Vertical Timeline Structure */}
         <div className="relative mt-12">
-          {/* Centered vertical bar (Desktop) */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[1px] bg-zinc-800/80 -translate-x-[0.5px]" />
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-[1px] -translate-x-[0.5px]" style={{ backgroundColor: "var(--color-border-primary)" }} />
 
-          {/* Staggered Timeline Items */}
           <div className="space-y-16 md:space-y-24">
             {EXPERIENCES.map((exp, idx) => {
               const isEven = idx % 2 === 0;
-
+              const highlights = lang === "id" && exp.highlightsId ? exp.highlightsId : exp.highlights;
               return (
-                <div
-                  key={exp.id}
-                  className={`flex flex-col md:flex-row relative items-start justify-between w-full ${
-                    isEven ? "md:flex-row-reverse" : ""
-                  }`}
-                >
-                  {/* Timeline Node Point (clean minimalist square) */}
-                  <div className="absolute left-4 md:left-1/2 w-3 h-3 bg-[#050505] border-2 border-white -translate-x-[5px] top-2 z-20 shadow-md shadow-black" />
+                <div key={exp.id} className={`flex flex-col md:flex-row relative items-start justify-between w-full ${isEven ? "md:flex-row-reverse" : ""}`}>
+                  <div className="absolute left-4 md:left-1/2 w-3 h-3 border-2 -translate-x-[5px] top-2 z-20" style={{ backgroundColor: "var(--color-bg-primary)", borderColor: "var(--color-text-primary)" }} />
 
-                  {/* Left-Side Column placeholder for Dates (Desktop) */}
                   <div className={`hidden md:flex flex-col w-[45%] ${isEven ? "text-left" : "text-right"} pt-0.5`}>
-                    <div className="text-sm font-mono tracking-widest text-zinc-500 flex items-center gap-2 justify-end select-none">
-                      {!isEven && (
-                        <>
-                          <Calendar className="w-4 h-4 text-zinc-600 inline-block" />
-                          <span>{exp.period}</span>
-                        </>
-                      )}
+                    <div className="text-sm font-mono tracking-widest flex items-center gap-2 select-none" style={{ color: "var(--color-text-muted)" }}>
+                      {!isEven && <><Calendar className="w-4 h-4 inline-block" style={{ color: "var(--color-text-dim)" }} /><span>{exp.period}</span></>}
                     </div>
                     {isEven && (
-                      <div className="text-sm font-mono tracking-widest text-zinc-500 flex items-center gap-2 justify-start select-none">
-                        <Calendar className="w-4 h-4 text-zinc-600 inline-block" />
-                        <span>{exp.period}</span>
+                      <div className="text-sm font-mono tracking-widest flex items-center gap-2 justify-start select-none" style={{ color: "var(--color-text-muted)" }}>
+                        <Calendar className="w-4 h-4 inline-block" style={{ color: "var(--color-text-dim)" }} /><span>{exp.period}</span>
                       </div>
                     )}
-                    <div className="mt-1 text-xs text-zinc-600 font-mono tracking-wider uppercase">
-                      {exp.location}
-                    </div>
+                    <div className="mt-1 text-xs font-mono tracking-wider uppercase" style={{ color: "var(--color-text-dim)" }}>{exp.location}</div>
                   </div>
 
-                  {/* Right-Side Box / Timeline Card */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.6, delay: 0.1 }}
-                    className="w-full md:w-[45%] pl-10 md:pl-0"
-                  >
-                    <div className="glass-panel border border-white/8 rounded-2xl p-6 md:p-8 hover:border-white/20 transition-all duration-400 text-left relative glass-panel-hover">
-                      {/* Ribbon Dates (Visible on Mobile only) */}
-                      <div className="md:hidden flex flex-wrap items-center gap-3 mb-3 text-[10px] font-mono tracking-wider text-zinc-500 uppercase">
-                        <span className="flex items-center gap-1">
-                          <Calendar className="w-3 h-3" /> {exp.period}
-                        </span>
-                        <span className="flex items-center gap-1">
-                          <MapPin className="w-3 h-3" /> {exp.location}
-                        </span>
+                  <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6, delay: 0.1 }} className="w-full md:w-[45%] pl-10 md:pl-0">
+                    <div className="glass-panel glass-panel-hover rounded-2xl p-6 md:p-8 text-left relative">
+                      <div className="md:hidden flex flex-wrap items-center gap-3 mb-3 text-[10px] font-mono tracking-wider uppercase" style={{ color: "var(--color-text-muted)" }}>
+                        <span className="flex items-center gap-1"><Calendar className="w-3 h-3" /> {exp.period}</span>
+                        <span className="flex items-center gap-1"><MapPin className="w-3 h-3" /> {exp.location}</span>
                       </div>
 
-                      {/* Title & Organization */}
-                      <span className="block font-mono text-[9px] text-zinc-600 uppercase tracking-widest select-none mb-1">
-                        ROLE DETAILS
-                      </span>
-                      <h3 className="text-2xl font-display font-bold text-white tracking-tight">
-                        {exp.role}
-                      </h3>
-                      <h4 className="text-xs font-mono font-medium text-zinc-400 mt-1 uppercase tracking-wider">
-                        {exp.company}
-                      </h4>
+                      <span className="block font-mono text-[9px] uppercase tracking-widest select-none mb-1" style={{ color: "var(--color-text-dim)" }}>{t.expRoleDetails}</span>
+                      <h3 className="text-2xl font-display font-bold tracking-tight" style={{ color: "var(--color-text-primary)" }}>{exp.role}</h3>
+                      <h4 className="text-xs font-mono font-medium mt-1 uppercase tracking-wider" style={{ color: "var(--color-text-muted)" }}>{exp.company}</h4>
 
-                      {/* Deliverables / bullet summaries */}
-                      {exp.highlights && exp.highlights.length > 0 && (
-                        <div className="mt-6 space-y-3.5 border-t border-white/5 pt-6">
-                          {exp.highlights.map((highlight, hIdx) => (
+                      {highlights && highlights.length > 0 && (
+                        <div className="mt-6 space-y-3.5 pt-6" style={{ borderTop: "1px solid var(--color-border-primary)" }}>
+                          {highlights.map((highlight, hIdx) => (
                             <div key={hIdx} className="flex gap-3 items-start">
-                              <span className="text-zinc-600 font-mono text-[11px] leading-none mt-[3px] select-none">—</span>
-                              <p className="text-zinc-400 font-light text-[13px] leading-relaxed">
-                                {highlight}
-                              </p>
+                              <span className="font-mono text-[11px] leading-none mt-[3px] select-none" style={{ color: "var(--color-text-dim)" }}>—</span>
+                              <p className="font-light text-[13px] leading-relaxed" style={{ color: "var(--color-text-muted)" }}>{highlight}</p>
                             </div>
                           ))}
                         </div>
                       )}
 
-                      {/* Technologies Pill Grid */}
-                      <div className="mt-8 pt-4 border-t border-white/5">
+                      <div className="mt-8 pt-4" style={{ borderTop: "1px solid var(--color-border-primary)" }}>
                         <div className="flex items-center gap-1.5 mb-3 select-none">
-                          <Code2 className="w-3 h-3 text-zinc-500" />
-                          <span className="text-[9px] font-mono tracking-[0.2em] text-zinc-500 uppercase">
-                            STACK DEPLOYED
-                          </span>
+                          <Code2 className="w-3 h-3" style={{ color: "var(--color-text-muted)" }} />
+                          <span className="text-[9px] font-mono tracking-[0.2em] uppercase" style={{ color: "var(--color-text-muted)" }}>{t.expStackDeployed}</span>
                         </div>
                         <div className="flex flex-wrap gap-1.5">
                           {exp.technologies.map((tech) => (
-                            <span
-                              key={tech}
-                              className="px-2.5 py-1 text-[10px] font-mono bg-zinc-950/85 text-zinc-300 border border-white/5 rounded-full"
-                            >
-                              {tech}
-                            </span>
+                            <span key={tech} className="px-2.5 py-1 text-[10px] font-mono rounded-full" style={{ backgroundColor: "var(--color-bg-card)", color: "var(--color-text-secondary)", border: "1px solid var(--color-border-primary)" }}>{tech}</span>
                           ))}
                         </div>
                       </div>

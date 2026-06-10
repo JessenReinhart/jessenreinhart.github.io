@@ -6,6 +6,7 @@ export interface Experience {
   location: string;
   technologies: string[];
   highlights?: string[];
+  highlightsId?: string[];
   description?: string;
 }
 
@@ -14,8 +15,12 @@ export interface Project {
   title: string;
   tagline: string;
   description: string;
+  descriptionId?: string;
+  motivation?: string;
+  motivationId?: string;
   technologies: string[];
   features?: string[];
+  featuresId?: string[];
   imageSrc: string;
   images?: string[];
   liveUrl?: string;
@@ -32,4 +37,5 @@ export interface StatItem {
   value: string;
   label: string;
   numericVal: number;
+  source?: string;
 }

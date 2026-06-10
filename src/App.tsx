@@ -10,10 +10,14 @@ import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ResumeViewer from "./components/ResumeViewer";
+import { useLanguage } from "./contexts/LanguageContext";
+import { translations } from "./i18n/translations";
 
 export default function App() {
   const [activeSection, setActiveSection] = useState("hero");
   const [resumeOpen, setResumeOpen] = useState(false);
+  const { lang } = useLanguage();
+  const t = translations[lang];
 
   // ScrollSpy interaction logic to highlight navbar links automatically
   useEffect(() => {
@@ -51,7 +55,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#050505] text-[#f3f4f6]">
+    <div className="relative min-h-screen" style={{ backgroundColor: "var(--color-bg-primary)", color: "var(--color-text-primary)" }}>
       {/* Subtle Ambient Film Grain Noise overlay */}
       <div className="noise-overlay" />
 
@@ -70,7 +74,7 @@ export default function App() {
         />
 
         {/* Dynamic Infinite Typographic Marquee Banner */}
-        <section className="bg-white text-black py-4 overflow-hidden border-y border-white/10 select-none pointer-events-none relative z-20">
+        <section style={{ backgroundColor: "var(--color-marquee-bg)", color: "var(--color-marquee-text)" }} className="py-4 overflow-hidden border-y select-none pointer-events-none relative z-20" >
           <div className="flex whitespace-nowrap">
             <motion.div
               animate={{ x: [0, "-33.333%"] }}
@@ -81,46 +85,46 @@ export default function App() {
               }}
               className="flex gap-16 font-display font-black text-xs md:text-sm tracking-[0.3em] uppercase items-center"
             >
-              <span>SENIOR FRONTEND ENGINEER</span>
-              <span className="text-zinc-600">//</span>
-              <span>CREATIVE CODER</span>
-              <span className="text-zinc-600">//</span>
-              <span>2M MONTHLY ORDERS</span>
-              <span className="text-zinc-600">//</span>
-              <span>DIGITAL BANKING TOOLS</span>
-              <span className="text-zinc-600">//</span>
-              <span>PERFORMANCE ARCHITECTURE</span>
-              <span className="text-zinc-600">//</span>
-              <span>WHITE-LABEL SOFTWARE SYSTEMS</span>
-              <span className="text-zinc-600">//</span>
+              <span>{t.marquee1}</span>
+              <span style={{ color: "var(--color-text-dim)" }}>//</span>
+              <span>{t.marquee2}</span>
+              <span style={{ color: "var(--color-text-dim)" }}>//</span>
+              <span>{t.marquee3}</span>
+              <span style={{ color: "var(--color-text-dim)" }}>//</span>
+              <span>{t.marquee4}</span>
+              <span style={{ color: "var(--color-text-dim)" }}>//</span>
+              <span>{t.marquee5}</span>
+              <span style={{ color: "var(--color-text-dim)" }}>//</span>
+              <span>{t.marquee6}</span>
+              <span style={{ color: "var(--color-text-dim)" }}>//</span>
               
               {/* Duplicated for smooth loop */}
-              <span>SENIOR FRONTEND ENGINEER</span>
-              <span className="text-zinc-600">//</span>
-              <span>CREATIVE CODER</span>
-              <span className="text-zinc-600">//</span>
-              <span>2M MONTHLY ORDERS</span>
-              <span className="text-zinc-600">//</span>
-              <span>DIGITAL BANKING TOOLS</span>
-              <span className="text-zinc-600">//</span>
-              <span>PERFORMANCE ARCHITECTURE</span>
-              <span className="text-zinc-600">//</span>
-              <span>WHITE-LABEL SOFTWARE SYSTEMS</span>
-              <span className="text-zinc-600">//</span>
+              <span>{t.marquee1}</span>
+              <span style={{ color: "var(--color-text-dim)" }}>//</span>
+              <span>{t.marquee2}</span>
+              <span style={{ color: "var(--color-text-dim)" }}>//</span>
+              <span>{t.marquee3}</span>
+              <span style={{ color: "var(--color-text-dim)" }}>//</span>
+              <span>{t.marquee4}</span>
+              <span style={{ color: "var(--color-text-dim)" }}>//</span>
+              <span>{t.marquee5}</span>
+              <span style={{ color: "var(--color-text-dim)" }}>//</span>
+              <span>{t.marquee6}</span>
+              <span style={{ color: "var(--color-text-dim)" }}>//</span>
 
               {/* Thrice for complete safety on large monitors */}
-              <span>SENIOR FRONTEND ENGINEER</span>
-              <span className="text-zinc-600">//</span>
-              <span>CREATIVE CODER</span>
-              <span className="text-zinc-600">//</span>
-              <span>2M MONTHLY ORDERS</span>
-              <span className="text-zinc-600">//</span>
-              <span>DIGITAL BANKING TOOLS</span>
-              <span className="text-zinc-600">//</span>
-              <span>PERFORMANCE ARCHITECTURE</span>
-              <span className="text-zinc-600">//</span>
-              <span>WHITE-LABEL SOFTWARE SYSTEMS</span>
-              <span className="text-zinc-600">//</span>
+              <span>{t.marquee1}</span>
+              <span style={{ color: "var(--color-text-dim)" }}>//</span>
+              <span>{t.marquee2}</span>
+              <span style={{ color: "var(--color-text-dim)" }}>//</span>
+              <span>{t.marquee3}</span>
+              <span style={{ color: "var(--color-text-dim)" }}>//</span>
+              <span>{t.marquee4}</span>
+              <span style={{ color: "var(--color-text-dim)" }}>//</span>
+              <span>{t.marquee5}</span>
+              <span style={{ color: "var(--color-text-dim)" }}>//</span>
+              <span>{t.marquee6}</span>
+              <span style={{ color: "var(--color-text-dim)" }}>//</span>
             </motion.div>
           </div>
         </section>

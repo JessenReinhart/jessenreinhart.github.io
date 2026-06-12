@@ -1,14 +1,14 @@
 import { Experience, Project, SkillCategory, StatItem } from "./types";
-import portraitImg from "./assets/images/jessen-portrait-removed-bg.png";
-import tc00 from "./assets/images/tripcore-images/split_0_0.png";
-import tc01 from "./assets/images/tripcore-images/split_0_1.png";
-import tc10 from "./assets/images/tripcore-images/split_1_0.png";
-import tc11 from "./assets/images/tripcore-images/split_1_1.png";
-import tc20 from "./assets/images/tripcore-images/split_2_0.png";
-import tc21 from "./assets/images/tripcore-images/split_2_1.png";
-import ss00 from "./assets/images/soulync-images/split_0_0.png";
-import ss01 from "./assets/images/soulync-images/split_0_1.png";
-import ss10 from "./assets/images/soulync-images/split_1_0.png";
+import portraitImg from "./assets/images/jessen-portrait-removed-bg.webp";
+import tc00 from "./assets/images/tripcore-images/split_0_0.webp";
+import tc01 from "./assets/images/tripcore-images/split_0_1.webp";
+import tc10 from "./assets/images/tripcore-images/split_1_0.webp";
+import tc11 from "./assets/images/tripcore-images/split_1_1.webp";
+import tc20 from "./assets/images/tripcore-images/split_2_0.webp";
+import tc21 from "./assets/images/tripcore-images/split_2_1.webp";
+import ss00 from "./assets/images/soulync-images/split_0_0.webp";
+import ss01 from "./assets/images/soulync-images/split_0_1.webp";
+import ss10 from "./assets/images/soulync-images/split_1_0.webp";
 
 export const PORTRAIT_IMAGE = portraitImg;
 export const TRIPCORE_IMAGES = [tc00, tc01, tc10, tc11, tc20, tc21];

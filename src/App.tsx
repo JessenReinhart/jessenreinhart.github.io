@@ -1,17 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import CustomCursor from "./components/CustomCursor";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
-import Experience from "./components/Experience";
-import Projects from "./components/Projects";
-import Skills from "./components/Skills";
-import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ResumeViewer from "./components/ResumeViewer";
 import { useLanguage } from "./contexts/LanguageContext";
 import { translations } from "./i18n/translations";
+
+const Experience = lazy(() => import("./components/Experience"));
+const Projects = lazy(() => import("./components/Projects"));
+const Skills = lazy(() => import("./components/Skills"));
+const Contact = lazy(() => import("./components/Contact"));
 
 export default function App() {
   const [activeSection, setActiveSection] = useState("hero");
@@ -19,28 +20,40 @@ export default function App() {
   const { lang } = useLanguage();
   const t = translations[lang];
 
-  // ScrollSpy interaction logic to highlight navbar links automatically
+  // ScrollSpy via IntersectionObserver — avoids forced reflow from offsetTop reads
   useEffect(() => {
-    const handleScroll = () => {
-      const sections = ["hero", "about", "experience", "projects", "skills", "contact"];
-      const scrollPosition = window.scrollY + window.innerHeight / 3;
+    const sections = ["hero", "about", "experience", "projects", "skills", "contact"];
+    const visibleSections = new Map<string, number>();
 
-      for (const sectionId of sections) {
-        const el = document.getElementById(sectionId);
-        if (el) {
-          const top = el.offsetTop;
-          const height = el.offsetHeight;
-
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(sectionId);
-            break;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            visibleSections.set(entry.target.id, entry.intersectionRatio);
+          } else {
+            visibleSections.delete(entry.target.id);
           }
         }
-      }
-    };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+        let bestId = "hero";
+        let bestRatio = 0;
+        for (const [id, ratio] of visibleSections) {
+          if (ratio > bestRatio) {
+            bestRatio = ratio;
+            bestId = id;
+          }
+        }
+        setActiveSection(bestId);
+      },
+      { threshold: [0, 0.25, 0.5, 0.75, 1], rootMargin: "-10% 0px -40% 0px" }
+    );
+
+    for (const id of sections) {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    }
+
+    return () => observer.disconnect();
   }, []);
 
   const handleSmoothScroll = (sectionId: string) => {
@@ -132,17 +145,13 @@ export default function App() {
         {/* ABOUT SECTION */}
         <About />
 
-        {/* EXPERIENCE TIMELINE SECTION */}
-        <Experience />
-
-        {/* PROJECTS SECTION */}
-        <Projects />
-
-        {/* SKILLS WALL SECTION */}
-        <Skills />
-
-        {/* CONTACT GATEWAY SECTION */}
-        <Contact />
+        {/* Below-the-fold sections: lazy-loaded to reduce main-thread work */}
+        <Suspense fallback={null}>
+          <Experience />
+          <Projects />
+          <Skills />
+          <Contact />
+        </Suspense>
       </main>
 
       {/* MONOCHROME FOOTER */}

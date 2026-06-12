@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from "motion/react";
+import { useEffect, useRef } from "react";
 import { ArrowDown, ArrowUpRight, Code, Cpu, Database, FolderGit2, Layers, Briefcase, Download, Github, Linkedin, Mail, Compass } from "lucide-react";
 import { PORTRAIT_IMAGE } from "../data";
 import { useLanguage } from "../contexts/LanguageContext";
@@ -12,11 +12,29 @@ interface HeroProps {
 export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
   const { lang } = useLanguage();
   const t = translations[lang];
+  const textRef = useRef<HTMLHeadingElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const bgCodeRef = useRef<HTMLDivElement>(null);
+  const codeCardRef = useRef<HTMLDivElement>(null);
 
-  const { scrollY } = useScroll();
-  const textY = useTransform(scrollY, [0, 500], [0, 100]);
-  const imageY = useTransform(scrollY, [0, 500], [0, -50]);
-  const bgCodeY = useTransform(scrollY, [0, 1000], [0, 150]);
+  useEffect(() => {
+    let rafId: number;
+    const handleScroll = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        const y = window.scrollY;
+        if (textRef.current) textRef.current.style.transform = `translateY(${Math.min(y, 500) / 500 * 100}px)`;
+        if (imageRef.current) imageRef.current.style.transform = `translateY(${-(Math.min(y, 500) / 500) * 50}px)`;
+        if (bgCodeRef.current) bgCodeRef.current.style.transform = `translateY(${Math.min(y, 1000) / 1000 * 150}px)`;
+        if (codeCardRef.current) codeCardRef.current.style.transform = `translateY(${Math.min(y, 500) / 500 * 100}px)`;
+      });
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
 
   const techs = [
     { name: "ReactJS", icon: <Code className="w-3.5 h-3.5" />, delay: 0 },
@@ -43,9 +61,9 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
       </div>
 
       {/* Background code snippets */}
-      <motion.div
-        style={{ y: bgCodeY }}
-        className="absolute left-[8%] top-[15%] font-mono text-xs select-none pointer-events-none hidden xl:block z-0 text-left"
+      <div
+        ref={bgCodeRef}
+        className="absolute left-[8%] top-[15%] font-mono text-xs select-none pointer-events-none hidden xl:block z-0 text-left will-change-transform"
       >
         <pre style={{ color: "var(--color-text-dim)", opacity: 0.4 }}>
 {`const build = () => {
@@ -53,7 +71,7 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
 };`}
         </pre>
         <span className="block mt-4 text-[10px] tracking-widest uppercase" style={{ color: "var(--color-text-dim)", opacity: 0.3 }}>REACTJS // TYPESCRIPT // NEXTJS // TAILWIND</span>
-      </motion.div>
+      </div>
 
       {/* Left Vertical Rail */}
       <div className="absolute left-6 bottom-[15%] top-[15%] w-10 backdrop-blur-md rounded-md py-8 flex flex-col justify-between items-center z-30 hidden xl:flex" style={{ border: "1px solid var(--color-border-primary)", backgroundColor: "var(--color-bg-glass)" }}>
@@ -79,25 +97,22 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
       {/* Giant Background Typography */}
       <div className="absolute inset-x-0 top-[35%] md:top-[38%] -translate-y-1/2 z-[5] pointer-events-none md:pl-10 xl:pl-16">
         <div className="max-w-7xl mx-auto w-full px-6 md:px-12 relative h-full">
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, cubicBezier: [0.16, 1, 0.3, 1] }}
-            style={{ y: textY, color: "var(--color-text-dim)", opacity: 0.08 }}
-            className="font-display font-black text-8xl sm:text-[11rem] md:text-[13rem] lg:text-[17.5rem] leading-[0.85] tracking-tighter select-none text-left pointer-events-none"
+          <h1
+            ref={textRef}
+            aria-hidden="true"
+            className="font-display font-black text-8xl sm:text-[11rem] md:text-[13rem] lg:text-[17.5rem] leading-[0.85] tracking-tighter select-none text-left pointer-events-none will-change-transform hero-fade-in"
+            style={{ color: "var(--color-text-dim)" }}
           >
             Jessen
-          </motion.h1>
+          </h1>
         </div>
       </div>
 
       {/* Floating Code Card */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 0.65, scale: 1 }}
-        transition={{ duration: 1.2, delay: 0.5 }}
-        style={{ y: textY, backgroundColor: "var(--color-bg-glass)" }}
-        className="absolute right-[33%] top-[14%] backdrop-blur-xl rounded-2xl p-4 select-none text-[9px] font-mono hidden xl:block z-[6] text-left max-w-[210px] leading-relaxed shadow-2xl"
+      <div
+        ref={codeCardRef}
+        className="absolute right-[33%] top-[14%] backdrop-blur-xl rounded-2xl p-4 select-none text-[9px] font-mono hidden xl:block z-[6] text-left max-w-[210px] leading-relaxed shadow-2xl will-change-transform hero-fade-in-delayed"
+        style={{ backgroundColor: "var(--color-bg-glass)" }}
       >
         <div className="flex items-center justify-between mb-2.5 pb-1.5" style={{ borderBottom: "1px solid var(--color-border-primary)" }}>
           <span className="text-[8.5px] tracking-wider font-mono uppercase" style={{ color: "var(--color-text-muted)" }}>Developer Node</span>
@@ -107,22 +122,19 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
           <span>import React from 'react';</span><br />
           <span>const Jessen = () =&gt; &#125;</span>
         </div>
-      </motion.div>
+      </div>
 
       <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10 md:pl-10 xl:pl-16">
         {/* Left Content */}
         <div className="lg:col-span-6 flex flex-col justify-center text-left relative z-20">
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex items-center mb-6 px-3 py-1.5 rounded-md backdrop-blur-sm self-start shadow-sm select-none"
+          <div
+            className="flex items-center mb-6 px-3 py-1.5 rounded-md backdrop-blur-sm self-start shadow-sm select-none hero-slide-up"
             style={{ border: "1px solid var(--color-border-primary)", backgroundColor: "var(--color-bg-glass)" }}
           >
             <span className="text-[10px] font-mono tracking-[0.3em] uppercase" style={{ color: "var(--color-text-secondary)" }}>
               {t.heroTag}
             </span>
-          </motion.div>
+          </div>
 
           <div className="relative mb-6">
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-display font-medium tracking-tight leading-none mb-1" style={{ color: "var(--color-text-primary)" }}>
@@ -133,21 +145,15 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
             </div>
           </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-base md:text-lg max-w-lg font-light leading-relaxed mb-10"
+          <p
+            className="text-base md:text-lg max-w-lg font-light leading-relaxed mb-10 hero-slide-up-delayed"
             style={{ color: "var(--color-text-muted)" }}
           >
             {t.heroDesc}
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="flex flex-wrap gap-4 items-center"
+          <div
+            className="flex flex-wrap gap-4 items-center hero-slide-up-delayed-2"
           >
             <button
               onClick={onViewProjects}
@@ -168,21 +174,21 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
               {t.heroDownloadCv}
               <Download className="w-3.5 h-3.5" />
             </button>
-          </motion.div>
+          </div>
         </div>
 
         {/* Portrait */}
         <div className="lg:col-span-4 relative flex justify-center items-center z-20 w-full mt-8 lg:mt-0">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, cubicBezier: [0.16, 1, 0.3, 1] }}
-            style={{ y: imageY }}
-            className="relative w-full aspect-[4/5] sm:max-w-md lg:max-w-[400px] select-none group"
+          <div
+            ref={imageRef}
+            className="relative w-full aspect-[4/5] sm:max-w-md lg:max-w-[400px] select-none group hero-scale-in will-change-transform"
           >
             <img
               src={PORTRAIT_IMAGE}
               alt="Jessen Profile Photo"
+              fetchPriority="high"
+              width="400"
+              height="500"
               referrerPolicy="no-referrer"
               className="w-full h-auto object-contain grayscale brightness-95 opacity-98 group-hover:scale-[1.03] transition-transform duration-[2000ms] ease-out select-none relative z-10"
               style={{
@@ -190,26 +196,20 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
                 WebkitMaskImage: "linear-gradient(to bottom, black 75%, transparent 100%)"
               }}
             />
-          </motion.div>
+          </div>
 
           {techs.slice(0, 3).map((tech, idx) => {
             const xCoords = ["-15%", "105%", "35%"];
             const yCoords = ["25%", "45%", "-10%"];
             return (
-              <motion.div
+              <div
                 key={tech.name}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: [0, -8, 0] }}
-                transition={{
-                  scale: { duration: 0.5 },
-                  y: { repeat: Infinity, duration: 4 + idx, ease: "easeInOut", delay: tech.delay }
-                }}
-                style={{ position: "absolute", left: xCoords[idx], top: yCoords[idx] }}
-                className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel text-[10px] font-mono tracking-wider shadow-md select-none pointer-events-none z-30 font-semibold"
+                style={{ position: "absolute", left: xCoords[idx], top: yCoords[idx], animationDelay: `${tech.delay}s` }}
+                className={`hidden md:flex items-center gap-2 px-3 py-1.5 rounded-full glass-panel text-[10px] font-mono tracking-wider shadow-md select-none pointer-events-none z-30 font-semibold hero-float-${idx}`}
               >
                 {tech.icon}
                 <span style={{ color: "var(--color-text-secondary)" }}>{tech.name}</span>
-              </motion.div>
+              </div>
             );
           })}
         </div>
@@ -273,9 +273,9 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-40 hover:opacity-100 transition-opacity pointer-events-none">
         <span className="text-[9px] font-mono tracking-[0.3em] uppercase" style={{ color: "var(--color-text-muted)" }}>{t.heroScroll}</span>
-        <motion.div animate={{ y: [0, 6, 0] }} transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}>
+        <div className="hero-scroll-bounce">
           <ArrowDown className="w-3.5 h-3.5" style={{ color: "var(--color-text-muted)" }} />
-        </motion.div>
+        </div>
       </div>
     </section>
   );

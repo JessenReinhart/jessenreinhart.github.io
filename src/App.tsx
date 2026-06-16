@@ -12,6 +12,7 @@ import { translations } from "./i18n/translations";
 const Experience = lazy(() => import("./components/Experience"));
 const Projects = lazy(() => import("./components/Projects"));
 const Skills = lazy(() => import("./components/Skills"));
+const GitHubActivity = lazy(() => import("./components/GitHubActivity"));
 const Contact = lazy(() => import("./components/Contact"));
 
 export default function App() {
@@ -22,10 +23,11 @@ export default function App() {
 
   // ScrollSpy via IntersectionObserver — avoids forced reflow from offsetTop reads
   useEffect(() => {
-    const sections = ["hero", "about", "experience", "projects", "skills", "contact"];
+    const sectionIds = ["hero", "about", "experience", "projects", "skills", "github", "contact"];
+    const observed = new Set<string>();
     const visibleSections = new Map<string, number>();
 
-    const observer = new IntersectionObserver(
+    const intersectionObserver = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
@@ -48,12 +50,36 @@ export default function App() {
       { threshold: [0, 0.25, 0.5, 0.75, 1], rootMargin: "-10% 0px -40% 0px" }
     );
 
-    for (const id of sections) {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    }
+    // Observe sections that are already in the DOM
+    const observeSections = () => {
+      for (const id of sectionIds) {
+        if (!observed.has(id)) {
+          const el = document.getElementById(id);
+          if (el) {
+            intersectionObserver.observe(el);
+            observed.add(id);
+          }
+        }
+      }
+    };
 
-    return () => observer.disconnect();
+    observeSections();
+
+    // Watch for lazy-loaded sections being added to the DOM
+    const mutationObserver = new MutationObserver(() => {
+      observeSections();
+      // Stop once all sections are observed
+      if (observed.size === sectionIds.length) {
+        mutationObserver.disconnect();
+      }
+    });
+
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      intersectionObserver.disconnect();
+      mutationObserver.disconnect();
+    };
   }, []);
 
   const handleSmoothScroll = (sectionId: string) => {
@@ -150,6 +176,7 @@ export default function App() {
           <Experience />
           <Projects />
           <Skills />
+          <GitHubActivity />
           <Contact />
         </Suspense>
       </main>

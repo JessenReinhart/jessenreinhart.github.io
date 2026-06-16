@@ -6,6 +6,7 @@ export const translations = {
     navExperience: "EXPERIENCE",
     navProjects: "PROJECTS",
     navSkills: "SKILLS",
+    navGithub: "GITHUB",
     navContact: "CONTACT",
     navGetInTouch: "GET IN TOUCH",
     navAvailable: "Available for contracts & full-time roles",
@@ -79,7 +80,7 @@ export const translations = {
     catEngineering: "Engineering Concepts",
 
     // Contact
-    contactSection: "05 // GET IN TOUCH",
+    contactSection: "06 // GET IN TOUCH",
     contactTitle: "Let's work together.",
     contactDesc: "Web application development, CMS solutions, or contract consulting.",
     contactEmail: "Direct Email",
@@ -100,6 +101,17 @@ export const translations = {
     contactSentDesc: "Your message was received. Jessen will respond soon.",
     contactSendAnother: "SEND ANOTHER MESSAGE",
 
+    // GitHub
+    ghSection: "05 // OPEN SOURCE ACTIVITY",
+    ghTitle: "GitHub Activity",
+    ghContributions: "contributions in the last 6 months",
+    ghViewProfile: "VIEW PROFILE",
+    ghRepos: "Repositories",
+    ghFollowers: "Followers",
+    ghFollowing: "Following",
+    ghRecentRepos: "Recent Repositories",
+    ghRecentActivity: "Recent Activity",
+
     // Footer
     footerBuilt: "BUILT WITH",
     footerStack: "React + TypeScript + Tailwind CSS",
@@ -111,6 +123,7 @@ export const translations = {
     navExperience: "PENGALAMAN",
     navProjects: "PROYEK",
     navSkills: "SKILL",
+    navGithub: "GITHUB",
     navContact: "KONTAK",
     navGetInTouch: "HUBUNGI SAYA",
     navAvailable: "Tersedia untuk kontrak & full-time",
@@ -186,7 +199,7 @@ export const translations = {
     catEngineering: "Konsep Engineering",
 
     // Contact
-    contactSection: "05 // HUBUNGI SAYA",
+    contactSection: "06 // HUBUNGI SAYA",
     contactTitle: "Ayo bekerja sama.",
     contactDesc: "Pengembangan aplikasi web, solusi CMS, atau konsultasi.",
     contactEmail: "Email Langsung",
@@ -206,6 +219,17 @@ export const translations = {
     contactSent: "Pesan Terkirim",
     contactSentDesc: "Pesan sudah diterima. Jessen akan segera merespons.",
     contactSendAnother: "KIRIM PESAN LAGI",
+
+    // GitHub
+    ghSection: "05 // AKTIVITAS OPEN SOURCE",
+    ghTitle: "Aktivitas GitHub",
+    ghContributions: "kontribusi dalam 6 bulan terakhir",
+    ghViewProfile: "LIHAT PROFIL",
+    ghRepos: "Repositories",
+    ghFollowers: "Pengikut",
+    ghFollowing: "Mengikuti",
+    ghRecentRepos: "Repositories Terbaru",
+    ghRecentActivity: "Aktivitas Terbaru",
 
     // Footer
     footerBuilt: "DIBUAT DENGAN",

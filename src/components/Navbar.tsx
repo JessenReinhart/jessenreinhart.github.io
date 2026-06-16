@@ -23,6 +23,7 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
     { label: t.navExperience, id: "experience" },
     { label: t.navProjects, id: "projects" },
     { label: t.navSkills, id: "skills" },
+    { label: t.navGithub, id: "github" },
     { label: t.navContact, id: "contact" },
   ];
 

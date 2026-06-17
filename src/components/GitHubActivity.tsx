@@ -172,6 +172,8 @@ export default function GitHubActivity() {
   const [events, setEvents] = useState<GitHubEvent[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [staticContribs, setStaticContribs] = useState<ActivityDay[] | null>(null);
+  const [staticTotal, setStaticTotal] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -185,6 +187,14 @@ export default function GitHubActivity() {
         setUser(await userRes.json());
         setRepos(await reposRes.json());
         setEvents(await eventsRes.json());
+
+        // Try loading static contribution data (built at deploy time with token)
+        const staticRes = await fetch("/github-contributions.json");
+        if (staticRes.ok) {
+          const data = await staticRes.json();
+          setStaticContribs(data.days);
+          setStaticTotal(data.totalContributions);
+        }
       } catch {
         setError(true);
       } finally {
@@ -196,8 +206,8 @@ export default function GitHubActivity() {
 
   if (loading || error || !user) return null;
 
-  const contributionDays = generateContributionCalendar(events);
-  const totalContributions = contributionDays.reduce((sum, d) => sum + d.count, 0);
+  const contributionDays = staticContribs ?? generateContributionCalendar(events);
+  const totalContributions = staticTotal ?? contributionDays.reduce((sum, d) => sum + d.count, 0);
   const recentEvents = events
     .filter((e) => ["PushEvent", "CreateEvent", "PullRequestEvent", "IssuesEvent", "ForkEvent", "ReleaseEvent", "WatchEvent"].includes(e.type))
     .slice(0, 8);

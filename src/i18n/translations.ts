@@ -51,7 +51,7 @@ export const translations = {
     statYears: "Years Experience",
     statInstitutions: "Financial Institutions",
     statUsers: "Portal Users",
-    statMerchants: "Retail Merchants",
+    statMerchants: "Online Stores",
     statOrders: "Monthly Orders",
 
     // Experience
@@ -170,7 +170,7 @@ export const translations = {
     statYears: "Tahun Pengalaman",
     statInstitutions: "Institusi Keuangan",
     statUsers: "Pengguna Portal",
-    statMerchants: "Merchant Ritel",
+    statMerchants: "Toko Online",
     statOrders: "Order Bulanan",
 
     // Experience

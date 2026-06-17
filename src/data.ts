@@ -18,7 +18,7 @@ export const STATS: StatItem[] = [
   { value: "7", label: "Years Experience", numericVal: 7 },
   { value: "20", label: "Financial Institutions", numericVal: 20, source: "via Wide Technologies" },
   { value: "30M", label: "Portal Users", numericVal: 30000000, source: "via Wide Technologies" },
-  { value: "100k", label: "Retail Merchants", numericVal: 100000, source: "via SIRCLO" },
+  { value: "100k", label: "Online Stores", numericVal: 100000, source: "via SIRCLO" },
   { value: "2M", label: "Monthly Orders", numericVal: 2000000, source: "via SIRCLO" }
 ];
 
@@ -87,12 +87,12 @@ export const EXPERIENCES: Experience[] = [
     highlights: [
       "Built a React dashboard for 100,000 retail merchants to configure layouts and monitor storefront metrics.",
       "Developed server-rendered storefronts with Next.js and Tailwind CSS, raising Lighthouse scores from 70 to 95.",
-      "Created checkout interfaces handling 2 million orders monthly across 30 million portal users."
+      "Created checkout interfaces handling 2 million orders monthly across SIRCLO's merchant network."
     ],
     highlightsId: [
       "Membangun dashboard React untuk 100.000 merchant ritel guna mengonfigurasi tata letak dan memantau metrik toko.",
       "Mengembangkan etalase server-rendered dengan Next.js dan Tailwind CSS, meningkatkan skor Lighthouse dari 70 ke 95.",
-      "Membuat antarmuka checkout yang menangani 2 juta pesanan bulanan untuk 30 juta pengguna portal."
+      "Membuat antarmuka checkout yang menangani 2 juta pesanan bulanan di jaringan merchant SIRCLO."
     ]
   },
   {

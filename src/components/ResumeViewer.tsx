@@ -79,7 +79,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             PROFESSIONAL SUMMARY
           </h3>
           <p className="text-neutral-700 font-light text-[14px] leading-relaxed">
-            Software engineer with seven years of experience across banking, ecommerce, and CMS platforms. Shipped interfaces serving 30 million portal users, processing 2 million monthly orders, and dashboards for 100,000 retail merchants. Currently building a Card Management System at LG Sinarmas and seeking a senior frontend or full-stack role.
+            Software engineer with seven years of experience across banking, ecommerce, and CMS platforms. Contributed to customer-facing platforms at Wide Technologies (digital banking for 20+ financial institutions, 30M+ portal users) and SIRCLO (2M monthly orders processed, dashboards for 100k+ online stores). Currently building a Card Management System at LG Sinarmas and seeking a senior frontend or full-stack role.
           </p>
         </div>
 

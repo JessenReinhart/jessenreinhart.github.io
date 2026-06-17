@@ -69,6 +69,8 @@ export const translations = {
     projKeyCapabilities: "Key Capabilities Built",
     projTechBreakdown: "Technological Breakdown",
     projDemo: "DEMO ENVIRONMENT",
+    projFeatures: "Project Features",
+    projMore: "more",
     projCode: "CODE",
 
     // Skills

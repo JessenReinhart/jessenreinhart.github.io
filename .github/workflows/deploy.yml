@@ -3,6 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [master]
+  schedule:
+    - cron: '0 0 */2 * *'
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -32,6 +35,7 @@ jobs:
       - name: Fetch GitHub contribution data
         run: node scripts/fetch-contributions.mjs
         env:
+          GH_CONTRIB_PAT: ${{ secrets.GH_CONTRIB_PAT }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build

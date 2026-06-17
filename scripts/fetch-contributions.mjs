@@ -1,9 +1,9 @@
-import { readFileSync, writeFileSync, mkdirSync } from "fs";
+import { writeFileSync, mkdirSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const TOKEN = process.env.GITHUB_TOKEN;
+const TOKEN = process.env.GH_CONTRIB_PAT || process.env.GITHUB_TOKEN;
 const USERNAME = "jessenreinhart";
 
 async function main() {
@@ -78,6 +78,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error("Failed to fetch contributions:", err);
-  process.exit(1);
+  console.error("[WARN] contribution fetch failed:", err.message);
+  console.error("[WARN] deploy will continue with public API fallback");
 });

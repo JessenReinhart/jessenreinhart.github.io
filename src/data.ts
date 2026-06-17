@@ -9,6 +9,10 @@ import tc21 from "./assets/images/tripcore-images/split_2_1.webp";
 import ss00 from "./assets/images/soulync-images/split_0_0.webp";
 import ss01 from "./assets/images/soulync-images/split_0_1.webp";
 import ss10 from "./assets/images/soulync-images/split_1_0.webp";
+import tripcoreLive from "./assets/images/tripcore-live.webp";
+import invoicrLive from "./assets/images/invoicr-live.webp";
+import weddingLive from "./assets/images/wedding-live.webp";
+import soulsyncLive from "./assets/images/soulsync-live.webp";
 
 export const PORTRAIT_IMAGE = portraitImg;
 export const TRIPCORE_IMAGES = [tc00, tc01, tc10, tc11, tc20, tc21];
@@ -133,7 +137,7 @@ export const PROJECTS: Project[] = [
       "Pin peta perjalanan interaktif dan pelacak transit",
       "Berbagi tautan undangan tamu untuk perencanaan bersama"
     ],
-    imageSrc: "",
+    imageSrc: tripcoreLive,
     images: TRIPCORE_IMAGES,
     liveUrl: "https://tripcore-beta.vercel.app",
     githubUrl: "https://github.com/JessenReinhart/tripcore",
@@ -160,7 +164,7 @@ export const PROJECTS: Project[] = [
       "Mode warna kontras tinggi untuk mengurangi kelelahan mata",
       "Sinkronisasi sisi klien menggunakan penyimpanan browser"
     ],
-    imageSrc: "",
+    imageSrc: invoicrLive,
     liveUrl: "https://invoicr-eight.vercel.app",
     githubUrl: "https://github.com/JessenReinhart/invoicr",
     iconName: "FileText"
@@ -186,7 +190,7 @@ export const PROJECTS: Project[] = [
       "Dinding pesan langsung yang menampilkan ucapan selamat",
       "Tata letak visual yang fleksibel mendukung koordinat perangkat seluler"
     ],
-    imageSrc: "",
+    imageSrc: weddingLive,
     liveUrl: "https://wedding-invitation-tau-two.vercel.app",
     githubUrl: "https://github.com/JessenReinhart/wedding-invitation",
     iconName: "Heart"
@@ -212,7 +216,7 @@ export const PROJECTS: Project[] = [
       "Alur enkripsi data di memori browser",
       "Antarmuka minimalis dengan gaya kontras tinggi"
     ],
-    imageSrc: "",
+    imageSrc: soulsyncLive,
     images: SOULSYNC_IMAGES,
     liveUrl: "https://soulsync-gamma.vercel.app",
     githubUrl: "https://github.com/JessenReinhart/soulsync",

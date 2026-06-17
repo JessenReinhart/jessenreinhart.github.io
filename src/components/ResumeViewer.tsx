@@ -170,10 +170,10 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             <div>
               <h4 className="text-xs sm:text-sm font-bold text-neutral-900">SoulSync</h4>
               <p className="text-[11px] sm:text-xs text-neutral-600 mt-1 font-light leading-relaxed">
-                An offline personal log and goal tracker with daily diary entries, mood ratings, milestone tracking, and D3 progress graphs. Data encrypted and stored locally in the browser.
+                An offline personal log and goal tracker with daily diary entries, mood ratings, milestone tracking, and Recharts progress graphs. Data stored locally in the browser.
               </p>
               <div className="text-[9px] sm:text-[10px] font-mono text-neutral-500 mt-2 select-none">
-                React, TailwindCSS, Local Storage, D3.js
+                React, TailwindCSS, Local Storage, Recharts
               </div>
             </div>
           </div>

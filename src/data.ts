@@ -203,17 +203,17 @@ export const PROJECTS: Project[] = [
     descriptionId: "Pelacak offline untuk mencatat log, menetapkan penanda, dan membuat grafik tren progres menggunakan penyimpanan lokal perangkat.",
     motivation: "I went through a rough period and needed a private space to log my thoughts. I built it for myself, hoping it would help.",
     motivationId: "Saya melalui masa sulit dan membutuhkan ruang pribadi untuk mencatat pikiran saya. Saya membuatnya untuk diri sendiri, berharap ia bisa membantu.",
-    technologies: ["React", "TailwindCSS", "Local Storage", "D3 Progress Graphs"],
+    technologies: ["React", "TailwindCSS", "Local Storage", "Recharts"],
     features: [
       "Daily diary stream with visual mood ratings",
       "Milestone completion tracker",
-      "Encrypted data encryption flow in browser memory",
+      "Browser-local data persistence",
       "Minimalist interface styled with high contrast"
     ],
     featuresId: [
       "Aliran jurnal harian dengan penilaian suasana hati visual",
       "Pelacak penyelesaian milestone",
-      "Alur enkripsi data di memori browser",
+      "Penyimpanan data lokal di browser",
       "Antarmuka minimalis dengan gaya kontras tinggi"
     ],
     imageSrc: soulsyncLive,

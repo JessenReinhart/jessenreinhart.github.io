@@ -13,7 +13,7 @@ export const translations = {
 
     // Hero
     heroTag: "SENIOR FRONTEND ENGINEER",
-    heroSubtitle: "I build dashboards, CMS, and financial platforms.",
+    heroSubtitle: "Production frontends — from company websites to platforms serving 30M users",
     heroDesc: "Seven years shipping production web apps for banking platforms, merchant dashboards, and content management systems across Southeast Asia.",
     heroViewWork: "VIEW MY WORK",
     heroDownloadCv: "DOWNLOAD CV",
@@ -132,7 +132,7 @@ export const translations = {
 
     // Hero
     heroTag: "SENIOR FRONTEND ENGINEER",
-    heroSubtitle: "Saya membangun dashboard, CMS, dan platform keuangan.",
+    heroSubtitle: "Frontend produksi — dari website perusahaan hingga platform berskala 30 juta pengguna",
     heroDesc: "Tujuh tahun mengembangkan aplikasi web di lingkungan produksi untuk platform perbankan, dashboard merchant, dan CMS di Asia Tenggara.",
     heroViewWork: "LIHAT PROYEK SAYA",
     heroDownloadCv: "UNDUH CV",

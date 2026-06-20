@@ -1,44 +1,8 @@
-import { useState, useRef, MouseEvent } from "react";
-import { motion } from "motion/react";
 import { SKILL_CATEGORIES } from "../data";
 import { Code2, Settings, Compass } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { translations } from "../i18n/translations";
 
-function MagneticTag({ text }: { text: string; key?: string }) {
-  const cardRef = useRef<HTMLSpanElement>(null);
-  const [coords, setCoords] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseMove = (e: MouseEvent<HTMLSpanElement>) => {
-    if (!cardRef.current) return;
-    const { left, top, width, height } = cardRef.current.getBoundingClientRect();
-    const dx = e.clientX - (left + width / 2);
-    const dy = e.clientY - (top + height / 2);
-    setCoords({ x: dx * 0.15, y: dy * 0.15 });
-  };
-
-  const handleMouseLeave = () => { setIsHovered(false); setCoords({ x: 0, y: 0 }); };
-
-  return (
-    <motion.span
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      animate={{
-        x: coords.x, y: coords.y, scale: isHovered ? 1.05 : 1,
-        borderColor: isHovered ? "var(--color-border-hover)" : "var(--color-border-primary)",
-        backgroundColor: isHovered ? "var(--color-bg-glass-hover)" : "var(--color-bg-glass)"
-      }}
-      transition={{ type: "spring", stiffness: 350, damping: 25 }}
-      className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg border text-xs font-mono backdrop-blur-md relative cursor-none select-none"
-    >
-      <span className="font-medium mr-0.5 select-none font-sans" style={{ color: "var(--color-text-dim)" }}>#</span>
-      <span style={{ color: "var(--color-text-secondary)" }}>{text}</span>
-    </motion.span>
-  );
-}
 
 export default function Skills() {
   const { lang } = useLanguage();
@@ -69,7 +33,10 @@ export default function Skills() {
               </div>
               <div className="flex flex-wrap gap-3">
                 {category.skills.map((skill) => (
-                  <MagneticTag key={skill} text={skill} />
+                  <span key={skill} className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg border text-xs font-mono backdrop-blur-md cursor-default select-none transition-all duration-200 hover:scale-105 hover:border-[var(--color-border-hover)] hover:bg-[var(--color-bg-glass-hover)]" style={{ borderColor: "var(--color-border-primary)", backgroundColor: "var(--color-bg-glass)" }}>
+                    <span className="font-medium mr-0.5 select-none font-sans" style={{ color: "var(--color-text-dim)" }}>#</span>
+                    <span style={{ color: "var(--color-text-secondary)" }}>{skill}</span>
+                  </span>
                 ))}
               </div>
             </div>

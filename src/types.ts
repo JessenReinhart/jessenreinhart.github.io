@@ -25,7 +25,6 @@ export interface Project {
   images?: string[];
   liveUrl?: string;
   githubUrl?: string;
-  iconName?: string;
 }
 
 export interface SkillCategory {

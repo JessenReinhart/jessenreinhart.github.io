@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { ArrowUpRight, Github, Star, GitFork, Code2 } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
@@ -103,10 +103,6 @@ function generateContributionCalendar(events: GitHubEvent[]): ActivityDay[] {
 }
 
 function ContributionCalendar({ days, baseColor }: { days: ActivityDay[]; baseColor: string }) {
-  const [hoveredDay, setHoveredDay] = useState<ActivityDay | null>(null);
-  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
-  const gridRef = useRef<HTMLDivElement>(null);
-
   const getTooltipText = (day: ActivityDay): string => {
     const date = new Date(day.date + "T00:00:00");
     const formatted = date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
@@ -115,50 +111,18 @@ function ContributionCalendar({ days, baseColor }: { days: ActivityDay[]; baseCo
   };
 
   return (
-    <div className="relative">
-      <div
-        ref={gridRef}
-        className="grid grid-flow-col grid-rows-7 gap-[3px] overflow-x-auto pb-2"
-        style={{ scrollbarWidth: "none" }}
-      >
-        {days.map((day, i) => (
-          <div
-            key={i}
-            className="w-[10px] h-[10px] rounded-[2px] flex-shrink-0 transition-all duration-150 cursor-default"
-            style={{
-              backgroundColor: getLevelBg(day.count, baseColor),
-              boxShadow: hoveredDay === day ? "0 0 0 1px var(--color-border-hover)" : undefined,
-            }}
-            title={getTooltipText(day)}
-            onMouseEnter={(e) => {
-              setHoveredDay(day);
-              const rect = (e.target as HTMLElement).getBoundingClientRect();
-              const gridRect = gridRef.current?.getBoundingClientRect();
-              if (gridRect) {
-                setTooltipPos({
-                  x: rect.left - gridRect.left + rect.width / 2,
-                  y: rect.top - gridRect.top - 8,
-                });
-              }
-            }}
-            onMouseLeave={() => setHoveredDay(null)}
-          />
-        ))}
-      </div>
-      {hoveredDay && (
+    <div
+      className="grid grid-flow-col grid-rows-7 gap-[3px] overflow-x-auto pb-2"
+      style={{ scrollbarWidth: "none" }}
+    >
+      {days.map((day, i) => (
         <div
-          className="absolute z-50 px-2.5 py-1 text-[10px] font-mono rounded-md whitespace-nowrap pointer-events-none -translate-x-1/2"
-          style={{
-            left: tooltipPos.x,
-            top: tooltipPos.y,
-            backgroundColor: "var(--color-bg-surface)",
-            color: "var(--color-text-primary)",
-            border: "1px solid var(--color-border-primary)",
-          }}
-        >
-          {getTooltipText(hoveredDay)}
-        </div>
-      )}
+          key={i}
+          className="w-[10px] h-[10px] rounded-[2px] flex-shrink-0 transition-all duration-150 cursor-default"
+          style={{ backgroundColor: getLevelBg(day.count, baseColor) }}
+          title={getTooltipText(day)}
+        />
+      ))}
     </div>
   );
 }

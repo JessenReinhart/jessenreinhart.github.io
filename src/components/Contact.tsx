@@ -10,7 +10,6 @@ export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSent, setIsSent] = useState(false);
-  const [txReceipt, setTxReceipt] = useState("");
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -23,7 +22,6 @@ export default function Contact() {
         body: JSON.stringify({ name: formData.name, email: formData.email, message: formData.message }),
       });
       if (res.ok) {
-        setTxReceipt("TX-" + Math.floor(100000 + Math.random() * 900000).toString() + "-JR");
         setIsSent(true);
         setFormData({ name: "", email: "", message: "" });
       }
@@ -32,7 +30,7 @@ export default function Contact() {
     }
   };
 
-  const handleReset = () => { setIsSent(false); setTxReceipt(""); };
+  const handleReset = () => { setIsSent(false); };
 
   const contactLinks = [
     { label: t.contactEmail, value: "jessenreinharts@gmail.com", url: "mailto:jessenreinharts@gmail.com", icon: <Mail className="w-5 h-5" style={{ color: "var(--color-text-muted)" }} /> },

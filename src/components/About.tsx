@@ -1,31 +1,10 @@
-import { useEffect, useState, useRef } from "react";
-import { motion, useInView } from "motion/react";
+import { motion } from "motion/react";
 import { STATS } from "../data";
 import { Layers, Zap, Award, Users, ShoppingCart } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { translations } from "../i18n/translations";
 
-function CountingNumber({ targetVal, duration = 2000 }: { targetVal: number; duration?: number; suffix?: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
-
-  useEffect(() => {
-    if (!isInView) return;
-    const end = targetVal;
-    const totalSteps = 60;
-    const stepTime = duration / totalSteps;
-    let currentStep = 0;
-    const timer = setInterval(() => {
-      currentStep++;
-      const progress = currentStep / totalSteps;
-      const easeVal = progress * (2 - progress);
-      setCount(Math.floor(easeVal * end));
-      if (currentStep >= totalSteps) { clearInterval(timer); setCount(end); }
-    }, stepTime);
-    return () => clearInterval(timer);
-  }, [isInView, targetVal, duration]);
-
+function StatDisplay({ targetVal }: { targetVal: number }) {
   const formatValue = (val: number) => {
     if (val >= 1000000) return `${(val / 1000000).toFixed(0)}M`;
     if (val >= 1000) return `${(val / 1000).toFixed(0)}k`;
@@ -33,8 +12,8 @@ function CountingNumber({ targetVal, duration = 2000 }: { targetVal: number; dur
   };
 
   return (
-    <span ref={ref} className="font-display font-extrabold text-3xl sm:text-4xl lg:text-xl xl:text-4xl tracking-tighter whitespace-nowrap" style={{ color: "var(--color-text-primary)" }}>
-      {formatValue(count)}
+    <span className="font-display font-extrabold text-3xl sm:text-4xl lg:text-xl xl:text-4xl tracking-tighter whitespace-nowrap" style={{ color: "var(--color-text-primary)" }}>
+      {formatValue(targetVal)}
     </span>
   );
 }
@@ -93,7 +72,7 @@ export default function About() {
           {STATS.map((stat, idx) => (
             <div key={stat.label} className="glass-panel glass-panel-hover rounded-2xl p-4 sm:p-5 md:p-6 flex flex-col justify-between text-left relative overflow-hidden min-w-0">
               <div className="absolute top-3 right-3 opacity-40">{icons[idx]}</div>
-              <div className="mb-3"><CountingNumber targetVal={stat.numericVal} /></div>
+              <div className="mb-3"><StatDisplay targetVal={stat.numericVal} /></div>
               <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider leading-tight break-words" style={{ color: "var(--color-text-muted)" }}>{statLabels[idx]}</div>
               {stat.source && (
                 <div className="text-[9px] font-mono mt-1 tracking-wider" style={{ color: "var(--color-text-dim)" }}>{stat.source}</div>

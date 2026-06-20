@@ -141,7 +141,6 @@ export const PROJECTS: Project[] = [
     images: TRIPCORE_IMAGES,
     liveUrl: "https://tripcore-beta.vercel.app",
     githubUrl: "https://github.com/JessenReinhart/tripcore",
-    iconName: "Compass"
   },
   {
     id: "proj-invoicr",
@@ -167,7 +166,6 @@ export const PROJECTS: Project[] = [
     imageSrc: invoicrLive,
     liveUrl: "https://invoicr-eight.vercel.app",
     githubUrl: "https://github.com/JessenReinhart/invoicr",
-    iconName: "FileText"
   },
   {
     id: "proj-wedding",
@@ -193,7 +191,6 @@ export const PROJECTS: Project[] = [
     imageSrc: weddingLive,
     liveUrl: "https://wedding-invitation-tau-two.vercel.app",
     githubUrl: "https://github.com/JessenReinhart/wedding-invitation",
-    iconName: "Heart"
   },
   {
     id: "proj-soulsync",
@@ -220,8 +217,7 @@ export const PROJECTS: Project[] = [
     images: SOULSYNC_IMAGES,
     liveUrl: "https://soulsync-gamma.vercel.app",
     githubUrl: "https://github.com/JessenReinhart/soulsync",
-    iconName: "Activity"
-  }
+  },
 ];
 
 export const SKILL_CATEGORIES: SkillCategory[] = [

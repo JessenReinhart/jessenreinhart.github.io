@@ -1,5 +1,5 @@
 import { useState, useCallback, useRef } from "react";
-import { motion, AnimatePresence, PanInfo } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { ArrowUpRight, Github, Code, CheckCircle, X, ExternalLink, Compass, FileText, Heart, Activity, ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from "lucide-react";
 import { PROJECTS } from "../data";
 import { Project } from "../types";
@@ -10,8 +10,6 @@ export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [slideIndex, setSlideIndex] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
-  const dragStartX = useRef(0);
-  const dragStartY = useRef(0);
   const { lang } = useLanguage();
   const t = translations[lang];
 

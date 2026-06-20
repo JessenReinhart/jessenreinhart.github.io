@@ -1,6 +1,6 @@
-import { X, Printer, Download, Mail, Linkedin, Globe, MapPin, Award } from "lucide-react";
+import { X, Printer, Mail, Linkedin, Globe, MapPin, Award } from "lucide-react";
 import { motion } from "motion/react";
-import { EXPERIENCES, PORTRAIT_IMAGE } from "../data";
+import { EXPERIENCES } from "../data";
 
 interface ResumeViewerProps {
   onClose: () => void;

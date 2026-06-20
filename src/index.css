@@ -4,10 +4,6 @@
   --font-sans: "Sora", "Syne", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Plus Jakarta Sans", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-
-  --color-dark-bg: #0a0a0a;
-  --color-dark-surface: #121212;
-  --color-dark-border: rgba(255, 255, 255, 0.08);
 }
 
 :root {
@@ -116,15 +112,6 @@ body {
   box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
 }
 
-.text-stroke {
-  -webkit-text-stroke: 1px var(--color-border-primary);
-  color: transparent;
-}
-
-.text-stroke-hover:hover {
-  -webkit-text-stroke-color: var(--color-text-primary);
-}
-
 /* Subtle grain overlay */
 .noise-overlay {
   position: fixed;
@@ -141,41 +128,6 @@ body {
 
 .light .noise-overlay {
   opacity: 0.008;
-}
-
-/* Fade in masks */
-.fade-mask-b {
-  mask-image: linear-gradient(to bottom, black 80%, transparent);
-}
-
-.fade-mask-t {
-  mask-image: linear-gradient(to top, black 80%, transparent);
-}
-
-/* Magnetic effect support */
-.magnetic-item {
-  display: inline-block;
-  transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-/* Text Mask Reveal animation classes */
-@keyframes revealUp {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-.reveal-wrapper {
-  overflow: hidden;
-  display: inline-block;
-}
-
-.reveal-content {
-  display: inline-block;
-  animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Hero animations (replacing Framer Motion) */

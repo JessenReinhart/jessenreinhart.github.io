@@ -217,13 +217,14 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
         {/* Stats */}
         <div className="lg:col-span-2 flex flex-col gap-4 w-full lg:h-full justify-center relative z-20 mt-8 lg:mt-0">
           {[
-            { val: "20", label: t.statInstitutions },
-            { val: "30M", label: t.statUsers },
-            { val: "2M", label: t.statOrders },
+            { val: "20", label: t.statInstitutions, source: "via Wide Technologies" },
+            { val: "30M", label: t.statUsers, source: "via Wide Technologies" },
+            { val: "2M", label: t.statOrders, source: "via SIRCLO" },
           ].map((stat) => (
             <div key={stat.label} className="backdrop-blur-md rounded-2xl p-4 transition-colors text-left overflow-hidden" style={{ border: "1px solid var(--color-border-primary)", backgroundColor: "var(--color-bg-glass)" }}>
               <div className="font-display font-black text-xl" style={{ color: "var(--color-text-primary)" }}>{stat.val}</div>
               <div className="text-[10px] font-mono uppercase tracking-wider mt-0.5 leading-tight break-words" style={{ color: "var(--color-text-muted)" }}>{stat.label}</div>
+              <div className="text-[8px] font-mono mt-0.5 tracking-wider" style={{ color: "var(--color-text-dim)" }}>{stat.source}</div>
             </div>
           ))}
           <div className="backdrop-blur-md rounded-2xl p-4 text-left relative overflow-hidden select-none" style={{ border: "1px solid var(--color-border-primary)", backgroundColor: "var(--color-bg-glass)" }}>

@@ -79,7 +79,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             PROFESSIONAL SUMMARY
           </h3>
           <p className="text-neutral-700 font-light text-[14px] leading-relaxed">
-            Software engineer with seven years of experience across banking, ecommerce, and CMS platforms. Shipped interfaces serving 30 million portal users, processing 2 million monthly orders, and dashboards for 100,000 retail merchants. Currently building a Card Management System at LG Sinarmas and seeking a senior frontend or full-stack role.
+            Software engineer with seven years of experience across banking, ecommerce, and CMS platforms. Contributed to customer-facing platforms at Wide Technologies (digital banking for 20+ financial institutions, 30M+ portal users) and SIRCLO (2M monthly orders processed, dashboards for 100k+ online stores). Currently building a Card Management System at LG Sinarmas and seeking a senior frontend or full-stack role.
           </p>
         </div>
 
@@ -170,10 +170,10 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             <div>
               <h4 className="text-xs sm:text-sm font-bold text-neutral-900">SoulSync</h4>
               <p className="text-[11px] sm:text-xs text-neutral-600 mt-1 font-light leading-relaxed">
-                An offline personal log and goal tracker with daily diary entries, mood ratings, milestone tracking, and D3 progress graphs. Data encrypted and stored locally in the browser.
+                An offline personal log and goal tracker with daily diary entries, mood ratings, milestone tracking, and Recharts progress graphs. Data stored locally in the browser.
               </p>
               <div className="text-[9px] sm:text-[10px] font-mono text-neutral-500 mt-2 select-none">
-                React, TailwindCSS, Local Storage, D3.js
+                React, TailwindCSS, Local Storage, Recharts
               </div>
             </div>
           </div>

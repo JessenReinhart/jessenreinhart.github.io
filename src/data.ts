@@ -9,6 +9,10 @@ import tc21 from "./assets/images/tripcore-images/split_2_1.webp";
 import ss00 from "./assets/images/soulync-images/split_0_0.webp";
 import ss01 from "./assets/images/soulync-images/split_0_1.webp";
 import ss10 from "./assets/images/soulync-images/split_1_0.webp";
+import tripcoreLive from "./assets/images/tripcore-live.webp";
+import invoicrLive from "./assets/images/invoicr-live.webp";
+import weddingLive from "./assets/images/wedding-live.webp";
+import soulsyncLive from "./assets/images/soulsync-live.webp";
 
 export const PORTRAIT_IMAGE = portraitImg;
 export const TRIPCORE_IMAGES = [tc00, tc01, tc10, tc11, tc20, tc21];
@@ -18,7 +22,7 @@ export const STATS: StatItem[] = [
   { value: "7", label: "Years Experience", numericVal: 7 },
   { value: "20", label: "Financial Institutions", numericVal: 20, source: "via Wide Technologies" },
   { value: "30M", label: "Portal Users", numericVal: 30000000, source: "via Wide Technologies" },
-  { value: "100k", label: "Retail Merchants", numericVal: 100000, source: "via SIRCLO" },
+  { value: "100k", label: "Online Stores", numericVal: 100000, source: "via SIRCLO" },
   { value: "2M", label: "Monthly Orders", numericVal: 2000000, source: "via SIRCLO" }
 ];
 
@@ -87,12 +91,12 @@ export const EXPERIENCES: Experience[] = [
     highlights: [
       "Built a React dashboard for 100,000 retail merchants to configure layouts and monitor storefront metrics.",
       "Developed server-rendered storefronts with Next.js and Tailwind CSS, raising Lighthouse scores from 70 to 95.",
-      "Created checkout interfaces handling 2 million orders monthly across 30 million portal users."
+      "Created checkout interfaces handling 2 million orders monthly across SIRCLO's merchant network."
     ],
     highlightsId: [
       "Membangun dashboard React untuk 100.000 merchant ritel guna mengonfigurasi tata letak dan memantau metrik toko.",
       "Mengembangkan etalase server-rendered dengan Next.js dan Tailwind CSS, meningkatkan skor Lighthouse dari 70 ke 95.",
-      "Membuat antarmuka checkout yang menangani 2 juta pesanan bulanan untuk 30 juta pengguna portal."
+      "Membuat antarmuka checkout yang menangani 2 juta pesanan bulanan di jaringan merchant SIRCLO."
     ]
   },
   {
@@ -133,7 +137,7 @@ export const PROJECTS: Project[] = [
       "Pin peta perjalanan interaktif dan pelacak transit",
       "Berbagi tautan undangan tamu untuk perencanaan bersama"
     ],
-    imageSrc: "",
+    imageSrc: tripcoreLive,
     images: TRIPCORE_IMAGES,
     liveUrl: "https://tripcore-beta.vercel.app",
     githubUrl: "https://github.com/JessenReinhart/tripcore",
@@ -160,7 +164,7 @@ export const PROJECTS: Project[] = [
       "Mode warna kontras tinggi untuk mengurangi kelelahan mata",
       "Sinkronisasi sisi klien menggunakan penyimpanan browser"
     ],
-    imageSrc: "",
+    imageSrc: invoicrLive,
     liveUrl: "https://invoicr-eight.vercel.app",
     githubUrl: "https://github.com/JessenReinhart/invoicr",
     iconName: "FileText"
@@ -186,7 +190,7 @@ export const PROJECTS: Project[] = [
       "Dinding pesan langsung yang menampilkan ucapan selamat",
       "Tata letak visual yang fleksibel mendukung koordinat perangkat seluler"
     ],
-    imageSrc: "",
+    imageSrc: weddingLive,
     liveUrl: "https://wedding-invitation-tau-two.vercel.app",
     githubUrl: "https://github.com/JessenReinhart/wedding-invitation",
     iconName: "Heart"
@@ -199,20 +203,20 @@ export const PROJECTS: Project[] = [
     descriptionId: "Pelacak offline untuk mencatat log, menetapkan penanda, dan membuat grafik tren progres menggunakan penyimpanan lokal perangkat.",
     motivation: "I went through a rough period and needed a private space to log my thoughts. I built it for myself, hoping it would help.",
     motivationId: "Saya melalui masa sulit dan membutuhkan ruang pribadi untuk mencatat pikiran saya. Saya membuatnya untuk diri sendiri, berharap ia bisa membantu.",
-    technologies: ["React", "TailwindCSS", "Local Storage", "D3 Progress Graphs"],
+    technologies: ["React", "TailwindCSS", "Local Storage", "Recharts"],
     features: [
       "Daily diary stream with visual mood ratings",
       "Milestone completion tracker",
-      "Encrypted data encryption flow in browser memory",
+      "Browser-local data persistence",
       "Minimalist interface styled with high contrast"
     ],
     featuresId: [
       "Aliran jurnal harian dengan penilaian suasana hati visual",
       "Pelacak penyelesaian milestone",
-      "Alur enkripsi data di memori browser",
+      "Penyimpanan data lokal di browser",
       "Antarmuka minimalis dengan gaya kontras tinggi"
     ],
-    imageSrc: "",
+    imageSrc: soulsyncLive,
     images: SOULSYNC_IMAGES,
     liveUrl: "https://soulsync-gamma.vercel.app",
     githubUrl: "https://github.com/JessenReinhart/soulsync",

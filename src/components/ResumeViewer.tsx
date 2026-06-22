@@ -34,7 +34,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             <Printer className="w-3.5 h-3.5" />
             PRINT RESUME
           </button>
-          
+
           <button
             onClick={onClose}
             className="px-4 py-2 bg-zinc-900 border border-white/5 hover:border-white text-white rounded-lg transition-colors flex items-center gap-1 cursor-pointer"
@@ -45,84 +45,83 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
         </div>
       </div>
 
-      {/* Styled Resume Sheet Card */}
-      <div className="max-w-4xl mx-auto bg-white text-black p-6 sm:p-8 md:p-14 rounded-2xl print:rounded-none print:shadow-none print:p-0 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.9)] text-left font-sans leading-relaxed">
-        {/* Top Header Group */}
-        <div className="border-b-2 border-black pb-8 mb-8 flex flex-row items-start justify-between gap-6">
-          <div>
-            <h1 className="text-2xl sm:text-3xl md:text-5xl font-display font-black tracking-tight text-neutral-900 leading-none">
-              Muhammad Jessen Reinhart Sugiarto
-            </h1>
-            <h2 className="text-sm sm:text-base md:text-xl font-medium text-neutral-600 mt-2 font-display">
-              Senior Frontend Engineer
-            </h2>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-mono text-neutral-500 mt-4 leading-none select-all">
-              <span className="flex items-center gap-1.5 break-all">
-                <Mail className="w-3.5 h-3.5" /> jessenreinharts@gmail.com
-              </span>
-              <span className="flex items-center gap-1.5 cursor-pointer">
-                <Linkedin className="w-3.5 h-3.5" /> linkedin.com/in/jessenreinhart
-              </span>
-              <span className="flex items-center gap-1.5 cursor-pointer">
-                <Globe className="w-3.5 h-3.5" /> jessenreinhart.github.io/
-              </span>
-              <span className="flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5" /> Jakarta Raya, Indonesia
-              </span>
-            </div>
+      {/* Resume Sheet — base text-[9.5pt] for print, compact spacing */}
+      <div className="max-w-4xl mx-auto bg-white text-black p-6 sm:p-8 md:p-14 rounded-2xl print:rounded-none print:shadow-none print:p-[8mm] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.9)] text-left font-sans leading-tight text-[9.5pt]">
+
+        {/* ── Header ── */}
+        <div className="border-b border-black pb-1.5 mb-2">
+          <h1 className="text-lg sm:text-xl font-display font-black tracking-tight text-neutral-900 leading-tight print:text-[15pt]">
+            Jessen Reinhart
+          </h1>
+          <h2 className="text-[10pt] font-medium text-neutral-600 font-display">
+            Senior Frontend Engineer
+          </h2>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[7.5pt] font-mono text-neutral-500 mt-1 leading-none select-all">
+            <span className="flex items-center gap-1">
+              <Mail className="w-2.5 h-2.5" /> jessenreinharts@gmail.com
+            </span>
+            <span className="flex items-center gap-1">
+              <Linkedin className="w-2.5 h-2.5" /> linkedin.com/in/jessenreinhart
+            </span>
+            <span className="flex items-center gap-1">
+              <Globe className="w-2.5 h-2.5" /> jessenreinhart.github.io
+            </span>
+            <span className="flex items-center gap-1">
+              <MapPin className="w-2.5 h-2.5" /> Jakarta Raya, Indonesia
+            </span>
           </div>
         </div>
 
-        {/* Section 1 - Professional Summary */}
-        <div className="mb-8">
-          <h3 className="text-xs font-mono tracking-[0.2em] font-bold text-neutral-500 uppercase border-b border-neutral-200 pb-1 mb-4 select-none">
+        {/* ── Professional Summary ── */}
+        <div className="mb-3 print:mb-2">
+          <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase border-b border-neutral-200 pb-px mb-1 select-none">
             PROFESSIONAL SUMMARY
           </h3>
-          <p className="text-neutral-700 font-light text-[14px] leading-relaxed">
-            Software engineer with seven years of experience across banking, ecommerce, and CMS platforms. Contributed to customer-facing platforms at Wide Technologies (digital banking for 20+ financial institutions, 30M+ portal users) and SIRCLO (2M monthly orders processed, dashboards for 100k+ online stores). Currently building a Card Management System at LG Sinarmas and seeking a senior frontend or full-stack role.
+          <p className="text-neutral-700 text-[8.5pt] leading-snug">
+            Software engineer with 7+ years across banking, e-commerce, and CMS platforms. Built customer-facing platforms at Wide Technologies (digital banking for 20+ financial institutions, 30M+ users) and SIRCLO (2M monthly orders, dashboards for 100k+ stores). Currently building a Card Management System at LG Sinarmas.
           </p>
         </div>
 
-        {/* Section 2 - Work Experience */}
-        <div className="mb-8">
-          <h3 className="text-xs font-mono tracking-[0.2em] font-bold text-neutral-500 uppercase border-b border-neutral-200 pb-1 mb-6 select-none">
+        {/* ── Work Experience ── */}
+        <div className="mb-3 print:mb-2">
+          <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase border-b border-neutral-200 pb-px mb-1 select-none">
             WORK EXPERIENCE
           </h3>
-          
-          <div className="space-y-8">
+
+          <div className="space-y-1.5">
             {EXPERIENCES.map((exp) => (
-              <div key={exp.id} className="group">
-                <div className="flex flex-row items-baseline justify-between gap-2 mb-3">
+              <div key={exp.id}>
+                <div className="flex flex-row items-baseline justify-between gap-2">
                   <div className="min-w-0">
-                    <h4 className="text-sm sm:text-base md:text-lg font-bold text-neutral-900 leading-tight">
+                    <h4 className="text-[9pt] font-bold text-neutral-900 leading-tight">
                       {exp.role}
                     </h4>
-                    <span className="text-[10px] sm:text-xs font-mono font-semibold text-neutral-600 uppercase tracking-wide">
+                    <span className="text-[7.5pt] font-mono font-semibold text-neutral-600 tracking-wide">
                       {exp.company}
                     </span>
                   </div>
                   <div className="text-right flex-shrink-0">
-                    <span className="text-[10px] sm:text-xs font-mono text-neutral-500 block whitespace-nowrap">
+                    <span className="text-[7.5pt] font-mono text-neutral-500 block whitespace-nowrap">
                       {exp.period}
                     </span>
-                    <span className="text-[9px] sm:text-[10px] font-mono text-neutral-400 block uppercase font-medium whitespace-nowrap">
+                    <span className="text-[7pt] font-mono text-neutral-400 block whitespace-nowrap">
                       {exp.location}
                     </span>
                   </div>
                 </div>
 
                 {exp.highlights && exp.highlights.length > 0 && (
-                  <ul className="space-y-1.5 mb-4 pl-4 list-disc text-neutral-700">
+                  <ul className="pl-3 list-disc text-neutral-700">
                     {exp.highlights.map((item, idx) => (
-                      <li key={idx} className="text-[13px] font-light leading-relaxed">
+                      <li key={idx} className="text-[8pt] leading-snug py-px">
                         {item}
                       </li>
                     ))}
                   </ul>
                 )}
 
-                <div className="flex flex-wrap gap-1 sm:gap-1.5 font-mono text-[9px] sm:text-[10px] text-neutral-500 mt-2">
-                  <span className="font-semibold text-neutral-400 select-none">STACK:</span>
+                <div className="font-mono text-[7pt] text-neutral-500 mt-0.5">
+                  <span className="font-semibold text-neutral-400 select-none">Stack: </span>
                   {exp.technologies.join(", ")}
                 </div>
               </div>
@@ -130,87 +129,84 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
           </div>
         </div>
 
-        {/* Section 3 - Side Projects */}
-        <div className="mb-8">
-          <h3 className="text-xs font-mono tracking-[0.2em] font-bold text-neutral-500 uppercase border-b border-neutral-200 pb-1 mb-5 select-none">
+        {/* ── Side Projects ── */}
+        <div className="mb-3 print:mb-2">
+          <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase border-b border-neutral-200 pb-px mb-1 select-none">
             SIDE PROJECTS
           </h3>
-          
-          <div className="grid grid-cols-2 gap-4 sm:gap-6">
+
+          <div className="grid grid-cols-2 gap-x-4 gap-y-1">
             <div>
-              <h4 className="text-xs sm:text-sm font-bold text-neutral-900">Invoicr</h4>
-              <p className="text-[11px] sm:text-xs text-neutral-600 mt-1 font-light leading-relaxed">
-                Invoice Generator &amp; Time Tracker app with custom time log (manual &amp; automated), hourly rate billing, direct layout PDF export, local data persistence, and sync dark/light settings.
+              <h4 className="text-[8.5pt] font-bold text-neutral-900">Invoicr</h4>
+              <p className="text-[7.5pt] text-neutral-600 leading-snug">
+                Invoice generator &amp; time tracker with hourly rate billing, PDF export, dark/light themes.
               </p>
-              <div className="text-[9px] sm:text-[10px] font-mono text-neutral-500 mt-2 select-none">
+              <div className="text-[7pt] font-mono text-neutral-500">
                 React, TypeScript, Vite, TailwindCSS
               </div>
             </div>
 
             <div>
-              <h4 className="text-xs sm:text-sm font-bold text-neutral-900">Wedding E-Invitation</h4>
-              <p className="text-[11px] sm:text-xs text-neutral-600 mt-1 font-light leading-relaxed">
-                Digital Wedding Invitation Portal featuring functional RSVP database grids, event schedule timelines, leaflet geography interactive maps, and digital guestbook entries. Serving over 200+ guests.
+              <h4 className="text-[8.5pt] font-bold text-neutral-900">Wedding E-Invitation</h4>
+              <p className="text-[7.5pt] text-neutral-600 leading-snug">
+                Digital invitation portal with RSVP, event timelines, interactive maps, guestbook. 200+ guests.
               </p>
-              <div className="text-[9px] sm:text-[10px] font-mono text-neutral-500 mt-2 select-none">
+              <div className="text-[7pt] font-mono text-neutral-500">
                 React, TailwindCSS, Maps API
               </div>
             </div>
 
             <div>
-              <h4 className="text-xs sm:text-sm font-bold text-neutral-900">TripCore</h4>
-              <p className="text-[11px] sm:text-xs text-neutral-600 mt-1 font-light leading-relaxed">
-                A Firebase-powered trip planning app with real-time collaborative itineraries, budget splitting, and guest invitation sharing.
+              <h4 className="text-[8.5pt] font-bold text-neutral-900">TripCore</h4>
+              <p className="text-[7.5pt] text-neutral-600 leading-snug">
+                Firebase trip planner with collaborative itineraries, budget splitting, guest invitations.
               </p>
-              <div className="text-[9px] sm:text-[10px] font-mono text-neutral-500 mt-2 select-none">
+              <div className="text-[7pt] font-mono text-neutral-500">
                 ReactJS, TypeScript, Vite, Firebase
               </div>
             </div>
 
             <div>
-              <h4 className="text-xs sm:text-sm font-bold text-neutral-900">SoulSync</h4>
-              <p className="text-[11px] sm:text-xs text-neutral-600 mt-1 font-light leading-relaxed">
-                An offline personal log and goal tracker with daily diary entries, mood ratings, milestone tracking, and Recharts progress graphs. Data stored locally in the browser.
+              <h4 className="text-[8.5pt] font-bold text-neutral-900">SoulSync</h4>
+              <p className="text-[7.5pt] text-neutral-600 leading-snug">
+                Offline personal log with diary, mood tracking, milestones, Recharts progress graphs.
               </p>
-              <div className="text-[9px] sm:text-[10px] font-mono text-neutral-500 mt-2 select-none">
+              <div className="text-[7pt] font-mono text-neutral-500">
                 React, TailwindCSS, Local Storage, Recharts
               </div>
             </div>
           </div>
         </div>
 
-        {/* Section 4 - Education */}
-        <div className="mb-8">
-          <h3 className="text-xs font-mono tracking-[0.2em] font-bold text-neutral-500 uppercase border-b border-neutral-200 pb-1 mb-4 select-none">
+        {/* ── Education ── */}
+        <div className="mb-3 print:mb-2">
+          <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase border-b border-neutral-200 pb-px mb-1 select-none">
             EDUCATION
           </h3>
           <div className="flex justify-between items-baseline">
             <div>
-              <h4 className="text-[15px] font-bold text-neutral-900">
+              <span className="text-[9pt] font-bold text-neutral-900">
                 Bachelor's Degree in Informatics Engineering
-              </h4>
-              <span className="text-xs text-neutral-600">Universitas Gunadarma</span>
+              </span>
+              <span className="text-[8pt] text-neutral-600 ml-2">Universitas Gunadarma</span>
             </div>
-            <span className="text-xs font-mono text-neutral-500">2014 - 2018</span>
+            <span className="text-[8pt] font-mono text-neutral-500">2014 — 2018</span>
           </div>
         </div>
 
-        {/* Section 5 - Skills */}
-        <div>
-          <h3 className="text-xs font-mono tracking-[0.2em] font-bold text-neutral-500 uppercase border-b border-neutral-200 pb-1 mb-4 select-none">
+        {/* ── Skills ── */}
+        <div className="mb-3 print:mb-2">
+          <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase border-b border-neutral-200 pb-px mb-1 select-none">
             CORE TECHNICAL SKILLS
           </h3>
-          <div className="space-y-2.5 text-xs text-neutral-700 font-light">
-            <div>
-              <strong className="font-mono text-neutral-800 tracking-wider">FRONTEND:</strong> ReactJS, Next.js, TypeScript, TailwindCSS, HTML5, CSS3, JavaScript (ES6+), Vite.
-            </div>
-            <div>
-              <strong className="font-mono text-neutral-800 tracking-wider">BACKEND &amp; DB:</strong> Java, Spring Boot, PostgreSQL, Thymeleaf.
-            </div>
-            <div>
-              <strong className="font-mono text-neutral-800 tracking-wider">SPECIALTIES:</strong> Performance Optimization, Server-Side Rendering, CMS Development, Banking Architecture, i18n, Reusable Component Libraries.
-            </div>
-          </div>
+          <p className="text-[8pt] text-neutral-700 leading-snug">
+            <strong className="font-mono text-neutral-800 tracking-wider">Frontend:</strong>{" "}
+            ReactJS, Next.js, TypeScript, TailwindCSS, HTML5, CSS3, JavaScript (ES6+), Vite.{" "}
+            <strong className="font-mono text-neutral-800 tracking-wider">Backend &amp; DB:</strong>{" "}
+            Java, Spring Boot, PostgreSQL, Thymeleaf.{" "}
+            <strong className="font-mono text-neutral-800 tracking-wider">Specialties:</strong>{" "}
+            Performance Optimization, SSR, CMS Development, Banking Architecture, i18n, Reusable Component Libraries.
+          </p>
         </div>
       </div>
     </motion.div>

@@ -95,8 +95,6 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen" style={{ backgroundColor: "var(--color-bg-primary)", color: "var(--color-text-primary)" }}>
-      {/* Subtle Ambient Film Grain Noise overlay */}
-      <div className="noise-overlay" />
 
       {/* Luxury Custom Interaction Cursor */}
       <CustomCursor />

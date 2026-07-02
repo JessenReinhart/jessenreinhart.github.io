@@ -3,6 +3,7 @@ import { ArrowDown, ArrowUpRight, Code, Cpu, Database, FolderGit2, Layers, Brief
 import { PORTRAIT_IMAGE } from "../data";
 import { useLanguage } from "../contexts/LanguageContext";
 import { translations } from "../i18n/translations";
+import { initAsciiCanvas, onAsciiMouseMove, destroyAsciiCanvas } from "../utils/ditherAscii";
 
 interface HeroProps {
   onViewProjects: () => void;
@@ -16,6 +17,7 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
   const imageRef = useRef<HTMLDivElement>(null);
   const bgCodeRef = useRef<HTMLDivElement>(null);
   const codeCardRef = useRef<HTMLDivElement>(null);
+  const asciiRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     let rafId: number;
@@ -33,6 +35,26 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
     return () => {
       window.removeEventListener("scroll", handleScroll);
       cancelAnimationFrame(rafId);
+    };
+  }, []);
+  // Mouse-reactive ASCII canvas — init grid, track cursor, cleanup on unmount
+  useEffect(() => {
+    if (!asciiRef.current) return;
+    const canvas = asciiRef.current;
+    const rect = canvas.parentElement!.getBoundingClientRect();
+    const state = initAsciiCanvas(canvas, rect.width, rect.height);
+    const handler = (e: MouseEvent) => onAsciiMouseMove(state, e);
+    const leaveHandler = () => {
+      state.mouseX = -9999;
+      state.mouseY = -9999;
+    };
+    const parent = canvas.parentElement!;
+    parent.addEventListener("mousemove", handler, { passive: true });
+    parent.addEventListener("mouseleave", leaveHandler);
+    return () => {
+      parent.removeEventListener("mousemove", handler);
+      parent.removeEventListener("mouseleave", leaveHandler);
+      destroyAsciiCanvas(state);
     };
   }, []);
 
@@ -59,6 +81,11 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
         <div className="absolute left-0 right-0 top-[25%] h-px" style={{ backgroundColor: "var(--color-border-primary)" }} />
         <div className="absolute left-0 right-0 top-[75%] h-px" style={{ backgroundColor: "var(--color-border-primary)" }} />
       </div>
+      {/* ASCII dither texture — mouse-reactive canvas */}
+      <canvas
+        ref={asciiRef}
+        className="ascii-texture-layer"
+      />
 
       {/* Background code snippets */}
       <div

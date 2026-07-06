@@ -94,3 +94,12 @@ jobs:
             git commit -m "capture: refresh project screenshots"
             git push
           fi
+
+      - name: Trigger deploy
+        if: steps.parse.outputs.key != '' || steps.parse.outputs.url != '' || steps.parse.outputs.all != ''
+        shell: bash
+        run: |
+          gh workflow run "Deploy to GitHub Pages" --ref master
+          echo "Triggered deploy"
+        env:
+          GH_TOKEN: ${{ github.token }}

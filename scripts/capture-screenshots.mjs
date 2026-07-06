@@ -8,12 +8,11 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // Key dipake di commit message: `[shot:tripcore]`
 // Tambahin project baru disini pas nambah project di website.
 const PROJECTS = {
-  tripcore: { url: "https://tripcore-beta.vercel.app", file: "tripcore-live.webp" },
-  invoicr:  { url: "https://invoicr-eight.vercel.app",  file: "invoicr-live.webp" },
-  wedding:  { url: "https://wedding-invitation-tau-two.vercel.app", file: "wedding-live.webp" },
-  soulsync: { url: "https://soulsync-gamma.vercel.app", file: "soulsync-live.webp" },
+  tripcore: { url: "https://tripcore-beta.vercel.app", file: "tripcore-live.jpg" },
+  invoicr:  { url: "https://invoicr-eight.vercel.app",  file: "invoicr-live.jpg" },
+  wedding:  { url: "https://wedding-invitation-tau-two.vercel.app", file: "wedding-live.jpg" },
+  soulsync: { url: "https://soulsync-gamma.vercel.app", file: "soulsync-live.jpg" },
 };
-
 async function capture(url) {
   // Dynamic import — pengguna lokal tanpa playwright ga kena error
   const { chromium } = await import("playwright");
@@ -22,9 +21,9 @@ async function capture(url) {
     const page = await browser.newPage({
       viewport: { width: 1280, height: 800 },
     });
-    await page.goto(url, { waitUntil: "networkidle", timeout: 30000 });
-    await page.waitForTimeout(3000); // extra delay for rendering
-    return await page.screenshot({ type: "webp", quality: 85 });
+    await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
+    await page.waitForTimeout(3000);
+    return await page.screenshot({ type: "jpeg", quality: 85 });
   } finally {
     await browser.close();
   }

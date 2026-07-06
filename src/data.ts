@@ -9,10 +9,10 @@ import tc21 from "./assets/images/tripcore-images/split_2_1.webp";
 import ss00 from "./assets/images/soulync-images/split_0_0.webp";
 import ss01 from "./assets/images/soulync-images/split_0_1.webp";
 import ss10 from "./assets/images/soulync-images/split_1_0.webp";
-import tripcoreLive from "./assets/images/tripcore-live.webp";
-import invoicrLive from "./assets/images/invoicr-live.webp";
-import weddingLive from "./assets/images/wedding-live.webp";
-import soulsyncLive from "./assets/images/soulsync-live.webp";
+import tripcoreLive from "./assets/images/tripcore-live.jpg";
+import invoicrLive from "./assets/images/invoicr-live.jpg";
+import weddingLive from "./assets/images/wedding-live.jpg";
+import soulsyncLive from "./assets/images/soulsync-live.jpg";
 
 export const PORTRAIT_IMAGE = portraitImg;
 export const TRIPCORE_IMAGES = [tc00, tc01, tc10, tc11, tc20, tc21];

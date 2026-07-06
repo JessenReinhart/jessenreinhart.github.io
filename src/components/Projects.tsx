@@ -73,7 +73,7 @@ export default function Projects() {
                   <img
                     src={project.imageSrc}
                     alt={`${project.title} preview`}
-                    className="absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 group-hover:scale-105"
+                    className="absolute -inset-px object-cover object-top transition-all duration-700 group-hover:scale-105"
                     onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none" }}
                   />
                   {/* Gradient overlay so bottom text stays readable */}
@@ -120,7 +120,7 @@ export default function Projects() {
                 </div>
 
                 {selectedProject.images && selectedProject.images.length > 0 ? (
-                  <div className="w-full aspect-[16/10] rounded-xl overflow-hidden mb-8 relative group/carousel" style={{ border: "1px solid var(--color-border-primary)", backgroundColor: "var(--color-bg-card)" }}>
+                  <div className="w-full aspect-[16/10] rounded-xl overflow-hidden mb-8 relative group/carousel" style={{ boxShadow: "inset 0 0 0 1px var(--color-border-primary)", backgroundColor: "transparent" }}>
                     <AnimatePresence mode="wait">
                       <motion.img key={slideIndex} src={selectedProject.images[slideIndex]} alt={`${selectedProject.title} screenshot ${slideIndex + 1}`} width="800" height="500" initial={{ opacity: 0 }} animate={{ opacity: 1, scale: isZoomed ? 2 : 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className={`w-full h-full object-contain ${isZoomed ? "cursor-zoom-out" : "cursor-zoom-in"}`} drag={isZoomed ? true : false} dragConstraints={{ left: -300, right: -300, top: -300, bottom: 300 }} dragElastic={0.1} onClick={handleZoomToggle} />
                     </AnimatePresence>

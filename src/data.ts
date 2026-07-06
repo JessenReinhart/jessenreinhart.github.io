@@ -170,6 +170,7 @@ export const PROJECTS: Project[] = [
       "Sinkronisasi sisi klien menggunakan penyimpanan browser"
     ],
     imageSrc: invoicrLive,
+    images: [invoicrLive],
     liveUrl: "https://invoicr-eight.vercel.app",
     githubUrl: "https://github.com/JessenReinhart/invoicr",
   },
@@ -195,6 +196,7 @@ export const PROJECTS: Project[] = [
       "Tata letak visual yang fleksibel mendukung koordinat perangkat seluler"
     ],
     imageSrc: weddingLive,
+    images: [weddingLive],
     liveUrl: "https://wedding-invitation-tau-two.vercel.app",
     githubUrl: "https://github.com/JessenReinhart/wedding-invitation",
   },

@@ -3,7 +3,6 @@ import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const API_KEY = process.env.SITE_SHOT_API_KEY;
 
 // Mapping: project key → { url, file }
 // Key dipake di commit message: `[shot:tripcore]`
@@ -16,33 +15,22 @@ const PROJECTS = {
 };
 
 async function capture(url) {
-  const params = new URLSearchParams({
-    url,
-    width: "1280",
-    height: "800",
-    format: "webp",
-    screen: "true",
-    delay: "3000",
-    key: API_KEY,
-  });
-
-  const res = await fetch(`https://api.site-shot.com/v2/screenshot?${params}`, {
-    redirect: "follow",
-  });
-
-  if (!res.ok) {
-    throw new Error(`site-shot.com HTTP ${res.status} for ${url}`);
+  // Dynamic import — pengguna lokal tanpa playwright ga kena error
+  const { chromium } = await import("playwright");
+  const browser = await chromium.launch({ channel: "chrome" });
+  try {
+    const page = await browser.newPage({
+      viewport: { width: 1280, height: 800 },
+    });
+    await page.goto(url, { waitUntil: "networkidle", timeout: 30000 });
+    await page.waitForTimeout(3000); // extra delay for rendering
+    return await page.screenshot({ type: "webp", quality: 85 });
+  } finally {
+    await browser.close();
   }
-
-  return Buffer.from(await res.arrayBuffer());
 }
 
 async function main() {
-  if (!API_KEY) {
-    console.log("No SITE_SHOT_API_KEY set — skipping");
-    return;
-  }
-
   // --file & --url → single project (from workflow_dispatch or CLI)
   const fileArg = process.argv.find((a) => a.startsWith("--file="));
   const urlArg  = process.argv.find((a) => a.startsWith("--url="));

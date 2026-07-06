@@ -29,7 +29,8 @@ This is Jessen Reinhart's portfolio — a single-page React app deployed to GitH
 
 ## Screenshot Capture
 
-Project screenshots (live site captures) are managed via **site-shot.com** API.
+Project screenshots (live site captures) via **Playwright** (self-hosted on GitHub
+Actions runner — no API key, no cost).
 
 **Mapping:** `scripts/capture-screenshots.mjs` defines a `PROJECTS` object mapping
 project keys → `{ url, file }`. When adding a new project to `src/data.ts`, add
@@ -42,12 +43,10 @@ mynewproj: { url: "https://example.vercel.app", file: "mynewproj-live.webp" }
 **Trigger:**
 - **Via push** — include `[shot:<key>]` in the commit message, e.g.
   `add new travel app [shot:tripcore]`. The workflow at
-  `.github/workflows/capture-screenshot.yml` (push trigger) parses the message
+  `.github/workflows/capture-screenshot.yml` parses the message
   and captures only that one project.
 - **Via dispatch** — manually from GitHub Actions tab, fill in URL + filename.
-
-**Setup:** Add `SITE_SHOT_API_KEY` to GitHub repo secrets.
-Without the key, the action skips gracefully.
+- **All projects** — use `[shot-all]` in the commit message.
 
 The script also supports CLI: `node scripts/capture-screenshots.mjs --key=tripcore`
 or `node scripts/capture-screenshots.mjs --url=... --file=...`.

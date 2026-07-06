@@ -1,11 +1,9 @@
-# Capture project screenshots via site-shot.com
+# Capture project screenshots via Playwright (runs on GitHub Actions runner)
 #
 # Trigger:
 #   Push — include [shot-all] or [shot:<key>] in commit message
 #          e.g. "add new travel app [shot:tripcore]"
 #   Dispatch — manual from Actions tab, fill in URL + filename
-#
-# Setup: add SITE_SHOT_API_KEY to repo secrets
 
 name: Capture Screenshot
 
@@ -36,6 +34,11 @@ jobs:
         with:
           node-version: 20
 
+      - name: Install Playwright
+        # Skip browser download — pakai Chrome yg udah ada di runner
+        run: |
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1 npm install playwright
+
       - name: Parse shot target from commit messages
         id: parse
         shell: bash
@@ -52,7 +55,7 @@ jobs:
             if echo "$COMMITS" | grep -q '\[shot-all\]' 2>/dev/null; then
               echo "all=true" >> "$GITHUB_OUTPUT"
             else
-              # [shot:<key>] → capture one project (use sed, avoid PCRE \K issues)
+              # [shot:<key>] → capture one project
               SHOT_KEY=$(echo "$COMMITS" | sed -n 's/.*\[shot:\([a-z0-9_-]*\)\].*/\1/p' | head -1)
               if [ -n "$SHOT_KEY" ]; then
                 echo "key=$SHOT_KEY" >> "$GITHUB_OUTPUT"
@@ -65,8 +68,6 @@ jobs:
 
       - name: Run screenshot capture
         if: steps.parse.outputs.key != '' || steps.parse.outputs.url != '' || steps.parse.outputs.all != ''
-        env:
-          SITE_SHOT_API_KEY: ${{ secrets.SITE_SHOT_API_KEY }}
         run: |
           KEY="${{ steps.parse.outputs.key }}"
           URL="${{ steps.parse.outputs.url }}"

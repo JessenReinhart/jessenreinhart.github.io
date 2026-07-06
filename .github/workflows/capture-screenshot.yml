@@ -46,16 +46,14 @@ jobs:
               COMMITS=$(git log "$BEFORE"..HEAD --format=%s 2>/dev/null || true)
             fi
 
-            if echo "$COMMITS" | grep -q '\[shot-all\]'; then
+            # [shot-all] → capture all projects
+            if echo "$COMMITS" | grep -q '\[shot-all\]' 2>/dev/null; then
               echo "all=true" >> "$GITHUB_OUTPUT"
-              echo "Found [shot-all] — will capture all projects"
             else
-              SHOT_KEY=$(echo "$COMMITS" | grep -oP '\[shot:\K[a-z0-9_-]+' | head -1)
+              # [shot:<key>] → capture one project (use sed, avoid PCRE \K issues)
+              SHOT_KEY=$(echo "$COMMITS" | sed -n 's/.*\[shot:\([a-z0-9_-]*\)\].*/\1/p' | head -1)
               if [ -n "$SHOT_KEY" ]; then
                 echo "key=$SHOT_KEY" >> "$GITHUB_OUTPUT"
-                echo "Found [shot:$SHOT_KEY] in commit messages"
-              else
-                echo "No [shot:...] found — skipping"
               fi
             fi
           else

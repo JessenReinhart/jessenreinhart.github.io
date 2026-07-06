@@ -39,14 +39,17 @@ jobs:
         shell: bash
         run: |
           if [ "${{ github.event_name }}" = "push" ]; then
-            COMMITS=$(git log "${{ github.event.before }}"..HEAD --format=%s 2>/dev/null)
+            BEFORE="${{ github.event.before }}"
+            if [ "$BEFORE" = "0000000000000000000000000000000000000000" ]; then
+              COMMITS=$(git log --format=%s -1 HEAD 2>/dev/null || true)
+            else
+              COMMITS=$(git log "$BEFORE"..HEAD --format=%s 2>/dev/null || true)
+            fi
 
-            # [shot-all] -> capture all projects
             if echo "$COMMITS" | grep -q '\[shot-all\]'; then
               echo "all=true" >> "$GITHUB_OUTPUT"
               echo "Found [shot-all] — will capture all projects"
             else
-              # [shot:<key>] -> capture one project
               SHOT_KEY=$(echo "$COMMITS" | grep -oP '\[shot:\K[a-z0-9_-]+' | head -1)
               if [ -n "$SHOT_KEY" ]; then
                 echo "key=$SHOT_KEY" >> "$GITHUB_OUTPUT"

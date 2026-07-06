@@ -63,7 +63,7 @@ export default function Projects() {
             const alignmentClass = idx % 2 === 1 ? "md:mt-16" : "";
             return (
               <motion.div key={project.id} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, cubicBezier: [0.16, 1, 0.3, 1] }} className={`flex flex-col text-left group cursor-pointer ${alignmentClass}`} onClick={() => handleOpenProject(project)} data-cursor="project">
-                <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden mb-6 group-hover:scale-[1.01] shadow-2xl flex items-center justify-center" style={{ backgroundColor: "var(--color-bg-card)", border: "1px solid var(--color-border-primary)" }}>
+                <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden mb-6 group-hover:scale-[1.01] shadow-2xl flex items-center justify-center" style={{ backgroundColor: "var(--color-bg-card)", boxShadow: "inset 0 0 0 1px var(--color-border-primary)" }}>
                   <div className="absolute top-4 left-4 font-mono text-[9px] uppercase tracking-widest px-2 py-1 rounded z-20 pointer-events-none select-none" style={{ backgroundColor: "var(--color-bg-primary)", color: "var(--color-text-dim)", border: "1px solid var(--color-border-primary)" }}>{project.technologies[0]}</div>
                   {/* Icon fallback — visible when screenshot doesn't exist yet */}
                   <div className="absolute inset-0 flex items-center justify-center p-12">
@@ -73,7 +73,7 @@ export default function Projects() {
                   <img
                     src={project.imageSrc}
                     alt={`${project.title} preview`}
-                    className="absolute -inset-px object-cover object-top transition-all duration-700 group-hover:scale-105"
+                    className="absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 group-hover:scale-105"
                     onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none" }}
                   />
                   {/* Gradient overlay so bottom text stays readable */}

@@ -36,7 +36,6 @@ jobs:
         run: node scripts/fetch-contributions.mjs
         env:
           GH_CONTRIB_PAT: ${{ secrets.GH_CONTRIB_PAT }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build
         run: npm run build

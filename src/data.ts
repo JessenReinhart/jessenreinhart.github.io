@@ -35,15 +35,15 @@ export const EXPERIENCES: Experience[] = [
     location: "Jakarta Raya, Indonesia",
     technologies: ["Java", "Spring Boot", "Thymeleaf", "PostgreSQL"],
     highlights: [
-      "Developing a Card Management System — an enterprise web application for credit and debit card lifecycle operations.",
-      "Building backend features in Spring Boot and integrating them with Thymeleaf templates for the frontend layer.",
-      "Working across the full stack on card issuance, activation, and reporting workflows."
+      "Building the web app bank staff use to manage card issuance, activation, and reporting",
+      "Working across Java/Spring Boot backend and Thymeleaf frontend in a single workflow"
     ],
     highlightsId: [
-      "Mengembangkan Card Management System — aplikasi web enterprise untuk pengelolaan siklus hidup kartu kredit dan debit.",
-      "Membangun fitur backend dengan Spring Boot dan mengintegrasikannya dengan template Thymeleaf untuk lapisan frontend.",
-      "Bekerja secara full-stack pada alur kerja penerbitan, aktivasi, dan pelaporan kartu."
-    ]
+      "Membangun aplikasi web yang digunakan staf bank untuk mengelola penerbitan, aktivasi, dan pelaporan kartu",
+      "Bekerja secara full-stack di backend Java/Spring Boot dan frontend Thymeleaf dalam satu alur kerja"
+    ],
+    narrative: "Banks manage millions of credit and debit cards. Every issuance, activation, and limit change needs a system that handles it without errors. I'm building the web interface that bank staff use for these operations, working full-stack across the backend services and the pages customers see.",
+    narrativeId: "Bank mengelola jutaan kartu kredit dan debit. Setiap penerbitan, aktivasi, dan perubahan limit membutuhkan sistem yang bekerja tanpa kesalahan. Saya membangun antarmuka web yang digunakan staf bank untuk operasi ini, bekerja full-stack di layanan backend dan halaman yang dilihat nasabah."
   },
   {
     id: "exp-wide",
@@ -53,17 +53,17 @@ export const EXPERIENCES: Experience[] = [
     location: "Jakarta Raya, Indonesia",
     technologies: ["ReactJS", "TypeScript", "i18n", "Banking Architecture"],
     highlights: [
-      "Built interface modules for an enterprise digital banking platform serving 20 financial institutions across Southeast Asia.",
-      "Designed white-label React template adapters for customized styling across corporate tenant networks.",
-      "Implemented i18n localization to serve multi-language dashboards to regional users.",
-      "Engineered reusable interface widgets on the R&D team to modularize frontend logic."
+      "Built one React platform that served 20 different banks, each with their own branding",
+      "Added multi-language support so regional users could work in their preferred language",
+      "Created reusable UI components the R&D team shared across all banking modules"
     ],
     highlightsId: [
-      "Membangun modul antarmuka untuk platform perbankan digital enterprise yang melayani 20 institusi keuangan di Asia Tenggara.",
-      "Merancang adapter template React white-label untuk kustomisasi tampilan di jaringan tenant korporat.",
-      "Menerapkan lokalisasi i18n untuk menyajikan dashboard multi-bahasa kepada pengguna regional.",
-      "Merekayasa widget antarmuka yang dapat digunakan kembali di tim R&D untuk memodularkan logika frontend."
-    ]
+      "Membangun satu platform React yang melayani 20 bank berbeda dengan branding masing-masing",
+      "Menambahkan dukungan multi-bahasa agar pengguna regional dapat bekerja dalam bahasa pilihan mereka",
+      "Membuat komponen UI reusable yang digunakan tim R&D di semua modul perbankan"
+    ],
+    narrative: "Twenty different banks in Southeast Asia needed the same platform but each with their own branding and layout. I built the React layer that let one codebase serve all of them. Swap colors, logo, and layout per tenant without forking the code. The platform went live for 30 million users.",
+    narrativeId: "Dua puluh bank berbeda di Asia Tenggara membutuhkan platform yang sama tetapi masing-masing dengan branding dan tata letak sendiri. Saya membangun lapisan React yang memungkinkan satu basis kode melayani semuanya. Mengganti warna, logo, dan tata letak per penyewa tanpa memfork kode. Platform ini digunakan oleh 30 juta pengguna."
   },
   {
     id: "exp-inspigo",
@@ -73,13 +73,15 @@ export const EXPERIENCES: Experience[] = [
     location: "Remote / Hybrid",
     technologies: ["Next.js", "Web Audio API", "CMS Development"],
     highlights: [
-      "Built a Next.js content management system for non-technical teams to update production assets directly.",
-      "Prototyped a web-audio conferencing utility in Javascript to support voice communication in modern browsers."
+      "Built a CMS with Next.js so content teams could publish without writing code",
+      "Prototyped browser-based voice conferencing using the Web Audio API"
     ],
     highlightsId: [
-      "Membangun sistem manajemen konten Next.js agar tim non-teknis dapat memperbarui aset produksi secara langsung.",
-      "Membuat prototipe alat konferensi audio berbasis web dengan JavaScript untuk mendukung komunikasi suara di browser modern."
-    ]
+      "Membangun CMS dengan Next.js agar tim konten bisa mempublikasi tanpa perlu coding",
+      "Membuat prototipe konferensi suara berbasis browser menggunakan Web Audio API"
+    ],
+    narrative: "Content teams at Inspigo couldn't update the app without developer help. I built a Next.js CMS that let non-technical editors publish directly. I also prototyped a browser-based audio conferencing tool using the Web Audio API.",
+    narrativeId: "Tim konten di Inspigo tidak bisa memperbarui aplikasi tanpa bantuan developer. Saya membangun CMS dengan Next.js yang memungkinkan editor non-teknis untuk mempublikasi secara langsung. Saya juga membuat prototipe alat konferensi audio berbasis browser menggunakan Web Audio API."
   },
   {
     id: "exp-sirclo",
@@ -89,15 +91,17 @@ export const EXPERIENCES: Experience[] = [
     location: "BSD, South Tangerang",
     technologies: ["ReactJS", "Next.js", "TailwindCSS", "Performance Optimization"],
     highlights: [
-      "Built a React dashboard for 100,000 retail merchants to configure layouts and monitor storefront metrics.",
-      "Developed server-rendered storefronts with Next.js and Tailwind CSS, raising Lighthouse scores from 70 to 95.",
-      "Created checkout interfaces handling 2 million orders monthly across SIRCLO's merchant network."
+      "Built the dashboard 100,000 merchants used to set up and monitor their online stores",
+      "Created checkout pages handling 2 million orders every month",
+      "Raised Lighthouse performance from 70 to 95 with server-rendered storefronts"
     ],
     highlightsId: [
-      "Membangun dashboard React untuk 100.000 merchant ritel guna mengonfigurasi tata letak dan memantau metrik toko.",
-      "Mengembangkan etalase server-rendered dengan Next.js dan Tailwind CSS, meningkatkan skor Lighthouse dari 70 ke 95.",
-      "Membuat antarmuka checkout yang menangani 2 juta pesanan bulanan di jaringan merchant SIRCLO."
-    ]
+      "Membangun dashboard yang digunakan 100.000 merchant untuk mengatur dan memantau toko online mereka",
+      "Membuat halaman checkout yang menangani 2 juta pesanan setiap bulan",
+      "Meningkatkan skor Lighthouse dari 70 ke 95 dengan etalase server-rendered"
+    ],
+    narrative: "100,000 merchants used SIRCLO to run their online stores. I built the dashboard they configured their shops with, and the storefronts their customers browsed. The checkout flow handled 2 million orders a month. I also pushed Lighthouse scores from 70 to 95 by switching to server-rendered pages.",
+    narrativeId: "100.000 merchant menggunakan SIRCLO untuk menjalankan toko online mereka. Saya membangun dashboard yang mereka gunakan untuk mengatur toko, dan etalase yang dilihat pelanggan mereka. Alur checkout menangani 2 juta pesanan per bulan. Saya juga meningkatkan skor Lighthouse dari 70 ke 95 dengan beralih ke halaman server-rendered."
   },
   {
     id: "exp-aksaramaya",
@@ -107,12 +111,14 @@ export const EXPERIENCES: Experience[] = [
     location: "South Jakarta, Indonesia",
     technologies: ["ReactJS", "ChartJS", "HTML5", "Dashboard Visualization"],
     highlights: [
-      "Delivered React data dashboards and Chart.js graph panels across 60 regional digital library systems."
+      "Built data dashboards with interactive charts for 60 regional library systems"
     ],
     highlightsId: [
-      "Menyerahkan dashboard data React dan panel grafik Chart.js untuk 60 sistem perpustakaan digital regional."
-    ]
-  }
+      "Membangun dashboard data dengan grafik interaktif untuk 60 sistem perpustakaan daerah"
+    ],
+    narrative: "Sixty regional library systems across Indonesia needed data dashboards to track usage. I built React dashboards with Chart.js panels that librarians and administrators used to see how their systems were performing.",
+    narrativeId: "Enam puluh sistem perpustakaan daerah di Indonesia membutuhkan dashboard data untuk melacak penggunaan. Saya membangun dashboard React dengan panel Chart.js yang digunakan pustakawan dan administrator untuk melihat kinerja sistem mereka."
+  },
 ];
 
 export const PROJECTS: Project[] = [

@@ -13,7 +13,7 @@ export const translations = {
 
     // Hero
     heroTag: "SENIOR FRONTEND ENGINEER",
-    heroSubtitle: "Production frontends — from company websites to platforms serving 30M users",
+    heroSubtitle: "Production frontends: from company websites to platforms serving 30M users",
     heroDesc: "Seven years shipping production web apps for banking platforms, merchant dashboards, and content management systems across Southeast Asia.",
     heroViewWork: "VIEW MY WORK",
     heroDownloadCv: "DOWNLOAD CV",
@@ -33,19 +33,19 @@ export const translations = {
     aboutSection: "01 // BIOGRAPHY",
     aboutTitle: "Shipping Web Systems Since 2019",
     aboutSubtitle: "Frontend engineer with seven years building web applications, tuning client performance, and structuring modular codebases.",
-    aboutHeading: "Jessen builds around load speed, component isolation, and strict typing.",
-    aboutP1: "I build transaction modules for banking services and merchant dashboards focused on load speed, module decoupling, and code reliability.",
-    aboutP2: "My work covers minimizing server-rendered document size, maintaining zero compilation warnings, enforcing strict TypeScript configurations, and optimizing browser resource loads across production apps.",
+    aboutHeading: "Jessen makes web apps fast, maintainable, and ready for millions of users.",
+    aboutP1: "I build the interfaces behind banking platforms, merchant dashboards, and content systems. The kind of software where slow load times or broken layouts mean real people can't do their jobs. I focus on making those interfaces load fast, work reliably, and stay maintainable as teams and features grow.",
+    aboutP2: "My work ranges from tuning page load performance to structuring codebases so new features don't break old ones. I care about the details: server-rendered pages that load in under a second, TypeScript configs that catch bugs before they ship, and components that work across different brands and languages.",
     aboutSpecializations: "SPECIALIZATIONS",
     aboutTechFocus: "TECHNICAL FOCUS",
     aboutSpec1: "React & Next.js Frameworks",
     aboutSpec2: "Enterprise Software Systems",
-    aboutSpec3: "Web Banking Structures",
+    aboutSpec3: "Banking Platforms",
     aboutSpec4: "Performance Tuning and Auditing",
     aboutSpec5: "Design Systems and Component Libraries",
     aboutSpec6: "Content Management Systems (CMS)",
-    aboutSpec7: "White-label Tenant Infrastructure",
-    aboutSpec8: "Micro-Frontend Systems",
+    aboutSpec7: "Multi-brand Theming",
+    aboutSpec8: "Modular Frontend Architecture",
 
     // Stats
     statYears: "Years Experience",
@@ -57,14 +57,14 @@ export const translations = {
     // Experience
     expSection: "02 // PROFESSIONAL JOURNEY",
     expTitle: "Professional Experience",
-    expSubtitle: "A timeline of custom banking applications, performance tuning, and database optimization built since 2019.",
+    expSubtitle: "Five roles, each building on the last. From library dashboards to platforms serving 30 million users.",
     expRoleDetails: "ROLE DETAILS",
     expStackDeployed: "STACK DEPLOYED",
 
     // Projects
     projSection: "03 // SELECTED PROJECTS",
     projTitle: "Selected Projects",
-    projSubtitle: "TECHNICAL APPLICATIONS AND ENTERPRISE UTILITIES.",
+    projSubtitle: "Things I built to solve real problems I had.",
     projWhyBuilt: "WHY I BUILT THIS",
     projKeyCapabilities: "Key Capabilities Built",
     projTechBreakdown: "Technological Breakdown",
@@ -132,7 +132,7 @@ export const translations = {
 
     // Hero
     heroTag: "SENIOR FRONTEND ENGINEER",
-    heroSubtitle: "Frontend produksi — dari website perusahaan hingga platform berskala 30 juta pengguna",
+    heroSubtitle: "Frontend produksi: dari website perusahaan hingga platform berskala 30 juta pengguna",
     heroDesc: "Tujuh tahun mengembangkan aplikasi web di lingkungan produksi untuk platform perbankan, dashboard merchant, dan CMS di Asia Tenggara.",
     heroViewWork: "LIHAT PROYEK SAYA",
     heroDownloadCv: "UNDUH CV",
@@ -152,19 +152,19 @@ export const translations = {
     aboutSection: "01 // BIOGRAFI",
     aboutTitle: "Membangun Sistem Web Sejak 2019",
     aboutSubtitle: "Engineer frontend dengan tujuh tahun pengalaman membangun aplikasi web, mengoptimalkan performa klien, dan menyusun kode modular.",
-    aboutHeading: "Jessen fokus pada kecepatan load, isolasi komponen, dan TypeScript strict mode.",
-    aboutP1: "Saya membangun modul transaksi untuk layanan perbankan dan dashboard merchant, berfokus pada kecepatan load, pemisahan modul, dan keandalan kode.",
-    aboutP2: "Pekerjaan saya meliputi meminimalkan ukuran dokumen yang di-render server, menjaga tanpa peringatan kompilasi, menerapkan konfigurasi TypeScript ketat, dan mengoptimalkan pemuatan resource di aplikasi produksi.",
+    aboutHeading: "Jessen membuat aplikasi web cepat, mudah dirawat, dan siap untuk jutaan pengguna.",
+    aboutP1: "Saya membangun antarmuka di balik platform perbankan, dashboard merchant, dan sistem konten. Jenis perangkat lunak di mana waktu muat yang lambat atau tata letak yang rusak berarti orang sungguhan tidak bisa melakukan pekerjaan mereka. Saya fokus membuat antarmuka tersebut cepat dimuat, berjalan andal, dan tetap mudah dirawat seiring pertumbuhan tim dan fitur.",
+    aboutP2: "Pekerjaan saya mencakup pengoptimalan waktu muat halaman hingga menata basis kode agar fitur baru tidak merusak yang lama. Saya peduli pada detail: halaman server-rendered yang dimuat dalam hitungan detik, konfigurasi TypeScript yang menangkap bug sebelum rilis, dan komponen yang bekerja lintas merek dan bahasa.",
     aboutSpecializations: "SPESIALISASI",
     aboutTechFocus: "FOKUS TEKNIS",
     aboutSpec1: "React & Next.js",
     aboutSpec2: "Software Enterprise",
-    aboutSpec3: "Sistem Perbankan Web",
+    aboutSpec3: "Platform Perbankan",
     aboutSpec4: "Performance Tuning",
     aboutSpec5: "Design System & Pustaka Komponen",
     aboutSpec6: "CMS (Sistem Manajemen Konten)",
-    aboutSpec7: "Sistem Tenant White-label",
-    aboutSpec8: "Micro-Frontend",
+    aboutSpec7: "Multi-brand Theming",
+    aboutSpec8: "Arsitektur Frontend Modular",
 
     // Stats
     statYears: "Tahun Pengalaman",
@@ -176,14 +176,14 @@ export const translations = {
     // Experience
     expSection: "02 // PERJALANAN PROFESIONAL",
     expTitle: "Pengalaman Profesional",
-    expSubtitle: "Timeline aplikasi perbankan kustom, performance tuning, dan optimasi database sejak 2019.",
+    expSubtitle: "Lima peran, masing-masing dibangun dari yang sebelumnya. Dari dashboard perpustakaan hingga platform yang melayani 30 juta pengguna.",
     expRoleDetails: "DETAIL PERAN",
     expStackDeployed: "STACK DIGUNAKAN",
 
     // Projects
     projSection: "03 // PROYEK PILIHAN",
     projTitle: "Proyek Pilihan",
-    projSubtitle: "APLIKASI TEKNIS DAN UTILITAS ENTERPRISE.",
+    projSubtitle: "Hal-hal yang saya buat untuk memecahkan masalah nyata.",
     projWhyBuilt: "MENGAPA SAYA MEMBUAT INI",
     projKeyCapabilities: "KEMAMPUAN UTAMA",
     projTechBreakdown: "STACK YANG DIGUNAKAN",

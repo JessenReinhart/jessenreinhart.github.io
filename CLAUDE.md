@@ -26,3 +26,28 @@ This is Jessen Reinhart's portfolio — a single-page React app deployed to GitH
 **Styling approach:** Tailwind CSS v4 via `@tailwindcss/vite` plugin. Custom theme tokens (fonts, colors) defined with `@theme` in `src/index.css`. Reusable utility classes like `.glass-panel`, `.noise-overlay`, `.text-stroke` are defined in `index.css`. Motion/react (`motion`) handles all animations.
 
 **Vite config:** `base: "./"` ensures relative asset paths for GitHub Pages compatibility. The `@` path alias resolves to project root.
+
+## Screenshot Capture
+
+Project screenshots (live site captures) are managed via **site-shot.com** API.
+
+**Mapping:** `scripts/capture-screenshots.mjs` defines a `PROJECTS` object mapping
+project keys → `{ url, file }`. When adding a new project to `src/data.ts`, add
+its entry here too:
+
+```js
+mynewproj: { url: "https://example.vercel.app", file: "mynewproj-live.webp" }
+```
+
+**Trigger:**
+- **Via push** — include `[shot:<key>]` in the commit message, e.g.
+  `add new travel app [shot:tripcore]`. The workflow at
+  `.github/workflows/capture-screenshot.yml` (push trigger) parses the message
+  and captures only that one project.
+- **Via dispatch** — manually from GitHub Actions tab, fill in URL + filename.
+
+**Setup:** Add `SITE_SHOT_API_KEY` to GitHub repo secrets.
+Without the key, the action skips gracefully.
+
+The script also supports CLI: `node scripts/capture-screenshots.mjs --key=tripcore`
+or `node scripts/capture-screenshots.mjs --url=... --file=...`.

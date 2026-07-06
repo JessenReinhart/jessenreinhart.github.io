@@ -7,6 +7,8 @@ export interface Experience {
   technologies: string[];
   highlights?: string[];
   highlightsId?: string[];
+  narrative?: string;
+  narrativeId?: string;
   description?: string;
 }
 

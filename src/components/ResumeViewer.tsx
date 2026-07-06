@@ -110,6 +110,11 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
                   </div>
                 </div>
 
+                {exp.narrative && (
+                  <p className="text-[8pt] leading-snug text-neutral-600 mt-1 mb-1">
+                    {exp.narrative}
+                  </p>
+                )}
                 {exp.highlights && exp.highlights.length > 0 && (
                   <ul className="pl-3 list-disc text-neutral-700">
                     {exp.highlights.map((item, idx) => (

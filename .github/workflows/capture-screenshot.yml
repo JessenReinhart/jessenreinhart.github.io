@@ -1,0 +1,92 @@
+# Capture project screenshots via site-shot.com
+#
+# Trigger:
+#   Push — include [shot-all] or [shot:<key>] in commit message
+#          e.g. "add new travel app [shot:tripcore]"
+#   Dispatch — manual from Actions tab, fill in URL + filename
+#
+# Setup: add SITE_SHOT_API_KEY to repo secrets
+
+name: Capture Screenshot
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "Live site URL to capture"
+        required: true
+      file:
+        description: "Output filename (e.g. myproj-live.webp)"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Parse shot target from commit messages
+        id: parse
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            COMMITS=$(git log "${{ github.event.before }}"..HEAD --format=%s 2>/dev/null)
+
+            # [shot-all] -> capture all projects
+            if echo "$COMMITS" | grep -q '\[shot-all\]'; then
+              echo "all=true" >> "$GITHUB_OUTPUT"
+              echo "Found [shot-all] — will capture all projects"
+            else
+              # [shot:<key>] -> capture one project
+              SHOT_KEY=$(echo "$COMMITS" | grep -oP '\[shot:\K[a-z0-9_-]+' | head -1)
+              if [ -n "$SHOT_KEY" ]; then
+                echo "key=$SHOT_KEY" >> "$GITHUB_OUTPUT"
+                echo "Found [shot:$SHOT_KEY] in commit messages"
+              else
+                echo "No [shot:...] found — skipping"
+              fi
+            fi
+          else
+            echo "url=${{ inputs.url }}" >> "$GITHUB_OUTPUT"
+            echo "file=${{ inputs.file }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Run screenshot capture
+        if: steps.parse.outputs.key != '' || steps.parse.outputs.url != '' || steps.parse.outputs.all != ''
+        env:
+          SITE_SHOT_API_KEY: ${{ secrets.SITE_SHOT_API_KEY }}
+        run: |
+          KEY="${{ steps.parse.outputs.key }}"
+          URL="${{ steps.parse.outputs.url }}"
+          FILE="${{ steps.parse.outputs.file }}"
+          ALL="${{ steps.parse.outputs.all }}"
+          if [ -n "$ALL" ]; then
+            node scripts/capture-screenshots.mjs
+          elif [ -n "$KEY" ]; then
+            node scripts/capture-screenshots.mjs --key="$KEY"
+          else
+            node scripts/capture-screenshots.mjs --url="$URL" --file="$FILE"
+          fi
+
+      - name: Commit screenshot back to repo
+        if: steps.parse.outputs.key != '' || steps.parse.outputs.url != '' || steps.parse.outputs.all != ''
+        shell: bash
+        run: |
+          git config user.name "screenshot-bot"
+          git config user.email "bot@jessenreinhart.dev"
+          git add src/assets/images/
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "capture screenshot [skip ci]"
+            git push
+          fi

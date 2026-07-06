@@ -50,7 +50,11 @@ export default function Experience() {
                       <span className="block font-mono text-[9px] uppercase tracking-widest select-none mb-1" style={{ color: "var(--color-text-dim)" }}>{t.expRoleDetails}</span>
                       <h3 className="text-2xl font-display font-bold tracking-tight" style={{ color: "var(--color-text-primary)" }}>{exp.role}</h3>
                       <h4 className="text-xs font-mono font-medium mt-1 uppercase tracking-wider" style={{ color: "var(--color-text-muted)" }}>{exp.company}</h4>
-
+                      {(lang === "id" ? exp.narrativeId : exp.narrative) && (
+                        <p className="italic text-[13px] font-light leading-relaxed mt-4" style={{ color: "var(--color-text-secondary)" }}>
+                          {lang === "id" ? exp.narrativeId : exp.narrative}
+                        </p>
+                      )}
                       {highlights && highlights.length > 0 && (
                         <div className="mt-6 space-y-3.5 pt-6" style={{ borderTop: "1px solid var(--color-border-primary)" }}>
                           {highlights.map((highlight, hIdx) => (

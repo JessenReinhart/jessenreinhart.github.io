@@ -13,6 +13,7 @@ const PROJECTS = {
   wedding:  { url: "https://wedding-invitation-tau-two.vercel.app", file: "wedding-live.jpg" },
   soulsync: { url: "https://soulsync-gamma.vercel.app", file: "soulsync-live.jpg" },
 };
+
 async function capture(url) {
   // Dynamic import — pengguna lokal tanpa playwright ga kena error
   const { chromium } = await import("playwright");
@@ -30,11 +31,11 @@ async function capture(url) {
 }
 
 async function main() {
+  const outDir = resolve(__dirname, "..", "public", "screenshots");
+
   // --file & --url → single project (from workflow_dispatch or CLI)
   const fileArg = process.argv.find((a) => a.startsWith("--file="));
   const urlArg  = process.argv.find((a) => a.startsWith("--url="));
-
-  const outDir = resolve(__dirname, "..", "src", "assets", "images");
 
   if (fileArg && urlArg) {
     const file = fileArg.split("=")[1];

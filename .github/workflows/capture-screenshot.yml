@@ -91,6 +91,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "capture screenshot [skip ci]"
+            git commit -m "capture: refresh project screenshots"
             git push
           fi

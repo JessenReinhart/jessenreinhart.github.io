@@ -65,9 +65,15 @@ export default function Projects() {
               <motion.div key={project.id} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.8, cubicBezier: [0.16, 1, 0.3, 1] }} className={`flex flex-col text-left group cursor-pointer ${alignmentClass}`} onClick={() => handleOpenProject(project)} data-cursor="project">
                 <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden mb-6 group-hover:scale-[1.01] shadow-2xl flex items-center justify-center" style={{ backgroundColor: "var(--color-bg-card)", border: "1px solid var(--color-border-primary)" }}>
                   <div className="absolute top-4 left-4 font-mono text-[9px] uppercase tracking-widest px-2 py-1 rounded z-20 pointer-events-none select-none" style={{ backgroundColor: "var(--color-bg-primary)", color: "var(--color-text-dim)", border: "1px solid var(--color-border-primary)" }}>{project.technologies[0]}</div>
-                  <div className="absolute inset-0 flex items-center justify-center p-12">
-                    <div className="p-8 rounded-2xl transition-all duration-500" style={{ border: "1px solid var(--color-border-primary)", color: "var(--color-text-muted)" }}>{renderProjectIcon(project.id, "w-12 h-12")}</div>
-                  </div>
+                    {/* Live screenshot */}
+                    <img
+                      src={project.imageSrc}
+                      alt={`${project.title} preview`}
+                      className="absolute inset-0 w-full h-full object-cover object-top transition-all duration-700 group-hover:scale-105"
+                      onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = "none" }}
+                    />
+                    {/* Gradient overlay so bottom text stays readable */}
+                    <div className="absolute inset-0" style={{ background: "linear-gradient(to top, var(--color-bg-secondary) 0%, transparent 40%)" }} />
                   <div className="absolute inset-x-0 bottom-0 flex items-end p-8 justify-between z-20">
                     <div>
                       <span className="block font-mono text-[10px] tracking-wider" style={{ color: "var(--color-text-muted)" }}>{project.tagline}</span>

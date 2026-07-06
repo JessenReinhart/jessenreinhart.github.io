@@ -1,4 +1,4 @@
-import { writeFileSync } from "fs";
+import { writeFileSync, mkdirSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -22,8 +22,8 @@ async function capture(url) {
     const page = await browser.newPage({
       viewport: { width: 1280, height: 800 },
     });
-    await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
-    await page.waitForTimeout(3000);
+    await page.goto(url, { waitUntil: "load", timeout: 60000 });
+    await page.waitForTimeout(5000);
     return await page.screenshot({ type: "jpeg", quality: 85 });
   } finally {
     await browser.close();
@@ -32,6 +32,7 @@ async function capture(url) {
 
 async function main() {
   const outDir = resolve(__dirname, "..", "public", "screenshots");
+  mkdirSync(outDir, { recursive: true });
 
   // --file & --url → single project (from workflow_dispatch or CLI)
   const fileArg = process.argv.find((a) => a.startsWith("--file="));

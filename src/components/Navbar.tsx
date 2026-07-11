@@ -20,6 +20,7 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
   const navLinks = [
     { label: t.navHome, id: "hero" },
     { label: t.navAbout, id: "about" },
+    { label: t.navServices, id: "services" },
     { label: t.navExperience, id: "experience" },
     { label: t.navProjects, id: "projects" },
     { label: t.navSkills, id: "skills" },

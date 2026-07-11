@@ -1,4 +1,4 @@
-import { Experience, Project, SkillCategory, StatItem } from "./types";
+import { Experience, Project, Service, SkillCategory, StatItem } from "./types";
 import portraitImg from "./assets/images/jessen-portrait-removed-bg.webp";
 import tc00 from "./assets/images/tripcore-images/split_0_0.webp";
 import tc01 from "./assets/images/tripcore-images/split_0_1.webp";
@@ -17,6 +17,8 @@ const soulsyncLive = "/screenshots/soulsync-live.jpg";
 export const PORTRAIT_IMAGE = portraitImg;
 export const TRIPCORE_IMAGES = [tc00, tc01, tc10, tc11, tc20, tc21];
 export const SOULSYNC_IMAGES = [ss00, ss01, ss10];
+
+export const LINKEDIN_URL = "https://www.linkedin.com/in/jessenreinhart";
 
 export const STATS: StatItem[] = [
   { value: "7", label: "Years Experience", numericVal: 7 },
@@ -266,6 +268,63 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       "Banking Systems Architecture",
       "Lighthouse Auditing",
       "White-label Modules"
+    ]
+  }
+];
+
+export const SERVICES: Service[] = [
+  {
+    id: "svc-website",
+    title: "Company Website / Landing Page",
+    titleId: "Website Perusahaan / Landing Page",
+    description: "A clean, fast site that gets your business online and makes it easy for people to reach you.",
+    descriptionId: "Situs cepat dan modern yang memudahkan pengunjung untuk menghubungi atau membeli.",
+    outcome: "Fast, modern site delivered in 1–2 weeks.",
+    outcomeId: "Situs cepat & modern siap dalam 1–2 minggu.",
+    icon: "website",
+    examples: [
+      { label: "Wedding E-Invitation", labelId: "Undangan Pernikahan Digital", url: "https://wedding-invitation-tau-two.vercel.app" },
+      { label: "This Portfolio", labelId: "Portofolio Ini", url: "https://github.com/JessenReinhart/jessenreinhart.github.io" }
+    ]
+  },
+  {
+    id: "svc-webapp",
+    title: "Web App (Booking, Ordering, Dashboard)",
+    titleId: "Web App (Booking, Order, Dashboard)",
+    description: "Custom apps built around how you work, like booking and ordering systems.",
+    descriptionId: "Aplikasi custom sesuai cara Anda bekerja, seperti sistem booking dan order.",
+    outcome: "Booking system, internal tool, or custom app.",
+    outcomeId: "Sistem booking, alat internal, atau aplikasi custom.",
+    icon: "webapp",
+    examples: [
+      { label: "TripCore", labelId: "TripCore", url: "https://tripcore-beta.vercel.app" },
+      { label: "Invoicr", labelId: "Invoicr", url: "https://invoicr-eight.vercel.app" }
+    ]
+  },
+  {
+    id: "svc-redesign",
+    title: "Frontend Upgrade / Redesign",
+    titleId: "Upgrade / Redesign Frontend",
+    description: "Modernize an old site with faster loads and a cleaner mobile layout.",
+    descriptionId: "Membuat situs lama menjadi lebih cepat dengan muat yang kencang dan tampilan mobile yang rapi.",
+    outcome: "Make your site fast & mobile-friendly.",
+    outcomeId: "Membuat situs Anda cepat & mobile-friendly.",
+    icon: "redesign",
+    examples: [
+      { label: "SIRCLO (Lighthouse 70→95)", labelId: "SIRCLO (Lighthouse 70→95)" }
+    ]
+  },
+  {
+    id: "svc-maintenance",
+    title: "Maintenance / Ongoing Support",
+    titleId: "Maintenance / Dukungan Berkelanjutan",
+    description: "I keep your site running with updates and monitoring each month.",
+    descriptionId: "Saya menjaga situs Anda tetap berjalan dengan pembaruan dan pemantauan setiap bulan.",
+    outcome: "Updates & monitoring every month.",
+    outcomeId: "Pembaruan & pemantauan setiap bulan.",
+    icon: "maintenance",
+    examples: [
+      { label: "Monthly care plans", labelId: "Paket perawatan bulanan" }
     ]
   }
 ];

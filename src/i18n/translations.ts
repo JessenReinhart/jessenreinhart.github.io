@@ -8,6 +8,7 @@ export const translations = {
     navSkills: "SKILLS",
     navGithub: "GITHUB",
     navContact: "CONTACT",
+    navServices: "SERVICES",
     navGetInTouch: "GET IN TOUCH",
     navAvailable: "Available for contracts & full-time roles",
 
@@ -37,6 +38,18 @@ export const translations = {
     aboutP1: "I build the interfaces behind banking platforms, merchant dashboards, and content systems. The kind of software where slow load times or broken layouts mean real people can't do their jobs. I focus on making those interfaces load fast, work reliably, and stay maintainable as teams and features grow.",
     aboutP2: "My work ranges from tuning page load performance to structuring codebases so new features don't break old ones. I care about the details: server-rendered pages that load in under a second, TypeScript configs that catch bugs before they ship, and components that work across different brands and languages.",
     aboutSpecializations: "SPECIALIZATIONS",
+
+    // Services
+    svcSection: "02 // SERVICES",
+    svcTitle: "What I Can Build For You",
+    svcSubtitle: "PRACTICAL WEB WORK FOR SMALL TEAMS & BUSINESSES.",
+    svcProofTitle: "Trusted track record",
+    svcProofDesc: "Shipped to production for 30M users.",
+    svcLinkedinRecs: "Read LinkedIn recommendations",
+    svcExamples: "EXAMPLES",
+    svcCtaTitle: "Got a website or app idea?",
+    svcCtaDesc: "Want a free 15-min chat to talk it through?",
+    svcCtaButton: "Book a free 15-min call",
     aboutTechFocus: "TECHNICAL FOCUS",
     aboutSpec1: "React & Next.js Frameworks",
     aboutSpec2: "Enterprise Software Systems",
@@ -55,14 +68,14 @@ export const translations = {
     statOrders: "Monthly Orders",
 
     // Experience
-    expSection: "02 // PROFESSIONAL JOURNEY",
+    expSection: "03 // PROFESSIONAL JOURNEY",
     expTitle: "Professional Experience",
     expSubtitle: "Five roles, each building on the last. From library dashboards to platforms serving 30 million users.",
     expRoleDetails: "ROLE DETAILS",
     expStackDeployed: "STACK DEPLOYED",
 
     // Projects
-    projSection: "03 // SELECTED PROJECTS",
+    projSection: "04 // SELECTED PROJECTS",
     projTitle: "Selected Projects",
     projSubtitle: "Things I built to solve real problems I had.",
     projWhyBuilt: "WHY I BUILT THIS",
@@ -74,7 +87,7 @@ export const translations = {
     projCode: "CODE",
 
     // Skills
-    skillsSection: "04 // CAPABILITIES MATRIX",
+    skillsSection: "05 // CAPABILITIES MATRIX",
     skillsTitle: "Technical Skills",
     skillsSubtitle: "Core technologies, programming languages, and development frameworks used across systems.",
     catFrontend: "Frontend",
@@ -82,7 +95,7 @@ export const translations = {
     catEngineering: "Engineering Concepts",
 
     // Contact
-    contactSection: "06 // GET IN TOUCH",
+    contactSection: "07 // GET IN TOUCH",
     contactTitle: "Let's work together.",
     contactDesc: "Web application development, CMS solutions, or contract consulting.",
     contactEmail: "Direct Email",
@@ -104,7 +117,7 @@ export const translations = {
     contactSendAnother: "SEND ANOTHER MESSAGE",
 
     // GitHub
-    ghSection: "05 // OPEN SOURCE ACTIVITY",
+    ghSection: "06 // OPEN SOURCE ACTIVITY",
     ghTitle: "GitHub Activity",
     ghContributions: "contributions in the last 6 months",
     ghViewProfile: "VIEW PROFILE",
@@ -127,6 +140,7 @@ export const translations = {
     navSkills: "SKILL",
     navGithub: "GITHUB",
     navContact: "KONTAK",
+    navServices: "LAYANAN",
     navGetInTouch: "HUBUNGI SAYA",
     navAvailable: "Tersedia untuk kontrak & full-time",
 
@@ -156,6 +170,18 @@ export const translations = {
     aboutP1: "Saya membangun antarmuka di balik platform perbankan, dashboard merchant, dan sistem konten. Jenis perangkat lunak di mana waktu muat yang lambat atau tata letak yang rusak berarti orang sungguhan tidak bisa melakukan pekerjaan mereka. Saya fokus membuat antarmuka tersebut cepat dimuat, berjalan andal, dan tetap mudah dirawat seiring pertumbuhan tim dan fitur.",
     aboutP2: "Pekerjaan saya mencakup pengoptimalan waktu muat halaman hingga menata basis kode agar fitur baru tidak merusak yang lama. Saya peduli pada detail: halaman server-rendered yang dimuat dalam hitungan detik, konfigurasi TypeScript yang menangkap bug sebelum rilis, dan komponen yang bekerja lintas merek dan bahasa.",
     aboutSpecializations: "SPESIALISASI",
+
+    // Services
+    svcSection: "02 // LAYANAN",
+    svcTitle: "Yang Bisa Saya Buat Untuk Anda",
+    svcSubtitle: "LAYANAN WEB UNTUK TIM KECIL & BISNIS.",
+    svcProofTitle: "Rekam jejak terpercaya",
+    svcProofDesc: "Telah digunakan 30 juta pengguna di 20 bank, bukan sekadar demo.",
+    svcLinkedinRecs: "Baca rekomendasi LinkedIn",
+    svcExamples: "CONTOH",
+    svcCtaTitle: "Punya ide website/app?",
+    svcCtaDesc: "Mau konsultasi gratis 15 menit untuk membahas ide Anda?",
+    svcCtaButton: "Pesan konsultasi 15 menit gratis",
     aboutTechFocus: "FOKUS TEKNIS",
     aboutSpec1: "React & Next.js",
     aboutSpec2: "Software Enterprise",
@@ -174,14 +200,14 @@ export const translations = {
     statOrders: "Order Bulanan",
 
     // Experience
-    expSection: "02 // PERJALANAN PROFESIONAL",
+    expSection: "03 // PERJALANAN PROFESIONAL",
     expTitle: "Pengalaman Profesional",
     expSubtitle: "Lima peran, masing-masing dibangun dari yang sebelumnya. Dari dashboard perpustakaan hingga platform yang melayani 30 juta pengguna.",
     expRoleDetails: "DETAIL PERAN",
     expStackDeployed: "STACK DIGUNAKAN",
 
     // Projects
-    projSection: "03 // PROYEK PILIHAN",
+    projSection: "04 // PROYEK PILIHAN",
     projTitle: "Proyek Pilihan",
     projSubtitle: "Hal-hal yang saya buat untuk memecahkan masalah nyata.",
     projWhyBuilt: "MENGAPA SAYA MEMBUAT INI",
@@ -193,7 +219,7 @@ export const translations = {
     projMore: "lainnya",
 
     // Skills
-    skillsSection: "04 // KEMAMPUAN TEKNIS",
+    skillsSection: "05 // KEMAMPUAN TEKNIS",
     skillsTitle: "Skill Teknis",
     skillsSubtitle: "Teknologi inti, bahasa pemrograman, dan framework pengembangan yang digunakan di berbagai sistem.",
     catFrontend: "Frontend",
@@ -201,7 +227,7 @@ export const translations = {
     catEngineering: "Konsep Engineering",
 
     // Contact
-    contactSection: "06 // HUBUNGI SAYA",
+    contactSection: "07 // HUBUNGI SAYA",
     contactTitle: "Ayo bekerja sama.",
     contactDesc: "Pengembangan aplikasi web, solusi CMS, atau konsultasi.",
     contactEmail: "Email Langsung",
@@ -223,7 +249,7 @@ export const translations = {
     contactSendAnother: "KIRIM PESAN LAGI",
 
     // GitHub
-    ghSection: "05 // AKTIVITAS OPEN SOURCE",
+    ghSection: "06 // AKTIVITAS OPEN SOURCE",
     ghTitle: "Aktivitas GitHub",
     ghContributions: "kontribusi dalam 6 bulan terakhir",
     ghViewProfile: "LIHAT PROFIL",

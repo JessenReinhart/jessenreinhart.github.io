@@ -40,3 +40,21 @@ export interface StatItem {
   numericVal: number;
   source?: string;
 }
+
+export interface ServiceExample {
+  label: string;
+  labelId?: string;
+  url?: string;
+}
+
+export interface Service {
+  id: string;
+  title: string;
+  titleId?: string;
+  description: string;
+  descriptionId?: string;
+  outcome: string;
+  outcomeId?: string;
+  icon: "website" | "webapp" | "redesign" | "maintenance";
+  examples?: ServiceExample[];
+}

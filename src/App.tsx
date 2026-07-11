@@ -10,6 +10,7 @@ import { useLanguage } from "./contexts/LanguageContext";
 import { translations } from "./i18n/translations";
 
 const Experience = lazy(() => import("./components/Experience"));
+const Services = lazy(() => import("./components/Services"));
 const Projects = lazy(() => import("./components/Projects"));
 const Skills = lazy(() => import("./components/Skills"));
 const GitHubActivity = lazy(() => import("./components/GitHubActivity"));
@@ -23,7 +24,7 @@ export default function App() {
 
   // ScrollSpy via IntersectionObserver — avoids forced reflow from offsetTop reads
   useEffect(() => {
-    const sectionIds = ["hero", "about", "experience", "projects", "skills", "github", "contact"];
+    const sectionIds = ["hero", "about", "services", "experience", "projects", "skills", "github", "contact"];
     const observed = new Set<string>();
     const visibleSections = new Map<string, number>();
 
@@ -171,6 +172,7 @@ export default function App() {
 
         {/* Below-the-fold sections: lazy-loaded to reduce main-thread work */}
         <Suspense fallback={null}>
+          <Services />
           <Experience />
           <Projects />
           <Skills />

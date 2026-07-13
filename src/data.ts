@@ -228,6 +228,34 @@ export const PROJECTS: Project[] = [
     liveUrl: "https://soulsync-gamma.vercel.app",
     githubUrl: "https://github.com/JessenReinhart/soulsync",
   },
+  {
+    id: "proj-shareterm",
+    title: "share-term",
+    tagline: "Stream Your Terminal to Your Phone",
+    description: "A zero-config CLI that mirrors your terminal (or any log stream) to your phone over local Wi-Fi by scanning a QR code — rendered as a real terminal emulator with full ANSI colors.",
+    descriptionId: "Sebuah CLI tanpa konfigurasi yang menampilkan terminal (atau aliran log apa pun) ke ponsel melalui Wi-Fi lokal dengan memindai kode QR — dirender sebagai emulator terminal sungguhan dengan warna ANSI lengkap.",
+    motivation: "I wanted to glance at a running dev server or a long log from my phone without SSH-ing in or scraping tmux. share-term turns any terminal into a shareable, live view in one command — no tmux, no app install on the laptop.",
+    motivationId: "Saya ingin melihat server dev yang berjalan atau log panjang dari ponsel tanpa SSH atau tmux. share-term mengubah terminal apa pun menjadi tampilan langsung yang bisa dibagikan dalam satu perintah — tanpa tmux, tanpa instalasi aplikasi di laptop.",
+    technologies: ["Node.js", "TypeScript", "node-pty", "WebSocket", "xterm.js", "QR"],
+    features: [
+      "Live terminal sharing via QR — no tmux required (uses node-pty / ConPTY)",
+      "Real terminal emulation on the phone with xterm.js (cursor, colors, layout)",
+      "Wide-TUI aware: renders at the true PTY width with a scaled-down font",
+      "Draggable floating Clear button, status dot, and pinch-to-zoom on mobile",
+      "Share any command directly: `share-term <command>`",
+      "Attach to tmux, tail log files, or pipe from stdin"
+    ],
+    featuresId: [
+      "Berbagi terminal langsung via QR — tanpa tmux (menggunakan node-pty / ConPTY)",
+      "Emulasi terminal sungguhan di ponsel via xterm.js (kursor, warna, tata letak)",
+      "Sadar TUI lebar: merender pada lebar PTY asli dengan font diperkecil",
+      "Tombol Clear melayang yang bisa digeser, indikator status, dan pinch-zoom di ponsel",
+      "Bagikan perintah apa pun langsung: `share-term <command>`",
+      "Menyambung ke tmux, mengekor file log, atau pipe dari stdin"
+    ],
+    imageSrc: "/screenshots/share-term-live.jpg",
+    githubUrl: "https://github.com/JessenReinhart/share-term",
+  },
 ];
 
 export const SKILL_CATEGORIES: SkillCategory[] = [

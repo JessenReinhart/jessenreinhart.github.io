@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowUpRight, Github, Code, CheckCircle, X, ExternalLink, Compass, FileText, Heart, Activity, ChevronLeft, ChevronRight, ZoomIn, ZoomOut } from "lucide-react";
+import { ArrowUpRight, Github, Code, CheckCircle, X, ExternalLink, Compass, FileText, Heart, Activity, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Terminal } from "lucide-react";
 import { PROJECTS } from "../data";
 import { Project } from "../types";
 import { useLanguage } from "../contexts/LanguageContext";
@@ -43,6 +43,7 @@ export default function Projects() {
       case "proj-invoicr": return <FileText className={className} />;
       case "proj-wedding": return <Heart className={className} />;
       case "proj-soulsync": return <Activity className={className} />;
+      case "proj-shareterm": return <Terminal className={className} />;
       default: return <Code className={className} />;
     }
   };

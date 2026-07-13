@@ -137,10 +137,32 @@
   }
   .btn-ghost:hover { border-color: var(--accent-line); background: rgba(255,255,255,0.03); }
 
-  /* install command: click-to-copy, horizontally scrollable on small screens */
-  .btn.cmd-copy { font-size: 13px; max-width: min(540px, 100%); white-space: nowrap; overflow-x: auto; scrollbar-width: none; }
-  .btn.cmd-copy::-webkit-scrollbar { display: none; }
-  .btn.cmd-copy .label { display: inline-block; }
+  /* install panel: click-to-copy code block */
+  .install {
+    max-width: 560px; margin: 34px auto 0; text-align: left;
+    border: 1px solid var(--edge-strong); border-radius: 14px; overflow: hidden;
+    background: #0a0b0d; box-shadow: 0 28px 70px -34px rgba(0,0,0,0.85);
+  }
+  .install-head {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 11px 14px; border-bottom: 1px solid var(--edge);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .install-tag { font-size: 10px; letter-spacing: 0.28em; color: var(--muted); }
+  .install-copy {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent);
+    background: transparent; border: 1px solid var(--edge-strong);
+    padding: 4px 11px; border-radius: 8px; cursor: pointer;
+    transition: border-color .2s, color .2s;
+  }
+  .install-copy:hover { border-color: var(--accent); }
+  .install-copy.done { color: var(--accent); border-color: var(--accent); }
+  .install-code {
+    margin: 0; padding: 16px 18px; font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; line-height: 1.95; color: #e6e6e6; white-space: pre;
+    overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--edge-strong) transparent;
+  }
+  .install-code .ps { color: var(--accent); user-select: none; margin-right: 9px; }
 
   /* ---------- HERO ---------- */
   .hero { position: relative; padding: 168px 0 60px; overflow: hidden; }
@@ -410,9 +432,9 @@
         <h1 class="reveal">Your phone is now your <span class="accent">second terminal.</span></h1>
         <p class="sub reveal">Stream active logs and terminal output straight to your smartphone with a single QR scan. Zero extensions. Zero friction. Your desktop stays exactly where it is. The screen just got bigger.</p>
         <div class="hero-cta reveal">
-          <button class="btn btn-primary cmd-copy" data-copy="git clone https://github.com/JessenReinhart/share-term.git && cd share-term && npm install && npm link" aria-label="Copy install command">
+          <button class="btn btn-primary" data-copy="git clone https://github.com/JessenReinhart/share-term.git && cd share-term && npm install && npm link" aria-label="Copy install command">
             <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            <span class="label">git clone https://github.com/JessenReinhart/share-term.git &amp;&amp; cd share-term &amp;&amp; npm install &amp;&amp; npm link</span>
+            <span class="label">Copy install command</span>
           </button>
           <a class="btn btn-ghost" href="https://github.com/JessenReinhart/share-term" target="_blank" rel="noopener">
             <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.33 4.79-4.56 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
@@ -548,16 +570,25 @@
         <!-- CTA STRIP -->
         <div class="cta-strip reveal">
           <h2>Give your logs a second screen.</h2>
-          <p>One command. One scan. A terminal that follows you anywhere in the room.</p>
+          <p>Clone, install, and link it globally. Then point your phone at the QR.</p>
+
+          <div class="install">
+            <div class="install-head">
+              <span class="install-tag">INSTALL</span>
+              <button class="install-copy" data-copy="git clone https://github.com/JessenReinhart/share-term.git && cd share-term && npm install && npm link" aria-label="Copy install command">
+                <span class="label">Copy</span>
+              </button>
+            </div>
+<pre class="install-code"><code><span class="ps">$</span> git clone https://github.com/JessenReinhart/share-term.git
+<span class="ps">$</span> cd share-term &amp;&amp; npm install &amp;&amp; npm link</code></pre>
+          </div>
+
           <div class="hero-cta">
-            <button class="btn btn-primary cmd-copy" data-copy="git clone https://github.com/JessenReinhart/share-term.git && cd share-term && npm install && npm link" aria-label="Copy install command">
-              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-              <span class="label">git clone https://github.com/JessenReinhart/share-term.git &amp;&amp; cd share-term &amp;&amp; npm install &amp;&amp; npm link</span>
-            </button>
-            <a class="btn btn-ghost" href="https://github.com/JessenReinhart/share-term" target="_blank" rel="noopener">
+            <a class="btn btn-primary" href="https://github.com/JessenReinhart/share-term" target="_blank" rel="noopener">
               <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.33 4.79-4.56 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-              Star on GitHub
+              View on GitHub
             </a>
+            <a class="btn btn-ghost" href="https://github.com/JessenReinhart/share-term#readme" target="_blank" rel="noopener">Read the docs</a>
           </div>
         </div>
       </div>

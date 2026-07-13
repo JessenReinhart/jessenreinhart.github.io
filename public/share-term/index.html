@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="share-term — stream your terminal logs to your phone by scanning a QR code. Zero config, real-time, ANSI-aware. Your phone is now a second terminal." />
+<meta name="theme-color" content="#000000" />
+<title>share-term — your phone is now a second terminal</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000'/%3E%3Cpath d='M9 11l4 5-4 5' stroke='%2300FF66' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M16 22h7' stroke='%23f5f5f5' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#000000',
+          soft: '#080808',
+          panel: '#0c0c0c',
+          edge: 'rgba(255,255,255,0.08)',
+          muted: '#666666',
+          accent: '#00FF66',
+        },
+        fontFamily: {
+          sans: ['Inter', 'system-ui', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  :root {
+    --bg: #000000;
+    --soft: #080808;
+    --panel: #0c0c0c;
+    --edge: rgba(255, 255, 255, 0.08);
+    --edge-strong: rgba(255, 255, 255, 0.14);
+    --text: #f5f5f5;
+    --muted: #666666;
+    --accent: #00ff66;
+    --accent-soft: rgba(0, 255, 102, 0.12);
+    --accent-line: rgba(0, 255, 102, 0.35);
+    --radius: 16px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    line-height: 1.5;
+  }
+
+  ::selection { background: var(--accent); color: #000; }
+
+  a { color: inherit; text-decoration: none; }
+
+  .shell { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+  @media (max-width: 640px) { .shell { padding: 0 20px; } }
+
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+    animation: pulse 2.4s var(--ease) infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  /* ---------- NAV ---------- */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    transition: background 0.4s var(--ease), border-color 0.4s var(--ease);
+    border-bottom: 1px solid transparent;
+  }
+  .nav.scrolled {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--edge);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .brand { display: flex; align-items: center; gap: 11px; font-weight: 600; letter-spacing: -0.01em; }
+  .brand .logo {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: #0a0a0a; border: 1px solid var(--edge);
+    display: grid; place-items: center;
+  }
+  .brand .logo svg { width: 17px; height: 17px; }
+  .brand .ver {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--muted); border: 1px solid var(--edge); border-radius: 999px;
+    padding: 2px 7px; letter-spacing: 0.05em;
+  }
+  .nav-links { display: flex; align-items: center; gap: 26px; }
+  .nav-links a.link { font-size: 14px; color: var(--muted); transition: color 0.25s var(--ease); }
+  .nav-links a.link:hover { color: var(--text); }
+  .nav-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
+    border: 1px solid var(--edge-strong); border-radius: 999px;
+    padding: 8px 14px; color: var(--text);
+    transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+  }
+  .nav-cta:hover { border-color: var(--accent-line); background: var(--accent-soft); }
+  .nav-cta svg { width: 15px; height: 15px; }
+  @media (max-width: 720px) { .nav-links .link { display: none; } }
+
+  /* ---------- BUTTONS ---------- */
+  .btn {
+    position: relative; display: inline-flex; align-items: center; gap: 11px;
+    font-family: 'JetBrains Mono', monospace; font-size: 14px;
+    border-radius: 12px; padding: 15px 22px; cursor: pointer;
+    border: 1px solid transparent; transition: transform 0.18s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease);
+    will-change: transform; user-select: none;
+  }
+  .btn .ic { width: 17px; height: 17px; flex: none; }
+  .btn-primary {
+    background: var(--accent); color: #000; font-weight: 600;
+    box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.4);
+  }
+  .btn-primary:hover { box-shadow: 0 8px 40px -8px rgba(0, 255, 102, 0.55); }
+  .btn-primary.done { background: #fff; }
+  .btn-ghost {
+    background: transparent; color: var(--text); border-color: var(--edge-strong);
+  }
+  .btn-ghost:hover { border-color: var(--accent-line); background: rgba(255,255,255,0.03); }
+
+  /* ---------- HERO ---------- */
+  .hero { position: relative; padding: 168px 0 60px; overflow: hidden; }
+  .hero-glow {
+    position: absolute; top: -10%; left: 50%; transform: translateX(-50%);
+    width: 900px; max-width: 120vw; height: 600px; pointer-events: none;
+    background: radial-gradient(ellipse at center, rgba(0,255,102,0.10), rgba(0,255,102,0) 60%);
+    filter: blur(20px); z-index: 0;
+  }
+  .hero-grid {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0.5;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 64px 64px;
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
+  }
+  .hero-inner { position: relative; z-index: 1; }
+  .hero h1 {
+    font-size: clamp(40px, 7vw, 88px); line-height: 0.98; letter-spacing: -0.04em;
+    font-weight: 800; margin: 24px 0 0; max-width: 14ch;
+  }
+  .hero h1 .accent {
+    color: transparent;
+    background: linear-gradient(180deg, #fff 0%, var(--accent) 130%);
+    -webkit-background-clip: text; background-clip: text;
+  }
+  .hero p.sub {
+    margin: 26px 0 0; max-width: 52ch; color: #a8a8a8;
+    font-size: clamp(15px, 1.6vw, 18px); line-height: 1.65; letter-spacing: -0.01em;
+  }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px; }
+  .hero-meta {
+    margin-top: 30px; display: flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted);
+  }
+  .hero-meta .sep { width: 4px; height: 4px; border-radius: 50%; background: var(--muted); }
+
+  /* ---------- SHOWCASE ---------- */
+  .showcase { position: relative; margin-top: 84px; }
+  .showcase-stage {
+    display: grid; grid-template-columns: 1.35fr 0.65fr; gap: 28px; align-items: center;
+  }
+  .panel {
+    background: linear-gradient(180deg, #0c0c0c, #080808);
+    border: 1px solid var(--edge); border-radius: 18px; overflow: hidden;
+    box-shadow: 0 40px 120px -40px rgba(0,0,0,0.9);
+  }
+  .term-bar {
+    display: flex; align-items: center; gap: 8px; padding: 13px 16px;
+    border-bottom: 1px solid var(--edge); background: rgba(255,255,255,0.015);
+  }
+  .term-bar .tdot { width: 11px; height: 11px; border-radius: 50%; background: #2a2a2a; }
+  .term-bar .tdot.r { background: #ff5f56; } .term-bar .tdot.y { background: #ffbd2e; } .term-bar .tdot.g { background: #27c93f; }
+  .term-bar .ttitle {
+    margin-left: 10px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted);
+  }
+  .term-body {
+    display: grid; grid-template-columns: 1fr auto; gap: 18px;
+    padding: 22px; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.85;
+    min-height: 340px;
+  }
+  .term-lines { white-space: pre-wrap; }
+  .term-lines .ln { opacity: 0; transform: translateY(4px); animation: lineIn 0.5s var(--ease) forwards; }
+  @keyframes lineIn { to { opacity: 1; transform: none; } }
+  .prompt { color: var(--accent); }
+  .dim { color: var(--muted); }
+  .ok { color: var(--accent); }
+  .url { color: #6cc6ff; }
+  .cmd { color: #fff; }
+
+  .qr-box {
+    align-self: center; justify-self: end;
+    border: 1px solid var(--edge-strong); border-radius: 12px; padding: 12px;
+    background: #fff; transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  .qr-box #qrcode { width: 132px; height: 132px; display: block; }
+  .qr-box #qrcode img, .qr-box #qrcode canvas { width: 132px !important; height: 132px !important; display: block; }
+  .qr-cap { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: #000; opacity: 0.55; margin-top: 7px; letter-spacing: 0.08em; }
+  .showcase-stage:hover .qr-box { transform: translateY(-4px) scale(1.03); box-shadow: 0 0 0 1px var(--accent-line), 0 20px 50px -10px rgba(0,255,102,0.4); }
+
+  /* phone */
+  .phone-wrap { display: flex; justify-content: center; perspective: 1400px; }
+  .phone {
+    position: relative; width: 248px; height: 506px; border-radius: 40px;
+    background: #0a0a0a; border: 1px solid var(--edge-strong);
+    padding: 11px; box-shadow: 0 50px 120px -30px rgba(0,0,0,0.95), inset 0 0 0 2px #000;
+    transform: rotateY(-9deg) rotateX(3deg); transition: transform 0.6s var(--ease);
+  }
+  .showcase-stage:hover .phone { transform: rotateY(-2deg) rotateX(1deg) translateY(-6px); }
+  .phone .notch {
+    position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
+    width: 92px; height: 22px; background: #000; border-radius: 999px; z-index: 3;
+  }
+  .phone-screen {
+    position: relative; width: 100%; height: 100%; border-radius: 30px; overflow: hidden;
+    background: #050505; border: 1px solid rgba(255,255,255,0.05);
+  }
+  .phone-layer { position: absolute; inset: 0; transition: opacity 0.6s var(--ease); }
+  .phone-idle {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+    opacity: 1; padding: 30px;
+  }
+  .phone-idle .ring {
+    width: 116px; height: 116px; border-radius: 16px;
+    background:
+      repeating-conic-gradient(#111 0 25%, #1a1a1a 0 50%) 0 0 / 14px 14px;
+    border: 1px solid var(--edge); display: grid; place-items: center; opacity: 0.5;
+  }
+  .phone-idle .ring svg { width: 40px; height: 40px; color: var(--muted); }
+  .phone-idle p { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); text-align: center; letter-spacing: 0.04em; margin: 0; line-height: 1.6; }
+  .phone-idle .pct { color: var(--accent); }
+
+  .phone-stream { opacity: 0; }
+  .showcase-stage:hover ~ .phone-wrap .phone-stream,
+  .showcase-stage:hover .phone-stream { opacity: 1; }
+  .showcase-stage:hover .phone-idle { opacity: 0; }
+  .stream-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px 10px; font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted);
+    border-bottom: 1px solid var(--edge);
+  }
+  .stream-bar .conn { display: inline-flex; align-items: center; gap: 6px; color: var(--accent); }
+  .stream-bar .conn .cdot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); animation: pulse 1.8s infinite; }
+  .stream-body {
+    position: absolute; inset: 44px 0 0 0; padding: 12px 14px; overflow: hidden;
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px; line-height: 1.7;
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 14%, #000 92%, transparent);
+    mask-image: linear-gradient(180deg, transparent, #000 14%, #000 92%, transparent);
+  }
+  .stream-body .sln { opacity: 0; animation: lineIn 0.45s var(--ease) forwards; white-space: pre-wrap; word-break: break-word; }
+  .sln .t { color: #4d4d4d; }
+  .sln .info { color: var(--accent); }
+  .sln .warn { color: #ffbd2e; }
+  .sln .err { color: #ff5f56; }
+  .sln .path { color: #6cc6ff; }
+  .sln .dim { color: #777; }
+  .stream-fab {
+    position: absolute; right: 14px; bottom: 16px; width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,0.06); border: 1px solid var(--edge-strong);
+    display: grid; place-items: center; color: #cfcfcf; font-size: 10px; font-family: 'JetBrains Mono', monospace;
+    backdrop-filter: blur(6px);
+  }
+
+  @media (max-width: 860px) {
+    .showcase-stage { grid-template-columns: 1fr; gap: 40px; }
+    .phone-wrap { order: -1; }
+    .phone { transform: none; }
+    .showcase-stage:hover .phone { transform: translateY(-4px); }
+    .term-body { grid-template-columns: 1fr; }
+    .qr-box { justify-self: center; }
+  }
+  @media (hover: none) {
+    .phone-idle { opacity: 0; }
+    .phone-stream { opacity: 1; }
+  }
+
+  /* ---------- SECTION HEADERS ---------- */
+  .sec { padding: 110px 0; position: relative; }
+  .sec-head { max-width: 60ch; }
+  .sec-head h2 {
+    font-size: clamp(30px, 4.4vw, 52px); letter-spacing: -0.035em; line-height: 1.04;
+    font-weight: 800; margin: 18px 0 0;
+  }
+  .sec-head p { color: #9a9a9a; margin: 18px 0 0; font-size: 17px; line-height: 1.6; max-width: 50ch; }
+
+  /* ---------- STEPS ---------- */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--edge); border-radius: var(--radius); overflow: hidden; margin-top: 56px; }
+  .step { padding: 38px 32px 44px; border-right: 1px solid var(--edge); position: relative; transition: background 0.4s var(--ease); }
+  .step:last-child { border-right: none; }
+  .step:hover { background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent); }
+  .step .num { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent); letter-spacing: 0.1em; }
+  .step h3 { font-size: 22px; letter-spacing: -0.02em; margin: 22px 0 12px; font-weight: 700; }
+  .step p { color: var(--muted); font-size: 14.5px; line-height: 1.65; margin: 0; }
+  .step .snip { margin-top: 20px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #cfcfcf; background: #0a0a0a; border: 1px solid var(--edge); border-radius: 8px; padding: 10px 12px; display: inline-block; }
+  @media (max-width: 760px) {
+    .steps { grid-template-columns: 1fr; }
+    .step { border-right: none; border-bottom: 1px solid var(--edge); }
+    .step:last-child { border-bottom: none; }
+  }
+
+  /* ---------- BENTO ---------- */
+  .bento { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; margin-top: 56px; }
+  .cell {
+    border: 1px solid var(--edge); border-radius: var(--radius); padding: 30px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0));
+    position: relative; overflow: hidden; transition: border-color 0.4s var(--ease), transform 0.4s var(--ease);
+  }
+  .cell:hover { border-color: var(--edge-strong); transform: translateY(-3px); }
+  .cell.w4 { grid-column: span 4; }
+  .cell.w3 { grid-column: span 3; }
+  .cell.w2 { grid-column: span 2; }
+  .cell .ic {
+    width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center;
+    background: var(--accent-soft); border: 1px solid var(--accent-line); color: var(--accent); margin-bottom: 22px;
+  }
+  .cell .ic svg { width: 20px; height: 20px; }
+  .cell h3 { font-size: 19px; letter-spacing: -0.02em; margin: 0 0 10px; font-weight: 700; }
+  .cell p { color: var(--muted); font-size: 14px; line-height: 1.62; margin: 0; max-width: 46ch; }
+  .cell .tag { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--accent); letter-spacing: 0.12em; text-transform: uppercase; }
+  .cell.featured { background: linear-gradient(160deg, rgba(0,255,102,0.07), rgba(0,0,0,0) 60%); }
+  .cell.featured h3 { font-size: 26px; }
+  @media (max-width: 900px) {
+    .bento { grid-template-columns: repeat(2, 1fr); }
+    .cell.w4, .cell.w3, .cell.w2 { grid-column: span 2; }
+  }
+  @media (max-width: 560px) { .bento { grid-template-columns: 1fr; } .cell.w4, .cell.w3, .cell.w2 { grid-column: span 1; } }
+
+  /* ---------- CTA strip ---------- */
+  .cta-strip {
+    margin: 30px auto 0; border: 1px solid var(--edge-strong); border-radius: 22px;
+    padding: 64px 40px; text-align: center; position: relative; overflow: hidden;
+    background: radial-gradient(ellipse at 50% -20%, rgba(0,255,102,0.10), transparent 60%);
+  }
+  .cta-strip h2 { font-size: clamp(28px, 4vw, 46px); letter-spacing: -0.035em; margin: 0 auto; max-width: 18ch; line-height: 1.05; font-weight: 800; }
+  .cta-strip p { color: #9a9a9a; margin: 18px auto 0; max-width: 44ch; font-size: 16px; }
+  .cta-strip .hero-cta { justify-content: center; }
+
+  /* ---------- FOOTER ---------- */
+  .footer { border-top: 1px solid var(--edge); padding: 44px 0; margin-top: 60px; }
+  .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+  .footer .tagline { font-size: 13.5px; color: var(--muted); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.02em; }
+  .footer .links { display: flex; gap: 22px; align-items: center; }
+  .footer .links a { font-size: 13.5px; color: var(--muted); transition: color 0.25s var(--ease); display: inline-flex; align-items: center; gap: 7px; }
+  .footer .links a:hover { color: var(--text); }
+  .footer .links svg { width: 15px; height: 15px; }
+
+  /* ---------- reveal ---------- */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+
+<body>
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="shell nav-inner">
+      <a href="#top" class="brand">
+        <span class="logo">
+          <svg viewBox="0 0 32 32" fill="none"><path d="M9 11l4 5-4 5" stroke="#00FF66" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 22h7" stroke="#f5f5f5" stroke-width="2.4" stroke-linecap="round"/></svg>
+        </span>
+        share-term
+        <span class="ver">v1.0</span>
+      </a>
+      <div class="nav-links">
+        <a class="link" href="#how">How it works</a>
+        <a class="link" href="#features">Features</a>
+        <a class="nav-cta" href="https://github.com/JessenReinhart/share-term" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.33 4.79-4.56 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-glow"></div>
+      <div class="hero-grid"></div>
+      <div class="shell hero-inner">
+        <span class="eyebrow reveal"><span class="dot"></span> Open source · Zero-config · Real-time</span>
+        <h1 class="reveal">Your phone is now your <span class="accent">second terminal.</span></h1>
+        <p class="sub reveal">Stream active logs and terminal output straight to your smartphone with a single QR scan. Zero extensions. Zero friction. Your desktop stays exactly where it is — the screen just got bigger.</p>
+        <div class="hero-cta reveal">
+          <button class="btn btn-primary" data-copy="npm i -g share-term">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+            <span class="label">npm i -g share-term</span>
+          </button>
+          <a class="btn btn-ghost" href="https://github.com/JessenReinhart/share-term" target="_blank" rel="noopener">
+            <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.33 4.79-4.56 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+            View on GitHub
+          </a>
+        </div>
+        <div class="hero-meta reveal">
+          <span>Node ≥ 18</span><span class="sep"></span>
+          <span>MIT Licensed</span><span class="sep"></span>
+          <span>ANSI-aware</span><span class="sep"></span>
+          <span>PWA receiver</span>
+        </div>
+
+        <!-- SHOWCASE -->
+        <div class="showcase reveal">
+          <div class="showcase-stage">
+            <div class="panel terminal">
+              <div class="term-bar">
+                <span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span>
+                <span class="ttitle">~/projects/api — share-term</span>
+              </div>
+              <div class="term-body">
+                <div class="term-lines">
+                  <div class="ln" style="animation-delay:.1s"><span class="dim">~/projects/api</span> <span class="prompt">❯</span> <span class="cmd">share-term</span></div>
+                  <div class="ln" style="animation-delay:.5s"><span class="ok">✔</span> Scanning for log files… found <span class="ok">3</span> source(s)</div>
+                  <div class="ln" style="animation-delay:.9s"><span class="dim">›</span> streaming: <span class="path">dev.log</span> + live PTY</div>
+                  <div class="ln" style="animation-delay:1.3s"><span class="ok">✔</span> Server ready · <span class="url">http://192.168.1.42:8080</span></div>
+                  <div class="ln" style="animation-delay:1.7s"><span class="dim">scan this with your phone ↓</span></div>
+                </div>
+                <div class="qr-box">
+                  <div id="qrcode"></div>
+                  <div class="qr-cap">SHARE-TERM</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="phone-wrap">
+              <div class="phone">
+                <div class="notch"></div>
+                <div class="phone-screen">
+                  <div class="phone-layer phone-idle">
+                    <div class="ring">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l18-8-8 18-2-8-8-2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </div>
+                    <p>Aim your camera at the terminal QR. <span class="pct">No app. No install.</span></p>
+                  </div>
+                  <div class="phone-layer phone-stream">
+                    <div class="stream-bar">
+                      <span class="conn"><span class="cdot"></span> LIVE · dev.log</span>
+                      <span class="mono">12:04:51</span>
+                    </div>
+                    <div class="stream-body" id="stream"></div>
+                    <div class="stream-fab">CLR</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="sec" id="how">
+      <div class="shell">
+        <div class="sec-head reveal">
+          <span class="eyebrow"><span class="dot"></span> How it works</span>
+          <h2>Three steps. Zero setup.</h2>
+          <p>No accounts, no pairing, no app store. If your phone is on the same Wi-Fi, it just works.</p>
+        </div>
+        <div class="steps reveal">
+          <div class="step">
+            <div class="num">01 / RUN</div>
+            <h3>Run</h3>
+            <p>Run <strong>share-term</strong> in any active project directory. It auto-detects log files, tmux panes, or spawns a live PTY.</p>
+            <div class="snip">$ share-term</div>
+          </div>
+          <div class="step">
+            <div class="num">02 / SCAN</div>
+            <h3>Scan</h3>
+            <p>Aim your phone camera at the QR code printed in your terminal. The PWA receiver opens instantly — nothing to download.</p>
+            <div class="snip">📷 scan → open</div>
+          </div>
+          <div class="step">
+            <div class="num">03 / STREAM</div>
+            <h3>Stream</h3>
+            <p>Watch live logs with smart filtering, text search, and error alerts. Your phone vibrates the moment a build fails.</p>
+            <div class="snip">ws:// &lt;lan-ip&gt;:8080</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="sec" id="features">
+      <div class="shell">
+        <div class="sec-head reveal">
+          <span class="eyebrow"><span class="dot"></span> Features</span>
+          <h2>Built like a developer tool should be.</h2>
+          <p>Precise, lightning-fast, zero bloat. Every byte streamed over a raw WebSocket — no heavy runtime, no telemetry.</p>
+        </div>
+        <div class="bento">
+          <div class="cell w4 featured reveal">
+            <span class="tag">Zero-config DX</span>
+            <h3>No App Store. Opens as a PWA.</h3>
+            <p>The receiver is a single responsive HTML file served from the CLI itself. Your phone installs it to the home screen in one tap and launches straight into a full terminal — xterm.js rendered locally, with cursor movement, colors, and layout intact.</p>
+          </div>
+          <div class="cell w2 reveal">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 17l6-6-6-6M12 19h8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3>ANSI Faithful</h3>
+            <p>Real SGR, 256-color aware. Logs render exactly like your terminal.</p>
+          </div>
+          <div class="cell w2 reveal">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3>Smart Notifications</h3>
+            <p>Phone vibrates the exact moment a build fails or an exception is thrown.</p>
+          </div>
+          <div class="cell w2 reveal">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <h3>Battery Optimized</h3>
+            <p>Pure WebSocket data stream. Ultra-low battery, negligible CPU on the laptop.</p>
+          </div>
+          <div class="cell w3 reveal">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3" stroke-linecap="round"/></svg></div>
+            <h3>Live Terminal Sharing</h3>
+            <p>Spawns a shared shell via node-pty (ConPTY / openpty) — your phone sees it live with full ANSI colors. No tmux required, but tmux attach is there when you want it.</p>
+          </div>
+          <div class="cell w3 reveal">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h10" stroke-linecap="round"/></svg></div>
+            <h3>Wide-TUI Aware</h3>
+            <p>PTY sources report real width, so the phone renders at the true column count — box-drawing art stays crisp instead of wrapping.</p>
+          </div>
+        </div>
+
+        <!-- CTA STRIP -->
+        <div class="cta-strip reveal">
+          <h2>Give your logs a second screen.</h2>
+          <p>One command. One scan. A terminal that follows you anywhere in the room.</p>
+          <div class="hero-cta">
+            <button class="btn btn-primary" data-copy="npm i -g share-term">
+              <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+              <span class="label">npm i -g share-term</span>
+            </button>
+            <a class="btn btn-ghost" href="https://github.com/JessenReinhart/share-term" target="_blank" rel="noopener">
+              <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.33 4.79-4.56 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+              Star on GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="shell footer-inner">
+        <span class="tagline">Built by developers, for developers.</span>
+        <div class="links">
+          <a href="https://github.com/JessenReinhart/share-term" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.33 4.79-4.56 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+            Repository
+          </a>
+          <a href="https://github.com/JessenReinhart/share-term#readme" target="_blank" rel="noopener">MIT License</a>
+          <span style="color:var(--muted);font-size:13.5px">© 2026 share-term</span>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script>
+    // QR code
+    (function () {
+      var el = document.getElementById('qrcode');
+      if (el && window.QRCode) {
+        new QRCode(el, {
+          text: 'https://github.com/JessenReinhart/share-term',
+          width: 132, height: 132,
+          colorDark: '#000000', colorLight: '#ffffff',
+          correctLevel: QRCode.CorrectLevel.M,
+        });
+      }
+    })();
+
+    // Copy-to-clipboard
+    document.querySelectorAll('[data-copy]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var text = btn.getAttribute('data-copy');
+        var done = function () {
+          btn.classList.add('done');
+          var label = btn.querySelector('.label');
+          var prev = label ? label.textContent : '';
+          if (label) label.textContent = 'Copied! ✓';
+          setTimeout(function () {
+            btn.classList.remove('done');
+            if (label) label.textContent = prev;
+          }, 1800);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(done);
+        } else {
+          var ta = document.createElement('textarea');
+          ta.value = text; document.body.appendChild(ta); ta.select();
+          try { document.execCommand('copy'); } catch (e) {}
+          document.body.removeChild(ta); done();
+        }
+      });
+    });
+
+    // Magnetic buttons
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('.btn').forEach(function (btn) {
+        btn.addEventListener('mousemove', function (e) {
+          var r = btn.getBoundingClientRect();
+          var x = (e.clientX - r.left - r.width / 2) * 0.18;
+          var y = (e.clientY - r.top - r.height / 2) * 0.28;
+          btn.style.transform = 'translate(' + x + 'px,' + y + 'px)';
+        });
+        btn.addEventListener('mouseleave', function () { btn.style.transform = ''; });
+      });
+    }
+
+    // Nav scrolled state
+    var nav = document.getElementById('nav');
+    var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 24); };
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+    // Reveal on scroll
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+
+    // Phone live log stream
+    (function () {
+      var stream = document.getElementById('stream');
+      if (!stream) return;
+      var samples = [
+        ['info', 'dev  │', ' ', 'Vite dev server running on', ' ', 'http://localhost:5173'],
+        ['dim',  '12:04:51', ' ', 'GET', ' ', '/api/users 200', ' ', '42ms'],
+        ['',     'warn │', ' ', 'deprecated header', ' ', '"X-Powered-By"', ' ', 'removed'],
+        ['path', 'src/server.ts:128', ' ', 'connection established', ' ', '192.168.1.22'],
+        ['info', 'build│', ' ', 'compiling modules…', ' ', '312/312 ok'],
+        ['err',  'error│', ' ', 'Unhandled rejection in', ' ', 'worker#3', ' ', 'retrying'],
+        ['dim',  '12:04:52', ' ', 'POST', ' ', '/api/log 201', ' ', '11ms'],
+        ['info', 'ws   │', ' ', 'client subscribed to', ' ', 'dev.log'],
+        ['warn', 'net  │', ' ', 'high latency 180ms on', ' ', 'eth0'],
+        ['path', 'src/qr.ts:44', ' ', 'rendered QR for', ' ', '192.168.1.42:8080'],
+        ['info', 'dev  │', ' ', 'hmr update', ' ', 'App.tsx', ' ', 'applied'],
+        ['dim',  '12:04:53', ' ', 'GET', ' ', '/favicon.ico 304'],
+      ];
+      var i = 0, count = 0;
+      function push() {
+        var s = samples[i % samples.length]; i++;
+        var ln = document.createElement('div');
+        ln.className = 'sln';
+        var html = '';
+        for (var k = 0; k < s.length; k += 2) {
+          html += '<span class="' + s[k] + '">' + s[k + 1] + '</span>';
+        }
+        ln.innerHTML = html;
+        stream.appendChild(ln);
+        count++;
+        while (stream.children.length > 16) stream.removeChild(stream.firstChild);
+        stream.scrollTop = stream.scrollHeight;
+      }
+      var iv = setInterval(push, 850);
+      for (var j = 0; j < 7; j++) push();
+    })();
+  </script>
+</body>
+</html>

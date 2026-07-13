@@ -254,6 +254,7 @@ export const PROJECTS: Project[] = [
       "Menyambung ke tmux, mengekor file log, atau pipe dari stdin"
     ],
     imageSrc: "/screenshots/share-term-live.jpg",
+    liveUrl: "/share-term/",
     githubUrl: "https://github.com/JessenReinhart/share-term",
   },
 ];

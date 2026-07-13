@@ -234,8 +234,8 @@ export const PROJECTS: Project[] = [
     tagline: "Stream Your Terminal to Your Phone",
     description: "A zero-config CLI that mirrors your terminal (or any log stream) to your phone over local Wi-Fi by scanning a QR code — rendered as a real terminal emulator with full ANSI colors.",
     descriptionId: "Sebuah CLI tanpa konfigurasi yang menampilkan terminal (atau aliran log apa pun) ke ponsel melalui Wi-Fi lokal dengan memindai kode QR — dirender sebagai emulator terminal sungguhan dengan warna ANSI lengkap.",
-    motivation: "I wanted to glance at a running dev server or a long log from my phone without SSH-ing in or scraping tmux. share-term turns any terminal into a shareable, live view in one command — no tmux, no app install on the laptop.",
-    motivationId: "Saya ingin melihat server dev yang berjalan atau log panjang dari ponsel tanpa SSH atau tmux. share-term mengubah terminal apa pun menjadi tampilan langsung yang bisa dibagikan dalam satu perintah — tanpa tmux, tanpa instalasi aplikasi di laptop.",
+    motivation: "I use this personally in my own development workflow — I wanted to glance at a running dev server or a long log from my phone without SSH-ing in or scraping tmux. share-term turns any terminal into a shareable, live view in one command — no tmux, no app install on the laptop.",
+    motivationId: "Saya menggunakan ini secara pribadi dalam alur kerja pengembangan saya — saya ingin melihat server dev yang berjalan atau log panjang dari ponsel tanpa SSH atau tmux. share-term mengubah terminal apa pun menjadi tampilan langsung yang bisa dibagikan dalam satu perintah — tanpa tmux, tanpa instalasi aplikasi di laptop.",
     technologies: ["Node.js", "TypeScript", "node-pty", "WebSocket", "xterm.js", "QR"],
     features: [
       "Live terminal sharing via QR — no tmux required (uses node-pty / ConPTY)",

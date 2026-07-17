@@ -48,6 +48,26 @@ export const EXPERIENCES: Experience[] = [
     narrativeId: "Bank mengelola jutaan kartu kredit dan debit. Setiap penerbitan, aktivasi, dan perubahan limit membutuhkan sistem yang bekerja tanpa kesalahan. Saya membangun antarmuka web yang digunakan staf bank untuk operasi ini, bekerja full-stack di layanan backend dan halaman yang dilihat nasabah."
   },
   {
+    id: "exp-wonderslab",
+    role: "Freelance Frontend Engineer (Remote)",
+    company: "Wonderslab",
+    period: "Nov 2025 - Jun 2026",
+    location: "Remote",
+    technologies: ["React", "TypeScript", "Next.js", "TanStack Router", "TanStack Query", "TailwindCSS", "Zustand"],
+    highlights: [
+      "Shipped Planet Advisor, a real-estate AI app for checking Korean property prices and running analysis via AI chat (Next.js 14), with streaming responses and infinite scroll",
+      "Built d-camp, a startup-evaluation dashboard (React 19 + TanStack Router), with scorecards, pipeline views, and AI-vs-manual evaluation comparison",
+      "Delivered Wonderslaw, an AI-powered legal app for Korean legal cases (React + TanStack Query, NestJS backend), including token-expiry auto-logout and redirect handling"
+    ],
+    highlightsId: [
+      "Mengerjakan Planet Advisor, aplikasi AI untuk sektor properti yang membantu mengecek harga dan menganalisis properti di Korea lewat chat AI (Next.js 14), dengan respons streaming dan infinite scroll",
+      "Membangun d-camp, dashboard evaluasi startup (React 19 + TanStack Router) dengan scorecard, pipeline view, dan perbandingan evaluasi AI vs manual",
+      "Mengirimkan Wonderslaw, aplikasi hukum bertenaga AI untuk kasus hukum Korea (React + TanStack Query, backend NestJS), termasuk auto-logout saat token kadaluarsa dan penanganan redirect"
+    ],
+    narrative: "Wonderslab needed frontend support across three products. I built Planet Advisor's real-estate AI chat UI for Korean property pricing and analysis, the d-camp startup-evaluation dashboard, and Wonderslaw's AI-powered legal document flows for Korean cases — all done remotely.",
+    narrativeId: "Wonderslab butuh bantuan frontend untuk tiga produk. Saya membangun UI chat AI Planet Advisor untuk pengecekan harga dan analisis properti Korea, dashboard evaluasi startup d-camp, serta alur dokumen hukum bertenaga AI Wonderslaw untuk kasus hukum Korea — seluruhnya dikerjakan secara remote."
+  },
+  {
     id: "exp-wide",
     role: "Frontend Engineer",
     company: "PT Wide Technologies Indonesia",

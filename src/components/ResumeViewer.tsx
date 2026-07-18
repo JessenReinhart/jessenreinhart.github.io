@@ -46,7 +46,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
       </div>
 
       {/* Resume Sheet — base text-[9.5pt] for print, compact spacing */}
-      <div className="max-w-4xl mx-auto bg-white text-black p-6 sm:p-8 md:p-14 rounded-2xl print:rounded-none print:shadow-none print:p-[8mm] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.9)] text-left font-sans leading-tight text-[9.5pt]">
+      <div className="max-w-4xl mx-auto bg-white text-black p-6 sm:p-8 md:p-14 rounded-2xl print:rounded-none print:shadow-none print:p-0 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.9)] text-left font-sans leading-tight text-[9.5pt]">
 
         {/* ── Header ── */}
         <div className="border-b border-black pb-1.5 mb-2">
@@ -144,7 +144,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             <div>
               <h4 className="text-[8.5pt] font-bold text-neutral-900">Invoicr</h4>
               <p className="text-[7.5pt] text-neutral-600 leading-snug">
-                Invoice generator &amp; time tracker with hourly rate billing, PDF export, dark/light themes.
+                Invoice &amp; time tracker with hourly billing, PDF export, dark/light themes.
               </p>
               <div className="text-[7pt] font-mono text-neutral-500">
                 React, TypeScript, Vite, TailwindCSS
@@ -154,7 +154,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             <div>
               <h4 className="text-[8.5pt] font-bold text-neutral-900">Wedding E-Invitation</h4>
               <p className="text-[7.5pt] text-neutral-600 leading-snug">
-                Digital invitation portal with RSVP, event timelines, interactive maps, guestbook. 200+ guests.
+                RSVP invitation portal with timelines, maps, guestbook (200+ guests).
               </p>
               <div className="text-[7pt] font-mono text-neutral-500">
                 React, TailwindCSS, Maps API
@@ -164,7 +164,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             <div>
               <h4 className="text-[8.5pt] font-bold text-neutral-900">TripCore</h4>
               <p className="text-[7.5pt] text-neutral-600 leading-snug">
-                Firebase trip planner with collaborative itineraries, budget splitting, guest invitations.
+                Firebase trip planner: shared itineraries, budget split, guest invites.
               </p>
               <div className="text-[7pt] font-mono text-neutral-500">
                 ReactJS, TypeScript, Vite, Firebase
@@ -174,7 +174,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             <div>
               <h4 className="text-[8.5pt] font-bold text-neutral-900">SoulSync</h4>
               <p className="text-[7.5pt] text-neutral-600 leading-snug">
-                Offline personal log with diary, mood tracking, milestones, Recharts progress graphs.
+                Offline diary with mood tracking, milestones, Recharts progress.
               </p>
               <div className="text-[7pt] font-mono text-neutral-500">
                 React, TailwindCSS, Local Storage, Recharts

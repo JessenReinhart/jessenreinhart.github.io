@@ -74,7 +74,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
 
         {/* ── Professional Summary ── */}
         <div className="mb-3 print:mb-2">
-          <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase border-b border-neutral-200 pb-px mb-1 select-none">
+          <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase pb-px mb-1 select-none">
             PROFESSIONAL SUMMARY
           </h3>
           <p className="text-neutral-700 text-[8.5pt] leading-snug">
@@ -84,7 +84,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
 
         {/* ── Work Experience ── */}
         <div className="mb-3 print:mb-2">
-          <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase border-b border-neutral-200 pb-px mb-1 select-none">
+          <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase pb-px mb-1 select-none">
             WORK EXPERIENCE
           </h3>
 
@@ -136,7 +136,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
 
         {/* ── Side Projects ── */}
         <div className="mb-3 print:mb-2">
-          <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase border-b border-neutral-200 pb-px mb-1 select-none">
+          <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase pb-px mb-1 select-none">
             SIDE PROJECTS
           </h3>
 
@@ -185,7 +185,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
 
         {/* ── Education ── */}
         <div className="mb-3 print:mb-2">
-          <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase border-b border-neutral-200 pb-px mb-1 select-none">
+          <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase pb-px mb-1 select-none">
             EDUCATION
           </h3>
           <div className="flex justify-between items-baseline">
@@ -201,7 +201,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
 
         {/* ── Skills ── */}
         <div className="mb-3 print:mb-2">
-          <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase border-b border-neutral-200 pb-px mb-1 select-none">
+          <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase pb-px mb-1 select-none">
             CORE TECHNICAL SKILLS
           </h3>
           <p className="text-[8pt] text-neutral-700 leading-snug">

@@ -102,10 +102,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
                   </div>
                   <div className="text-right flex-shrink-0">
                     <span className="text-[7.5pt] font-mono text-neutral-500 block whitespace-nowrap">
-                      {exp.period}
-                    </span>
-                    <span className="text-[7pt] font-mono text-neutral-400 block whitespace-nowrap">
-                      {exp.location}
+                      {exp.period} · {exp.location}
                     </span>
                   </div>
                 </div>

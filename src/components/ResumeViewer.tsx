@@ -73,7 +73,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
         </div>
 
         {/* ── Professional Summary ── */}
-        <div className="mb-3 print:mb-2">
+        <div className="mb-3 print:mb-3">
           <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase pb-px mb-1 select-none">
             PROFESSIONAL SUMMARY
           </h3>
@@ -83,7 +83,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
         </div>
 
         {/* ── Work Experience ── */}
-        <div className="mb-3 print:mb-2">
+        <div className="mb-3 print:mb-3">
           <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase pb-px mb-1 select-none">
             WORK EXPERIENCE
           </h3>
@@ -132,7 +132,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
         </div>
 
         {/* ── Side Projects ── */}
-        <div className="mb-3 print:mb-2">
+        <div className="mb-3 print:mb-3">
           <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase pb-px mb-1 select-none">
             SIDE PROJECTS
           </h3>
@@ -181,7 +181,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
         </div>
 
         {/* ── Education ── */}
-        <div className="mb-3 print:mb-2">
+        <div className="mb-3 print:mb-3">
           <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase pb-px mb-1 select-none">
             EDUCATION
           </h3>
@@ -197,7 +197,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
         </div>
 
         {/* ── Skills ── */}
-        <div className="mb-3 print:mb-2">
+        <div className="mb-3 print:mb-3">
           <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase pb-px mb-1 select-none">
             CORE TECHNICAL SKILLS
           </h3>

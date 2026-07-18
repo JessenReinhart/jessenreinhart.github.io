@@ -88,11 +88,11 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             WORK EXPERIENCE
           </h3>
 
-          <div className="space-y-1.5">
+          <div className="space-y-1">
             {EXPERIENCES.map((exp) => (
               <div key={exp.id}>
                 <div className="flex flex-row items-baseline justify-between gap-2">
-                  <div className="min-w-0">
+                  <div className="min-w-0 flex items-baseline gap-1.5">
                     <h4 className="text-[9pt] font-bold text-neutral-900 leading-tight">
                       {exp.role}
                     </h4>
@@ -111,7 +111,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
                 </div>
 
                 {exp.narrative && (
-                  <p className="text-[8pt] leading-snug text-neutral-600 mt-1 mb-1">
+                  <p className="text-[8pt] leading-snug text-neutral-600 mt-0.5 mb-0.5">
                     {exp.narrative}
                   </p>
                 )}

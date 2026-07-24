@@ -59,15 +59,15 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
 
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
             <div
-              className="w-[65px] h-[110px] sm:w-[90px] sm:h-[152px] md:w-[110px] md:h-[185px] lg:w-[129px] lg:h-[218px] rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 pointer-events-auto"
+              className="w-[45px] h-[76px] sm:w-[55px] sm:h-[93px] md:w-[60px] md:h-[101px] lg:w-[65px] lg:h-[110px] rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 pointer-events-auto"
               style={{ backgroundColor: "var(--color-bg-surface)" }}
             >
               <img
                 src={PORTRAIT_IMAGE}
                 alt="Jessen Profile Photo"
                 fetchPriority="high"
-                width="129"
-                height="218"
+                width="65"
+                height="110"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-cover contrast-110"
               />

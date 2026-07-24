@@ -20,7 +20,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
     >
       {/* Visual Controls Header (Omitted during print) */}
       <div
-        className="max-w-4xl mx-auto flex items-center justify-between pb-4 mb-8 print:hidden select-none"
+        className="print-resume-chrome max-w-4xl mx-auto flex items-center justify-between pb-4 mb-8 select-none"
         style={{ borderBottom: "1px solid var(--color-border-primary)" }}
       >
         <div className="flex items-center gap-2">

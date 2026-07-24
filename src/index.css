@@ -285,15 +285,36 @@ body {
     size: A4;
     margin: 8mm;
   }
+  html,
   body {
     background: white !important;
     color: black !important;
   }
-  .no-print,
-  header,
-  footer,
-  nav,
-  .ascii-texture-layer {
+  /* Hide entire site chrome; only resume sheet prints */
+  body * {
+    visibility: hidden !important;
+  }
+  .print-resume,
+  .print-resume * {
+    visibility: visible !important;
+  }
+  .print-resume {
+    position: absolute !important;
+    inset: 0 auto auto 0 !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    background: white !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    z-index: 1 !important;
+  }
+  .print-resume-chrome,
+  .no-print {
     display: none !important;
+    visibility: hidden !important;
   }
 }

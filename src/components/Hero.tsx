@@ -41,7 +41,7 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
               animateBy="letters"
               direction="top"
               as="h1"
-              className="font-display font-extrabold text-[clamp(4rem,13vw,10rem)] leading-[0.72] tracking-tighter uppercase justify-center whitespace-nowrap"
+              className="font-display font-bold text-[clamp(4rem,13vw,10rem)] leading-[0.72] tracking-tighter uppercase justify-center whitespace-nowrap"
               style={{ color: "var(--color-accent)" }}
             />
           </div>
@@ -52,7 +52,7 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
               animateBy="letters"
               direction="top"
               as="span"
-              className="font-display font-extrabold text-[clamp(4rem,13vw,10rem)] leading-[0.72] tracking-tighter uppercase justify-center whitespace-nowrap"
+              className="font-display font-bold text-[clamp(4rem,13vw,10rem)] leading-[0.72] tracking-tighter uppercase justify-center whitespace-nowrap"
               style={{ color: "var(--color-accent)" }}
             />
           </div>

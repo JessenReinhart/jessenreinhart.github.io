@@ -17,17 +17,17 @@ Revamp `src/components/Hero.tsx` with the inspo composition (giant centered two-
 
 ## Architecture
 - `Hero` keeps props `{ onViewProjects, onViewResume }`, id `hero`
-- New `BlurText` component (local, not shadcn): letter/word reveal via IntersectionObserver, `prefers-reduced-motion` guard
-- Portrait: responsive size clamp, grayscale + contrast, hover scale, z above type
+- New `BlurText` component (local, not shadcn): letter/word reveal via `motion.span` staggered children (no IntersectionObserver); `prefers-reduced-motion` guard
+- Portrait: responsive size clamp, `contrast-110` only (no grayscale unless designed), hover scale, z above type
 
 ## Motion
-- BlurText: blur 10px→0, translateY 20px→0, opacity 0→1, stagger ~80–100ms/segment
+- BlurText: blur 10px→0, translateY 20px→0, opacity 0→1, stagger ~80–100ms/segment via `motion` package (`motion.span`), not CSS transition + IntersectionObserver
 - Conversion stack: reuse `hero-slide-up` classes
 - Scroll cue: `hero-scroll-bounce`
 
 ## Type
 - Display: `font-display font-extrabold uppercase tracking-tighter leading-[0.75]`
-- Size: `clamp(4.5rem, 18vw, 13rem)`
+- Size: `clamp(3.5rem, 10vw, 7rem)`
 - Color: name = `--color-accent`; tagline/status = muted tokens
 
 ## Data / i18n

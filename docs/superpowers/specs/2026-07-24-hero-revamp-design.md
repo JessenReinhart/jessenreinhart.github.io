@@ -26,9 +26,10 @@ Revamp `src/components/Hero.tsx` with the inspo composition (giant centered two-
 - Scroll cue: `hero-scroll-bounce`
 
 ## Type
-- Display: `font-display font-extrabold uppercase tracking-tighter leading-[0.75]`
-- Size: `clamp(3.5rem, 10vw, 7rem)`
+- Display: `font-display font-extrabold uppercase tracking-tighter leading-[0.72]`
+- Size: `clamp(4rem, 13vw, 10rem)` — type dominates so oval sits mid-letter (inspo ALEX/KANE scale)
 - Color: name = `--color-accent`; tagline/status = muted tokens
+- Portrait oval: `background-color: var(--color-bg-surface)` under transparent PNG
 
 ## Data / i18n
 - Reuse `t.heroTag`, `t.heroSubtitle`, `t.heroDesc`, `t.heroViewWork`, `t.heroDownloadCv`

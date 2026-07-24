@@ -26,8 +26,16 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
+
+      - name: Install Chromium system libraries
+        # Headless Chrome (used for build-time prerendering) needs these on
+        # ubuntu-latest. Safe to skip if already present.
+        run: |
+          sudo apt-get update -y || true
+          sudo apt-get install -y libnss3 libnspr4 libatk1.0-0 libatk-bridge2.0-0 libcups2 libdrm2 libxkbcommon0 libxcomposite1 libxdamage1 libxfixes3 libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2 || true
+        continue-on-error: true
 
       - name: Install dependencies
         run: npm ci

@@ -30,7 +30,7 @@ export default function BlurText({
   const Component = Tag as ElementType;
 
   return (
-    <Component className={`inline-flex flex-wrap ${className}`} style={style}>
+    <Component className={`flex flex-wrap ${className}`} style={style}>
       {segments.map((segment, i) => (
         <motion.span
           key={`${segment}-${i}`}

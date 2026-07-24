@@ -33,25 +33,29 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
       />
 
       <div className="relative flex-1 flex flex-col items-center justify-center z-10 w-full max-w-7xl mx-auto">
-        <div className="relative w-full text-center select-none">
-          <BlurText
-            text="JESSEN"
-            delay={90}
-            animateBy="letters"
-            direction="top"
-            as="h1"
-            className="font-display font-extrabold text-[clamp(3.5rem,10vw,7rem)] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap"
-            style={{ color: "var(--color-accent)" }}
-          />
-          <BlurText
-            text="REINHART"
-            delay={90}
-            animateBy="letters"
-            direction="top"
-            as="span"
-            className="font-display font-extrabold text-[clamp(3.5rem,10vw,7rem)] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap"
-            style={{ color: "var(--color-accent)" }}
-          />
+        <div className="relative w-full select-none">
+          <div className="w-full flex justify-center">
+            <BlurText
+              text="JESSEN"
+              delay={90}
+              animateBy="letters"
+              direction="top"
+              as="h1"
+              className="font-display font-extrabold text-[clamp(3.5rem,10vw,7rem)] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap"
+              style={{ color: "var(--color-accent)" }}
+            />
+          </div>
+          <div className="w-full flex justify-center">
+            <BlurText
+              text="REINHART"
+              delay={90}
+              animateBy="letters"
+              direction="top"
+              as="span"
+              className="font-display font-extrabold text-[clamp(3.5rem,10vw,7rem)] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap"
+              style={{ color: "var(--color-accent)" }}
+            />
+          </div>
 
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
             <div className="w-[65px] h-[110px] sm:w-[90px] sm:h-[152px] md:w-[110px] md:h-[185px] lg:w-[129px] lg:h-[218px] rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 pointer-events-auto">

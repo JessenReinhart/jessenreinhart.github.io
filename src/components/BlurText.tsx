@@ -1,4 +1,5 @@
-import { useEffect, useMemo, useRef, useState, type CSSProperties, type ElementType, type Ref } from "react";
+import { useMemo, type CSSProperties, type ElementType } from "react";
+import { motion, useReducedMotion } from "motion/react";
 
 interface BlurTextProps {
   text: string;
@@ -19,71 +20,36 @@ export default function BlurText({
   style,
   as: Tag = "p",
 }: BlurTextProps) {
-  const [inView, setInView] = useState(false);
-  const [reduceMotion, setReduceMotion] = useState(false);
-  const ref = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const apply = () => setReduceMotion(mq.matches);
-    apply();
-    mq.addEventListener("change", apply);
-    return () => mq.removeEventListener("change", apply);
-  }, []);
-
-  useEffect(() => {
-    if (reduceMotion) {
-      setInView(true);
-      return;
-    }
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [reduceMotion]);
-
+  const reduceMotion = useReducedMotion();
   const segments = useMemo(
     () => (animateBy === "words" ? text.split(" ") : text.split("")),
     [text, animateBy]
   );
 
+  const yFrom = direction === "top" ? -20 : 20;
   const Component = Tag as ElementType;
 
   return (
-    <Component
-      ref={ref as Ref<HTMLElement>}
-      className={`inline-flex flex-wrap ${className}`}
-      style={style}
-    >
+    <Component className={`inline-flex flex-wrap ${className}`} style={style}>
       {segments.map((segment, i) => (
-        <span
+        <motion.span
           key={`${segment}-${i}`}
-          style={{
-            display: "inline-block",
-            filter: inView || reduceMotion ? "blur(0px)" : "blur(10px)",
-            opacity: inView || reduceMotion ? 1 : 0,
-            transform:
-              inView || reduceMotion
-                ? "translateY(0)"
-                : `translateY(${direction === "top" ? "-20px" : "20px"})`,
-            transition: reduceMotion
-              ? undefined
-              : `filter 0.5s ease-out ${i * delay}ms, opacity 0.5s ease-out ${i * delay}ms, transform 0.5s ease-out ${i * delay}ms`,
-            willChange: reduceMotion ? undefined : "filter, opacity, transform",
-          }}
+          initial={
+            reduceMotion
+              ? false
+              : { filter: "blur(10px)", opacity: 0, y: yFrom }
+          }
+          animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
+          transition={
+            reduceMotion
+              ? { duration: 0 }
+              : { duration: 0.5, ease: "easeOut", delay: (i * delay) / 1000 }
+          }
+          style={{ display: "inline-block" }}
         >
           {segment === " " ? "\u00A0" : segment}
           {animateBy === "words" && i < segments.length - 1 ? "\u00A0" : ""}
-        </span>
+        </motion.span>
       ))}
     </Component>
   );

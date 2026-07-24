@@ -23,7 +23,6 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
       className="relative min-h-[100dvh] flex flex-col overflow-hidden px-6 md:px-12 pt-28 md:pt-32 pb-20"
       style={{ backgroundColor: "var(--color-bg-primary)" }}
     >
-      {/* Soft diagonal accent */}
       <div
         className="absolute -right-16 top-1/4 w-[40vw] max-w-xl h-[40vw] max-h-xl opacity-40 pointer-events-none z-0"
         style={{
@@ -33,7 +32,6 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
         aria-hidden="true"
       />
 
-      {/* Center stage: name + portrait */}
       <div className="relative flex-1 flex flex-col items-center justify-center z-10 w-full max-w-7xl mx-auto">
         <div className="relative w-full text-center select-none">
           <BlurText
@@ -42,7 +40,7 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
             animateBy="letters"
             direction="top"
             as="h1"
-            className="font-display font-extrabold text-[clamp(4.5rem,18vw,13rem)] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap"
+            className="font-display font-extrabold text-[clamp(3.5rem,10vw,7rem)] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap"
             style={{ color: "var(--color-accent)" }}
           />
           <BlurText
@@ -51,11 +49,10 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
             animateBy="letters"
             direction="top"
             as="span"
-            className="font-display font-extrabold text-[clamp(4.5rem,18vw,13rem)] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap"
+            className="font-display font-extrabold text-[clamp(3.5rem,10vw,7rem)] leading-[0.75] tracking-tighter uppercase justify-center whitespace-nowrap"
             style={{ color: "var(--color-accent)" }}
           />
 
-          {/* Oval portrait on seam */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
             <div className="w-[65px] h-[110px] sm:w-[90px] sm:h-[152px] md:w-[110px] md:h-[185px] lg:w-[129px] lg:h-[218px] rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 pointer-events-auto">
               <img
@@ -65,13 +62,12 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
                 width="129"
                 height="218"
                 referrerPolicy="no-referrer"
-                className="w-full h-full object-cover grayscale contrast-110"
+                className="w-full h-full object-cover contrast-110"
               />
             </div>
           </div>
         </div>
 
-        {/* Conversion stack */}
         <div className="mt-10 md:mt-14 flex flex-col items-center text-center max-w-2xl w-full">
           <div className="flex items-center gap-2.5 mb-5 select-none hero-slide-up">
             <span className="w-1 h-3.5 me-accent-bar shrink-0" />
@@ -149,7 +145,6 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
         </div>
       </div>
 
-      {/* Scroll cue */}
       <button
         type="button"
         onClick={scrollToAbout}

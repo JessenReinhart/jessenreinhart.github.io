@@ -7,6 +7,8 @@ import Footer from "./components/Footer";
 import ResumeViewer from "./components/ResumeViewer";
 import { useLanguage } from "./contexts/LanguageContext";
 import { translations } from "./i18n/translations";
+import { PROJECTS } from "./data";
+import { getHireProjectId } from "./utils/hireIntent";
 
 const Experience = lazy(() => import("./components/Experience"));
 const Services = lazy(() => import("./components/Services"));
@@ -80,6 +82,28 @@ export default function App() {
       intersectionObserver.disconnect();
       mutationObserver.disconnect();
     };
+  }, []);
+
+  // Cold hire deep-link (?project=) → wait for lazy Contact, then scroll
+  useEffect(() => {
+    const projectId = getHireProjectId();
+    if (!projectId || !PROJECTS.some((p) => p.id === projectId)) return;
+
+    let done = false;
+    let mutationObserver: MutationObserver | null = null;
+    const scrollToContact = () => {
+      if (done) return;
+      const el = document.getElementById("contact");
+      if (!el) return;
+      done = true;
+      el.scrollIntoView({ behavior: "smooth" });
+      mutationObserver?.disconnect();
+    };
+
+    mutationObserver = new MutationObserver(scrollToContact);
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+    scrollToContact();
+    return () => mutationObserver?.disconnect();
   }, []);
 
   const handleSmoothScroll = (sectionId: string) => {

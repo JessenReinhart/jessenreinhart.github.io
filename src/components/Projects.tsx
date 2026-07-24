@@ -1,10 +1,11 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { ArrowUpRight, Github, Code, CheckCircle, X, ExternalLink, Compass, FileText, Heart, Activity, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Terminal } from "lucide-react";
+import { ArrowUpRight, Github, Code, CheckCircle, X, ExternalLink, Compass, FileText, Heart, Activity, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Terminal, Send } from "lucide-react";
 import { PROJECTS } from "../data";
 import { Project } from "../types";
 import { useLanguage } from "../contexts/LanguageContext";
 import { translations } from "../i18n/translations";
+import { setHireProjectParam } from "../utils/hireIntent";
 
 export default function Projects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -230,9 +231,20 @@ export default function Projects() {
                   </div>
                 </div>
 
-                <div className="pt-6 flex gap-3 select-none" style={{ borderTop: "1px solid var(--color-border-primary)" }}>
+                <div className="pt-6 flex flex-wrap gap-3 select-none" style={{ borderTop: "1px solid var(--color-border-primary)" }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setHireProjectParam(selectedProject.id);
+                      handleCloseProject();
+                      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className="me-btn-primary flex-1 py-3 text-center font-semibold text-xs font-mono tracking-widest uppercase flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    {t.projHire} <Send className="w-3.5 h-3.5" />
+                  </button>
                   {selectedProject.liveUrl && (
-                    <a href={selectedProject.liveUrl} target="_blank" rel="noopener noreferrer" className="me-btn-primary flex-1 py-3 text-center font-semibold text-xs font-mono tracking-widest uppercase flex items-center justify-center gap-2">
+                    <a href={selectedProject.liveUrl} target="_blank" rel="noopener noreferrer" className="me-btn-ghost flex-1 py-3 text-center font-semibold text-xs font-mono tracking-widest uppercase flex items-center justify-center gap-2">
                       {t.projDemo} <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   )}

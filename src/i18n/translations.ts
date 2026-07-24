@@ -85,6 +85,7 @@ export const translations = {
     projFeatures: "Project Features",
     projMore: "more",
     projCode: "CODE",
+    projHire: "HIRE FOR THIS",
 
     // Skills
     skillsSection: "05 // CAPABILITIES MATRIX",
@@ -217,6 +218,7 @@ export const translations = {
     projCode: "KODE",
     projFeatures: "FITUR PROYEK",
     projMore: "lainnya",
+    projHire: "PESAN PROYEK SERUPA",
 
     // Skills
     skillsSection: "05 // KEMAMPUAN TEKNIS",

@@ -95,66 +95,59 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen" style={{ backgroundColor: "var(--color-bg-primary)", color: "var(--color-text-primary)" }}>
+      {/* Site chrome — fully removed from print flow so resume is 1 page */}
+      <div className="no-print">
+        <Navbar activeSection={activeSection} onNavigate={handleSmoothScroll} />
 
+        <main className="relative">
+          <Hero
+            onViewProjects={() => handleSmoothScroll("projects")}
+            onViewResume={() => setResumeOpen(true)}
+          />
 
+          <section
+            style={{ backgroundColor: "var(--color-marquee-bg)", color: "var(--color-marquee-text)" }}
+            className="py-3 overflow-hidden select-none pointer-events-none relative z-20"
+          >
+            <div className="flex whitespace-nowrap">
+              <motion.div
+                animate={{ x: [0, "-33.333%"] }}
+                transition={{ repeat: Infinity, duration: 22, ease: "linear" }}
+                className="flex gap-12 font-display font-extrabold text-xs md:text-sm tracking-[0.28em] uppercase items-center"
+              >
+                {[0, 1, 2].flatMap((copy) => [
+                  <span key={`${copy}-1`}>{t.marquee1}</span>,
+                  <span key={`${copy}-s1`} style={{ opacity: 0.65 }}>/</span>,
+                  <span key={`${copy}-2`}>{t.marquee2}</span>,
+                  <span key={`${copy}-s2`} style={{ opacity: 0.65 }}>/</span>,
+                  <span key={`${copy}-3`}>{t.marquee3}</span>,
+                  <span key={`${copy}-s3`} style={{ opacity: 0.65 }}>/</span>,
+                  <span key={`${copy}-4`}>{t.marquee4}</span>,
+                  <span key={`${copy}-s4`} style={{ opacity: 0.65 }}>/</span>,
+                  <span key={`${copy}-5`}>{t.marquee5}</span>,
+                  <span key={`${copy}-s5`} style={{ opacity: 0.65 }}>/</span>,
+                  <span key={`${copy}-6`}>{t.marquee6}</span>,
+                  <span key={`${copy}-s6`} style={{ opacity: 0.65 }}>/</span>,
+                ])}
+              </motion.div>
+            </div>
+          </section>
 
-      {/* Permanent Header Navbar */}
-      <Navbar activeSection={activeSection} onNavigate={handleSmoothScroll} />
+          <About />
 
-      {/* Main Sections */}
-      <main className="relative">
-        {/* HERO SECTION */}
-        <Hero
-          onViewProjects={() => handleSmoothScroll("projects")}
-          onViewResume={() => setResumeOpen(true)}
-        />
+          <Suspense fallback={null}>
+            <Services />
+            <Experience />
+            <Projects />
+            <Skills />
+            <GitHubActivity />
+            <Contact />
+          </Suspense>
+        </main>
 
-        <section
-          style={{ backgroundColor: "var(--color-marquee-bg)", color: "var(--color-marquee-text)" }}
-          className="py-3 overflow-hidden select-none pointer-events-none relative z-20"
-        >
-          <div className="flex whitespace-nowrap">
-            <motion.div
-              animate={{ x: [0, "-33.333%"] }}
-              transition={{ repeat: Infinity, duration: 22, ease: "linear" }}
-              className="flex gap-12 font-display font-extrabold text-xs md:text-sm tracking-[0.28em] uppercase items-center"
-            >
-              {[0, 1, 2].flatMap((copy) => [
-                <span key={`${copy}-1`}>{t.marquee1}</span>,
-                <span key={`${copy}-s1`} style={{ opacity: 0.65 }}>/</span>,
-                <span key={`${copy}-2`}>{t.marquee2}</span>,
-                <span key={`${copy}-s2`} style={{ opacity: 0.65 }}>/</span>,
-                <span key={`${copy}-3`}>{t.marquee3}</span>,
-                <span key={`${copy}-s3`} style={{ opacity: 0.65 }}>/</span>,
-                <span key={`${copy}-4`}>{t.marquee4}</span>,
-                <span key={`${copy}-s4`} style={{ opacity: 0.65 }}>/</span>,
-                <span key={`${copy}-5`}>{t.marquee5}</span>,
-                <span key={`${copy}-s5`} style={{ opacity: 0.65 }}>/</span>,
-                <span key={`${copy}-6`}>{t.marquee6}</span>,
-                <span key={`${copy}-s6`} style={{ opacity: 0.65 }}>/</span>,
-              ])}
-            </motion.div>
-          </div>
-        </section>
+        <Footer onScrollToTop={handleScrollToTop} />
+      </div>
 
-        {/* ABOUT SECTION */}
-        <About />
-
-        {/* Below-the-fold sections: lazy-loaded to reduce main-thread work */}
-        <Suspense fallback={null}>
-          <Services />
-          <Experience />
-          <Projects />
-          <Skills />
-          <GitHubActivity />
-          <Contact />
-        </Suspense>
-      </main>
-
-      {/* MONOCHROME FOOTER */}
-      <Footer onScrollToTop={handleScrollToTop} />
-
-      {/* Printable Fully Styled Editorial Fullscreen Resume Modal Overlay */}
       <AnimatePresence>
         {resumeOpen && (
           <ResumeViewer onClose={() => setResumeOpen(false)} />

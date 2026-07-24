@@ -285,41 +285,61 @@ body {
     size: A4;
     margin: 6mm;
   }
+
   html,
-  body {
+  body,
+  #root {
     background: white !important;
     color: black !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
-  /* Hide entire site chrome; only resume sheet prints */
-  body * {
-    visibility: hidden !important;
+
+  /* Shell wrappers must not force multi-page blank height */
+  .min-h-screen,
+  [class*="min-h-screen"] {
+    min-height: 0 !important;
+    height: auto !important;
   }
-  .print-resume,
-  .print-resume * {
-    visibility: visible !important;
+
+  /* Collapse site chrome completely — visibility:hidden left blank pages */
+  .no-print,
+  .print-resume-chrome,
+  .print-only-hide {
+    display: none !important;
   }
+
+  /* Resume is the only printed content */
   .print-resume {
-    position: absolute !important;
-    inset: 0 auto auto 0 !important;
-    left: 0 !important;
-    top: 0 !important;
+    display: block !important;
+    position: static !important;
+    inset: auto !important;
+    left: auto !important;
+    top: auto !important;
     width: 100% !important;
     height: auto !important;
     max-height: none !important;
+    min-height: 0 !important;
     overflow: visible !important;
     background: white !important;
     padding: 0 !important;
     margin: 0 !important;
-    z-index: 1 !important;
+    z-index: auto !important;
     transform: none !important;
     opacity: 1 !important;
     filter: none !important;
-    /* ATS-safe system fonts only — no Sora/Barlow/JetBrains */
+    box-shadow: none !important;
+    /* ATS-safe system fonts only */
     font-family: Arial, Helvetica, Calibri, "Segoe UI", sans-serif !important;
     font-size: 9pt !important;
     line-height: 1.25 !important;
     color: #000 !important;
   }
+
   .print-resume,
   .print-resume *,
   .print-resume h1,
@@ -332,6 +352,7 @@ body {
     font-family: Arial, Helvetica, Calibri, "Segoe UI", sans-serif !important;
     letter-spacing: normal !important;
   }
+
   .print-resume h1 {
     font-size: 14pt !important;
     font-weight: 700 !important;
@@ -350,14 +371,16 @@ body {
     font-size: 9pt !important;
     font-weight: 700 !important;
   }
+
   .print-resume p,
   .print-resume li,
   .print-resume span,
   .print-resume div {
     color: #111 !important;
   }
-  /* Compact spacing for single A4 page */
+
   .print-resume .resume-sheet {
+    display: block !important;
     max-width: none !important;
     width: 100% !important;
     padding: 0 !important;
@@ -366,6 +389,7 @@ body {
     font-size: 8.5pt !important;
     line-height: 1.22 !important;
   }
+
   .print-resume .resume-section {
     margin-bottom: 5pt !important;
   }
@@ -374,11 +398,5 @@ body {
   }
   .print-resume .resume-job + .resume-job {
     margin-top: 3pt !important;
-  }
-  .print-resume-chrome,
-  .print-only-hide,
-  .no-print {
-    display: none !important;
-    visibility: hidden !important;
   }
 }

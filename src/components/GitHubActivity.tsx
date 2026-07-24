@@ -185,12 +185,9 @@ export default function GitHubActivity() {
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Section Header */}
-        <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="mb-16 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <span className="block font-mono text-[10px] tracking-[0.3em] uppercase mb-3" style={{ color: "var(--color-text-muted)" }}>
-              {t.ghSection}
-            </span>
-            <h2 className="font-display font-black text-4xl md:text-5xl lg:text-6xl tracking-tight leading-none" style={{ color: "var(--color-text-primary)" }}>
+            <h2 className="font-display font-extrabold text-4xl md:text-5xl lg:text-6xl tracking-tight leading-none uppercase" style={{ color: "var(--color-text-primary)" }}>
               {t.ghTitle}
             </h2>
           </div>
@@ -198,7 +195,7 @@ export default function GitHubActivity() {
             href={`https://github.com/${GITHUB_USERNAME}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 text-xs font-mono tracking-wider uppercase transition-colors group"
+            className="flex items-center gap-2 text-xs font-mono tracking-wider uppercase transition-colors group hover:text-[var(--color-accent)]"
             style={{ color: "var(--color-text-muted)" }}
           >
             <Github className="w-4 h-4" />
@@ -217,7 +214,7 @@ export default function GitHubActivity() {
                   {totalContributions.toLocaleString()} {t.ghContributions}
                 </h3>
               </div>
-              <div className="glass-panel rounded-2xl p-5 md:p-6">
+              <div className="me-panel p-5 md:p-6">
                 <ContributionCalendar days={contributionDays} baseColor={baseColor} />
                 <div className="flex items-center gap-2 mt-3 justify-end">
                   <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: "var(--color-text-dim)" }}>Less</span>
@@ -236,7 +233,7 @@ export default function GitHubActivity() {
                 { value: user.followers, label: t.ghFollowers },
                 { value: user.following, label: t.ghFollowing },
               ].map((stat) => (
-                <div key={stat.label} className="glass-panel glass-panel-hover rounded-2xl p-4 sm:p-5 text-left">
+                <div key={stat.label} className="me-panel me-panel-hover p-4 sm:p-5 text-left">
                   <div className="font-display font-black text-2xl sm:text-3xl" style={{ color: "var(--color-text-primary)" }}>{stat.value}</div>
                   <div className="text-[10px] font-mono uppercase tracking-wider mt-1" style={{ color: "var(--color-text-muted)" }}>{stat.label}</div>
                 </div>
@@ -253,13 +250,13 @@ export default function GitHubActivity() {
                     href={repo.html_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="glass-panel glass-panel-hover rounded-2xl p-5 text-left group"
+                    className="me-panel me-panel-hover p-5 text-left group"
                   >
                     <div className="flex items-start justify-between mb-2">
                       <h4 className="text-sm font-display font-bold tracking-tight truncate pr-4 transition-colors" style={{ color: "var(--color-text-primary)" }}>
                         {repo.name}
                       </h4>
-                      <ArrowUpRight className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--color-text-muted)" }} />
+                      <ArrowUpRight className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--color-accent)" }} />
                     </div>
                     {repo.description && (
                       <p className="text-xs font-light leading-relaxed mb-3 line-clamp-2" style={{ color: "var(--color-text-muted)" }}>
@@ -295,13 +292,13 @@ export default function GitHubActivity() {
           {/* Right Column: Activity Feed */}
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }} className="lg:col-span-5">
             <h3 className="text-[10px] font-mono tracking-[0.3em] uppercase mb-6" style={{ color: "var(--color-text-muted)" }}>{t.ghRecentActivity}</h3>
-            <div className="glass-panel rounded-2xl overflow-hidden">
+            <div className="me-panel overflow-hidden">
               {recentEvents.map((event) => {
                 const repoShort = event.repo.name.split("/")[1] || event.repo.name;
                 const action = EVENT_LABELS[event.type] || event.type.replace("Event", "");
                 return (
                   <div key={event.id} className="flex items-start gap-3 p-5 group transition-colors" style={{ borderBottom: "1px solid var(--color-border-primary)" }}>
-                    <div className="mt-0.5 flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-colors" style={{ border: "1px solid var(--color-border-primary)", color: "var(--color-text-muted)" }}>
+                    <div className="mt-0.5 flex-shrink-0 w-7 h-7 flex items-center justify-center" style={{ color: "var(--color-accent)" }}>
                       <Code2 className="w-3 h-3" />
                     </div>
                     <div className="min-w-0 flex-1">
@@ -311,7 +308,7 @@ export default function GitHubActivity() {
                           href={`https://github.com/${event.repo.name}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-medium transition-colors hover:underline"
+                          className="font-medium transition-colors hover:text-[var(--color-accent)]"
                           style={{ color: "var(--color-text-primary)" }}
                         >
                           {repoShort}

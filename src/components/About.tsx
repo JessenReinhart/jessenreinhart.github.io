@@ -1,4 +1,3 @@
-import { motion } from "motion/react";
 import { STATS } from "../data";
 import { Layers, Zap, Award, Users, ShoppingCart } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
@@ -29,38 +28,34 @@ export default function About() {
 
   const statLabels = [t.statYears, t.statInstitutions, t.statUsers, t.statMerchants, t.statOrders];
   const icons = [
-    <Award className="w-5 h-5" style={{ color: "var(--color-text-muted)" }} />,
-    <Layers className="w-5 h-5" style={{ color: "var(--color-text-muted)" }} />,
-    <Users className="w-5 h-5" style={{ color: "var(--color-text-muted)" }} />,
-    <Zap className="w-5 h-5" style={{ color: "var(--color-text-muted)" }} />,
-    <ShoppingCart className="w-5 h-5" style={{ color: "var(--color-text-muted)" }} />
+    <Award className="w-5 h-5" style={{ color: "var(--color-accent)" }} />,
+    <Layers className="w-5 h-5" style={{ color: "var(--color-accent)" }} />,
+    <Users className="w-5 h-5" style={{ color: "var(--color-accent)" }} />,
+    <Zap className="w-5 h-5" style={{ color: "var(--color-accent)" }} />,
+    <ShoppingCart className="w-5 h-5" style={{ color: "var(--color-accent)" }} />
   ];
 
   return (
-    <section id="about" className="relative py-24 md:py-32 overflow-hidden border-y scroll-mt-20" style={{ backgroundColor: "var(--color-bg-secondary)", borderColor: "var(--color-border-primary)" }}>
+    <section id="about" className="relative py-24 md:py-32 overflow-hidden border-t scroll-mt-20" style={{ backgroundColor: "var(--color-bg-secondary)", borderColor: "var(--color-border-primary)" }}>
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        <div className="mb-16 md:mb-24 flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div>
-            <span className="block font-mono text-[10px] tracking-[0.3em] uppercase mb-3" style={{ color: "var(--color-text-muted)" }}>{t.aboutSection}</span>
-            <h2 className="font-display font-black text-4xl md:text-5xl lg:text-6xl tracking-tight leading-none" style={{ color: "var(--color-text-primary)" }}>{t.aboutTitle}</h2>
-          </div>
-          <div className="max-w-md font-light text-sm leading-relaxed text-left md:text-right" style={{ color: "var(--color-text-muted)" }}>{t.aboutSubtitle}</div>
+        <div className="mb-16 md:mb-20">
+          <h2 className="font-display font-extrabold text-4xl md:text-5xl lg:text-6xl tracking-tight leading-none uppercase" style={{ color: "var(--color-text-primary)" }}>{t.aboutTitle}</h2>
+          <p className="max-w-md font-light text-sm leading-relaxed mt-4" style={{ color: "var(--color-text-muted)" }}>{t.aboutSubtitle}</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-24">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-20">
           <div className="lg:col-span-7 space-y-6 text-left">
             <h3 className="text-xl md:text-2xl font-light tracking-wide leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>{t.aboutHeading}</h3>
             <p className="font-light leading-relaxed text-sm md:text-base" style={{ color: "var(--color-text-muted)" }}>{t.aboutP1}</p>
             <p className="font-light leading-relaxed text-sm md:text-base" style={{ color: "var(--color-text-muted)" }}>{t.aboutP2}</p>
           </div>
 
-          <div className="lg:col-span-5 p-8 rounded-2xl relative glass-panel">
-            <div className="absolute top-3 right-4 font-mono text-[9px] uppercase select-none" style={{ color: "var(--color-text-dim)" }}>{t.aboutSpecializations}</div>
+          <div className="lg:col-span-5 p-8 relative me-panel">
             <h4 className="text-xs font-mono tracking-wider uppercase mb-6 text-left" style={{ color: "var(--color-text-muted)" }}>{t.aboutTechFocus}</h4>
             <ul className="space-y-4 text-left">
               {specializations.map((spec, index) => (
                 <li key={index} className="flex items-start gap-3 group">
-                  <span className="font-mono select-none" style={{ color: "var(--color-text-dim)" }}>—</span>
+                  <span className="font-mono select-none mt-0.5" style={{ color: "var(--color-accent)" }}>/</span>
                   <span className="font-light text-sm transition-colors" style={{ color: "var(--color-text-secondary)" }}>{spec}</span>
                 </li>
               ))}
@@ -70,8 +65,8 @@ export default function About() {
 
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
           {STATS.map((stat, idx) => (
-            <div key={stat.label} className="glass-panel glass-panel-hover rounded-2xl p-4 sm:p-5 md:p-6 flex flex-col justify-between text-left relative overflow-hidden min-w-0">
-              <div className="absolute top-3 right-3 opacity-40">{icons[idx]}</div>
+            <div key={stat.label} className="me-panel me-panel-hover p-4 sm:p-5 md:p-6 flex flex-col justify-between text-left relative overflow-hidden min-w-0">
+              <div className="absolute top-3 right-3 opacity-70">{icons[idx]}</div>
               <div className="mb-3"><StatDisplay targetVal={stat.numericVal} /></div>
               <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider leading-tight break-words" style={{ color: "var(--color-text-muted)" }}>{statLabels[idx]}</div>
               {stat.source && (

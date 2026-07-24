@@ -1,6 +1,5 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import CustomCursor from "./components/CustomCursor";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -97,8 +96,7 @@ export default function App() {
   return (
     <div className="relative min-h-screen" style={{ backgroundColor: "var(--color-bg-primary)", color: "var(--color-text-primary)" }}>
 
-      {/* Luxury Custom Interaction Cursor */}
-      <CustomCursor />
+
 
       {/* Permanent Header Navbar */}
       <Navbar activeSection={activeSection} onNavigate={handleSmoothScroll} />
@@ -111,58 +109,30 @@ export default function App() {
           onViewResume={() => setResumeOpen(true)}
         />
 
-        {/* Dynamic Infinite Typographic Marquee Banner */}
-        <section style={{ backgroundColor: "var(--color-marquee-bg)", color: "var(--color-marquee-text)" }} className="py-4 overflow-hidden border-y select-none pointer-events-none relative z-20" >
+        <section
+          style={{ backgroundColor: "var(--color-marquee-bg)", color: "var(--color-marquee-text)" }}
+          className="py-3 overflow-hidden select-none pointer-events-none relative z-20"
+        >
           <div className="flex whitespace-nowrap">
             <motion.div
               animate={{ x: [0, "-33.333%"] }}
-              transition={{
-                repeat: Infinity,
-                duration: 25,
-                ease: "linear",
-              }}
-              className="flex gap-16 font-display font-black text-xs md:text-sm tracking-[0.3em] uppercase items-center"
+              transition={{ repeat: Infinity, duration: 22, ease: "linear" }}
+              className="flex gap-12 font-display font-extrabold text-xs md:text-sm tracking-[0.28em] uppercase items-center"
             >
-              <span>{t.marquee1}</span>
-              <span style={{ color: "var(--color-text-dim)" }}>//</span>
-              <span>{t.marquee2}</span>
-              <span style={{ color: "var(--color-text-dim)" }}>//</span>
-              <span>{t.marquee3}</span>
-              <span style={{ color: "var(--color-text-dim)" }}>//</span>
-              <span>{t.marquee4}</span>
-              <span style={{ color: "var(--color-text-dim)" }}>//</span>
-              <span>{t.marquee5}</span>
-              <span style={{ color: "var(--color-text-dim)" }}>//</span>
-              <span>{t.marquee6}</span>
-              <span style={{ color: "var(--color-text-dim)" }}>//</span>
-              
-              {/* Duplicated for smooth loop */}
-              <span>{t.marquee1}</span>
-              <span style={{ color: "var(--color-text-dim)" }}>//</span>
-              <span>{t.marquee2}</span>
-              <span style={{ color: "var(--color-text-dim)" }}>//</span>
-              <span>{t.marquee3}</span>
-              <span style={{ color: "var(--color-text-dim)" }}>//</span>
-              <span>{t.marquee4}</span>
-              <span style={{ color: "var(--color-text-dim)" }}>//</span>
-              <span>{t.marquee5}</span>
-              <span style={{ color: "var(--color-text-dim)" }}>//</span>
-              <span>{t.marquee6}</span>
-              <span style={{ color: "var(--color-text-dim)" }}>//</span>
-
-              {/* Thrice for complete safety on large monitors */}
-              <span>{t.marquee1}</span>
-              <span style={{ color: "var(--color-text-dim)" }}>//</span>
-              <span>{t.marquee2}</span>
-              <span style={{ color: "var(--color-text-dim)" }}>//</span>
-              <span>{t.marquee3}</span>
-              <span style={{ color: "var(--color-text-dim)" }}>//</span>
-              <span>{t.marquee4}</span>
-              <span style={{ color: "var(--color-text-dim)" }}>//</span>
-              <span>{t.marquee5}</span>
-              <span style={{ color: "var(--color-text-dim)" }}>//</span>
-              <span>{t.marquee6}</span>
-              <span style={{ color: "var(--color-text-dim)" }}>//</span>
+              {[0, 1, 2].flatMap((copy) => [
+                <span key={`${copy}-1`}>{t.marquee1}</span>,
+                <span key={`${copy}-s1`} style={{ opacity: 0.65 }}>/</span>,
+                <span key={`${copy}-2`}>{t.marquee2}</span>,
+                <span key={`${copy}-s2`} style={{ opacity: 0.65 }}>/</span>,
+                <span key={`${copy}-3`}>{t.marquee3}</span>,
+                <span key={`${copy}-s3`} style={{ opacity: 0.65 }}>/</span>,
+                <span key={`${copy}-4`}>{t.marquee4}</span>,
+                <span key={`${copy}-s4`} style={{ opacity: 0.65 }}>/</span>,
+                <span key={`${copy}-5`}>{t.marquee5}</span>,
+                <span key={`${copy}-s5`} style={{ opacity: 0.65 }}>/</span>,
+                <span key={`${copy}-6`}>{t.marquee6}</span>,
+                <span key={`${copy}-s6`} style={{ opacity: 0.65 }}>/</span>,
+              ])}
             </motion.div>
           </div>
         </section>

@@ -1,118 +1,182 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Sora", "Syne", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Plus Jakarta Sans", sans-serif;
+  --font-sans: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Barlow Condensed", "Sora", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
+/* Mirror's Edge — light primary (city day-run) */
 :root {
-  --color-bg-primary: #050505;
-  --color-bg-secondary: #090909;
-  --color-bg-surface: #121212;
-  --color-bg-card: #050505;
-  --color-text-primary: #f3f4f6;
-  --color-text-secondary: #a1a1aa;
-  --color-text-muted: #8896a8;
-  --color-text-dim: #7e8fa3;
-  --color-border-primary: rgba(255, 255, 255, 0.08);
-  --color-border-hover: rgba(255, 255, 255, 0.2);
-  --color-bg-glass: rgba(18, 18, 18, 0.6);
-  --color-bg-glass-hover: rgba(255, 255, 255, 0.03);
-  --color-marquee-bg: #ffffff;
-  --color-marquee-text: #000000;
-  --color-accent: #ffffff;
-  --color-accent-invert: #000000;
-}
-
-.light {
-  --color-bg-primary: #f8f9fa;
+  --color-bg-primary: #f4f4f2;
   --color-bg-secondary: #ffffff;
-  --color-bg-surface: #f1f3f5;
+  --color-bg-surface: #ebebe8;
   --color-bg-card: #ffffff;
-  --color-text-primary: #18181b;
-  --color-text-secondary: #3f3f46;
-  --color-text-muted: #52525b;
-  --color-text-dim: #6b7280;
-  --color-border-primary: rgba(0, 0, 0, 0.08);
-  --color-border-hover: rgba(0, 0, 0, 0.2);
-  --color-bg-glass: rgba(255, 255, 255, 0.7);
-  --color-bg-glass-hover: rgba(0, 0, 0, 0.03);
-  --color-marquee-bg: #050505;
+  --color-text-primary: #0a0a0a;
+  --color-text-secondary: #3a3a3a;
+  --color-text-muted: #5c5c5c;
+  --color-text-dim: #8a8a86;
+  --color-border-primary: rgba(10, 10, 10, 0.1);
+  --color-border-hover: rgba(10, 10, 10, 0.28);
+  --color-bg-glass: rgba(255, 255, 255, 0.88);
+  --color-bg-glass-hover: rgba(255, 255, 255, 0.96);
+  --color-marquee-bg: #e10600;
   --color-marquee-text: #ffffff;
-  --color-accent: #000000;
+  --color-accent: #e10600;
+  --color-accent-hover: #c40500;
+  --color-accent-soft: rgba(225, 6, 0, 0.08);
   --color-accent-invert: #ffffff;
+  --color-shadow: rgba(10, 10, 10, 0.08);
+  --radius-panel: 0px;
+  --radius-control: 2px;
+  --ease-runner: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Base resets & custom scrollbar */
+/* Night-run (dark) */
+.dark {
+  --color-bg-primary: #0c0e10;
+  --color-bg-secondary: #14171a;
+  --color-bg-surface: #1a1e22;
+  --color-bg-card: #12151a;
+  --color-text-primary: #f2f2f0;
+  --color-text-secondary: #c4c4c0;
+  --color-text-muted: #8a8a86;
+  --color-text-dim: #5c5c5c;
+  --color-border-primary: rgba(255, 255, 255, 0.1);
+  --color-border-hover: rgba(255, 255, 255, 0.28);
+  --color-bg-glass: rgba(18, 21, 26, 0.9);
+  --color-bg-glass-hover: rgba(26, 30, 34, 0.95);
+  --color-marquee-bg: #e10600;
+  --color-marquee-text: #ffffff;
+  --color-accent: #ff3b1f;
+  --color-accent-hover: #ff5538;
+  --color-accent-soft: rgba(255, 59, 31, 0.12);
+  --color-accent-invert: #0a0a0a;
+  --color-shadow: rgba(0, 0, 0, 0.45);
+}
+
+/* Legacy class: site used .light as opt-in; now light is default, .dark is opt-in */
+.light {
+  --color-bg-primary: #f4f4f2;
+  --color-bg-secondary: #ffffff;
+  --color-bg-surface: #ebebe8;
+  --color-bg-card: #ffffff;
+  --color-text-primary: #0a0a0a;
+  --color-text-secondary: #3a3a3a;
+  --color-text-muted: #5c5c5c;
+  --color-text-dim: #8a8a86;
+  --color-border-primary: rgba(10, 10, 10, 0.1);
+  --color-border-hover: rgba(10, 10, 10, 0.28);
+  --color-bg-glass: rgba(255, 255, 255, 0.88);
+  --color-bg-glass-hover: rgba(255, 255, 255, 0.96);
+  --color-marquee-bg: #e10600;
+  --color-marquee-text: #ffffff;
+  --color-accent: #e10600;
+  --color-accent-hover: #c40500;
+  --color-accent-soft: rgba(225, 6, 0, 0.08);
+  --color-accent-invert: #ffffff;
+  --color-shadow: rgba(10, 10, 10, 0.08);
+}
+
 h1, h2, h3, h4, .font-display {
   font-family: var(--font-display);
+  text-wrap: balance;
 }
 
 body {
   font-family: var(--font-sans);
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
-  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background-color: var(--color-accent);
+  background: var(--color-accent);
   color: var(--color-accent-invert);
 }
 
-/* Custom Scrollbar for premium feel */
 ::-webkit-scrollbar {
   width: 6px;
 }
-
 ::-webkit-scrollbar-track {
   background: var(--color-bg-primary);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #222222;
-  border-radius: 999px;
+  background: var(--color-text-dim);
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #444444;
+  background: var(--color-accent);
 }
 
-.light ::-webkit-scrollbar-thumb {
-  background: #ccc;
-}
-
-.light ::-webkit-scrollbar-thumb:hover {
-  background: #999;
-}
-
-/* Premium micro-effects */
-.glass-panel {
-  background: var(--color-bg-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+/* Sharp ME panel — replaces glass-as-default */
+.glass-panel,
+.me-panel {
+  background: var(--color-bg-card);
   border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-panel);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
-.glass-panel-hover {
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+.glass-panel-hover,
+.me-panel-hover {
+  transition: transform 0.35s var(--ease-runner), border-color 0.35s var(--ease-runner), box-shadow 0.35s var(--ease-runner);
 }
 
-.glass-panel-hover:hover {
-  background: var(--color-bg-glass-hover);
-  border-color: var(--color-border-hover);
+.glass-panel-hover:hover,
+.me-panel-hover:hover {
+  background: var(--color-bg-card);
+  border-color: var(--color-accent);
   transform: translateY(-2px);
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 16px 32px -18px var(--color-shadow);
 }
 
-.light .glass-panel-hover:hover {
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+.me-btn-primary {
+  background: var(--color-accent);
+  color: var(--color-accent-invert);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-control);
+  transition: background 0.25s var(--ease-runner), transform 0.2s var(--ease-runner);
+}
+.me-btn-primary:hover {
+  background: var(--color-accent-hover);
+}
+.me-btn-primary:active {
+  transform: scale(0.98);
 }
 
-/* ASCII texture layer for hero — canvas element, mouse-reactive */
+.me-btn-ghost {
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-control);
+  transition: border-color 0.25s var(--ease-runner), color 0.25s var(--ease-runner), transform 0.2s var(--ease-runner);
+}
+.me-btn-ghost:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+.me-btn-ghost:active {
+  transform: scale(0.98);
+}
+
+.me-chip {
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-control);
+  background: var(--color-bg-surface);
+  color: var(--color-text-secondary);
+}
+
+.me-accent-bar {
+  background: var(--color-accent);
+}
+
+.me-skew-enter {
+  transform-origin: left center;
+}
+
+/* ASCII texture layer for hero */
 .ascii-texture-layer {
   position: absolute;
   inset: 0;
@@ -120,56 +184,54 @@ body {
   height: 100%;
   z-index: 1;
   pointer-events: none;
-  mix-blend-mode: normal;
-  opacity: 0.18;
+  mix-blend-mode: multiply;
+  opacity: 0.1;
 }
 
-.light .ascii-texture-layer {
-  opacity: 0.08;
+.dark .ascii-texture-layer {
+  mix-blend-mode: screen;
+  opacity: 0.14;
 }
 
-/* Hero animations (replacing Framer Motion) */
-/* Parallax elements: opacity-only animations to avoid overriding JS transform */
+/* Hero animations — directional parkour */
 .hero-fade-in {
   opacity: 0;
-  animation: heroFadeInDecorative 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: heroFadeInDecorative 0.8s var(--ease-runner) forwards;
 }
 .hero-fade-in-delayed {
   opacity: 0;
-  animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+  animation: fadeIn 1s var(--ease-runner) 0.35s forwards;
 }
 .hero-scale-in {
   opacity: 0;
-  animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: heroSlideIn 0.9s var(--ease-runner) forwards;
 }
-
-/* Non-parallax elements: can animate transform safely */
 .hero-slide-up {
   opacity: 0;
-  animation: heroSlideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: heroSlideUp 0.55s var(--ease-runner) forwards;
 }
 .hero-slide-up-delayed {
   opacity: 0;
-  animation: heroSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+  animation: heroSlideUp 0.65s var(--ease-runner) 0.15s forwards;
 }
 .hero-slide-up-delayed-2 {
   opacity: 0;
-  animation: heroSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+  animation: heroSlideUp 0.65s var(--ease-runner) 0.28s forwards;
 }
 .hero-float-0 {
   opacity: 0;
-  animation: heroFloat0 4s ease-in-out 0s infinite;
+  animation: heroChipIn 0.7s var(--ease-runner) 0.4s forwards;
 }
 .hero-float-1 {
   opacity: 0;
-  animation: heroFloat1 5.5s ease-in-out 0s infinite;
+  animation: heroChipIn 0.7s var(--ease-runner) 0.55s forwards;
 }
 .hero-float-2 {
   opacity: 0;
-  animation: heroFloat2 4.8s ease-in-out 0s infinite;
+  animation: heroChipIn 0.7s var(--ease-runner) 0.7s forwards;
 }
 .hero-scroll-bounce {
-  animation: heroScrollBounce 1.5s ease-in-out infinite;
+  animation: heroScrollPulse 1.6s var(--ease-runner) infinite;
 }
 
 @keyframes fadeIn {
@@ -177,34 +239,45 @@ body {
   to { opacity: 1; }
 }
 @keyframes heroFadeInDecorative {
-  from { opacity: 0; }
-  to { opacity: 0.4; }
+  from { opacity: 0; transform: translateX(-12px); }
+  to { opacity: 0.12; transform: translateX(0); }
 }
 @keyframes heroSlideUp {
-  from { opacity: 0; transform: translateY(15px); }
+  from { opacity: 0; transform: translateY(20px) skewX(-2deg); }
+  to { opacity: 1; transform: translateY(0) skewX(0); }
+}
+@keyframes heroSlideIn {
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes heroChipIn {
+  from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
 }
-@keyframes heroFloat0 {
-  0% { opacity: 0; transform: translateY(40px); }
-  10% { opacity: 1; transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
+@keyframes heroScrollPulse {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(6px); opacity: 1; }
 }
-@keyframes heroFloat1 {
-  0% { opacity: 0; transform: translateY(40px); }
-  8% { opacity: 1; transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
-}
-@keyframes heroFloat2 {
-  0% { opacity: 0; transform: translateY(40px); }
-  10% { opacity: 1; transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
-}
-@keyframes heroScrollBounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(6px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-fade-in,
+  .hero-fade-in-delayed,
+  .hero-scale-in,
+  .hero-slide-up,
+  .hero-slide-up-delayed,
+  .hero-slide-up-delayed-2,
+  .hero-float-0,
+  .hero-float-1,
+  .hero-float-2,
+  .hero-scroll-bounce {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .glass-panel-hover:hover,
+  .me-panel-hover:hover {
+    transform: none;
+  }
 }
 
 @media print {
@@ -212,44 +285,15 @@ body {
     size: A4;
     margin: 8mm;
   }
-
-  html, body {
-    margin: 0;
-    padding: 0;
-    width: 210mm;
-    height: auto;
-    font-size: 9pt;
+  body {
+    background: white !important;
+    color: black !important;
   }
-
-  #root > div > :not(.print-resume) {
+  .no-print,
+  header,
+  footer,
+  nav,
+  .ascii-texture-layer {
     display: none !important;
-  }
-
-  .print-resume {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: auto !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    overflow: visible !important;
-    box-sizing: border-box !important;
-  }
-
-  .print-resume > div {
-    max-width: 100% !important;
-    height: auto !important;
-    padding: 0 !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
-    overflow: visible !important;
-  }
-
-  /* Keep section blocks intact across page breaks; let the inner sheet paginate */
-  .print-resume h3,
-  .print-resume .space-y-1\.5 > div,
-  .print-resume .grid > div {
-    break-inside: avoid;
   }
 }

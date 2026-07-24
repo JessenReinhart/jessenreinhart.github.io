@@ -16,20 +16,26 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] bg-black overflow-y-auto px-4 py-8 md:p-12 print:static print:bg-white print:overflow-visible print:p-0 print-resume"
+      className="fixed inset-0 z-[100] overflow-y-auto px-4 py-8 md:p-12 bg-[var(--color-bg-primary)] print:static print:bg-white print:overflow-visible print:p-0 print-resume"
     >
       {/* Visual Controls Header (Omitted during print) */}
-      <div className="max-w-4xl mx-auto flex items-center justify-between border-b border-white/10 pb-4 mb-8 print:hidden select-none">
+      <div
+        className="max-w-4xl mx-auto flex items-center justify-between pb-4 mb-8 print:hidden select-none"
+        style={{ borderBottom: "1px solid var(--color-border-primary)" }}
+      >
         <div className="flex items-center gap-2">
-          <Award className="w-5 h-5 text-white" />
-          <span className="text-xs font-mono text-zinc-400 uppercase tracking-widest">
+          <Award className="w-5 h-5" style={{ color: "var(--color-accent)" }} />
+          <span
+            className="text-xs font-mono uppercase tracking-widest"
+            style={{ color: "var(--color-text-muted)" }}
+          >
             JESSEN — PROFESSIONAL RESUME
           </span>
         </div>
         <div className="flex items-center gap-3">
           <button
             onClick={handlePrint}
-            className="px-4 py-2 border border-white/8 hover:border-white hover:bg-white hover:text-black font-semibold text-xs font-mono tracking-wider text-zinc-300 rounded-lg transition-all flex items-center gap-2 cursor-pointer"
+            className="me-btn-ghost px-4 py-2 font-semibold text-xs font-mono tracking-wider flex items-center gap-2 cursor-pointer"
           >
             <Printer className="w-3.5 h-3.5" />
             PRINT RESUME
@@ -37,7 +43,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
 
           <button
             onClick={onClose}
-            className="px-4 py-2 bg-zinc-900 border border-white/5 hover:border-white text-white rounded-lg transition-colors flex items-center gap-1 cursor-pointer"
+            className="me-btn-ghost px-4 py-2 flex items-center gap-1 cursor-pointer"
           >
             <X className="w-4 h-4" />
             <span className="text-xs font-mono font-bold">CLOSE</span>
@@ -46,7 +52,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
       </div>
 
       {/* Resume Sheet — base text-[9.5pt] for print, compact spacing */}
-      <div className="max-w-4xl mx-auto bg-white text-black p-6 sm:p-8 md:p-14 rounded-2xl print:rounded-none print:shadow-none print:p-0 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.9)] text-left font-sans leading-tight text-[9.5pt]">
+      <div className="max-w-4xl mx-auto bg-white text-black p-6 sm:p-8 md:p-14 shadow-[0_24px_48px_-20px_var(--color-shadow)] print:shadow-none print:p-0 text-left font-sans leading-tight text-[9.5pt]">
 
         {/* ── Header ── */}
         <div className="border-b border-black pb-1.5 mb-2">

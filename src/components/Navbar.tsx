@@ -29,11 +29,8 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -45,101 +42,90 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 border-b ${
-          isScrolled
-            ? "backdrop-blur-md py-4"
-            : "bg-transparent border-transparent py-6"
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b ${
+          isScrolled ? "py-3" : "py-4 border-transparent"
         }`}
         style={{
-          backgroundColor: isScrolled ? "var(--color-bg-glass)" : undefined,
-          borderColor: isScrolled ? "var(--color-border-primary)" : undefined,
+          backgroundColor: isScrolled ? "var(--color-bg-secondary)" : "transparent",
+          borderColor: isScrolled ? "var(--color-border-primary)" : "transparent",
         }}
       >
-        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-          {/* Logo */}
+        <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between gap-4">
           <button
             onClick={() => handleClick("hero")}
             className="flex items-center gap-3 group cursor-pointer"
-            data-cursor="button"
           >
             <div
-              className="w-9 h-9 flex items-center justify-center font-display font-black text-lg tracking-tighter transition-transform duration-300 group-hover:rotate-6"
-              style={{ border: "1px solid var(--color-text-primary)", backgroundColor: "var(--color-text-primary)", color: "var(--color-bg-primary)" }}
+              className="w-9 h-9 flex items-center justify-center font-display font-extrabold text-lg tracking-tighter transition-colors"
+              style={{
+                backgroundColor: "var(--color-accent)",
+                color: "var(--color-accent-invert)",
+              }}
             >
               JR
             </div>
             <div className="text-left hidden sm:block">
-              <span className="block font-display font-bold text-xs tracking-wider" style={{ color: "var(--color-text-primary)" }}>
-                JESSEN REINHART
+              <span className="block font-display font-bold text-sm tracking-wide uppercase" style={{ color: "var(--color-text-primary)" }}>
+                Jessen Reinhart
               </span>
-              <span className="block font-mono text-[9px] uppercase tracking-widest" style={{ color: "var(--color-text-dim)" }}>
+              <span className="block font-mono text-[9px] uppercase tracking-[0.18em]" style={{ color: "var(--color-text-dim)" }}>
                 Senior Frontend Engineer
               </span>
             </div>
           </button>
 
-          {/* Nav Links (Desktop) */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => (
               <button
                 key={link.id}
                 onClick={() => handleClick(link.id)}
-                className="relative text-xs font-mono tracking-widest transition-colors py-2 cursor-pointer"
-                style={{ color: activeSection === link.id ? "var(--color-text-primary)" : "var(--color-text-muted)" }}
-                data-cursor="button"
+                className="relative text-[11px] font-mono tracking-[0.14em] uppercase transition-colors py-2 cursor-pointer"
+                style={{
+                  color: activeSection === link.id ? "var(--color-accent)" : "var(--color-text-muted)",
+                }}
               >
                 {link.label}
                 {activeSection === link.id && (
                   <motion.span
                     layoutId="activeIndicator"
-                    className="absolute -bottom-1 left-0 right-0 h-[2px] block"
-                    style={{ backgroundColor: "var(--color-text-primary)" }}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                    className="absolute -bottom-0.5 left-0 right-0 h-[2px] block me-accent-bar"
+                    transition={{ type: "spring", stiffness: 380, damping: 32 }}
                   />
                 )}
               </button>
             ))}
           </nav>
 
-          {/* Controls */}
-          <div className="hidden md:flex items-center gap-3">
-            {/* Language Toggle */}
+          <div className="hidden md:flex items-center gap-2">
             <button
               onClick={toggleLang}
-              className="w-9 h-9 rounded-full border flex items-center justify-center text-xs font-mono font-bold transition-all cursor-pointer"
-              style={{ borderColor: "var(--color-border-primary)", color: "var(--color-text-muted)" }}
+              className="me-btn-ghost w-9 h-9 flex items-center justify-center text-[11px] font-mono font-bold cursor-pointer"
+              style={{ color: "var(--color-text-muted)" }}
               title={lang === "en" ? "Switch to Indonesian" : "Ganti ke English"}
             >
               {lang === "en" ? "EN" : "ID"}
             </button>
-
-            {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
-              className="w-9 h-9 rounded-full border flex items-center justify-center transition-all cursor-pointer"
-              style={{ borderColor: "var(--color-border-primary)", color: "var(--color-text-muted)" }}
+              className="me-btn-ghost w-9 h-9 flex items-center justify-center cursor-pointer"
+              style={{ color: "var(--color-text-muted)" }}
               title={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             >
               {theme === "dark" ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
             </button>
-
             <button
               onClick={() => handleClick("contact")}
-              className="px-5 py-2.5 rounded-full border text-xs font-mono tracking-wider transition-all duration-300 flex items-center gap-2 group cursor-pointer"
-              style={{ borderColor: "var(--color-border-primary)", color: "var(--color-text-primary)" }}
-              data-cursor="button"
+              className="me-btn-primary px-4 py-2.5 text-[11px] font-mono tracking-wider uppercase flex items-center gap-2 group cursor-pointer"
             >
               {t.navGetInTouch}
-              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </button>
           </div>
 
-          {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 transition-colors"
             style={{ color: "var(--color-text-muted)" }}
-            data-cursor="button"
             aria-label="Toggle Menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -147,64 +133,62 @@ export default function Navbar({ activeSection, onNavigate }: NavbarProps) {
         </div>
       </header>
 
-      {/* Mobile Drawer Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed top-0 left-0 w-full h-screen z-40 pt-28 px-8 flex flex-col justify-between pb-12"
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+            className="fixed top-0 left-0 w-full h-[100dvh] z-40 pt-24 px-8 flex flex-col justify-between pb-10"
             style={{ backgroundColor: "var(--color-bg-primary)" }}
           >
-            <div className="flex flex-col gap-6">
-              {navLinks.map((link) => (
+            <div className="flex flex-col gap-1">
+              {navLinks.map((link, i) => (
                 <button
                   key={link.id}
                   onClick={() => handleClick(link.id)}
-                  className="text-left py-2 font-display text-4xl font-extrabold tracking-tight transition-colors flex items-center justify-between group"
-                  style={{ color: "var(--color-text-muted)" }}
+                  className="text-left py-3 font-display text-4xl font-extrabold tracking-tight uppercase transition-colors flex items-center justify-between"
+                  style={{
+                    color: link.id === activeSection ? "var(--color-accent)" : "var(--color-text-primary)",
+                    animationDelay: `${i * 40}ms`,
+                  }}
                 >
                   <span>{link.label}</span>
-                  <span className="text-sm font-mono transition-colors" style={{ color: "var(--color-text-dim)" }}>
-                    {link.id === activeSection ? "—" : ""}
+                  <span className="text-xs font-mono" style={{ color: "var(--color-text-dim)" }}>
+                    {String(i + 1).padStart(2, "0")}
                   </span>
                 </button>
               ))}
             </div>
 
-            <div className="flex flex-col gap-4 font-mono text-xs">
-              {/* Mobile toggles */}
-              <div className="flex gap-3">
+            <div className="flex flex-col gap-3 font-mono text-xs">
+              <div className="flex gap-2">
                 <button
                   onClick={toggleTheme}
-                  className="flex-1 py-3 rounded-full border flex items-center justify-center gap-2"
-                  style={{ borderColor: "var(--color-border-primary)", color: "var(--color-text-primary)" }}
+                  className="me-btn-ghost flex-1 py-3 flex items-center justify-center gap-2"
+                  style={{ color: "var(--color-text-primary)" }}
                 >
                   {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
                   {theme === "dark" ? "LIGHT" : "DARK"}
                 </button>
                 <button
                   onClick={toggleLang}
-                  className="flex-1 py-3 rounded-full border flex items-center justify-center gap-2"
-                  style={{ borderColor: "var(--color-border-primary)", color: "var(--color-text-primary)" }}
+                  className="me-btn-ghost flex-1 py-3 flex items-center justify-center gap-2"
+                  style={{ color: "var(--color-text-primary)" }}
                 >
                   <Globe className="w-4 h-4" />
-                  {lang === "en" ? "INDONESIA" : "ENGLISH"}
+                  {lang === "en" ? "ID" : "EN"}
                 </button>
               </div>
-
-              <div style={{ backgroundColor: "var(--color-border-primary)" }} className="h-px" />
               <button
                 onClick={() => handleClick("contact")}
-                className="w-full py-4 text-center border rounded-full font-semibold flex items-center justify-center gap-2"
-                style={{ borderColor: "var(--color-text-primary)", backgroundColor: "var(--color-text-primary)", color: "var(--color-bg-primary)" }}
+                className="me-btn-primary w-full py-4 text-center font-semibold flex items-center justify-center gap-2 uppercase tracking-wider"
               >
                 {t.navGetInTouch}
                 <ArrowUpRight className="w-4 h-4" />
               </button>
-              <div className="text-center text-[10px] tracking-wider uppercase mt-2" style={{ color: "var(--color-text-dim)" }}>
+              <div className="text-center text-[10px] tracking-wider uppercase mt-1" style={{ color: "var(--color-text-dim)" }}>
                 {t.navAvailable}
               </div>
             </div>

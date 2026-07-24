@@ -23,38 +23,34 @@ const scrollToContact = () => {
 export default function Services() {
   const { lang } = useLanguage();
   const t = translations[lang];
-
   const proofStats = [STATS[2], STATS[1], STATS[3]];
 
   return (
     <section id="services" className="relative py-24 md:py-32 overflow-hidden border-t scroll-mt-20" style={{ backgroundColor: "var(--color-bg-primary)", borderColor: "var(--color-border-primary)" }}>
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        <div className="mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div>
-            <span className="block font-mono text-[10px] tracking-[0.3em] uppercase mb-3" style={{ color: "var(--color-text-muted)" }}>{t.svcSection}</span>
-            <h2 className="font-display font-black text-4xl md:text-5xl lg:text-6xl tracking-tight leading-none" style={{ color: "var(--color-text-primary)" }}>{t.svcTitle}</h2>
-          </div>
-          <div className="max-w-xs font-light text-xs leading-relaxed text-left md:text-right font-mono uppercase tracking-wider" style={{ color: "var(--color-text-muted)" }}>{t.svcSubtitle}</div>
+        <div className="mb-16 md:mb-20">
+          <h2 className="font-display font-extrabold text-4xl md:text-5xl lg:text-6xl tracking-tight leading-none uppercase" style={{ color: "var(--color-text-primary)" }}>{t.svcTitle}</h2>
+          <p className="max-w-md font-light text-sm leading-relaxed mt-4" style={{ color: "var(--color-text-muted)" }}>{t.svcSubtitle}</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {SERVICES.map((service, idx) => (
             <motion.div
               key={service.id}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 28 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: (idx % 2) * 0.1, cubicBezier: [0.16, 1, 0.3, 1] }}
-              className="glass-panel glass-panel-hover rounded-2xl p-7 md:p-8 flex flex-col text-left relative overflow-hidden"
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.55, delay: (idx % 2) * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="me-panel me-panel-hover p-7 md:p-8 flex flex-col text-left relative overflow-hidden"
             >
               <div className="flex items-start justify-between mb-5">
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center transition-all" style={{ border: "1px solid var(--color-border-primary)", backgroundColor: "var(--color-bg-card)", color: "var(--color-text-primary)" }}>
-                  {renderServiceIcon(service.icon, "w-6 h-6")}
+                <div className="flex items-center justify-center" style={{ color: "var(--color-accent)" }}>
+                  {renderServiceIcon(service.icon, "w-7 h-7")}
                 </div>
                 <span className="font-mono text-[10px] uppercase tracking-widest select-none" style={{ color: "var(--color-text-dim)" }}>0{idx + 1}</span>
               </div>
 
-              <h3 className="text-2xl font-display font-black tracking-tight mb-2" style={{ color: "var(--color-text-primary)" }}>{lang === "id" && service.titleId ? service.titleId : service.title}</h3>
+              <h3 className="text-2xl font-display font-extrabold tracking-tight mb-2 uppercase" style={{ color: "var(--color-text-primary)" }}>{lang === "id" && service.titleId ? service.titleId : service.title}</h3>
               <p className="font-light text-sm leading-relaxed mb-5" style={{ color: "var(--color-text-muted)" }}>{lang === "id" && service.descriptionId ? service.descriptionId : service.description}</p>
 
               {service.examples && service.examples.length > 0 && (
@@ -64,27 +60,26 @@ export default function Services() {
                     {service.examples.map((ex) => {
                       const label = lang === "id" && ex.labelId ? ex.labelId : ex.label;
                       return ex.url ? (
-                        <a key={ex.label} href={ex.url} target="_blank" rel="noopener noreferrer" className="text-[10px] font-mono px-2.5 py-0.5 rounded-full transition-colors flex items-center gap-1 group cursor-pointer" style={{ border: "1px solid var(--color-border-primary)", color: "var(--color-text-muted)" }} data-cursor="button">
+                        <a key={ex.label} href={ex.url} target="_blank" rel="noopener noreferrer" className="me-chip text-[10px] font-mono px-2.5 py-0.5 transition-colors flex items-center gap-1 group cursor-pointer hover:border-[var(--color-accent)]">
                           {label}
                           <ExternalLink className="w-2.5 h-2.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                         </a>
                       ) : (
-                        <span key={ex.label} className="text-[10px] font-mono px-2.5 py-0.5 rounded-full" style={{ border: "1px solid var(--color-border-primary)", color: "var(--color-text-muted)" }}>{label}</span>
+                        <span key={ex.label} className="me-chip text-[10px] font-mono px-2.5 py-0.5">{label}</span>
                       );
                     })}
                   </div>
                 </div>
               )}
 
-              <div className="mt-auto pt-4" style={{ borderTop: "1px solid var(--color-border-primary)" }}>
-                <span className="font-mono text-[11px] uppercase tracking-wider" style={{ color: "var(--color-text-secondary)" }}>{lang === "id" && service.outcomeId ? service.outcomeId : service.outcome}</span>
+              <div className="mt-auto pt-5">
+                <span className="font-mono text-[11px] uppercase tracking-wider" style={{ color: "var(--color-accent)" }}>{lang === "id" && service.outcomeId ? service.outcomeId : service.outcome}</span>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Social proof strip */}
-        <div className="mt-12 glass-panel rounded-2xl p-7 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="mt-10 me-panel p-7 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="text-left">
             <h4 className="text-xs font-mono tracking-wider uppercase mb-1" style={{ color: "var(--color-text-muted)" }}>{t.svcProofTitle}</h4>
             <p className="font-light text-sm leading-relaxed max-w-sm" style={{ color: "var(--color-text-muted)" }}>{t.svcProofDesc}</p>
@@ -98,7 +93,7 @@ export default function Services() {
                 </div>
               ))}
             </div>
-            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-mono tracking-wider transition-all cursor-pointer group" style={{ border: "1px solid var(--color-border-primary)", color: "var(--color-text-primary)" }} data-cursor="button">
+            <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" className="me-btn-ghost flex items-center gap-2 px-4 py-2.5 text-xs font-mono tracking-wider transition-all cursor-pointer group">
               <Linkedin className="w-4 h-4" />
               {t.svcLinkedinRecs}
               <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
@@ -106,11 +101,10 @@ export default function Services() {
           </div>
         </div>
 
-        {/* CTA band */}
-        <div className="mt-8 rounded-2xl p-8 md:p-12 text-center relative overflow-hidden" style={{ backgroundColor: "var(--color-bg-secondary)", border: "1px solid var(--color-border-primary)" }}>
-          <h3 className="font-display font-black text-3xl md:text-4xl lg:text-5xl tracking-tight leading-tight" style={{ color: "var(--color-text-primary)" }}>{t.svcCtaTitle}</h3>
+        <div className="mt-6 me-panel p-8 md:p-12 text-center relative overflow-hidden">
+          <h3 className="font-display font-extrabold text-3xl md:text-4xl lg:text-5xl tracking-tight leading-tight uppercase" style={{ color: "var(--color-text-primary)" }}>{t.svcCtaTitle}</h3>
           <p className="font-light text-sm md:text-base leading-relaxed mt-3 mb-7" style={{ color: "var(--color-text-muted)" }}>{t.svcCtaDesc}</p>
-          <button onClick={scrollToContact} className="px-7 py-3.5 rounded-full font-bold text-xs font-mono tracking-widest transition-colors flex items-center justify-center gap-2 mx-auto cursor-pointer select-none" style={{ backgroundColor: "var(--color-text-primary)", color: "var(--color-bg-primary)" }} data-cursor="button">
+          <button onClick={scrollToContact} className="me-btn-primary px-7 py-3.5 font-bold text-xs font-mono tracking-widest uppercase flex items-center justify-center gap-2 mx-auto cursor-pointer select-none">
             {t.svcCtaButton}
             <ArrowUpRight className="w-3.5 h-3.5" />
           </button>

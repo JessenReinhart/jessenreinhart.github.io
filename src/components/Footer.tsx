@@ -15,9 +15,9 @@ export default function Footer({ onScrollToTop }: FooterProps) {
     <footer className="py-12 px-6 md:px-12 relative z-10 select-none" style={{ backgroundColor: "var(--color-bg-primary)", borderTop: "1px solid var(--color-border-primary)" }}>
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="text-center md:text-left">
-          <span className="block font-display font-black text-sm tracking-widest" style={{ color: "var(--color-text-primary)" }}>JESSEN</span>
+          <span className="block font-display font-extrabold text-sm tracking-widest uppercase" style={{ color: "var(--color-text-primary)" }}>Jessen</span>
           <span className="block font-mono text-[9px] uppercase tracking-widest mt-0.5" style={{ color: "var(--color-text-muted)" }}>
-            Senior Frontend Engineer // © {currentYear} ALL RIGHTS RESERVED
+            Senior Frontend Engineer / © {currentYear}
           </span>
         </div>
 
@@ -28,9 +28,8 @@ export default function Footer({ onScrollToTop }: FooterProps) {
 
         <button
           onClick={onScrollToTop}
-          className="w-10 h-10 rounded-full transition-all flex items-center justify-center cursor-pointer"
-          style={{ border: "1px solid var(--color-border-primary)", color: "var(--color-text-muted)" }}
-          data-cursor="button"
+          className="me-btn-ghost w-10 h-10 flex items-center justify-center cursor-pointer"
+          style={{ color: "var(--color-text-muted)" }}
           aria-label="Scroll to top"
         >
           <ArrowUp className="w-4 h-4" />

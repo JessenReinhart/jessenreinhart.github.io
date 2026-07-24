@@ -283,7 +283,7 @@ body {
 @media print {
   @page {
     size: A4;
-    margin: 8mm;
+    margin: 6mm;
   }
   html,
   body {
@@ -314,8 +314,69 @@ body {
     transform: none !important;
     opacity: 1 !important;
     filter: none !important;
+    /* ATS-safe system fonts only — no Sora/Barlow/JetBrains */
+    font-family: Arial, Helvetica, Calibri, "Segoe UI", sans-serif !important;
+    font-size: 9pt !important;
+    line-height: 1.25 !important;
+    color: #000 !important;
+  }
+  .print-resume,
+  .print-resume *,
+  .print-resume h1,
+  .print-resume h2,
+  .print-resume h3,
+  .print-resume h4,
+  .print-resume .font-display,
+  .print-resume .font-mono,
+  .print-resume .font-sans {
+    font-family: Arial, Helvetica, Calibri, "Segoe UI", sans-serif !important;
+    letter-spacing: normal !important;
+  }
+  .print-resume h1 {
+    font-size: 14pt !important;
+    font-weight: 700 !important;
+    line-height: 1.15 !important;
+  }
+  .print-resume h2 {
+    font-size: 10pt !important;
+    font-weight: 600 !important;
+  }
+  .print-resume h3 {
+    font-size: 8pt !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+  }
+  .print-resume h4 {
+    font-size: 9pt !important;
+    font-weight: 700 !important;
+  }
+  .print-resume p,
+  .print-resume li,
+  .print-resume span,
+  .print-resume div {
+    color: #111 !important;
+  }
+  /* Compact spacing for single A4 page */
+  .print-resume .resume-sheet {
+    max-width: none !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    font-size: 8.5pt !important;
+    line-height: 1.22 !important;
+  }
+  .print-resume .resume-section {
+    margin-bottom: 5pt !important;
+  }
+  .print-resume .resume-job {
+    margin-bottom: 3pt !important;
+  }
+  .print-resume .resume-job + .resume-job {
+    margin-top: 3pt !important;
   }
   .print-resume-chrome,
+  .print-only-hide,
   .no-print {
     display: none !important;
     visibility: hidden !important;

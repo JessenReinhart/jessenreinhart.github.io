@@ -51,12 +51,11 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
         </div>
       </div>
 
-      {/* Resume Sheet — base text-[9.5pt] for print, compact spacing */}
-      <div className="max-w-4xl mx-auto bg-white text-black p-6 sm:p-8 md:p-14 shadow-[0_24px_48px_-20px_var(--color-shadow)] print:shadow-none print:p-0 text-left font-sans leading-tight text-[9.5pt]">
-
+      {/* Resume Sheet — screen can use site fonts; print forces ATS Arial via CSS */}
+      <div className="resume-sheet max-w-4xl mx-auto bg-white text-black p-6 sm:p-8 md:p-14 shadow-[0_24px_48px_-20px_var(--color-shadow)] print:shadow-none print:p-0 text-left font-sans leading-tight text-[9.5pt]">
         {/* ── Header ── */}
         <div className="border-b border-black pb-1.5 mb-2">
-          <h1 className="text-lg sm:text-xl font-display font-black tracking-tight text-neutral-900 leading-tight print:text-[15pt]">
+          <h1 className="text-lg sm:text-xl font-display font-black tracking-tight text-neutral-900 leading-tight print:text-[14pt]">
             Jessen Reinhart
           </h1>
           <h2 className="text-[10pt] font-medium text-neutral-600 font-display">
@@ -64,41 +63,44 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
           </h2>
           <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[7.5pt] font-mono text-neutral-500 mt-1 leading-none select-all">
             <span className="flex items-center gap-1">
-              <Mail className="w-2.5 h-2.5" /> jessenreinharts@gmail.com
+              <Mail className="w-2.5 h-2.5 print-only-hide" /> jessenreinharts@gmail.com
             </span>
             <span className="flex items-center gap-1">
-              <Linkedin className="w-2.5 h-2.5" /> linkedin.com/in/jessenreinhart
+              <Linkedin className="w-2.5 h-2.5 print-only-hide" /> linkedin.com/in/jessenreinhart
             </span>
             <span className="flex items-center gap-1">
-              <Globe className="w-2.5 h-2.5" /> jessenreinhart.github.io
+              <Globe className="w-2.5 h-2.5 print-only-hide" /> jessenreinhart.github.io
             </span>
             <span className="flex items-center gap-1">
-              <MapPin className="w-2.5 h-2.5" /> Jakarta Raya, Indonesia
+              <MapPin className="w-2.5 h-2.5 print-only-hide" /> Jakarta Raya, Indonesia
             </span>
           </div>
         </div>
 
         {/* ── Professional Summary ── */}
-        <div className="mb-3 print:mb-3">
+        <div className="resume-section mb-3">
           <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase pb-px mb-1 select-none">
             PROFESSIONAL SUMMARY
           </h3>
           <p className="text-neutral-700 text-[8.5pt] leading-snug">
-            Software engineer with 7+ years across banking, e-commerce, and CMS platforms. Built customer-facing platforms at Wide Technologies (digital banking for 20+ financial institutions, 30M+ users) and SIRCLO (2M monthly orders, dashboards for 100k+ stores). Currently building a Card Management System at LG Sinarmas.
+            Software engineer with 7+ years across banking, e-commerce, and CMS platforms. Built
+            customer-facing platforms at Wide Technologies (digital banking for 20+ financial
+            institutions, 30M+ users) and SIRCLO (2M monthly orders, dashboards for 100k+ stores).
+            Currently building a Card Management System at LG Sinarmas.
           </p>
         </div>
 
         {/* ── Work Experience ── */}
-        <div className="mb-3 print:mb-3">
+        <div className="resume-section mb-3">
           <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase pb-px mb-1 select-none">
             WORK EXPERIENCE
           </h3>
 
           <div className="space-y-1">
             {EXPERIENCES.map((exp) => (
-              <div key={exp.id}>
+              <div key={exp.id} className="resume-job">
                 <div className="flex flex-row items-baseline justify-between gap-2">
-                  <div className="min-w-0 flex items-baseline gap-1.5">
+                  <div className="min-w-0 flex items-baseline gap-1.5 flex-wrap">
                     <h4 className="text-[9pt] font-bold text-neutral-900 leading-tight">
                       {exp.role}
                     </h4>
@@ -113,8 +115,9 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
                   </div>
                 </div>
 
+                {/* Narrative is screen-only; print keeps bullets for 1-page ATS density */}
                 {exp.narrative && (
-                  <p className="text-[8pt] leading-snug text-neutral-600 mt-0.5 mb-0.5">
+                  <p className="print-only-hide text-[8pt] leading-snug text-neutral-600 mt-0.5 mb-0.5">
                     {exp.narrative}
                   </p>
                 )}
@@ -138,7 +141,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
         </div>
 
         {/* ── Side Projects ── */}
-        <div className="mb-3 print:mb-3">
+        <div className="resume-section mb-3">
           <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase pb-px mb-1 select-none">
             SIDE PROJECTS
           </h3>
@@ -187,14 +190,14 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
         </div>
 
         {/* ── Education ── */}
-        <div className="mb-3 print:mb-3">
+        <div className="resume-section mb-3">
           <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase pb-px mb-1 select-none">
             EDUCATION
           </h3>
           <div className="flex justify-between items-baseline">
             <div>
               <span className="text-[9pt] font-bold text-neutral-900">
-                Bachelor's Degree in Informatics Engineering
+                Bachelor&apos;s Degree in Informatics Engineering
               </span>
               <span className="text-[8pt] text-neutral-600 ml-2">Universitas Gunadarma</span>
             </div>
@@ -203,7 +206,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
         </div>
 
         {/* ── Skills ── */}
-        <div className="mb-3 print:mb-3">
+        <div className="resume-section mb-0">
           <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-500 uppercase pb-px mb-1 select-none">
             CORE TECHNICAL SKILLS
           </h3>
@@ -213,7 +216,8 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             <strong className="font-mono text-neutral-800 tracking-wider">Backend &amp; DB:</strong>{" "}
             Java, Spring Boot, PostgreSQL, Thymeleaf.{" "}
             <strong className="font-mono text-neutral-800 tracking-wider">Specialties:</strong>{" "}
-            Performance Optimization, SSR, CMS Development, Banking Architecture, i18n, Reusable Component Libraries.
+            Performance Optimization, SSR, CMS Development, Banking Architecture, i18n, Reusable
+            Component Libraries.
           </p>
         </div>
       </div>

@@ -89,7 +89,7 @@ export default function Projects() {
                   <div className="absolute inset-0" style={{ background: "linear-gradient(to top, var(--color-bg-secondary) 0%, transparent 42%)" }} />
                   <div className="absolute inset-x-0 bottom-0 flex items-end p-6 justify-between z-20">
                     <div>
-                      <span className="block font-mono text-[10px] tracking-wider" style={{ color: "var(--color-text-muted)" }}>{project.tagline}</span>
+                      <span className="block font-mono text-[10px] tracking-wider" style={{ color: "var(--color-text-secondary)" }}>{project.tagline}</span>
                       <h3 className="text-3xl font-display font-extrabold tracking-tight mt-1 uppercase group-hover:translate-x-1 transition-transform duration-300" style={{ color: "var(--color-text-primary)" }}>{project.title}</h3>
                     </div>
                     <div className="w-10 h-10 flex items-center justify-center transition-colors duration-300" style={{ color: "var(--color-accent)" }}>

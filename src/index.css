@@ -311,6 +311,9 @@ body {
     padding: 0 !important;
     margin: 0 !important;
     z-index: 1 !important;
+    transform: none !important;
+    opacity: 1 !important;
+    filter: none !important;
   }
   .print-resume-chrome,
   .no-print {

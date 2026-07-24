@@ -57,7 +57,7 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
             />
           </div>
 
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
+          <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
             <div
               className="w-[60px] h-[90px] sm:w-[70px] sm:h-[105px] md:w-[80px] md:h-[120px] lg:w-[95px] lg:h-[140px] rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 pointer-events-auto"
               style={{ backgroundColor: "var(--color-bg-surface)" }}

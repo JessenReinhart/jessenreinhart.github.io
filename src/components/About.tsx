@@ -2,6 +2,7 @@ import { STATS } from "../data";
 import { Layers, Zap, Award, Users, ShoppingCart } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { translations } from "../i18n/translations";
+import { GlowCard } from "./ui/spotlight-card";
 
 function StatDisplay({ targetVal }: { targetVal: number }) {
   const formatValue = (val: number) => {
@@ -65,14 +66,14 @@ export default function About() {
 
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
           {STATS.map((stat, idx) => (
-            <div key={stat.label} className="me-panel me-panel-hover p-4 sm:p-5 md:p-6 flex flex-col justify-between text-left relative overflow-hidden min-w-0">
+            <GlowCard customSize glowColor="red" className="p-4 sm:p-5 md:p-6 flex flex-col justify-between text-left min-w-0">
               <div className="absolute top-3 right-3 opacity-70">{icons[idx]}</div>
               <div className="mb-3"><StatDisplay targetVal={stat.numericVal} /></div>
               <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider leading-tight break-words" style={{ color: "var(--color-text-muted)" }}>{statLabels[idx]}</div>
               {stat.source && (
                 <div className="text-[9px] font-mono mt-1 tracking-wider" style={{ color: "var(--color-text-dim)" }}>{stat.source}</div>
               )}
-            </div>
+            </GlowCard>
           ))}
         </div>
       </div>

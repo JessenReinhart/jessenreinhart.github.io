@@ -3,6 +3,7 @@ import { Calendar, MapPin, Code2 } from "lucide-react";
 import { EXPERIENCES } from "../data";
 import { useLanguage } from "../contexts/LanguageContext";
 import { translations } from "../i18n/translations";
+import { GlowCard } from "./ui/spotlight-card";
 
 export default function Experience() {
   const { lang } = useLanguage();
@@ -46,7 +47,7 @@ export default function Experience() {
                     transition={{ duration: 0.55, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
                     className="w-full md:w-[45%] pl-10 md:pl-0"
                   >
-                    <div className="me-panel me-panel-hover p-6 md:p-8 text-left relative">
+                    <GlowCard customSize glowColor="red" className="p-6 md:p-8 text-left">
                       <div className="md:hidden flex flex-wrap items-center gap-3 mb-3 text-[10px] font-mono tracking-wider uppercase" style={{ color: "var(--color-text-muted)" }}>
                         <span className="flex items-center gap-1"><Calendar className="w-3 h-3" style={{ color: "var(--color-accent)" }} /> {exp.period}</span>
                         <span className="flex items-center gap-1"><MapPin className="w-3 h-3" /> {exp.location}</span>
@@ -81,7 +82,7 @@ export default function Experience() {
                           ))}
                         </div>
                       </div>
-                    </div>
+                    </GlowCard>
                   </motion.div>
                 </div>
               );

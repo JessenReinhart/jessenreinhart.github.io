@@ -4,6 +4,7 @@ import { SERVICES, STATS, LINKEDIN_URL } from "../data";
 import { Service } from "../types";
 import { useLanguage } from "../contexts/LanguageContext";
 import { translations } from "../i18n/translations";
+import { GlowCard } from "./ui/spotlight-card";
 
 const renderServiceIcon = (icon: Service["icon"], className = "w-10 h-10") => {
   switch (icon) {
@@ -41,45 +42,46 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.55, delay: (idx % 2) * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="me-panel me-panel-hover p-7 md:p-8 flex flex-col text-left relative overflow-hidden"
             >
-              <div className="flex items-start justify-between mb-5">
-                <div className="flex items-center justify-center" style={{ color: "var(--color-accent)" }}>
-                  {renderServiceIcon(service.icon, "w-7 h-7")}
-                </div>
-                <span className="font-mono text-[10px] uppercase tracking-widest select-none" style={{ color: "var(--color-text-dim)" }}>0{idx + 1}</span>
-              </div>
-
-              <h3 className="text-2xl font-display font-extrabold tracking-tight mb-2 uppercase" style={{ color: "var(--color-text-primary)" }}>{lang === "id" && service.titleId ? service.titleId : service.title}</h3>
-              <p className="font-light text-sm leading-relaxed mb-5" style={{ color: "var(--color-text-muted)" }}>{lang === "id" && service.descriptionId ? service.descriptionId : service.description}</p>
-
-              {service.examples && service.examples.length > 0 && (
-                <div className="mb-5">
-                  <span className="block font-mono text-[9px] tracking-[0.2em] uppercase mb-2" style={{ color: "var(--color-text-dim)" }}>{t.svcExamples}</span>
-                  <div className="flex flex-wrap gap-1.5">
-                    {service.examples.map((ex) => {
-                      const label = lang === "id" && ex.labelId ? ex.labelId : ex.label;
-                      return ex.url ? (
-                        <a key={ex.label} href={ex.url} target="_blank" rel="noopener noreferrer" className="me-chip text-[10px] font-mono px-2.5 py-0.5 transition-colors flex items-center gap-1 group cursor-pointer hover:border-[var(--color-accent)]">
-                          {label}
-                          <ExternalLink className="w-2.5 h-2.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                        </a>
-                      ) : (
-                        <span key={ex.label} className="me-chip text-[10px] font-mono px-2.5 py-0.5">{label}</span>
-                      );
-                    })}
+              <GlowCard customSize glowColor="red" className="p-7 md:p-8 flex flex-col text-left">
+                <div className="flex items-start justify-between mb-5">
+                  <div className="flex items-center justify-center" style={{ color: "var(--color-accent)" }}>
+                    {renderServiceIcon(service.icon, "w-7 h-7")}
                   </div>
+                  <span className="font-mono text-[10px] uppercase tracking-widest select-none" style={{ color: "var(--color-text-dim)" }}>0{idx + 1}</span>
                 </div>
-              )}
 
-              <div className="mt-auto pt-5">
-                <span className="font-mono text-[11px] uppercase tracking-wider" style={{ color: "var(--color-accent)" }}>{lang === "id" && service.outcomeId ? service.outcomeId : service.outcome}</span>
-              </div>
+                <h3 className="text-2xl font-display font-extrabold tracking-tight mb-2 uppercase" style={{ color: "var(--color-text-primary)" }}>{lang === "id" && service.titleId ? service.titleId : service.title}</h3>
+                <p className="font-light text-sm leading-relaxed mb-5" style={{ color: "var(--color-text-muted)" }}>{lang === "id" && service.descriptionId ? service.descriptionId : service.description}</p>
+
+                {service.examples && service.examples.length > 0 && (
+                  <div className="mb-5">
+                    <span className="block font-mono text-[9px] tracking-[0.2em] uppercase mb-2" style={{ color: "var(--color-text-dim)" }}>{t.svcExamples}</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {service.examples.map((ex) => {
+                        const label = lang === "id" && ex.labelId ? ex.labelId : ex.label;
+                        return ex.url ? (
+                          <a key={ex.label} href={ex.url} target="_blank" rel="noopener noreferrer" className="me-chip text-[10px] font-mono px-2.5 py-0.5 transition-colors flex items-center gap-1 group cursor-pointer hover:border-[var(--color-accent)]">
+                            {label}
+                            <ExternalLink className="w-2.5 h-2.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                          </a>
+                        ) : (
+                          <span key={ex.label} className="me-chip text-[10px] font-mono px-2.5 py-0.5">{label}</span>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-auto pt-5">
+                  <span className="font-mono text-[11px] uppercase tracking-wider" style={{ color: "var(--color-accent)" }}>{lang === "id" && service.outcomeId ? service.outcomeId : service.outcome}</span>
+                </div>
+              </GlowCard>
             </motion.div>
           ))}
         </div>
 
-        <div className="mt-10 me-panel p-7 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <GlowCard customSize glowColor="red" className="mt-10 p-7 md:p-8 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="text-left">
             <h4 className="text-xs font-mono tracking-wider uppercase mb-1" style={{ color: "var(--color-text-muted)" }}>{t.svcProofTitle}</h4>
             <p className="font-light text-sm leading-relaxed max-w-sm" style={{ color: "var(--color-text-muted)" }}>{t.svcProofDesc}</p>
@@ -99,16 +101,16 @@ export default function Services() {
               <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </a>
           </div>
-        </div>
+        </GlowCard>
 
-        <div className="mt-6 me-panel p-8 md:p-12 text-center relative overflow-hidden">
+        <GlowCard customSize glowColor="red" className="mt-6 p-8 md:p-12 text-center">
           <h3 className="font-display font-extrabold text-3xl md:text-4xl lg:text-5xl tracking-tight leading-tight uppercase" style={{ color: "var(--color-text-primary)" }}>{t.svcCtaTitle}</h3>
           <p className="font-light text-sm md:text-base leading-relaxed mt-3 mb-7" style={{ color: "var(--color-text-muted)" }}>{t.svcCtaDesc}</p>
           <button onClick={scrollToContact} className="me-btn-primary px-7 py-3.5 font-bold text-xs font-mono tracking-widest uppercase flex items-center justify-center gap-2 mx-auto cursor-pointer select-none">
             {t.svcCtaButton}
             <ArrowUpRight className="w-3.5 h-3.5" />
           </button>
-        </div>
+        </GlowCard>
       </div>
     </section>
   );

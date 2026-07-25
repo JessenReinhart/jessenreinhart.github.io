@@ -153,11 +153,19 @@ export default function GitHubActivity() {
         setEvents(await eventsRes.json());
 
         // Try loading static contribution data (built at deploy time with token)
-        const staticRes = await fetch("/github-contributions.json");
-        if (staticRes.ok) {
-          const data = await staticRes.json();
-          setStaticContribs(data.days);
-          setStaticTotal(data.totalContributions);
+        // Wrapped separately — Vite SPA fallback returns index.html with 200,
+        // so .json() throws if the file is missing.
+        try {
+          const staticRes = await fetch("/github-contributions.json");
+          if (staticRes.ok) {
+            const data = await staticRes.json();
+            if (data?.days) {
+              setStaticContribs(data.days);
+              setStaticTotal(data.totalContributions);
+            }
+          }
+        } catch {
+          // Static file not present — fall back to public API calendar
         }
       } catch {
         setError(true);

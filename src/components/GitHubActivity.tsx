@@ -60,8 +60,9 @@ const EVENT_LABELS: Record<string, string> = {
 
 const LEVEL_OPACITIES = [0.04, 0.12, 0.22, 0.35, 0.55];
 
-function getBaseColor(theme: string): string {
-  return theme === "dark" ? "255,255,255" : "0,0,0";
+function getBaseColor(_theme: string): string {
+  // Faith red #e10600 = rgb(225,6,0)
+  return "225,6,0";
 }
 
 function getLevelBg(count: number, baseColor: string): string {

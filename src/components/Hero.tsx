@@ -33,7 +33,24 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
       />
 
       <div className="relative flex-1 flex flex-col items-center justify-center z-10 w-full max-w-7xl mx-auto">
-        <div className="relative w-full select-none">
+        <div className="relative w-full select-none flex flex-col items-center md:block">
+          <div className="md:hidden mb-4 pointer-events-none">
+            <div
+              className="w-[70px] h-[105px] rounded-full overflow-hidden shadow-2xl pointer-events-auto"
+              style={{ backgroundColor: "var(--color-bg-surface)" }}
+            >
+              <img
+                src={PORTRAIT_IMAGE}
+                alt="Jessen Profile Photo"
+                fetchPriority="high"
+                width="70"
+                height="105"
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover contrast-110"
+              />
+            </div>
+          </div>
+
           <div className="w-full flex justify-center">
             <BlurText
               text="JESSEN"
@@ -41,7 +58,7 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
               animateBy="letters"
               direction="top"
               as="h1"
-              className="font-display font-bold text-[clamp(4rem,13vw,10rem)] leading-[0.72] tracking-tighter uppercase justify-center whitespace-nowrap"
+              className="font-display font-bold text-[clamp(5rem,13vw,10rem)] leading-[0.72] tracking-tighter uppercase justify-center whitespace-nowrap"
               style={{ color: "var(--color-accent)" }}
             />
           </div>
@@ -52,14 +69,14 @@ export default function Hero({ onViewProjects, onViewResume }: HeroProps) {
               animateBy="letters"
               direction="top"
               as="span"
-              className="font-display font-bold text-[clamp(4rem,13vw,10rem)] leading-[0.72] tracking-tighter uppercase justify-center whitespace-nowrap"
+              className="font-display font-bold text-[clamp(5rem,13vw,10rem)] leading-[0.72] tracking-tighter uppercase justify-center whitespace-nowrap"
               style={{ color: "var(--color-accent)" }}
             />
           </div>
 
-          <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
+          <div className="hidden md:block absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 pointer-events-none">
             <div
-              className="w-[60px] h-[90px] sm:w-[70px] sm:h-[105px] md:w-[80px] md:h-[120px] lg:w-[95px] lg:h-[140px] rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 pointer-events-auto"
+              className="w-[80px] h-[120px] lg:w-[95px] lg:h-[140px] rounded-full overflow-hidden shadow-2xl transition-transform duration-300 hover:scale-110 pointer-events-auto"
               style={{ backgroundColor: "var(--color-bg-surface)" }}
             >
               <img

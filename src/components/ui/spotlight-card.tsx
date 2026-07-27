@@ -37,6 +37,7 @@ const GlowCard: React.FC<GlowCardProps> = ({
 
   useEffect(() => {
     const syncPointer = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
       const { clientX: x, clientY: y } = e;
       if (cardRef.current) {
         cardRef.current.style.setProperty("--x", x.toFixed(2));

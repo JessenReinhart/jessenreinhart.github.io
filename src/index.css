@@ -258,10 +258,18 @@ body {
   0%, 100% { transform: translateY(0); opacity: 0.5; }
   50% { transform: translateY(6px); opacity: 1; }
 }
-
+@keyframes heroAppear {
+  from { filter: blur(10px); opacity: 0; transform: translateY(-20px); }
+  to   { filter: blur(0);    opacity: 1; transform: translateY(0); }
+}
+.hero-appear {
+  display: inline-block;
+  animation: heroAppear 0.5s ease-out backwards;
+}
 @media (prefers-reduced-motion: reduce) {
   .hero-fade-in,
   .hero-fade-in-delayed,
+  .hero-appear,
   .hero-scale-in,
   .hero-slide-up,
   .hero-slide-up-delayed,

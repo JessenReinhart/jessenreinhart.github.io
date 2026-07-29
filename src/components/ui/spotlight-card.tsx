@@ -38,13 +38,21 @@ const GlowCard: React.FC<GlowCardProps> = ({
   useEffect(() => {
     const syncPointer = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
-      const { clientX: x, clientY: y } = e;
-      if (cardRef.current) {
-        cardRef.current.style.setProperty("--x", x.toFixed(2));
-        cardRef.current.style.setProperty("--xp", (x / window.innerWidth).toFixed(2));
-        cardRef.current.style.setProperty("--y", y.toFixed(2));
-        cardRef.current.style.setProperty("--yp", (y / window.innerHeight).toFixed(2));
-      }
+      const el = cardRef.current;
+      if (!el) return;
+
+      // Local to card — gradients are element-relative (no background-attachment:fixed;
+      // parent overflow-hidden would break fixed anyway).
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const w = rect.width || 1;
+      const h = rect.height || 1;
+
+      el.style.setProperty("--x", x.toFixed(2));
+      el.style.setProperty("--xp", (x / w).toFixed(2));
+      el.style.setProperty("--y", y.toFixed(2));
+      el.style.setProperty("--yp", (y / h).toFixed(2));
     };
 
     document.addEventListener("pointermove", syncPointer);

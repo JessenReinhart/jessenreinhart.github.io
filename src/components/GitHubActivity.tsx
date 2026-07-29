@@ -58,14 +58,17 @@ const EVENT_LABELS: Record<string, string> = {
   WatchEvent: "starred",
 };
 
-const LEVEL_OPACITIES = [0.04, 0.12, 0.22, 0.35, 0.55];
-
-function getBaseColor(_theme: string): string {
-  // Faith red #e10600 = rgb(225,6,0)
-  return "225,6,0";
-}
-
-function getLevelBg(count: number, baseColor: string): string {
+// Theme-aware cell colors. Dark mode uses red-on-charcoal with higher lightness
+// for contrast; light mode uses the original red-with-opacity approach.
+function getLevelBg(count: number, baseColor: string, isDark: boolean): string {
+  if (isDark) {
+    if (count === 0) return "hsla(0, 0%, 18%, 1)";
+    if (count <= 2) return "hsla(0, 100%, 10%, 1)";
+    if (count <= 5) return "hsla(0, 100%, 18%, 1)";
+    if (count <= 10) return "hsla(0, 100%, 30%, 1)";
+    return "hsla(0, 100%, 48%, 1)";
+  }
+  // Light mode: transparent red overlay
   if (count === 0) return `rgba(${baseColor},0.04)`;
   if (count <= 2) return `rgba(${baseColor},0.12)`;
   if (count <= 5) return `rgba(${baseColor},0.22)`;
@@ -103,7 +106,7 @@ function generateContributionCalendar(events: GitHubEvent[]): ActivityDay[] {
   return days;
 }
 
-function ContributionCalendar({ days, baseColor }: { days: ActivityDay[]; baseColor: string }) {
+function ContributionCalendar({ days, baseColor, isDark }: { days: ActivityDay[]; baseColor: string; isDark: boolean }) {
   const getTooltipText = (day: ActivityDay): string => {
     const date = new Date(day.date + "T00:00:00");
     const formatted = date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
@@ -120,7 +123,7 @@ function ContributionCalendar({ days, baseColor }: { days: ActivityDay[]; baseCo
         <div
           key={i}
           className="w-[10px] h-[10px] rounded-[2px] flex-shrink-0 transition-all duration-150 cursor-default"
-          style={{ backgroundColor: getLevelBg(day.count, baseColor) }}
+          style={{ backgroundColor: getLevelBg(day.count, baseColor, isDark) }}
           title={getTooltipText(day)}
         />
       ))}
@@ -184,7 +187,8 @@ export default function GitHubActivity() {
   const recentEvents = events
     .filter((e) => ["PushEvent", "CreateEvent", "PullRequestEvent", "IssuesEvent", "ForkEvent", "ReleaseEvent", "WatchEvent"].includes(e.type))
     .slice(0, 8);
-  const baseColor = getBaseColor(theme);
+  const baseColor = "225,6,0";
+  const isDark = theme === "dark";
 
   return (
     <section
@@ -224,12 +228,17 @@ export default function GitHubActivity() {
                 </h3>
               </div>
               <div className="me-panel p-5 md:p-6">
-                <ContributionCalendar days={contributionDays} baseColor={baseColor} />
+                <ContributionCalendar days={contributionDays} baseColor={baseColor} isDark={isDark} />
                 <div className="flex items-center gap-2 mt-3 justify-end">
                   <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: "var(--color-text-dim)" }}>Less</span>
-                  {LEVEL_OPACITIES.map((opacity, i) => (
-                    <div key={i} className="w-[10px] h-[10px] rounded-[2px]" style={{ backgroundColor: `rgba(${baseColor},${opacity})` }} />
-                  ))}
+                  {(() => {
+                    const legendColors = isDark
+                      ? ["hsla(0,0%,18%,1)", "hsla(0,100%,10%,1)", "hsla(0,100%,18%,1)", "hsla(0,100%,30%,1)", "hsla(0,100%,48%,1)"]
+                      : ["rgba(225,6,0,0.04)", "rgba(225,6,0,0.12)", "rgba(225,6,0,0.22)", "rgba(225,6,0,0.35)", "rgba(225,6,0,0.55)"];
+                    return legendColors.map((c, i) => (
+                      <div key={i} className="w-[10px] h-[10px] rounded-[2px]" style={{ backgroundColor: c }} />
+                    ));
+                  })()}
                   <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: "var(--color-text-dim)" }}>More</span>
                 </div>
               </div>

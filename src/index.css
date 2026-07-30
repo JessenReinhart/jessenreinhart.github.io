@@ -91,6 +91,15 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+/* Keyboard focus — accent ring for interactive chrome */
+a:focus-visible,
+button:focus-visible,
+.me-btn-primary:focus-visible,
+.me-btn-ghost:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
 ::selection {
   background: var(--color-accent);
   color: var(--color-accent-invert);
@@ -385,6 +394,11 @@ body {
   .print-resume span,
   .print-resume div {
     color: #111 !important;
+  }
+
+  .print-resume a {
+    color: #111 !important;
+    text-decoration: none !important;
   }
 
   .print-resume .resume-sheet {

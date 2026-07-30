@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="share-term — stream your terminal logs to your phone by scanning a QR code. Zero config, real-time, ANSI-aware. Your phone is now a second terminal." />
+<meta name="description" content="share-term: stream terminal logs to your phone by scanning a QR code. Zero config, real-time, ANSI-aware. Your phone is now a second terminal." />
 <meta name="theme-color" content="#000000" />
-<title>share-term — your phone is now a second terminal</title>
+<title>share-term: your phone is now a second terminal</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" />
 
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23000'/%3E%3Cpath d='M9 11l4 5-4 5' stroke='%2300FF66' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M16 22h7' stroke='%23f5f5f5' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E" />
 
@@ -22,9 +22,15 @@
     --edge-strong: rgba(255, 255, 255, 0.14);
     --text: #f5f5f5;
     --muted: #9a9a9a;
+    --sub: #a8a8a8;
     --accent: #00ff66;
     --accent-soft: rgba(0, 255, 102, 0.12);
     --accent-line: rgba(0, 255, 102, 0.35);
+    --ansi-cyan: #6cc6ff;
+    --ansi-warn: #ffbd2e;
+    --ansi-err: #ff5f56;
+    --ansi-dim: #777777;
+    --ansi-stamp: #4d4d4d;
     --radius: 16px;
     --ease: cubic-bezier(0.22, 1, 0.36, 1);
   }
@@ -51,9 +57,20 @@
     outline: 2px solid var(--accent);
     outline-offset: 3px;
   }
+  .skip-link {
+    position: absolute; left: 16px; top: 12px; z-index: 100;
+    padding: 12px 16px; border-radius: 8px; min-height: 44px;
+    display: inline-flex; align-items: center;
+    background: var(--accent); color: #000; font-weight: 600; font-size: 14px;
+    transform: translateY(-160%);
+    transition: transform 0.2s var(--ease);
+  }
+  .skip-link:focus, .skip-link:focus-visible {
+    transform: none; outline: 2px solid var(--text); outline-offset: 3px;
+  }
 
   /* balanced heading ragging + tidy prose */
-  .hero h1, .sec-head h2, .cta-strip h2, .step h3, .cell h3 { text-wrap: balance; font-family: 'Plus Jakarta Sans', sans-serif; }
+  .hero h1, .sec-head h2, .cta-strip h2, .step h3, .cell h3 { text-wrap: balance; font-family: 'Sora', system-ui, sans-serif; }
   .sub, .sec-head p, .cell p, .step p { text-wrap: pretty; }
 
   .shell { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 28px; }
@@ -86,12 +103,12 @@
   }
   .nav.scrolled {
     background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-bottom: 1px solid var(--edge);
   }
   .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-  .brand { display: flex; align-items: center; gap: 11px; font-weight: 600; letter-spacing: -0.01em; }
+  .brand { display: flex; align-items: center; gap: 11px; font-weight: 600; letter-spacing: -0.01em; min-height: 44px; }
   .brand .logo {
     width: 30px; height: 30px; border-radius: 8px;
     background: #0a0a0a; border: 1px solid var(--edge);
@@ -104,18 +121,18 @@
     padding: 2px 7px; letter-spacing: 0.05em;
   }
   .nav-links { display: flex; align-items: center; gap: 26px; }
-  .nav-links a.link { font-size: 14px; color: var(--muted); transition: color 0.25s var(--ease); }
+  .nav-links a.link { font-size: 14px; color: var(--muted); transition: color 0.25s var(--ease); min-height: 44px; display: inline-flex; align-items: center; }
   .nav-links a.link:hover { color: var(--text); }
   .nav-cta {
     display: inline-flex; align-items: center; gap: 8px;
     font-family: 'JetBrains Mono', monospace; font-size: 12.5px;
     border: 1px solid var(--edge-strong); border-radius: 999px;
-    padding: 10px 14px; color: var(--text);
+    padding: 12px 16px; color: var(--text); min-height: 44px;
     transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
   }
   .nav-cta:hover { border-color: var(--accent-line); background: var(--accent-soft); }
   .nav-cta svg { width: 15px; height: 15px; }
-  @media (max-width: 720px) { .nav-links .link { display: none; } }
+  @media (max-width: 720px) { .nav-links a.link { display: none; } }
 
   /* ---------- BUTTONS ---------- */
   .btn {
@@ -123,14 +140,14 @@
     font-family: 'JetBrains Mono', monospace; font-size: 14px;
     border-radius: 12px; padding: 15px 22px; cursor: pointer;
     border: 1px solid transparent; transition: transform 0.18s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease);
-    will-change: transform; user-select: none;
+    user-select: none;
   }
   .btn .ic { width: 17px; height: 17px; flex: none; }
   .btn-primary {
     background: var(--accent); color: #000; font-weight: 600;
-    box-shadow: 0 0 0 0 rgba(0, 255, 102, 0.4);
+    box-shadow: none;
   }
-  .btn-primary:hover { box-shadow: 0 8px 24px -10px rgba(0, 255, 102, 0.4); }
+  .btn-primary:hover { box-shadow: 0 6px 18px -10px rgba(0, 255, 102, 0.35); }
   .btn-primary.done { background: #fff; }
   .btn-ghost {
     background: transparent; color: var(--text); border-color: var(--edge-strong);
@@ -150,9 +167,9 @@
   }
   .install-tag { font-size: 10px; letter-spacing: 0.28em; color: var(--muted); }
   .install-copy {
-    font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent);
+    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--accent);
     background: transparent; border: 1px solid var(--edge-strong);
-    padding: 4px 11px; border-radius: 8px; cursor: pointer;
+    padding: 10px 14px; border-radius: 8px; cursor: pointer; min-height: 44px;
     transition: border-color .2s, color .2s;
   }
   .install-copy:hover { border-color: var(--accent); }
@@ -164,13 +181,13 @@
   }
   .install-code .ps { color: var(--accent); user-select: none; margin-right: 9px; }
 
-  /* ---------- HERO ---------- */
-  .hero { position: relative; padding: 168px 0 60px; overflow: hidden; }
+  /* ---------- HERO (Haos-inspired grid stage) ---------- */
+  .hero { position: relative; padding: 120px 0 72px; overflow: hidden; }
   .hero-glow {
-    position: absolute; top: -10%; left: 50%; transform: translateX(-50%);
-    width: 900px; max-width: 120vw; height: 600px; pointer-events: none;
-    background: radial-gradient(ellipse at center, rgba(0,255,102,0.06), rgba(0,255,102,0) 60%);
-    filter: blur(20px); z-index: 0;
+    position: absolute; top: -8%; left: 50%; transform: translateX(-50%);
+    width: 720px; max-width: 100vw; height: 420px; pointer-events: none;
+    background: radial-gradient(ellipse at center, rgba(0,255,102,0.05), rgba(0,255,102,0) 62%);
+    z-index: 0;
   }
   .hero-grid {
     position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0.5;
@@ -182,32 +199,125 @@
     mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 75%);
   }
   .hero-inner { position: relative; z-index: 1; }
-  .hero h1 {
-    font-size: clamp(40px, 7vw, 88px); line-height: 0.98; letter-spacing: -0.04em;
-    font-weight: 800; margin: 24px 0 0; max-width: 14ch;
+
+  /* Haos stage — hairline product grid (not the bg wash) */
+  .haos {
+    display: grid;
+    grid-template-columns: 1.1fr 0.7fr 1.1fr;
+    grid-template-areas:
+      "tl tc tr"
+      "main main side"
+      "stage stage stage"
+      "bl bl br";
+    gap: 1px;
+    background: var(--edge);
+    border: 1px solid var(--edge);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 28px 70px -34px rgba(0,0,0,0.85);
   }
-  .hero h1 .accent {
+  .haos-cell {
+    background: linear-gradient(180deg, #0c0c0c, #080808);
+    padding: 18px 20px;
+    min-width: 0;
+  }
+  .haos-tl { grid-area: tl; }
+  .haos-tc { grid-area: tc; text-align: center; }
+  .haos-tr { grid-area: tr; text-align: right; }
+  .haos-main {
+    grid-area: main; padding: 36px 32px 32px;
+    display: flex; flex-direction: column; gap: 0;
+  }
+  .haos-side {
+    grid-area: side;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 14px; padding: 28px 20px; text-align: center;
+    background:
+      radial-gradient(ellipse at 50% 30%, rgba(0,255,102,0.07), transparent 65%),
+      linear-gradient(180deg, #0c0c0c, #080808);
+  }
+  .haos-stage { grid-area: stage; padding: 28px; background: #070707; }
+  .haos-bl {
+    grid-area: bl;
+    display: flex; flex-direction: column; justify-content: center; gap: 6px;
+  }
+  .haos-br {
+    grid-area: br;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; min-height: 56px;
+    transition: background 0.35s var(--ease);
+    background: linear-gradient(180deg, #0c0c0c, #080808);
+  }
+  .haos-br:hover { background: var(--accent-soft); }
+  .haos-br:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+  .haos-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--muted); display: block; margin-bottom: 8px;
+  }
+  .haos-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; color: var(--text); letter-spacing: 0.02em; line-height: 1.35;
+  }
+  .haos-value.accent { color: var(--accent); }
+
+  .haos-logo-mark {
+    width: 88px; height: 88px; border-radius: 20px;
+    border: 1px solid var(--edge-strong);
+    background: #0a0a0a;
+    display: grid; place-items: center;
+    box-shadow: 0 0 0 1px rgba(0,255,102,0.06);
+  }
+  .haos-logo-mark svg { width: 42px; height: 42px; }
+  .haos-logo-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase;
     color: var(--accent);
   }
-  .hero p.sub {
-    margin: 26px 0 0; max-width: 52ch; color: #a8a8a8;
-    font-size: clamp(15px, 1.6vw, 18px); line-height: 1.65; letter-spacing: -0.01em;
+  .haos-logo-cap {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px; color: var(--muted); letter-spacing: 0.06em;
+    max-width: 16ch; line-height: 1.5;
   }
-  .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px; }
+
+  .haos-action {
+    width: 56px; height: 56px; border-radius: 50%;
+    border: 1px solid var(--edge-strong);
+    display: grid; place-items: center;
+    color: var(--text);
+    transition: border-color 0.3s var(--ease), background 0.3s var(--ease), color 0.3s var(--ease), transform 0.3s var(--ease);
+  }
+  .haos-br:hover .haos-action {
+    border-color: var(--accent-line); background: rgba(0,255,102,0.08); color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .haos-action svg { width: 22px; height: 22px; }
+
+  .hero h1 {
+    font-size: clamp(34px, 5.4vw, 64px); line-height: 0.98; letter-spacing: -0.04em;
+    font-weight: 800; margin: 18px 0 0; max-width: 14ch;
+  }
+  .hero h1 .accent { color: var(--accent); }
+  .hero p.sub {
+    margin: 20px 0 0; max-width: 46ch; color: var(--sub);
+    font-size: clamp(14px, 1.5vw, 17px); line-height: 1.65; letter-spacing: -0.01em;
+  }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
   .hero-meta {
-    margin-top: 30px; display: flex; align-items: center; gap: 10px;
-    font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--muted);
+    margin-top: 22px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: var(--muted);
   }
   .hero-meta .sep { width: 4px; height: 4px; border-radius: 50%; background: var(--muted); }
 
-  /* ---------- SHOWCASE ---------- */
-  .showcase { position: relative; margin-top: 84px; }
+  /* ---------- SHOWCASE (nested in Haos stage) ---------- */
+  .showcase { position: relative; margin-top: 0; }
   .showcase-stage {
-    display: grid; grid-template-columns: 1.35fr 0.65fr; gap: 28px; align-items: center;
+    display: grid; grid-template-columns: 1.35fr 0.65fr; gap: 22px; align-items: center;
   }
   .panel {
     background: linear-gradient(180deg, #0c0c0c, #080808);
-    border: 1px solid var(--edge); border-radius: 18px; overflow: hidden;
+    border: 1px solid var(--edge); border-radius: 16px; overflow: hidden;
     box-shadow: 0 24px 60px -28px rgba(0,0,0,0.8);
   }
   .term-bar {
@@ -222,7 +332,7 @@
   .term-body {
     display: grid; grid-template-columns: 1fr auto; gap: 18px;
     padding: 22px; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.85;
-    min-height: 340px;
+    min-height: 300px;
   }
   .term-lines { white-space: pre-wrap; }
   .term-lines .ln { opacity: 0; transform: translateY(4px); animation: lineIn 0.5s var(--ease) forwards; }
@@ -230,8 +340,9 @@
   .prompt { color: var(--accent); }
   .dim { color: var(--muted); }
   .ok { color: var(--accent); }
-  .url { color: #6cc6ff; }
+  .url { color: var(--ansi-cyan); }
   .cmd { color: #fff; }
+  .path { color: var(--ansi-cyan); }
 
   .qr-box {
     align-self: center; justify-self: end;
@@ -241,42 +352,39 @@
   .qr-box #qrcode { width: 132px; height: 132px; display: block; }
   .qr-box #qrcode img, .qr-box #qrcode canvas { width: 132px !important; height: 132px !important; display: block; }
   .qr-cap { text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: #000; opacity: 0.55; margin-top: 7px; letter-spacing: 0.08em; }
-  .showcase-stage:hover .qr-box { transform: translateY(-4px) scale(1.03); box-shadow: 0 0 0 1px var(--accent-line), 0 16px 40px -12px rgba(0,255,102,0.35); }
+  .showcase-stage:hover .qr-box { transform: translateY(-3px); box-shadow: 0 0 0 1px var(--accent-line); }
 
-  /* phone */
   .phone-wrap { display: flex; justify-content: center; perspective: 1400px; }
   .phone {
-    position: relative; width: 248px; height: 506px; border-radius: 40px;
+    position: relative; width: 228px; height: 466px; border-radius: 36px;
     background: #0a0a0a; border: 1px solid var(--edge-strong);
-    padding: 11px;     box-shadow: 0 30px 70px -28px rgba(0,0,0,0.85), inset 0 0 0 2px #000;
+    padding: 10px; box-shadow: 0 30px 70px -28px rgba(0,0,0,0.85), inset 0 0 0 2px #000;
     transform: rotateY(-9deg) rotateX(3deg); transition: transform 0.6s var(--ease);
   }
   .showcase-stage:hover .phone { transform: rotateY(-2deg) rotateX(1deg) translateY(-6px); }
   .phone .notch {
-    position: absolute; top: 18px; left: 50%; transform: translateX(-50%);
-    width: 92px; height: 22px; background: #000; border-radius: 999px; z-index: 3;
+    position: absolute; top: 16px; left: 50%; transform: translateX(-50%);
+    width: 84px; height: 20px; background: #000; border-radius: 999px; z-index: 3;
   }
   .phone-screen {
-    position: relative; width: 100%; height: 100%; border-radius: 30px; overflow: hidden;
+    position: relative; width: 100%; height: 100%; border-radius: 28px; overflow: hidden;
     background: #050505; border: 1px solid rgba(255,255,255,0.05);
   }
   .phone-layer { position: absolute; inset: 0; transition: opacity 0.6s var(--ease); }
   .phone-idle {
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
-    opacity: 1; padding: 30px;
+    opacity: 1; padding: 28px;
   }
   .phone-idle .ring {
-    width: 116px; height: 116px; border-radius: 16px;
-    background:
-      repeating-conic-gradient(#111 0 25%, #1a1a1a 0 50%) 0 0 / 14px 14px;
+    width: 104px; height: 104px; border-radius: 14px;
+    background: repeating-conic-gradient(#111 0 25%, #1a1a1a 0 50%) 0 0 / 14px 14px;
     border: 1px solid var(--edge); display: grid; place-items: center; opacity: 0.5;
   }
-  .phone-idle .ring svg { width: 40px; height: 40px; color: var(--muted); }
+  .phone-idle .ring svg { width: 36px; height: 36px; color: var(--muted); }
   .phone-idle p { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); text-align: center; letter-spacing: 0.04em; margin: 0; line-height: 1.6; }
   .phone-idle .pct { color: var(--accent); }
 
   .phone-stream { opacity: 0; }
-  .showcase-stage:hover ~ .phone-wrap .phone-stream,
   .showcase-stage:hover .phone-stream { opacity: 1; }
   .showcase-stage:hover .phone-idle { opacity: 0; }
   .stream-bar {
@@ -293,26 +401,53 @@
     mask-image: linear-gradient(180deg, transparent, #000 14%, #000 92%, transparent);
   }
   .stream-body .sln { opacity: 0; animation: lineIn 0.45s var(--ease) forwards; white-space: pre-wrap; word-break: break-word; }
-  .sln .t { color: #4d4d4d; }
+  .sln .t { color: var(--ansi-stamp); }
   .sln .info { color: var(--accent); }
-  .sln .warn { color: #ffbd2e; }
-  .sln .err { color: #ff5f56; }
-  .sln .path { color: #6cc6ff; }
-  .sln .dim { color: #777; }
+  .sln .warn { color: var(--ansi-warn); }
+  .sln .err { color: var(--ansi-err); }
+  .sln .path { color: var(--ansi-cyan); }
+  .sln .dim { color: var(--ansi-dim); }
   .stream-fab {
-    position: absolute; right: 14px; bottom: 16px; width: 38px; height: 38px; border-radius: 50%;
+    position: absolute; right: 14px; bottom: 16px; width: 44px; height: 44px; border-radius: 50%;
     background: rgba(255,255,255,0.06); border: 1px solid var(--edge-strong);
-    display: grid; place-items: center; color: #cfcfcf; font-size: 10px; font-family: 'JetBrains Mono', monospace;
-    backdrop-filter: blur(6px);
+    display: grid; place-items: center; color: var(--text); font-size: 10px; font-family: 'JetBrains Mono', monospace;
   }
 
+  @media (max-width: 960px) {
+    .haos {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "tl tr"
+        "tc tc"
+        "main main"
+        "side side"
+        "stage stage"
+        "bl br";
+    }
+    .haos-tc, .haos-tr { text-align: left; }
+    .haos-side { flex-direction: row; justify-content: flex-start; text-align: left; gap: 18px; }
+    .haos-logo-cap { max-width: none; }
+  }
   @media (max-width: 860px) {
-    .showcase-stage { grid-template-columns: 1fr; gap: 40px; }
+    .showcase-stage { grid-template-columns: 1fr; gap: 32px; }
     .phone-wrap { order: -1; }
-    .phone { transform: none; }
+    .phone { transform: none; width: 210px; height: 430px; }
     .showcase-stage:hover .phone { transform: translateY(-4px); }
-    .term-body { grid-template-columns: 1fr; }
+    .term-body { grid-template-columns: 1fr; min-height: 0; }
     .qr-box { justify-self: center; }
+  }
+  @media (max-width: 560px) {
+    .haos {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "main" "stage" "bl" "br";
+      border-radius: 14px;
+    }
+    .haos-tl, .haos-tc, .haos-tr, .haos-side { display: none; }
+    .haos-main { padding: 28px 20px; }
+    .haos-stage { padding: 16px; }
+    .hero { padding: 96px 0 40px; }
+    .phone { width: 180px; height: 368px; }
   }
   @media (hover: none) {
     .phone-idle { opacity: 0; }
@@ -326,7 +461,7 @@
     font-size: clamp(30px, 4.4vw, 52px); letter-spacing: -0.035em; line-height: 1.04;
     font-weight: 800; margin: 18px 0 0;
   }
-  .sec-head p { color: #9a9a9a; margin: 18px 0 0; font-size: 17px; line-height: 1.6; max-width: 50ch; }
+  .sec-head p { color: var(--muted); margin: 18px 0 0; font-size: 17px; line-height: 1.6; max-width: 50ch; }
 
   /* ---------- STEPS ---------- */
   .steps { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--edge); border-radius: var(--radius); overflow: hidden; margin-top: 56px; }
@@ -377,7 +512,7 @@
     background: radial-gradient(ellipse at 50% -20%, rgba(0,255,102,0.06), transparent 60%);
   }
   .cta-strip h2 { font-size: clamp(28px, 4vw, 46px); letter-spacing: -0.035em; margin: 0 auto; max-width: 18ch; line-height: 1.05; font-weight: 800; }
-  .cta-strip p { color: #9a9a9a; margin: 18px auto 0; max-width: 44ch; font-size: 16px; }
+  .cta-strip p { color: var(--muted); margin: 18px auto 0; max-width: 44ch; font-size: 16px; }
   .cta-strip .hero-cta { justify-content: center; }
 
   /* ---------- FOOTER ---------- */
@@ -385,7 +520,7 @@
   .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
   .footer .tagline { font-size: 13.5px; color: var(--muted); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.02em; }
   .footer .links { display: flex; gap: 22px; align-items: center; }
-  .footer .links a { font-size: 13.5px; color: var(--muted); transition: color 0.25s var(--ease); display: inline-flex; align-items: center; gap: 7px; }
+  .footer .links a { font-size: 13.5px; color: var(--muted); transition: color 0.25s var(--ease); display: inline-flex; align-items: center; gap: 7px; min-height: 44px; }
   .footer .links a:hover { color: var(--text); }
   .footer .links svg { width: 15px; height: 15px; }
 
@@ -401,6 +536,7 @@
 </head>
 
 <body>
+  <a class="skip-link" href="#top">Skip to content</a>
   <!-- NAV -->
   <nav class="nav" id="nav">
     <div class="shell nav-inner">
@@ -424,75 +560,117 @@
 
   <main id="top">
     <!-- HERO -->
-    <section class="hero">
+    <section class="hero" role="region" aria-label="share-term product showcase">
       <div class="hero-glow"></div>
       <div class="hero-grid"></div>
       <div class="shell hero-inner">
-        <span class="eyebrow reveal"><span class="dot"></span> Open source · Zero-config · Real-time</span>
-        <h1 class="reveal">Your phone is now your <span class="accent">second terminal.</span></h1>
-        <p class="sub reveal">Stream active logs and terminal output straight to your smartphone with a single QR scan. Zero extensions. Zero friction. Your desktop stays exactly where it is. The screen just got bigger.</p>
-        <div class="hero-cta reveal">
-          <button class="btn btn-primary" data-copy="git clone https://github.com/JessenReinhart/share-term.git && cd share-term && npm install && npm link" aria-label="Copy install command">
-            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            <span class="label">Copy install command</span>
-          </button>
-          <a class="btn btn-ghost" href="https://github.com/JessenReinhart/share-term" target="_blank" rel="noopener">
-            <svg class="ic" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.33 4.79-4.56 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
-            View on GitHub
-          </a>
-        </div>
-        <div class="hero-meta reveal">
-          <span>Node ≥ 18</span><span class="sep"></span>
-          <span>MIT Licensed</span><span class="sep"></span>
-          <span>ANSI-aware</span><span class="sep"></span>
-          <span>PWA receiver</span>
-        </div>
+        <div class="haos reveal">
+          <div class="haos-cell haos-tl">
+            <span class="haos-label">Category</span>
+            <span class="haos-value accent">Dev tooling</span>
+          </div>
+          <div class="haos-cell haos-tc">
+            <span class="haos-label">Year</span>
+            <span class="haos-value">2026</span>
+          </div>
+          <div class="haos-cell haos-tr">
+            <span class="haos-label">Tech solutions</span>
+            <span class="haos-value">Terminal · PWA · QR</span>
+          </div>
 
-        <!-- SHOWCASE -->
-        <div class="showcase reveal">
-          <div class="showcase-stage">
-            <div class="panel terminal">
-              <div class="term-bar">
-                <span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span>
-                <span class="ttitle">~/projects/api — share-term</span>
-              </div>
-              <div class="term-body">
-                <div class="term-lines">
-                  <div class="ln" style="animation-delay:.1s"><span class="dim">~/projects/api</span> <span class="prompt">❯</span> <span class="cmd">share-term</span></div>
-                  <div class="ln" style="animation-delay:.5s"><span class="ok">✔</span> Scanning for log files… found <span class="ok">3</span> source(s)</div>
-                  <div class="ln" style="animation-delay:.9s"><span class="dim">›</span> streaming: <span class="path">dev.log</span> + live PTY</div>
-                  <div class="ln" style="animation-delay:1.3s"><span class="ok">✔</span> Server ready · <span class="url">http://192.168.1.42:8080</span></div>
-                  <div class="ln" style="animation-delay:1.7s"><span class="dim">scan this with your phone ↓</span></div>
-                </div>
-                <div class="qr-box">
-                  <div id="qrcode"></div>
-                  <div class="qr-cap">SHARE-TERM</div>
-                </div>
-              </div>
+          <div class="haos-cell haos-main">
+            <span class="eyebrow"><span class="dot"></span> Open source · Zero-config · Real-time</span>
+            <h1>Your phone is now your <span class="accent">second terminal.</span></h1>
+            <p class="sub">Stream active logs and terminal output straight to your smartphone with a single QR scan. Zero extensions. Zero friction. Your desktop stays exactly where it is. The screen just got bigger.</p>
+            <div class="hero-cta">
+              <button class="btn btn-primary" data-copy="git clone https://github.com/JessenReinhart/share-term.git && cd share-term && npm install && npm link" aria-label="Copy install command">
+                <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+                <span class="label">Copy install command</span>
+              </button>
+              <a class="btn btn-ghost" href="https://github.com/JessenReinhart/share-term" target="_blank" rel="noopener">
+                <svg class="ic" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.88-.01-1.73-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.38-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.33 4.79-4.56 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+                View on GitHub
+              </a>
             </div>
+            <div class="hero-meta">
+              <span>Node ≥ 18</span><span class="sep"></span>
+              <span>MIT Licensed</span><span class="sep"></span>
+              <span>ANSI-aware</span><span class="sep"></span>
+              <span>PWA receiver</span>
+            </div>
+          </div>
 
-            <div class="phone-wrap">
-              <div class="phone" aria-hidden="true">
-                <div class="notch"></div>
-                <div class="phone-screen">
-                  <div class="phone-layer phone-idle">
-                    <div class="ring">
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l18-8-8 18-2-8-8-2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    </div>
-                    <p>Aim your camera at the terminal QR. <span class="pct">No app. No install.</span></p>
+          <div class="haos-cell haos-side">
+            <div class="haos-logo-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00FF66" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M8 9l4 3-4 3"/>
+                <path d="M13 15h5" stroke="#f5f5f5"/>
+              </svg>
+            </div>
+            <div class="haos-logo-text">share-term</div>
+            <div class="haos-logo-cap">Live terminal on your phone. One QR.</div>
+          </div>
+
+          <div class="haos-cell haos-stage">
+            <div class="showcase">
+              <div class="showcase-stage">
+                <div class="panel terminal">
+                  <div class="term-bar">
+                    <span class="tdot r"></span><span class="tdot y"></span><span class="tdot g"></span>
+                    <span class="ttitle">~/projects/api · share-term</span>
                   </div>
-                  <div class="phone-layer phone-stream">
-                    <div class="stream-bar">
-                      <span class="conn"><span class="cdot"></span> LIVE · dev.log</span>
-                      <span class="mono">12:04:51</span>
+                  <div class="term-body">
+                    <div class="term-lines">
+                      <div class="ln" style="animation-delay:.1s"><span class="dim">~/projects/api</span> <span class="prompt">❯</span> <span class="cmd">share-term</span></div>
+                      <div class="ln" style="animation-delay:.5s"><span class="ok">✔</span> Scanning for log files… found <span class="ok">3</span> source(s)</div>
+                      <div class="ln" style="animation-delay:.9s"><span class="dim">›</span> streaming: <span class="path">dev.log</span> + live PTY</div>
+                      <div class="ln" style="animation-delay:1.3s"><span class="ok">✔</span> Server ready · <span class="url">http://192.168.1.42:8080</span></div>
+                      <div class="ln" style="animation-delay:1.7s"><span class="dim">scan this with your phone ↓</span></div>
                     </div>
-                    <div class="stream-body" id="stream"></div>
-                    <div class="stream-fab">CLR</div>
+                    <div class="qr-box">
+                      <div id="qrcode" role="img" aria-label="QR code linking to the share-term GitHub repository"></div>
+                      <div class="qr-cap">SHARE-TERM</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="phone-wrap">
+                  <div class="phone" aria-hidden="true">
+                    <div class="notch"></div>
+                    <div class="phone-screen">
+                      <div class="phone-layer phone-idle">
+                        <div class="ring">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 11l18-8-8 18-2-8-8-2z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <p>Aim your camera at the terminal QR. Opens as a PWA on the same Wi-Fi.</p>
+                      </div>
+                      <div class="phone-layer phone-stream">
+                        <div class="stream-bar">
+                          <span class="conn"><span class="cdot"></span> LIVE · dev.log</span>
+                          <span class="mono">12:04:51</span>
+                        </div>
+                        <div class="stream-body" id="stream"></div>
+                        <div class="stream-fab">CLR</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <div class="haos-cell haos-bl">
+            <span class="haos-label" style="margin:0">Transport</span>
+            <span class="haos-value">node-pty · raw WebSocket</span>
+          </div>
+          <a class="haos-cell haos-br" href="#how" aria-label="See how share-term works">
+            <span class="haos-action" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17L17 7"/>
+                <path d="M8 7h9v9"/>
+              </svg>
+            </span>
+          </a>
         </div>
       </div>
     </section>
@@ -502,7 +680,7 @@
       <div class="shell">
         <div class="sec-head reveal">
           <h2>Three steps. Zero setup.</h2>
-          <p>No accounts, no pairing, no app store. If your phone is on the same Wi-Fi, it just works.</p>
+          <p>No accounts, no pairing, no app store. Same Wi-Fi is enough.</p>
         </div>
         <div class="steps reveal">
           <div class="step">
@@ -514,7 +692,7 @@
           <div class="step">
             <div class="num">02 / SCAN</div>
             <h3>Scan</h3>
-            <p>Aim your phone camera at the QR code printed in your terminal. The PWA receiver opens instantly — nothing to download.</p>
+            <p>Aim your phone camera at the QR printed in the terminal. The PWA receiver opens instantly; nothing to download.</p>
             <div class="snip">📷 scan → open</div>
           </div>
           <div class="step">
@@ -532,13 +710,13 @@
       <div class="shell">
         <div class="sec-head reveal">
           <h2>Built like a developer tool should be.</h2>
-          <p>Precise, lightning-fast, zero bloat. Every byte streamed over a raw WebSocket — no heavy runtime, no telemetry.</p>
+          <p>Precise and fast, with no bloat. Bytes stream over a raw WebSocket: no heavy runtime, no telemetry.</p>
         </div>
         <div class="bento">
           <div class="cell w4 featured reveal">
             <span class="tag">Zero-config DX</span>
             <h3>No App Store. Opens as a PWA.</h3>
-            <p>The receiver is a single responsive HTML file served from the CLI itself. Your phone installs it to the home screen in one tap and launches straight into a full terminal — xterm.js rendered locally, with cursor movement, colors, and layout intact.</p>
+            <p>The receiver is a single responsive HTML file served from the CLI. Install it to the home screen in one tap. It launches into a full terminal with xterm.js rendered locally: cursor, colors, and layout intact.</p>
           </div>
           <div class="cell w2 reveal">
             <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 17l6-6-6-6M12 19h8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
@@ -558,12 +736,12 @@
           <div class="cell w3 reveal">
             <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M8 21h8M12 18v3" stroke-linecap="round"/></svg></div>
             <h3>Live Terminal Sharing</h3>
-            <p>Spawns a shared shell via node-pty (ConPTY / openpty) — your phone sees it live with full ANSI colors. No tmux required, but tmux attach is there when you want it.</p>
+            <p>Spawns a shared shell via node-pty (ConPTY / openpty). Your phone sees it live with full ANSI colors. No tmux required; attach is available when you want it.</p>
           </div>
           <div class="cell w3 reveal">
             <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7h16M4 12h16M4 17h10" stroke-linecap="round"/></svg></div>
             <h3>Wide-TUI Aware</h3>
-            <p>PTY sources report real width, so the phone renders at the true column count — box-drawing art stays crisp instead of wrapping.</p>
+            <p>PTY sources report real width, so the phone renders at the true column count. Box-drawing art stays crisp instead of wrapping.</p>
           </div>
         </div>
 
@@ -676,7 +854,7 @@
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
 
-    // Phone live log stream
+    // Phone live log stream (pauses off-screen / hidden tab)
     (function () {
       var stream = document.getElementById('stream');
       if (!stream) return;
@@ -694,7 +872,9 @@
         ['info', 'dev  │', ' ', 'hmr update', ' ', 'App.tsx', ' ', 'applied'],
         ['dim',  '12:04:53', ' ', 'GET', ' ', '/favicon.ico 304'],
       ];
-      var i = 0, count = 0;
+      var i = 0;
+      var iv = null;
+      var visible = false;
       function push() {
         var s = samples[i % samples.length]; i++;
         var ln = document.createElement('div');
@@ -705,12 +885,34 @@
         }
         ln.innerHTML = html;
         stream.appendChild(ln);
-        count++;
         while (stream.children.length > 16) stream.removeChild(stream.firstChild);
         stream.scrollTop = stream.scrollHeight;
       }
-      var iv = setInterval(push, 850);
+      function start() {
+        if (iv != null) return;
+        iv = setInterval(push, 850);
+      }
+      function stop() {
+        if (iv == null) return;
+        clearInterval(iv);
+        iv = null;
+      }
+      function sync() {
+        if (visible && !document.hidden) start();
+        else stop();
+      }
       for (var j = 0; j < 7; j++) push();
+      if ('IntersectionObserver' in window) {
+        var sio = new IntersectionObserver(function (entries) {
+          visible = entries.some(function (en) { return en.isIntersecting; });
+          sync();
+        }, { threshold: 0.05 });
+        sio.observe(stream);
+      } else {
+        visible = true;
+        sync();
+      }
+      document.addEventListener('visibilitychange', sync);
     })();
   </script>
 </body>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence } from "motion/react";
-import EditorialPortfolio from "./components/EditorialPortfolio";
+import EditorialPortfolioV2 from "./components/EditorialPortfolioV2";
 import ResumeViewer from "./components/ResumeViewer";
 
 export default function App() {
@@ -15,7 +15,7 @@ export default function App() {
       }}
     >
       <div className="no-print">
-        <EditorialPortfolio onViewResume={() => setResumeOpen(true)} />
+        <EditorialPortfolioV2 onViewResume={() => setResumeOpen(true)} />
       </div>
 
       <AnimatePresence>

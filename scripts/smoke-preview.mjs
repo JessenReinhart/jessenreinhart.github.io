@@ -17,6 +17,18 @@ try {
 
   const response = await page.goto("http://127.0.0.1:4173", { waitUntil: "networkidle" });
   await mkdir("artifacts", { recursive: true });
+
+  // Motion sections reveal with whileInView. A full-page screenshot does not
+  // actually scroll the viewport, so visit the page from top to bottom first
+  // to make the captured artifact represent what a real visitor sees.
+  const pageHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+  for (let y = 0; y < pageHeight; y += 700) {
+    await page.evaluate((top) => window.scrollTo({ top, behavior: "instant" }), y);
+    await page.waitForTimeout(90);
+  }
+  await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
+  await page.waitForTimeout(500);
+
   await page.screenshot({ path: "artifacts/preview.png", fullPage: true });
 
   const rootText = await page.locator("#root").innerText().catch(() => "");

@@ -181,28 +181,34 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
                 transition={{ duration: reduceMotion ? 0 : 0.78, delay: reduceMotion ? 0 : 0.12, ease: [0.16, 1, 0.3, 1] }}
                 className="lg:col-span-5"
               >
-                <div className="relative mx-auto h-[390px] max-w-[520px] sm:h-[440px] lg:h-[520px] lg:max-w-none">
+                <div className="relative mx-auto h-[380px] max-w-[500px] sm:h-[440px] lg:h-[540px] lg:max-w-none">
                   <motion.div
                     initial={reduceMotion ? false : { opacity: 0, scale: 0.94 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: reduceMotion ? 0 : 0.7, delay: reduceMotion ? 0 : 0.16, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute right-[3%] top-[8%] h-[54%] w-[62%] rounded-[34px]"
-                    style={{ backgroundColor: "color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-secondary))" }}
+                    className="absolute right-[1%] top-[5%] h-[56%] w-[66%] rounded-[38px]"
+                    style={{ backgroundColor: "color-mix(in srgb, var(--color-accent) 6%, var(--color-bg-secondary))" }}
                     aria-hidden="true"
                   />
                   <motion.div
                     initial={reduceMotion ? false : { opacity: 0, x: -16, y: 10 }}
                     animate={{ opacity: 1, x: 0, y: 0 }}
                     transition={{ duration: reduceMotion ? 0 : 0.72, delay: reduceMotion ? 0 : 0.24, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute bottom-[11%] left-[8%] h-[45%] w-[57%] rounded-[32px]"
-                    style={{ backgroundColor: "color-mix(in srgb, var(--color-accent) 5%, var(--color-bg-surface))" }}
+                    className="absolute bottom-[12%] left-[5%] h-[43%] w-[60%] rounded-[34px]"
+                    style={{ backgroundColor: "color-mix(in srgb, var(--color-accent) 4%, var(--color-bg-surface))" }}
+                    aria-hidden="true"
+                  />
+
+                  <div
+                    className="absolute right-[6%] top-[12%] h-[62%] w-[72%] rounded-full blur-3xl"
+                    style={{ backgroundColor: "color-mix(in srgb, var(--color-accent) 5%, transparent)" }}
                     aria-hidden="true"
                   />
 
                   <motion.img
                     src={PORTRAIT_IMAGE}
                     alt="Jessen Reinhart"
-                    className="absolute bottom-0 right-[4%] z-10 h-auto max-h-[92%] w-auto max-w-[78%] object-contain object-bottom sm:max-w-[74%] lg:right-[2%] lg:max-h-[96%] lg:max-w-[76%]"
+                    className="absolute bottom-0 right-[5%] z-10 h-auto max-h-[88%] w-auto max-w-[68%] object-contain object-bottom sm:right-[4%] sm:max-h-[92%] sm:max-w-[72%] lg:right-0 lg:max-h-[102%] lg:max-w-[90%]"
                     initial={reduceMotion ? false : { opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: reduceMotion ? 0 : 0.76, delay: reduceMotion ? 0 : 0.18, ease: [0.16, 1, 0.3, 1] }}

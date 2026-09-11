@@ -176,72 +176,49 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
               </motion.div>
 
               <motion.div
-                initial={reduceMotion ? false : { opacity: 0, x: 28, scale: 0.985 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
+                initial={reduceMotion ? false : { opacity: 0, x: 24 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: reduceMotion ? 0 : 0.78, delay: reduceMotion ? 0 : 0.12, ease: [0.16, 1, 0.3, 1] }}
                 className="lg:col-span-5"
               >
-                <div
-                  className="group relative min-h-[440px] overflow-hidden rounded-[28px] border md:min-h-[520px]"
-                  style={{
-                    borderColor: "var(--color-border-primary)",
-                    background:
-                      "radial-gradient(circle at 72% 18%, color-mix(in srgb, var(--color-accent) 10%, transparent), transparent 38%), var(--color-bg-secondary)",
-                  }}
-                >
-                  <div className="absolute inset-x-0 top-0 z-20 flex items-center justify-between p-5 md:p-6">
-                    <div className="font-mono text-[9px] tracking-[0.24em]" style={{ color: "var(--color-text-dim)" }}>
-                      {copy.sideKicker}
-                    </div>
-                    <div className="flex items-center gap-2 rounded-full border px-3 py-1.5 text-[10px] font-medium backdrop-blur-md" style={{ borderColor: "var(--color-border-primary)", backgroundColor: "color-mix(in srgb, var(--color-bg-primary) 76%, transparent)" }}>
-                      <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--color-accent)" }} />
-                      {copy.portraitLocation}
-                    </div>
-                  </div>
+                <div className="relative mx-auto h-[390px] max-w-[520px] sm:h-[440px] lg:h-[520px] lg:max-w-none">
+                  <motion.div
+                    initial={reduceMotion ? false : { opacity: 0, scale: 0.94 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: reduceMotion ? 0 : 0.7, delay: reduceMotion ? 0 : 0.16, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute right-[3%] top-[8%] h-[54%] w-[62%] rounded-[34px]"
+                    style={{ backgroundColor: "color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-secondary))" }}
+                    aria-hidden="true"
+                  />
+                  <motion.div
+                    initial={reduceMotion ? false : { opacity: 0, x: -16, y: 10 }}
+                    animate={{ opacity: 1, x: 0, y: 0 }}
+                    transition={{ duration: reduceMotion ? 0 : 0.72, delay: reduceMotion ? 0 : 0.24, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute bottom-[11%] left-[8%] h-[45%] w-[57%] rounded-[32px]"
+                    style={{ backgroundColor: "color-mix(in srgb, var(--color-accent) 5%, var(--color-bg-surface))" }}
+                    aria-hidden="true"
+                  />
 
                   <motion.img
                     src={PORTRAIT_IMAGE}
                     alt="Jessen Reinhart"
-                    className="absolute inset-0 h-full w-full object-contain object-bottom pt-12 transition-transform duration-700 group-hover:scale-[1.018]"
-                    initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+                    className="absolute bottom-0 right-[4%] z-10 h-auto max-h-[92%] w-auto max-w-[78%] object-contain object-bottom sm:max-w-[74%] lg:right-[2%] lg:max-h-[96%] lg:max-w-[76%]"
+                    initial={reduceMotion ? false : { opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: reduceMotion ? 0 : 0.7, delay: reduceMotion ? 0 : 0.2, ease: [0.16, 1, 0.3, 1] }}
-                  />
-
-                  <div
-                    className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-1/2"
-                    style={{ background: "linear-gradient(to top, color-mix(in srgb, var(--color-bg-primary) 92%, transparent) 0%, color-mix(in srgb, var(--color-bg-primary) 48%, transparent) 48%, transparent 100%)" }}
+                    transition={{ duration: reduceMotion ? 0 : 0.76, delay: reduceMotion ? 0 : 0.18, ease: [0.16, 1, 0.3, 1] }}
                   />
 
                   <motion.div
-                    initial={reduceMotion ? false : { opacity: 0, y: 14 }}
+                    initial={reduceMotion ? false : { opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: reduceMotion ? 0 : 0.58, delay: reduceMotion ? 0 : 0.34, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute inset-x-4 bottom-4 z-20 rounded-2xl border p-4 backdrop-blur-xl md:inset-x-5 md:bottom-5 md:p-5"
-                    style={{
-                      borderColor: "var(--color-border-primary)",
-                      backgroundColor: "color-mix(in srgb, var(--color-bg-primary) 82%, transparent)",
-                    }}
+                    transition={{ duration: reduceMotion ? 0 : 0.56, delay: reduceMotion ? 0 : 0.42, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute bottom-3 right-0 z-20 flex items-start gap-3 rounded-tl-2xl px-4 py-3 text-right sm:bottom-5 sm:px-5"
+                    style={{ backgroundColor: "color-mix(in srgb, var(--color-bg-primary) 90%, transparent)" }}
                   >
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <p className="text-sm font-semibold">{copy.portraitRole}</p>
-                        <p className="mt-1 max-w-sm text-xs leading-relaxed" style={{ color: "var(--color-text-muted)" }}>{copy.portraitBody}</p>
-                      </div>
-                      <motion.div
-                        initial={reduceMotion ? false : { scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ duration: reduceMotion ? 0 : 0.55, delay: reduceMotion ? 0 : 0.48 }}
-                        className="mt-2 h-px w-8 shrink-0 origin-right"
-                        style={{ backgroundColor: "var(--color-accent)" }}
-                      />
-                    </div>
-                    <div className="mt-4 flex flex-wrap gap-2">
-                      {["React", "TypeScript", "Banking", "AI Tools"].map((tag) => (
-                        <span key={tag} className="rounded-full border px-2.5 py-1 font-mono text-[9px]" style={{ borderColor: "var(--color-border-primary)", color: "var(--color-text-dim)" }}>
-                          {tag}
-                        </span>
-                      ))}
+                    <span className="mt-2 h-px w-8 shrink-0" style={{ backgroundColor: "var(--color-accent)" }} />
+                    <div>
+                      <p className="text-xs font-semibold">Jessen Reinhart</p>
+                      <p className="mt-1 font-mono text-[9px] tracking-[0.08em]" style={{ color: "var(--color-text-dim)" }}>{copy.portraitRole} · {copy.portraitLocation}</p>
                     </div>
                   </motion.div>
                 </div>

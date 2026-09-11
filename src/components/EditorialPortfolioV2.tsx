@@ -10,7 +10,7 @@ import {
   Sun,
   X,
 } from "lucide-react";
-import { EXPERIENCES, PROJECTS, SKILL_CATEGORIES, STATS } from "../data";
+import { EXPERIENCES, PORTRAIT_IMAGE, PROJECTS, SKILL_CATEGORIES, STATS } from "../data";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useTheme } from "../contexts/ThemeContext";
 import { translations } from "../i18n/translations";
@@ -47,6 +47,9 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
         aboutTitle: "Frontend engineering yang fokus ke reliability, clarity, dan scale.",
         stack: "Core stack",
         statLabels: ["institusi keuangan", "order / bulan", "online stores"],
+        portraitRole: "Frontend Engineer",
+        portraitLocation: "Jakarta, Indonesia",
+        portraitBody: "Membangun di persimpangan banking, commerce, product UI, dan AI tooling.",
       }
     : {
         eyebrow: "JESSEN REINHART · SENIOR FRONTEND ENGINEER",
@@ -65,6 +68,9 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
         aboutTitle: "Frontend engineering focused on reliability, clarity, and scale.",
         stack: "Core stack",
         statLabels: ["financial institutions", "orders / month", "online stores"],
+        portraitRole: "Frontend Engineer",
+        portraitLocation: "Jakarta, Indonesia",
+        portraitBody: "Building at the intersection of banking, commerce, product UI, and AI tooling.",
       };
 
   const navItems = [
@@ -149,15 +155,15 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
       <main>
         <section id="hero" className="px-6 pb-14 pt-32 md:px-12 md:pb-20 md:pt-40">
           <div className="mx-auto max-w-7xl">
-            <div className="grid gap-12 lg:grid-cols-12 lg:items-end">
+            <div className="grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-12">
               <motion.div
                 initial={reduceMotion ? false : { opacity: 0, y: 34 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: reduceMotion ? 0 : 0.78, ease: [0.16, 1, 0.3, 1] }}
-                className="lg:col-span-8"
+                className="lg:col-span-7"
               >
                 <div className="mb-7 font-mono text-[10px] tracking-[0.24em]" style={{ color: "var(--color-text-muted)" }}>{copy.eyebrow}</div>
-                <h1 className="max-w-5xl font-sans text-[clamp(3.4rem,7vw,7.15rem)] font-semibold leading-[0.91] tracking-[-0.065em]">{copy.headline}</h1>
+                <h1 className="max-w-5xl font-sans text-[clamp(3.35rem,6.2vw,6.7rem)] font-semibold leading-[0.91] tracking-[-0.065em]">{copy.headline}</h1>
                 <p className="mt-7 max-w-2xl text-base leading-relaxed md:text-lg" style={{ color: "var(--color-text-muted)" }}>{copy.intro}</p>
                 <div className="mt-8 flex flex-wrap gap-3">
                   <motion.button whileHover={reduceMotion ? undefined : { y: -2 }} whileTap={reduceMotion ? undefined : { scale: 0.98 }} type="button" onClick={() => navigate("projects")} className="me-btn-primary flex items-center gap-2 px-6 py-3.5 text-xs font-semibold">
@@ -169,17 +175,60 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
                 </div>
               </motion.div>
 
-              <motion.aside
-                initial={reduceMotion ? false : { opacity: 0, x: 22 }}
+              <motion.div
+                initial={reduceMotion ? false : { opacity: 0, x: 24 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: reduceMotion ? 0 : 0.7, delay: reduceMotion ? 0 : 0.16, ease: [0.16, 1, 0.3, 1] }}
-                className="border-l pl-6 lg:col-span-4 lg:pb-3"
-                style={{ borderColor: "var(--color-border-primary)" }}
+                transition={{ duration: reduceMotion ? 0 : 0.78, delay: reduceMotion ? 0 : 0.12, ease: [0.16, 1, 0.3, 1] }}
+                className="lg:col-span-5"
               >
-                <div className="font-mono text-[9px] tracking-[0.28em]" style={{ color: "var(--color-text-dim)" }}>{copy.sideKicker}</div>
-                <motion.div initial={reduceMotion ? false : { scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: reduceMotion ? 0 : 0.6, delay: 0.35 }} className="my-6 h-px w-10 origin-left" style={{ backgroundColor: "var(--color-accent)" }} />
-                <p className="max-w-sm text-sm leading-relaxed md:text-base" style={{ color: "var(--color-text-muted)" }}>{copy.sideBody}</p>
-              </motion.aside>
+                <div className="relative mx-auto h-[380px] max-w-[500px] sm:h-[440px] lg:h-[540px] lg:max-w-none">
+                  <motion.div
+                    initial={reduceMotion ? false : { opacity: 0, scale: 0.94 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: reduceMotion ? 0 : 0.7, delay: reduceMotion ? 0 : 0.16, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute right-[1%] top-[5%] h-[56%] w-[66%] rounded-[38px]"
+                    style={{ backgroundColor: "color-mix(in srgb, var(--color-accent) 6%, var(--color-bg-secondary))" }}
+                    aria-hidden="true"
+                  />
+                  <motion.div
+                    initial={reduceMotion ? false : { opacity: 0, x: -16, y: 10 }}
+                    animate={{ opacity: 1, x: 0, y: 0 }}
+                    transition={{ duration: reduceMotion ? 0 : 0.72, delay: reduceMotion ? 0 : 0.24, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute bottom-[12%] left-[5%] h-[43%] w-[60%] rounded-[34px]"
+                    style={{ backgroundColor: "color-mix(in srgb, var(--color-accent) 4%, var(--color-bg-surface))" }}
+                    aria-hidden="true"
+                  />
+
+                  <div
+                    className="absolute right-[6%] top-[12%] h-[62%] w-[72%] rounded-full blur-3xl"
+                    style={{ backgroundColor: "color-mix(in srgb, var(--color-accent) 5%, transparent)" }}
+                    aria-hidden="true"
+                  />
+
+                  <motion.img
+                    src={PORTRAIT_IMAGE}
+                    alt="Jessen Reinhart"
+                    className="absolute bottom-0 right-[5%] z-10 h-auto max-h-[88%] w-auto max-w-[68%] object-contain object-bottom sm:right-[4%] sm:max-h-[92%] sm:max-w-[72%] lg:right-0 lg:max-h-[102%] lg:max-w-[90%]"
+                    initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: reduceMotion ? 0 : 0.76, delay: reduceMotion ? 0 : 0.18, ease: [0.16, 1, 0.3, 1] }}
+                  />
+
+                  <motion.div
+                    initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: reduceMotion ? 0 : 0.56, delay: reduceMotion ? 0 : 0.42, ease: [0.16, 1, 0.3, 1] }}
+                    className="absolute bottom-3 right-0 z-20 flex items-start gap-3 rounded-tl-2xl px-4 py-3 text-right sm:bottom-5 sm:px-5"
+                    style={{ backgroundColor: "color-mix(in srgb, var(--color-bg-primary) 90%, transparent)" }}
+                  >
+                    <span className="mt-2 h-px w-8 shrink-0" style={{ backgroundColor: "var(--color-accent)" }} />
+                    <div>
+                      <p className="text-xs font-semibold">Jessen Reinhart</p>
+                      <p className="mt-1 font-mono text-[9px] tracking-[0.08em]" style={{ color: "var(--color-text-dim)" }}>{copy.portraitRole} · {copy.portraitLocation}</p>
+                    </div>
+                  </motion.div>
+                </div>
+              </motion.div>
             </div>
 
             <motion.div {...reveal} className="mt-14 grid border-y sm:grid-cols-3" style={{ borderColor: "var(--color-border-primary)" }}>

@@ -15,6 +15,7 @@ import { useLanguage } from "../contexts/LanguageContext";
 import { useTheme } from "../contexts/ThemeContext";
 import { translations } from "../i18n/translations";
 import Contact from "./Contact";
+import GitHubActivity from "./GitHubActivity";
 
 interface EditorialPortfolioProps {
   onViewResume: () => void;
@@ -75,6 +76,7 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
 
   const navItems = [
     { label: t.navProjects, id: "projects" },
+    { label: t.navGithub, id: "github" },
     { label: t.navExperience, id: "experience" },
     { label: t.navAbout, id: "about" },
     { label: "Résumé", id: "resume" },
@@ -315,6 +317,8 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
             </div>
           </div>
         </section>
+
+        <GitHubActivity />
 
         <section id="experience" className="scroll-mt-24 border-t px-6 py-20 md:px-12 md:py-28" style={{ borderColor: "var(--color-border-primary)" }}>
           <div className="mx-auto max-w-7xl">

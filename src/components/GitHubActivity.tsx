@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { motion } from "motion/react";
-import { ArrowUpRight, Github, Star, GitFork, Code2 } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import { ArrowUpRight, Code2, GitFork, Github, Star } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useTheme } from "../contexts/ThemeContext";
 import { translations } from "../i18n/translations";
@@ -21,7 +21,6 @@ interface GitHubRepo {
   stargazers_count: number;
   forks_count: number;
   updated_at: string;
-  topics: string[];
 }
 
 interface GitHubEvent {
@@ -47,33 +46,41 @@ const LANGUAGE_COLORS: Record<string, string> = {
   Vue: "#41b883",
 };
 
-const EVENT_LABELS: Record<string, string> = {
-  PushEvent: "pushed to",
-  CreateEvent: "created",
-  IssuesEvent: "opened issue in",
-  IssueCommentEvent: "commented on",
-  PullRequestEvent: "opened PR in",
-  ForkEvent: "forked",
-  ReleaseEvent: "released in",
-  WatchEvent: "starred",
-};
+const EVENT_LABELS = {
+  en: {
+    PushEvent: "pushed to",
+    CreateEvent: "created",
+    IssuesEvent: "opened an issue in",
+    PullRequestEvent: "opened a PR in",
+    ForkEvent: "forked",
+    ReleaseEvent: "released in",
+    WatchEvent: "starred",
+  },
+  id: {
+    PushEvent: "push ke",
+    CreateEvent: "membuat",
+    IssuesEvent: "membuka issue di",
+    PullRequestEvent: "membuka PR di",
+    ForkEvent: "fork",
+    ReleaseEvent: "rilis di",
+    WatchEvent: "star",
+  },
+} as const;
 
-// Theme-aware cell colors. Dark mode uses red-on-charcoal with higher lightness
-// for contrast; light mode uses the original red-with-opacity approach.
-function getLevelBg(count: number, baseColor: string, isDark: boolean): string {
+function getLevelBg(count: number, isDark: boolean): string {
   if (isDark) {
     if (count === 0) return "hsla(0, 0%, 18%, 1)";
-    if (count <= 2) return "hsla(0, 100%, 10%, 1)";
-    if (count <= 5) return "hsla(0, 100%, 18%, 1)";
-    if (count <= 10) return "hsla(0, 100%, 30%, 1)";
-    return "hsla(0, 100%, 48%, 1)";
+    if (count <= 2) return "hsla(0, 80%, 16%, 1)";
+    if (count <= 5) return "hsla(0, 86%, 25%, 1)";
+    if (count <= 10) return "hsla(0, 92%, 36%, 1)";
+    return "hsla(0, 94%, 50%, 1)";
   }
-  // Light mode: transparent red overlay
-  if (count === 0) return `rgba(${baseColor},0.04)`;
-  if (count <= 2) return `rgba(${baseColor},0.12)`;
-  if (count <= 5) return `rgba(${baseColor},0.22)`;
-  if (count <= 10) return `rgba(${baseColor},0.35)`;
-  return `rgba(${baseColor},0.55)`;
+
+  if (count === 0) return "rgba(225,6,0,0.045)";
+  if (count <= 2) return "rgba(225,6,0,0.14)";
+  if (count <= 5) return "rgba(225,6,0,0.25)";
+  if (count <= 10) return "rgba(225,6,0,0.4)";
+  return "rgba(225,6,0,0.62)";
 }
 
 function timeAgo(dateStr: string): string {
@@ -85,46 +92,48 @@ function timeAgo(dateStr: string): string {
   if (hours < 24) return `${hours}h ago`;
   const days = Math.floor(hours / 24);
   if (days < 30) return `${days}d ago`;
-  const months = Math.floor(days / 30);
-  return `${months}mo ago`;
+  return `${Math.floor(days / 30)}mo ago`;
 }
 
 function generateContributionCalendar(events: GitHubEvent[]): ActivityDay[] {
   const today = new Date();
   const eventCounts: Record<string, number> = {};
+
   for (const event of events) {
     const date = event.created_at.split("T")[0];
     eventCounts[date] = (eventCounts[date] || 0) + 1;
   }
+
   const days: ActivityDay[] = [];
   for (let i = 180; i >= 0; i--) {
-    const d = new Date(today);
-    d.setDate(d.getDate() - i);
-    const dateStr = d.toISOString().split("T")[0];
-    days.push({ count: eventCounts[dateStr] || 0, date: dateStr });
+    const date = new Date(today);
+    date.setDate(date.getDate() - i);
+    const key = date.toISOString().split("T")[0];
+    days.push({ count: eventCounts[key] || 0, date: key });
   }
+
   return days;
 }
 
-function ContributionCalendar({ days, baseColor, isDark }: { days: ActivityDay[]; baseColor: string; isDark: boolean }) {
-  const getTooltipText = (day: ActivityDay): string => {
-    const date = new Date(day.date + "T00:00:00");
-    const formatted = date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-    if (day.count === 0) return `No activity on ${formatted}`;
-    return `${day.count} event${day.count > 1 ? "s" : ""} on ${formatted}`;
-  };
-
+function ContributionCalendar({
+  days,
+  isDark,
+}: {
+  days: ActivityDay[];
+  isDark: boolean;
+}) {
   return (
     <div
-      className="grid grid-flow-col grid-rows-7 gap-[3px] overflow-x-auto pb-2"
+      className="grid grid-flow-col grid-rows-7 gap-[3px] overflow-x-auto pb-1"
       style={{ scrollbarWidth: "none" }}
+      aria-label="GitHub contribution activity"
     >
-      {days.map((day, i) => (
+      {days.map((day) => (
         <div
-          key={i}
-          className="w-[10px] h-[10px] rounded-[2px] flex-shrink-0 transition-all duration-150 cursor-default"
-          style={{ backgroundColor: getLevelBg(day.count, baseColor, isDark) }}
-          title={getTooltipText(day)}
+          key={day.date}
+          className="h-[10px] w-[10px] shrink-0 rounded-[2px]"
+          style={{ backgroundColor: getLevelBg(day.count, isDark) }}
+          title={`${day.count} public event${day.count === 1 ? "" : "s"} on ${day.date}`}
         />
       ))}
     </div>
@@ -134,209 +143,404 @@ function ContributionCalendar({ days, baseColor, isDark }: { days: ActivityDay[]
 export default function GitHubActivity() {
   const { lang } = useLanguage();
   const { theme } = useTheme();
+  const reduceMotion = useReducedMotion();
   const t = translations[lang];
+
   const [user, setUser] = useState<GitHubUser | null>(null);
   const [repos, setRepos] = useState<GitHubRepo[]>([]);
   const [events, setEvents] = useState<GitHubEvent[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
   const [staticContribs, setStaticContribs] = useState<ActivityDay[] | null>(null);
   const [staticTotal, setStaticTotal] = useState<number | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [userRes, reposRes, eventsRes] = await Promise.all([
-          fetch(`https://api.github.com/users/${GITHUB_USERNAME}`),
-          fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=6`),
-          fetch(`https://api.github.com/users/${GITHUB_USERNAME}/events/public?per_page=100`),
-        ]);
-        if (!userRes.ok) throw new Error("Failed to fetch GitHub profile");
-        setUser(await userRes.json());
-        setRepos(await reposRes.json());
-        setEvents(await eventsRes.json());
+    let cancelled = false;
 
-        // Try loading static contribution data (built at deploy time with token)
-        // Wrapped separately — Vite SPA fallback returns index.html with 200,
-        // so .json() throws if the file is missing.
-        try {
-          const staticRes = await fetch("/github-contributions.json");
-          if (staticRes.ok) {
-            const data = await staticRes.json();
-            if (data?.days) {
-              setStaticContribs(data.days);
-              setStaticTotal(data.totalContributions);
-            }
-          }
-        } catch {
-          // Static file not present — fall back to public API calendar
-        }
-      } catch {
-        setError(true);
-      } finally {
-        setLoading(false);
+    const fetchData = async () => {
+      const [profileResult, reposResult, eventsResult, contributionsResult] =
+        await Promise.allSettled([
+          fetch(`https://api.github.com/users/${GITHUB_USERNAME}`).then((res) =>
+            res.ok ? res.json() : Promise.reject(new Error("profile fetch failed")),
+          ),
+          fetch(
+            `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=6`,
+          ).then((res) =>
+            res.ok ? res.json() : Promise.reject(new Error("repos fetch failed")),
+          ),
+          fetch(
+            `https://api.github.com/users/${GITHUB_USERNAME}/events/public?per_page=100`,
+          ).then((res) =>
+            res.ok ? res.json() : Promise.reject(new Error("events fetch failed")),
+          ),
+          fetch("/github-contributions.json").then((res) =>
+            res.ok ? res.json() : Promise.reject(new Error("static contributions unavailable")),
+          ),
+        ]);
+
+      if (cancelled) return;
+
+      if (profileResult.status === "fulfilled") {
+        setUser(profileResult.value as GitHubUser);
+      }
+
+      if (
+        reposResult.status === "fulfilled" &&
+        Array.isArray(reposResult.value)
+      ) {
+        setRepos(reposResult.value as GitHubRepo[]);
+      }
+
+      if (
+        eventsResult.status === "fulfilled" &&
+        Array.isArray(eventsResult.value)
+      ) {
+        setEvents(eventsResult.value as GitHubEvent[]);
+      }
+
+      if (
+        contributionsResult.status === "fulfilled" &&
+        contributionsResult.value?.days
+      ) {
+        setStaticContribs(contributionsResult.value.days);
+        setStaticTotal(contributionsResult.value.totalContributions ?? null);
       }
     };
+
     fetchData();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  if (loading || error || !user) return null;
-
-  const contributionDays = staticContribs ?? generateContributionCalendar(events);
-  const totalContributions = staticTotal ?? contributionDays.reduce((sum, d) => sum + d.count, 0);
+  const contributionDays =
+    staticContribs ?? generateContributionCalendar(events);
+  const totalContributions =
+    staticTotal ?? contributionDays.reduce((sum, day) => sum + day.count, 0);
+  const recentRepos = repos.slice(0, 4);
   const recentEvents = events
-    .filter((e) => ["PushEvent", "CreateEvent", "PullRequestEvent", "IssuesEvent", "ForkEvent", "ReleaseEvent", "WatchEvent"].includes(e.type))
-    .slice(0, 8);
-  const baseColor = "225,6,0";
+    .filter((event) =>
+      [
+        "PushEvent",
+        "CreateEvent",
+        "PullRequestEvent",
+        "IssuesEvent",
+        "ForkEvent",
+        "ReleaseEvent",
+        "WatchEvent",
+      ].includes(event.type),
+    )
+    .slice(0, 5);
   const isDark = theme === "dark";
+
+  const copy =
+    lang === "id"
+      ? {
+          kicker: "BUILD IN PUBLIC",
+          description:
+            "Jejak engineering publik dari repository, kontribusi, dan aktivitas terbaru saya di GitHub.",
+          contributions: "kontribusi / aktivitas dalam 6 bulan terakhir",
+          repos: "repository publik",
+          followers: "followers",
+          recentRepos: "Repository terbaru",
+          recentActivity: "Aktivitas terbaru",
+          quiet: "Aktivitas publik terbaru belum tersedia.",
+        }
+      : {
+          kicker: "BUILD IN PUBLIC",
+          description:
+            "A live-ish view of my public engineering work across repositories, contributions, and recent GitHub activity.",
+          contributions: "contributions / public events in the last 6 months",
+          repos: "public repositories",
+          followers: "followers",
+          recentRepos: "Recently updated",
+          recentActivity: "Recent activity",
+          quiet: "Recent public activity is not available right now.",
+        };
+
+  const reveal = {
+    initial: reduceMotion ? { opacity: 1 } : { opacity: 0, y: 24 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-70px" },
+    transition: {
+      duration: reduceMotion ? 0 : 0.58,
+      ease: [0.16, 1, 0.3, 1] as const,
+    },
+  };
 
   return (
     <section
       id="github"
-      className="relative py-24 md:py-32 overflow-hidden scroll-mt-20 border-t"
-      style={{ backgroundColor: "var(--color-bg-secondary)", borderColor: "var(--color-border-primary)" }}
+      className="scroll-mt-24 border-t px-6 py-20 md:px-12 md:py-28"
+      style={{
+        backgroundColor: "var(--color-bg-primary)",
+        borderColor: "var(--color-border-primary)",
+      }}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        {/* Section Header */}
-        <div className="mb-16 md:mb-20 flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div className="mx-auto max-w-7xl">
+        <motion.div
+          {...reveal}
+          className="mb-10 grid gap-6 md:grid-cols-2 md:items-end"
+        >
           <div>
-            <h2 className="font-display font-extrabold text-4xl md:text-5xl lg:text-6xl tracking-tight leading-none uppercase" style={{ color: "var(--color-text-primary)" }}>
+            <div
+              className="mb-4 flex items-center gap-3 font-mono text-[10px] tracking-[0.22em]"
+              style={{ color: "var(--color-accent)" }}
+            >
+              <Github className="h-3.5 w-3.5" />
+              <span>{copy.kicker}</span>
+              <span
+                className="h-px w-8"
+                style={{ backgroundColor: "var(--color-accent)" }}
+              />
+            </div>
+            <h2 className="font-sans text-4xl font-semibold tracking-[-0.05em] md:text-6xl">
               {t.ghTitle}
             </h2>
           </div>
-          <a
-            href={`https://github.com/${GITHUB_USERNAME}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-xs font-mono tracking-wider uppercase transition-colors group hover:text-[var(--color-accent)]"
-            style={{ color: "var(--color-text-muted)" }}
-          >
-            <Github className="w-4 h-4" />
-            {t.ghViewProfile}
-            <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-          </a>
-        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          {/* Left Column: Calendar + Stats + Repos */}
-          <div className="lg:col-span-7 space-y-12">
-            {/* Contribution Calendar */}
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}>
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-display font-bold tracking-tight" style={{ color: "var(--color-text-primary)" }}>
-                  {totalContributions.toLocaleString()} {t.ghContributions}
-                </h3>
-              </div>
-              <div className="me-panel p-5 md:p-6">
-                <ContributionCalendar days={contributionDays} baseColor={baseColor} isDark={isDark} />
-                <div className="flex items-center gap-2 mt-3 justify-end">
-                  <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: "var(--color-text-dim)" }}>Less</span>
-                  {(() => {
-                    const legendColors = isDark
-                      ? ["hsla(0,0%,18%,1)", "hsla(0,100%,10%,1)", "hsla(0,100%,18%,1)", "hsla(0,100%,30%,1)", "hsla(0,100%,48%,1)"]
-                      : ["rgba(225,6,0,0.04)", "rgba(225,6,0,0.12)", "rgba(225,6,0,0.22)", "rgba(225,6,0,0.35)", "rgba(225,6,0,0.55)"];
-                    return legendColors.map((c, i) => (
-                      <div key={i} className="w-[10px] h-[10px] rounded-[2px]" style={{ backgroundColor: c }} />
-                    ));
-                  })()}
-                  <span className="text-[9px] font-mono uppercase tracking-wider" style={{ color: "var(--color-text-dim)" }}>More</span>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Stats */}
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }} className="grid grid-cols-3 gap-3 md:gap-4">
-              {[
-                { value: user.public_repos, label: t.ghRepos },
-                { value: user.followers, label: t.ghFollowers },
-                { value: user.following, label: t.ghFollowing },
-              ].map((stat) => (
-                <div key={stat.label} className="me-panel me-panel-hover p-4 sm:p-5 text-left">
-                  <div className="font-display font-black text-2xl sm:text-3xl" style={{ color: "var(--color-text-primary)" }}>{stat.value}</div>
-                  <div className="text-[10px] font-mono uppercase tracking-wider mt-1" style={{ color: "var(--color-text-muted)" }}>{stat.label}</div>
-                </div>
-              ))}
-            </motion.div>
-
-            {/* Recent Repositories */}
-            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}>
-              <h3 className="text-[10px] font-mono tracking-[0.3em] uppercase mb-6" style={{ color: "var(--color-text-muted)" }}>{t.ghRecentRepos}</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {repos.map((repo) => (
-                  <a
-                    key={repo.name}
-                    href={repo.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="me-panel me-panel-hover p-5 text-left group"
-                  >
-                    <div className="flex items-start justify-between mb-2">
-                      <h4 className="text-sm font-display font-bold tracking-tight truncate pr-4 transition-colors" style={{ color: "var(--color-text-primary)" }}>
-                        {repo.name}
-                      </h4>
-                      <ArrowUpRight className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: "var(--color-accent)" }} />
-                    </div>
-                    {repo.description && (
-                      <p className="text-xs font-light leading-relaxed mb-3 line-clamp-2" style={{ color: "var(--color-text-muted)" }}>
-                        {repo.description}
-                      </p>
-                    )}
-                    <div className="flex items-center gap-3 mt-auto">
-                      {repo.language && (
-                        <span className="flex items-center gap-1 text-[10px] font-mono" style={{ color: "var(--color-text-muted)" }}>
-                          <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: LANGUAGE_COLORS[repo.language] || "var(--color-text-dim)" }} />
-                          {repo.language}
-                        </span>
-                      )}
-                      {repo.stargazers_count > 0 && (
-                        <span className="flex items-center gap-1 text-[10px] font-mono" style={{ color: "var(--color-text-dim)" }}>
-                          <Star className="w-3 h-3" />
-                          {repo.stargazers_count}
-                        </span>
-                      )}
-                      {repo.forks_count > 0 && (
-                        <span className="flex items-center gap-1 text-[10px] font-mono" style={{ color: "var(--color-text-dim)" }}>
-                          <GitFork className="w-3 h-3" />
-                          {repo.forks_count}
-                        </span>
-                      )}
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </motion.div>
+          <div className="md:justify-self-end">
+            <p
+              className="max-w-xl text-sm leading-relaxed"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              {copy.description}
+            </p>
+            <a
+              href={`https://github.com/${GITHUB_USERNAME}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-2 text-xs font-semibold transition-colors hover:text-[var(--color-accent)]"
+            >
+              github.com/{GITHUB_USERNAME}
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
           </div>
+        </motion.div>
 
-          {/* Right Column: Activity Feed */}
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.6, delay: 0.15, ease: [0.16, 1, 0.3, 1] }} className="lg:col-span-5">
-            <h3 className="text-[10px] font-mono tracking-[0.3em] uppercase mb-6" style={{ color: "var(--color-text-muted)" }}>{t.ghRecentActivity}</h3>
-            <div className="me-panel overflow-hidden">
+        <motion.div
+          {...reveal}
+          className="mb-5 grid border-y sm:grid-cols-3"
+          style={{ borderColor: "var(--color-border-primary)" }}
+        >
+          <div
+            className="border-b py-5 sm:border-b-0 sm:border-r sm:px-6 sm:first:pl-0"
+            style={{ borderColor: "var(--color-border-primary)" }}
+          >
+            <div className="text-2xl font-semibold tracking-[-0.04em] md:text-3xl">
+              {totalContributions.toLocaleString()}
+            </div>
+            <div
+              className="mt-1 text-[11px]"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              {copy.contributions}
+            </div>
+          </div>
+          <div
+            className="border-b py-5 sm:border-b-0 sm:border-r sm:px-6"
+            style={{ borderColor: "var(--color-border-primary)" }}
+          >
+            <div className="text-2xl font-semibold tracking-[-0.04em] md:text-3xl">
+              {user?.public_repos ?? "—"}
+            </div>
+            <div
+              className="mt-1 text-[11px]"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              {copy.repos}
+            </div>
+          </div>
+          <div className="py-5 sm:px-6">
+            <div className="text-2xl font-semibold tracking-[-0.04em] md:text-3xl">
+              {user?.followers ?? "—"}
+            </div>
+            <div
+              className="mt-1 text-[11px]"
+              style={{ color: "var(--color-text-muted)" }}
+            >
+              {copy.followers}
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          {...reveal}
+          className="mb-5 rounded-xl border p-5 md:p-6"
+          style={{
+            backgroundColor: "var(--color-bg-card)",
+            borderColor: "var(--color-border-primary)",
+          }}
+        >
+          <ContributionCalendar days={contributionDays} isDark={isDark} />
+        </motion.div>
+
+        <div className="grid gap-5 lg:grid-cols-12">
+          <motion.div
+            {...reveal}
+            className="rounded-xl border p-6 lg:col-span-7"
+            style={{
+              backgroundColor: "var(--color-bg-card)",
+              borderColor: "var(--color-border-primary)",
+            }}
+          >
+            <div
+              className="mb-5 font-mono text-[10px] tracking-[0.2em]"
+              style={{ color: "var(--color-text-dim)" }}
+            >
+              {copy.recentRepos.toUpperCase()}
+            </div>
+
+            <div className="grid gap-x-8 sm:grid-cols-2">
+              {recentRepos.map((repo) => (
+                <a
+                  key={repo.name}
+                  href={repo.html_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group border-t py-4"
+                  style={{ borderColor: "var(--color-border-primary)" }}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <h3 className="truncate text-sm font-semibold transition-colors group-hover:text-[var(--color-accent)]">
+                        {repo.name}
+                      </h3>
+                      {repo.description && (
+                        <p
+                          className="mt-2 line-clamp-2 text-xs leading-relaxed"
+                          style={{ color: "var(--color-text-muted)" }}
+                        >
+                          {repo.description}
+                        </p>
+                      )}
+                    </div>
+                    <ArrowUpRight className="mt-0.5 h-3.5 w-3.5 shrink-0 opacity-35 transition-opacity group-hover:opacity-100" />
+                  </div>
+
+                  <div
+                    className="mt-3 flex items-center gap-3 font-mono text-[9px]"
+                    style={{ color: "var(--color-text-dim)" }}
+                  >
+                    {repo.language && (
+                      <span className="flex items-center gap-1.5">
+                        <span
+                          className="h-1.5 w-1.5 rounded-full"
+                          style={{
+                            backgroundColor:
+                              LANGUAGE_COLORS[repo.language] ??
+                              "var(--color-text-dim)",
+                          }}
+                        />
+                        {repo.language}
+                      </span>
+                    )}
+                    {repo.stargazers_count > 0 && (
+                      <span className="flex items-center gap-1">
+                        <Star className="h-3 w-3" />
+                        {repo.stargazers_count}
+                      </span>
+                    )}
+                    {repo.forks_count > 0 && (
+                      <span className="flex items-center gap-1">
+                        <GitFork className="h-3 w-3" />
+                        {repo.forks_count}
+                      </span>
+                    )}
+                  </div>
+                </a>
+              ))}
+
+              {recentRepos.length === 0 && (
+                <p
+                  className="border-t py-4 text-xs"
+                  style={{
+                    color: "var(--color-text-muted)",
+                    borderColor: "var(--color-border-primary)",
+                  }}
+                >
+                  {copy.quiet}
+                </p>
+              )}
+            </div>
+          </motion.div>
+
+          <motion.div
+            {...reveal}
+            className="rounded-xl border p-6 lg:col-span-5"
+            style={{
+              backgroundColor: "var(--color-bg-card)",
+              borderColor: "var(--color-border-primary)",
+            }}
+          >
+            <div
+              className="mb-5 font-mono text-[10px] tracking-[0.2em]"
+              style={{ color: "var(--color-text-dim)" }}
+            >
+              {copy.recentActivity.toUpperCase()}
+            </div>
+
+            <div>
               {recentEvents.map((event) => {
-                const repoShort = event.repo.name.split("/")[1] || event.repo.name;
-                const action = EVENT_LABELS[event.type] || event.type.replace("Event", "");
+                const repoShort =
+                  event.repo.name.split("/")[1] || event.repo.name;
+                const labels = EVENT_LABELS[lang];
+                const action =
+                  labels[event.type as keyof typeof labels] ??
+                  event.type.replace("Event", "");
+
                 return (
-                  <div key={event.id} className="flex items-start gap-3 p-5 group transition-colors" style={{ borderBottom: "1px solid var(--color-border-primary)" }}>
-                    <div className="mt-0.5 flex-shrink-0 w-7 h-7 flex items-center justify-center" style={{ color: "var(--color-accent)" }}>
-                      <Code2 className="w-3 h-3" />
+                  <div
+                    key={event.id}
+                    className="flex gap-3 border-t py-4"
+                    style={{ borderColor: "var(--color-border-primary)" }}
+                  >
+                    <div
+                      className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border"
+                      style={{
+                        color: "var(--color-accent)",
+                        borderColor: "var(--color-border-primary)",
+                      }}
+                    >
+                      <Code2 className="h-3 w-3" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-xs font-light leading-relaxed" style={{ color: "var(--color-text-secondary)" }}>
-                        <span style={{ color: "var(--color-text-muted)" }}>{action} </span>
+                      <p
+                        className="text-xs leading-relaxed"
+                        style={{ color: "var(--color-text-muted)" }}
+                      >
+                        {action}{" "}
                         <a
                           href={`https://github.com/${event.repo.name}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="font-medium transition-colors hover:text-[var(--color-accent)]"
+                          className="font-semibold transition-colors hover:text-[var(--color-accent)]"
                           style={{ color: "var(--color-text-primary)" }}
                         >
                           {repoShort}
                         </a>
                       </p>
-                      <p className="text-[10px] font-mono mt-1" style={{ color: "var(--color-text-dim)" }}>{timeAgo(event.created_at)}</p>
+                      <p
+                        className="mt-1 font-mono text-[9px]"
+                        style={{ color: "var(--color-text-dim)" }}
+                      >
+                        {timeAgo(event.created_at)}
+                      </p>
                     </div>
                   </div>
                 );
               })}
+
+              {recentEvents.length === 0 && (
+                <p
+                  className="border-t py-4 text-xs"
+                  style={{
+                    color: "var(--color-text-muted)",
+                    borderColor: "var(--color-border-primary)",
+                  }}
+                >
+                  {copy.quiet}
+                </p>
+              )}
             </div>
           </motion.div>
         </div>

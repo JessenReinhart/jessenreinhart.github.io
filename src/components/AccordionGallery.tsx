@@ -131,7 +131,7 @@ const AccordionGallery = ({
               x: vertical ? 0 : isActive ? 0 : shift,
               y: vertical ? (isActive ? 0 : shift) : 0,
               "--ag-gray": gray,
-              "--ag-dim": isActive ? 0 : 0.35,
+              "--ag-dim": isActive ? 0 : 0.42,
               duration: dur,
               ease,
             },

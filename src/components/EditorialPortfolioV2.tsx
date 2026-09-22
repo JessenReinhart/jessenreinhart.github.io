@@ -36,7 +36,7 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
         sideKicker: "PEKERJAAN YANG BENAR-BENAR SAYA KERJAKAN",
         sideBody: "Staf bank, merchant, dan pengguna bergantung pada sistem yang saya kerjakan. Saya peduli pada detail frontend yang membuat alur kerja tetap jelas saat produknya tumbuh.",
         viewWork: "Lihat karya",
-        resume: "Buka résumé"
+        resume: "Buka résumé",
         selectedWork: "Proyek Pilihan",
         selectedWorkDesc: "Build yang masih saya kerjakan, dari AI tooling dan browser RTS sampai tool kecil yang saya buat sendiri.",
         live: "Coba",
@@ -57,7 +57,7 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
         sideKicker: "WORK I ACTUALLY SHIP",
         sideBody: "Bank staff, merchants, and customers rely on the systems I work on. I care about the frontend details that keep those workflows usable as the product grows.",
         viewWork: "See the work",
-        resume: "Open résumé"
+        resume: "Open résumé",
         selectedWork: "Featured Work",
         selectedWorkDesc: "Builds I keep working on, from AI tooling to a browser RTS and small tools I made for myself.",
         live: "Try it",

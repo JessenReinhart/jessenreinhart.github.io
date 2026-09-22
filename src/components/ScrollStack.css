@@ -188,3 +188,21 @@
     display: none;
   }
 }
+
+@media (max-width: 720px) {
+  .scroll-stack-inner {
+    padding: 2rem 0 4rem;
+  }
+
+  .scroll-stack-card {
+    margin-bottom: 1rem !important;
+    height: auto;
+    min-height: 560px;
+    transform: none !important;
+    filter: none !important;
+    z-index: auto !important;
+    will-change: auto;
+    perspective: none;
+    -webkit-perspective: none;
+  }
+}

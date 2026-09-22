@@ -82,7 +82,16 @@ async function testMobile(browser) {
     }
 
     await page.locator("header").getByRole("button", { name: label }).click();
-    await page.waitForTimeout(650);
+
+    await page.waitForFunction(
+      (targetId) => {
+        const target = document.getElementById(targetId);
+        const rect = target?.getBoundingClientRect();
+        return !!rect && rect.top >= 65 && rect.top <= 125;
+      },
+      id,
+      { timeout: 3000, polling: 50 },
+    );
 
     const targetMetrics = await page.evaluate((targetId) => {
       const target = document.getElementById(targetId);
@@ -110,6 +119,8 @@ async function testMobile(browser) {
     return {
       cardCount: cards.length,
       projectRect: project?.getBoundingClientRect().toJSON(),
+      headerZ: Number.parseInt(getComputedStyle(document.querySelector("header")).zIndex, 10) || 0,
+      cardZ: cards.length ? Number.parseInt(getComputedStyle(cards[0]).zIndex, 10) || 0 : 0,
       cards: cards.map((card) => {
         const rect = card.getBoundingClientRect();
         return {
@@ -127,18 +138,22 @@ async function testMobile(browser) {
   });
 
   console.log("MOBILE project UI:", JSON.stringify(projectMetrics));
-  assert(projectMetrics.cardCount === 5, `Expected 5 mobile project cards, got ${projectMetrics.cardCount}`);
-  assert(projectMetrics.descriptions === 5, `Expected 5 card descriptions, got ${projectMetrics.descriptions}`);
-  assert(projectMetrics.links === 5, `Expected 5 card link groups, got ${projectMetrics.links}`);
+  assert(projectMetrics.cardCount >= 5, `Expected at least 5 mobile project cards, got ${projectMetrics.cardCount}`);
+  assert(projectMetrics.descriptions === projectMetrics.cardCount, `Every mobile project card should contain a description: ${projectMetrics.descriptions}/${projectMetrics.cardCount}`);
+  assert(projectMetrics.links === projectMetrics.cardCount, `Every mobile project card should contain links: ${projectMetrics.links}/${projectMetrics.cardCount}`);
+  assert(projectMetrics.cardZ < projectMetrics.headerZ, `ScrollStack card z-index ${projectMetrics.cardZ} must stay below fixed header z-index ${projectMetrics.headerZ}`);
   assert(!projectMetrics.hasSelectedCopy, "Mobile project UI still exposes selected-state copy");
   for (const [index, card] of projectMetrics.cards.entries()) {
     assert(card.width <= 390 && card.left >= -1 && card.right <= 391, `Card ${index + 1} exceeds mobile viewport`);
     assert(card.height >= 550, `Card ${index + 1} is unexpectedly short: ${card.height}`);
   }
 
-  const sampleScrollY = await page.evaluate(() => window.scrollY + 350);
+  const sampleScrollY = await page.evaluate(() => {
+    const project = document.getElementById("projects");
+    return window.scrollY + (project?.getBoundingClientRect().top ?? 0) + 1800;
+  });
   await page.evaluate((top) => window.scrollTo({ top, behavior: "instant" }), sampleScrollY);
-  await page.waitForTimeout(250);
+  await page.waitForTimeout(300);
 
   const firstTransforms = await page.evaluate(() =>
     [...document.querySelectorAll(".scroll-stack-card")].map((card) => getComputedStyle(card).transform),
@@ -150,10 +165,15 @@ async function testMobile(browser) {
 
   console.log("MOBILE transform stability:", JSON.stringify({ firstTransforms, secondTransforms }));
   assert(
+    firstTransforms.some((transform) => !transform.startsWith("matrix(1, 0, 0, 1")),
+    "ScrollStack transform probe did not reach an actively transformed card",
+  );
+  assert(
     JSON.stringify(firstTransforms) === JSON.stringify(secondTransforms),
     "ScrollStack transforms kept changing while the page stayed at the same scroll position",
   );
 
+  await page.screenshot({ path: "artifacts/mobile-preview.png", fullPage: true });
   await page.close();
 }
 

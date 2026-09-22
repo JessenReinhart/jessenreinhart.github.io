@@ -219,7 +219,7 @@ const ScrollStack = ({
         card.style.transform =
           `translate3d(0, ${next.translateY}px, 0) scale(${next.scale}) rotate(${next.rotation}deg)`;
         card.style.filter = next.blur > 0 ? `blur(${next.blur}px)` : "";
-        card.style.zIndex = String(Math.max(1, 40 - i));
+        card.style.zIndex = String(40 + i);
         lastTransformsRef.current.set(i, next);
       }
 
@@ -278,7 +278,7 @@ const ScrollStack = ({
         card.style.backfaceVisibility = "hidden";
         card.style.transform = "translate3d(0, 0, 0) scale(1) rotate(0deg)";
         card.style.filter = "";
-        card.style.zIndex = String(Math.max(1, 40 - i));
+        card.style.zIndex = String(40 + i);
         card.style.perspective = "1000px";
         card.style.webkitPerspective = "1000px";
       });

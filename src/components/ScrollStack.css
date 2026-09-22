@@ -195,14 +195,30 @@
   }
 
   .scroll-stack-card {
+    display: flex;
+    flex-direction: column;
     margin-bottom: 1rem !important;
     height: auto;
-    min-height: 560px;
+    min-height: 0;
     transform: none !important;
     filter: none !important;
     z-index: auto !important;
     will-change: auto;
     perspective: none;
     -webkit-perspective: none;
+  }
+
+  .scroll-stack-card__media {
+    position: relative;
+    inset: auto;
+    height: 210px;
+    flex: 0 0 210px;
+  }
+
+  .scroll-stack-card__body {
+    position: relative;
+    inset: auto;
+    min-height: 0;
+    flex: 1 1 auto;
   }
 }

@@ -10,7 +10,7 @@ import {
   Sun,
   X,
 } from "lucide-react";
-import { EXPERIENCES, PORTRAIT_IMAGE, PROJECTS, SKILL_CATEGORIES, STATS } from "../data";
+import { EXPERIENCES, PORTRAIT_IMAGE, PROJECTS, SKILL_CATEGORIES } from "../data";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useTheme } from "../contexts/ThemeContext";
 import { translations } from "../i18n/translations";
@@ -21,8 +21,6 @@ interface EditorialPortfolioProps {
   onViewResume: () => void;
 }
 
-const proofStats = [STATS[1], STATS[4], STATS[3]];
-
 export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfolioProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const reduceMotion = useReducedMotion();
@@ -32,20 +30,20 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
 
   const copy = lang === "id"
     ? {
-        eyebrow: "JESSEN REINHART · SENIOR FRONTEND ENGINEER",
-        headline: "Saya membangun produk web yang cepat dan scalable untuk banking & commerce.",
-        intro: "7+ tahun mengirim interface production untuk platform perbankan, commerce, dashboard, dan CMS di Asia Tenggara.",
-        sideKicker: "ENGINEERING YANG TERASA SEDERHANA",
-        sideBody: "Saya membantu tim mengubah requirement yang kompleks menjadi pengalaman web yang cepat, jelas, dan maintainable.",
+        eyebrow: "JESSEN REINHART · FRONTEND ENGINEER",
+        headline: "Saya membangun antarmuka di balik sistem banking dan commerce.",
+        intro: "Tujuh tahun membangun aplikasi web untuk produksi, dari checkout merchant dan operasi perbankan sampai platform React yang dipakai di berbagai wilayah.",
+        sideKicker: "PEKERJAAN YANG BENAR-BENAR SAYA KERJAKAN",
+        sideBody: "Staf bank, merchant, dan pengguna bergantung pada sistem yang saya kerjakan. Saya peduli pada detail frontend yang membuat alur kerja tetap jelas saat produknya tumbuh.",
         viewWork: "Lihat proyek pilihan",
         resume: "Lihat résumé",
         selectedWork: "Proyek Pilihan",
-        selectedWorkDesc: "Beberapa produk yang saya bangun untuk menyelesaikan masalah nyata, bukan sekadar demo portfolio.",
+        selectedWorkDesc: "Builds I keep working on, from AI tooling to a browser RTS and small tools I made for myself.",
         live: "Live demo",
         code: "Source",
         experience: "Pengalaman",
-        experienceDesc: "Karier dari dashboard regional sampai platform yang digunakan jutaan orang.",
-        aboutTitle: "Frontend engineering yang fokus ke reliability, clarity, dan scale.",
+        experienceDesc: "Dari dashboard perpustakaan hingga operasi perbankan dan commerce multi-tenant, dengan pengalaman sejak 2019.",
+        aboutTitle: "Saya suka frontend yang punya pekerjaan nyata.",
         stack: "Core stack",
         statLabels: ["institusi keuangan", "order / bulan", "online stores"],
         portraitRole: "Frontend Engineer",
@@ -53,20 +51,20 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
         portraitBody: "Membangun di persimpangan banking, commerce, product UI, dan AI tooling.",
       }
     : {
-        eyebrow: "JESSEN REINHART · SENIOR FRONTEND ENGINEER",
-        headline: "I build fast, scalable web products for banking & commerce.",
-        intro: "7+ years shipping production interfaces for banking platforms, commerce, dashboards, and CMS products across Southeast Asia.",
-        sideKicker: "ENGINEERING THAT FEELS SIMPLE",
-        sideBody: "I help teams turn complex requirements into web experiences that are fast, clear, and maintainable.",
+        eyebrow: "JESSEN REINHART · FRONTEND ENGINEER",
+        headline: "I build the interfaces behind banking and commerce systems.",
+        intro: "Seven years building production web apps, from merchant checkout and banking operations to React platforms used across the region.",
+        sideKicker: "WORK I ACTUALLY SHIP",
+        sideBody: "Bank staff, merchants, and customers rely on the systems I work on. I care about the frontend details that keep those workflows usable as the product grows.",
         viewWork: "View selected work",
         resume: "View résumé",
         selectedWork: "Featured Work",
-        selectedWorkDesc: "A selection of products I built to solve real problems, not portfolio-only demos.",
+        selectedWorkDesc: "Builds I keep working on, from AI tooling to a browser RTS and small tools I made for myself.",
         live: "Live demo",
         code: "Source",
         experience: "Experience",
-        experienceDesc: "A career spanning regional dashboards to platforms used by millions of people.",
-        aboutTitle: "Frontend engineering focused on reliability, clarity, and scale.",
+        experienceDesc: "From library dashboards to banking operations and multi-tenant commerce, across roles since 2019.",
+        aboutTitle: "I like frontend work when the interface has a real job to do.",
         stack: "Core stack",
         statLabels: ["financial institutions", "orders / month", "online stores"],
         portraitRole: "Frontend Engineer",
@@ -105,8 +103,8 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
         initial={reduceMotion ? false : { y: -22, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: reduceMotion ? 0 : 0.45, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl"
-        style={{ backgroundColor: "color-mix(in srgb, var(--color-bg-primary) 88%, transparent)", borderColor: "var(--color-border-primary)" }}
+        className="fixed inset-x-0 top-0 z-50 border-b"
+        style={{ backgroundColor: "var(--color-bg-primary)", borderColor: "var(--color-border-primary)" }}
       >
         <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-6 md:px-12">
           <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" })} className="flex items-center gap-3 text-left">
@@ -202,8 +200,8 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
                   />
 
                   <div
-                    className="absolute right-[6%] top-[12%] h-[62%] w-[72%] rounded-full blur-3xl"
-                    style={{ backgroundColor: "color-mix(in srgb, var(--color-accent) 5%, transparent)" }}
+                    className="absolute right-[6%] top-[12%] h-[58%] w-[68%]"
+                    style={{ backgroundColor: "color-mix(in srgb, var(--color-accent-soft) 55%, transparent)", clipPath: "polygon(18% 0, 100% 0, 82% 100%, 0 100%)" }}
                     aria-hidden="true"
                   />
 
@@ -233,14 +231,6 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
               </motion.div>
             </div>
 
-            <motion.div {...reveal} className="mt-14 grid border-y sm:grid-cols-3" style={{ borderColor: "var(--color-border-primary)" }}>
-              {proofStats.map((stat, index) => (
-                <div key={stat.label} className="flex items-baseline gap-3 border-b py-6 sm:border-b-0 sm:border-r sm:px-7 sm:first:pl-0 sm:last:border-r-0" style={{ borderColor: "var(--color-border-primary)" }}>
-                  <span className="text-3xl font-semibold tracking-[-0.04em] md:text-4xl">{stat.value}{index === 0 ? "+" : ""}</span>
-                  <span className="text-xs leading-snug" style={{ color: "var(--color-text-muted)" }}>{copy.statLabels[index]}</span>
-                </div>
-              ))}
-            </motion.div>
           </div>
         </section>
 
@@ -248,7 +238,7 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
           <div className="mx-auto max-w-7xl">
             <motion.div {...reveal} className="mb-12 grid gap-6 md:grid-cols-2 md:items-end">
               <div>
-                <div className="mb-4 flex items-center gap-3 font-mono text-[10px] tracking-[0.22em]" style={{ color: "var(--color-accent)" }}><span>01</span><span className="h-px w-8" style={{ backgroundColor: "var(--color-accent)" }} /></div>
+                
                 <h2 className="font-sans text-4xl font-semibold tracking-[-0.05em] md:text-6xl">{copy.selectedWork}</h2>
               </div>
               <p className="max-w-xl text-sm leading-relaxed md:justify-self-end" style={{ color: "var(--color-text-muted)" }}>{copy.selectedWorkDesc}</p>
@@ -265,7 +255,7 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
                     {...reveal}
                     whileHover={reduceMotion ? undefined : { y: -4 }}
                     transition={{ duration: reduceMotion ? 0 : 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="overflow-hidden rounded-xl border"
+                    className="overflow-hidden border"
                     style={{ backgroundColor: "var(--color-bg-card)", borderColor: "var(--color-border-primary)" }}
                   >
                     <div className="grid lg:grid-cols-12">
@@ -298,11 +288,11 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
                           <h3 className="font-sans text-3xl font-semibold tracking-[-0.045em] md:text-4xl">{project.title}</h3>
                           <p className="mt-2 text-base font-medium" style={{ color: "var(--color-text-secondary)" }}>{project.tagline}</p>
                           <p className="mt-6 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>{description}</p>
-                          {motivation && <p className="mt-4 border-l pl-4 text-xs leading-relaxed" style={{ color: "var(--color-text-dim)", borderColor: "var(--color-accent)" }}>{motivation}</p>}
+                          {motivation && <div className="mt-5"><div className="mb-1.5 font-mono text-[9px] tracking-[0.18em]" style={{ color: "var(--color-text-dim)" }}>{lang === "id" ? "KENAPA DIBUAT" : "WHY I BUILT IT"}</div><p className="text-xs leading-relaxed" style={{ color: "var(--color-text-dim)" }}>{motivation}</p></div>}
                         </div>
                         <div className="mt-8">
-                          <div className="flex flex-wrap gap-2">
-                            {project.technologies.slice(0, 5).map((tech) => <span key={tech} className="rounded-full border px-3 py-1 text-[10px] font-mono" style={{ borderColor: "var(--color-border-primary)", color: "var(--color-text-muted)" }}>{tech}</span>)}
+                          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10px]" style={{ color: "var(--color-text-dim)" }}>
+                            {project.technologies.slice(0, 5).map((tech, techIndex) => <span key={tech}>{tech}{techIndex < Math.min(project.technologies.length, 5) - 1 ? " /" : ""}</span>)}
                           </div>
                           <div className="mt-6 flex flex-wrap gap-4 text-xs font-semibold">
                             {project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 transition-colors hover:text-[var(--color-accent)]">{copy.live}<ArrowUpRight className="h-3.5 w-3.5" /></a>}
@@ -324,7 +314,7 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
           <div className="mx-auto max-w-7xl">
             <motion.div {...reveal} className="mb-12 grid gap-6 md:grid-cols-2 md:items-end">
               <div>
-                <div className="mb-4 flex items-center gap-3 font-mono text-[10px] tracking-[0.22em]" style={{ color: "var(--color-accent)" }}><span>02</span><span className="h-px w-8" style={{ backgroundColor: "var(--color-accent)" }} /></div>
+                
                 <h2 className="font-sans text-4xl font-semibold tracking-[-0.05em] md:text-6xl">{copy.experience}</h2>
               </div>
               <p className="max-w-xl text-sm leading-relaxed md:justify-self-end" style={{ color: "var(--color-text-muted)" }}>{copy.experienceDesc}</p>
@@ -333,13 +323,14 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
             <div className="border-t" style={{ borderColor: "var(--color-border-primary)" }}>
               {EXPERIENCES.map((exp) => {
                 const highlights = lang === "id" && exp.highlightsId ? exp.highlightsId : exp.highlights;
+                const proof = exp.company.includes("Wide Technologies") ? (lang === "id" ? "20 bank · 30 juta pengguna" : "20 banks · 30M users") : exp.company === "SIRCLO" ? (lang === "id" ? "100 ribu merchant · 2 juta pesanan/bulan · Lighthouse 70 → 95" : "100K merchants · 2M orders/month · Lighthouse 70 → 95") : null;
                 return (
                   <motion.article key={exp.id} {...reveal} className="grid gap-4 border-b py-7 md:grid-cols-12 md:gap-8" style={{ borderColor: "var(--color-border-primary)" }}>
                     <div className="text-xs font-mono leading-relaxed md:col-span-2" style={{ color: "var(--color-text-dim)" }}>{exp.period}</div>
                     <div className="md:col-span-4">
                       <h3 className="text-lg font-semibold tracking-[-0.02em]">{exp.role}</h3>
                       <p className="mt-1 text-sm" style={{ color: "var(--color-accent)" }}>{exp.company}</p>
-                      <p className="mt-2 text-xs" style={{ color: "var(--color-text-dim)" }}>{exp.location}</p>
+                      <p className="mt-2 text-xs" style={{ color: "var(--color-text-dim)" }}>{exp.location}</p>{proof && <p className="mt-3 font-mono text-[10px]" style={{ color: "var(--color-text-secondary)" }}>{proof}</p>}
                     </div>
                     <div className="md:col-span-6">
                       {highlights?.slice(0, 3).map((highlight) => <p key={highlight} className="mb-2 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>• {highlight}</p>)}
@@ -355,7 +346,7 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
         <section id="about" className="scroll-mt-24 border-t px-6 py-20 md:px-12 md:py-28" style={{ backgroundColor: "var(--color-bg-secondary)", borderColor: "var(--color-border-primary)" }}>
           <motion.div {...reveal} className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-12">
             <div className="lg:col-span-5">
-              <div className="mb-4 flex items-center gap-3 font-mono text-[10px] tracking-[0.22em]" style={{ color: "var(--color-accent)" }}><span>03</span><span className="h-px w-8" style={{ backgroundColor: "var(--color-accent)" }} /></div>
+              
               <h2 className="font-sans text-4xl font-semibold leading-[0.98] tracking-[-0.055em] md:text-6xl">{copy.aboutTitle}</h2>
             </div>
             <div className="lg:col-span-7 lg:pl-12">

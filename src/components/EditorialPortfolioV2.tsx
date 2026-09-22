@@ -17,6 +17,7 @@ import { translations } from "../i18n/translations";
 import Contact from "./Contact";
 import GitHubActivity from "./GitHubActivity";
 import AccordionGallery from "./AccordionGallery";
+import ScrollStack, { ScrollStackItem } from "./ScrollStack";
 
 interface EditorialPortfolioProps {
   onViewResume: () => void;
@@ -249,7 +250,8 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
               {...reveal}
               className="overflow-visible"
             >
-              <AccordionGallery
+              <div className="hidden md:block">
+                <AccordionGallery
                 items={PROJECTS.map((project) => ({
                   image: project.imageSrc,
                   label: project.title,
@@ -273,7 +275,49 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
                 expandRatio={0.48}
                 onSelect={(index) => setActiveProjectIndex(index)}
                 className="project-gallery"
-              />
+                />
+              </div>
+              <div className="md:hidden">
+                <ScrollStack
+                  useWindowScroll
+                  itemDistance={90}
+                  itemScale={0.035}
+                  itemStackDistance={26}
+                  stackPosition="22%"
+                  scaleEndPosition="10%"
+                  baseScale={0.86}
+                  scaleDuration={0.5}
+                  rotationAmount={0}
+                  blurAmount={0}
+                >
+                  {PROJECTS.map((project, index) => (
+                    <ScrollStackItem
+                      key={project.id}
+                      itemClassName="project-scroll-stack-card"
+                      onActivate={() => setActiveProjectIndex(index)}
+                      aria-current={activeProjectIndex === index ? "true" : undefined}
+                      aria-label={`Select ${project.title}`}
+                    >
+                      <img
+                        src={project.imageSrc}
+                        alt={project.title + " preview"}
+                        draggable={false}
+                      />
+                      <span className="scroll-stack-card__scrim" aria-hidden="true" />
+                      <span className="scroll-stack-card__content">
+                        <span className="scroll-stack-card__meta">
+                          <span className="scroll-stack-card__marker" aria-hidden="true" />
+                          {String(index + 1).padStart(2, "0")} / {String(PROJECTS.length).padStart(2, "0")}
+                        </span>
+                        <span className="scroll-stack-card__title">{project.title}</span>
+                        <span className="scroll-stack-card__hint">
+                          {activeProjectIndex === index ? "SELECTED" : "TAP TO SELECT"}
+                        </span>
+                      </span>
+                    </ScrollStackItem>
+                  ))}
+                </ScrollStack>
+              </div>
 
               {PROJECTS[activeProjectIndex] && (() => {
                 const project = PROJECTS[activeProjectIndex];

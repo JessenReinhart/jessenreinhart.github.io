@@ -118,8 +118,7 @@ button:focus-visible,
   background: var(--color-accent);
 }
 
-/* Sharp ME panel — replaces glass-as-default */
-.glass-panel,
+/* Sharp ME panel */
 .me-panel {
   background: var(--color-bg-card);
   border: 1px solid var(--color-border-primary);
@@ -128,12 +127,10 @@ button:focus-visible,
   -webkit-backdrop-filter: none;
 }
 
-.glass-panel-hover,
 .me-panel-hover {
   transition: transform 0.35s var(--ease-runner), border-color 0.35s var(--ease-runner), box-shadow 0.35s var(--ease-runner);
 }
 
-.glass-panel-hover:hover,
 .me-panel-hover:hover {
   background: var(--color-bg-card);
   border-color: var(--color-accent);

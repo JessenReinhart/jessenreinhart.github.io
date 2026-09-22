@@ -53,5 +53,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: editorial-portfolio-preview
-          path: artifacts/preview.png
+          path: artifacts/*.png
           if-no-files-found: ignore

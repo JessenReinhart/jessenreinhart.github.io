@@ -5,15 +5,15 @@ const FEATURED_PROJECTS: Project[] = [
   {
     id: "proj-chef",
     title: "Chef",
-    tagline: "Living AI Agent Workspace",
+    tagline: "Coordinate coding agents in one workspace",
     description:
-      "A local-first TypeScript runtime and visual workbench for coordinating AI agents, terminal tools, durable context, missions, approvals, artifacts, and repeatable automations in one live workspace.",
+      "I wanted one workspace where coding agents, terminals, context, approvals, and artifacts could stay connected instead of living in separate sessions. Chef is the local-first TypeScript runtime I built around that idea.",
     descriptionId:
-      "Runtime TypeScript local-first dan visual workbench untuk mengoordinasikan agen AI, terminal, konteks persisten, mission, approval, artifact, dan automation berulang dalam satu workspace.",
+      "Saya ingin satu workspace tempat agent coding, terminal, context, approval, dan artifact tetap terhubung, bukan tersebar di sesi yang berbeda. Chef adalah runtime TypeScript local-first yang saya bangun untuk itu.",
     motivation:
-      "AI coding tools often feel like isolated chat or terminal sessions. I wanted a workspace where multiple agents and tools can share scoped context, stay observable, and turn one human intent into verifiable work without losing the thread.",
+      "I was tired of treating each AI coding session as a separate workspace. Chef is my attempt to make the work observable and coordinated while keeping the human in control.",
     motivationId:
-      "Tool coding AI sering terasa seperti sesi chat atau terminal yang terpisah. Saya ingin workspace tempat banyak agen dan tool bisa berbagi konteks terarah, tetap bisa dipantau, dan mengubah satu intent manusia menjadi pekerjaan yang dapat diverifikasi tanpa kehilangan konteks.",
+      "Saya bosan memperlakukan setiap sesi coding AI sebagai workspace terpisah. Chef adalah usaha saya membuat pekerjaan lebih mudah dipantau dan dikoordinasikan, sambil tetap menempatkan manusia sebagai pengendali.",
     technologies: ["TypeScript", "React", "XYFlow", "Node.js", "SQLite"],
     features: [
       "Mission orchestration across multiple AI workers and terminal harnesses",
@@ -34,15 +34,15 @@ const FEATURED_PROJECTS: Project[] = [
   {
     id: "proj-civstrategy",
     title: "CivStrategy: Ancient Realms",
-    tagline: "Browser-Based Real-Time Strategy Game",
+    tagline: "Build and fight in a browser RTS",
     description:
-      "A browser RTS built with React and Phaser, combining settlement building, economy, population, research, combat, fog of war, enemy AI, and procedurally generated isometric terrain.",
+      "I built a browser RTS with React and Phaser where settlement building, economy, combat, AI, fog of war, and procedural terrain all have to work together instead of acting like separate demos.",
     descriptionId:
-      "Game RTS berbasis browser dengan React dan Phaser yang menggabungkan pembangunan settlement, ekonomi, populasi, riset, combat, fog of war, enemy AI, dan terrain isometrik procedural.",
+      "Saya membuat RTS berbasis browser dengan React dan Phaser, tempat settlement, ekonomi, combat, AI, fog of war, dan terrain procedural harus bekerja bersama, bukan sekadar menjadi demo terpisah.",
     motivation:
-      "I wanted to see how far a browser-first TypeScript stack could be pushed toward the systemic feel of classic RTS games, not just rendering a map, but making economy, AI, combat, progression, and world simulation work together.",
+      "The goal was not another map renderer. I wanted to see how far a browser-first TypeScript stack could go toward the systemic feel of the RTS games I grew up with.",
     motivationId:
-      "Saya ingin melihat seberapa jauh stack TypeScript berbasis browser bisa didorong menuju rasa sistemik RTS klasik, bukan hanya merender map, tapi membuat ekonomi, AI, combat, progression, dan simulasi dunia bekerja bersama.",
+      "Tujuannya bukan sekadar membuat map renderer. Saya ingin melihat seberapa jauh stack TypeScript berbasis browser bisa mendekati rasa sistemik game RTS klasik.",
     technologies: ["React", "TypeScript", "Phaser", "Vite", "Game Systems"],
     features: [
       "20-system architecture spanning terrain, economy, combat, research, enemy AI, minimap, and fog of war",

@@ -7,9 +7,46 @@ function assert(condition, message) {
   if (!condition) errors.push(message);
 }
 
+
+async function stubGithubApi(page) {
+  await page.route("https://api.github.com/**", async (route) => {
+    const url = new URL(route.request().url());
+
+    if (url.pathname === "/users/jessenreinhart") {
+      return route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ public_repos: 42, followers: 7, following: 3 }),
+      });
+    }
+
+    if (url.pathname === "/users/jessenreinhart/repos") {
+      return route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify([]),
+      });
+    }
+
+    if (url.pathname === "/users/jessenreinhart/events/public") {
+      return route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify([]),
+      });
+    }
+
+    return route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({}),
+    });
+  });
+}
+
 async function testDesktop(browser) {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
-  page.on("pageerror", (error) => errors.push(`DESKTOP PAGE ERROR: ${error.stack || error.message}`));
+  await stubGithubApi(page);\n  page.on("pageerror", (error) => errors.push(`DESKTOP PAGE ERROR: ${error.stack || error.message}`));
   page.on("console", (message) => {
     if (message.type() === "error") errors.push(`DESKTOP CONSOLE ERROR: ${message.text()}`);
   });
@@ -40,7 +77,7 @@ async function testMobile(browser) {
     hasTouch: true,
   });
 
-  page.on("pageerror", (error) => errors.push(`MOBILE PAGE ERROR: ${error.stack || error.message}`));
+  await stubGithubApi(page);\n  page.on("pageerror", (error) => errors.push(`MOBILE PAGE ERROR: ${error.stack || error.message}`));
   page.on("console", (message) => {
     if (message.type() === "error") errors.push(`MOBILE CONSOLE ERROR: ${message.text()}`);
   });

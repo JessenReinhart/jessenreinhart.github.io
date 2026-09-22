@@ -277,103 +277,200 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
                 className="project-gallery"
                 />
               </div>
+
               <div className="md:hidden">
                 <ScrollStack
                   useWindowScroll
-                  itemDistance={90}
-                  itemScale={0.035}
-                  itemStackDistance={26}
-                  stackPosition="22%"
-                  scaleEndPosition="10%"
-                  baseScale={0.86}
-                  scaleDuration={0.5}
+                  itemDistance={110}
+                  itemScale={0.03}
+                  itemStackDistance={30}
+                  stackPosition="18%"
+                  scaleEndPosition="8%"
+                  baseScale={0.88}
                   rotationAmount={0}
                   blurAmount={0}
                 >
-                  {PROJECTS.map((project, index) => (
-                    <ScrollStackItem
-                      key={project.id}
-                      itemClassName="project-scroll-stack-card"
-                      onActivate={() => setActiveProjectIndex(index)}
-                      aria-current={activeProjectIndex === index ? "true" : undefined}
-                      aria-label={`Select ${project.title}`}
-                    >
-                      <img
-                        src={project.imageSrc}
-                        alt={project.title + " preview"}
-                        draggable={false}
-                      />
-                      <span className="scroll-stack-card__scrim" aria-hidden="true" />
-                      <span className="scroll-stack-card__content">
-                        <span className="scroll-stack-card__meta">
-                          <span className="scroll-stack-card__marker" aria-hidden="true" />
-                          {String(index + 1).padStart(2, "0")} / {String(PROJECTS.length).padStart(2, "0")}
-                        </span>
-                        <span className="scroll-stack-card__title">{project.title}</span>
-                        <span className="scroll-stack-card__hint">
-                          {activeProjectIndex === index ? "SELECTED" : "TAP TO SELECT"}
-                        </span>
-                      </span>
-                    </ScrollStackItem>
-                  ))}
+                  {PROJECTS.map((project, index) => {
+                    const description =
+                      lang === "id" && project.descriptionId
+                        ? project.descriptionId
+                        : project.description;
+                    const motivation =
+                      lang === "id" && project.motivationId
+                        ? project.motivationId
+                        : project.motivation;
+
+                    return (
+                      <ScrollStackItem
+                        key={project.id}
+                        itemClassName="project-scroll-stack-card"
+                      >
+                        <div className="scroll-stack-card__media">
+                          <img
+                            src={project.imageSrc}
+                            alt={project.title + " preview"}
+                            draggable={false}
+                          />
+                        </div>
+                        <div className="scroll-stack-card__body">
+                          <div className="scroll-stack-card__meta">
+                            <span className="scroll-stack-card__marker" aria-hidden="true" />
+                            {String(index + 1).padStart(2, "0")} / {String(PROJECTS.length).padStart(2, "0")}
+                          </div>
+                          <h3 className="scroll-stack-card__title">{project.title}</h3>
+                          <p className="scroll-stack-card__tagline">{project.tagline}</p>
+                          <p className="scroll-stack-card__description">{description}</p>
+
+                          {motivation && (
+                            <div className="scroll-stack-card__why">
+                              <div className="scroll-stack-card__why-label">
+                                {lang === "id" ? "KENAPA DIBUAT" : "WHY I BUILT IT"}
+                              </div>
+                              <p className="scroll-stack-card__why-copy">{motivation}</p>
+                            </div>
+                          )}
+
+                          <div className="scroll-stack-card__tech">
+                            {project.technologies.map((tech) => (
+                              <span key={tech}>{tech}</span>
+                            ))}
+                          </div>
+
+                          <div className="scroll-stack-card__links">
+                            {project.liveUrl && (
+                              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                                {copy.live} <ArrowUpRight className="inline h-3 w-3" />
+                              </a>
+                            )}
+                            {project.githubUrl && (
+                              <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                                {copy.code} <Github className="inline h-3 w-3" />
+                              </a>
+                            )}
+                          </div>
+                        </div>
+                      </ScrollStackItem>
+                    );
+                  })}
                 </ScrollStack>
               </div>
 
-              {PROJECTS[activeProjectIndex] && (() => {
-                const project = PROJECTS[activeProjectIndex];
-                const description = lang === "id" && project.descriptionId ? project.descriptionId : project.description;
-                const motivation = lang === "id" && project.motivationId ? project.motivationId : project.motivation;
+              <div className="hidden md:block">
+                {PROJECTS[activeProjectIndex] && (() => {
+                  const project = PROJECTS[activeProjectIndex];
+                  const description =
+                    lang === "id" && project.descriptionId
+                      ? project.descriptionId
+                      : project.description;
+                  const motivation =
+                    lang === "id" && project.motivationId
+                      ? project.motivationId
+                      : project.motivation;
 
-                return (
-                  <div className="grid gap-8 border-t p-7 md:grid-cols-12 md:gap-10 md:p-10" style={{ borderColor: "var(--color-border-primary)" }}>
-                    <div className="md:col-span-5">
-                      <div className="flex items-center gap-3">
-                        <span className="font-mono text-[10px] tracking-[0.18em]" style={{ color: "var(--color-accent)" }}>
-                          {String(activeProjectIndex + 1).padStart(2, "0")} / {String(PROJECTS.length).padStart(2, "0")}
-                        </span>
-                        <span className="h-px w-8" style={{ backgroundColor: "var(--color-border-primary)" }} />
-                        <span className="font-mono text-[10px] tracking-[0.16em]" style={{ color: "var(--color-text-dim)" }}>
-                          {project.technologies[0]}
-                        </span>
-                      </div>
-                      <h3 className="mt-4 font-sans text-4xl font-semibold leading-[0.95] tracking-[-0.05em] md:text-5xl">{project.title}</h3>
-                      <p className="mt-3 text-sm font-medium" style={{ color: "var(--color-text-secondary)" }}>{project.tagline}</p>
-                    </div>
-
-                    <div className="md:col-span-7 md:pl-4">
-                      <p className="text-sm leading-relaxed md:text-base" style={{ color: "var(--color-text-muted)" }}>{description}</p>
-
-                      {motivation && (
-                        <div className="mt-5 border-l-2 pl-4" style={{ borderColor: "var(--color-accent)" }}>
-                          <div className="mb-1.5 font-mono text-[9px] tracking-[0.18em]" style={{ color: "var(--color-text-dim)" }}>
-                            {lang === "id" ? "KENAPA DIBUAT" : "WHY I BUILT IT"}
-                          </div>
-                          <p className="text-xs leading-relaxed" style={{ color: "var(--color-text-dim)" }}>{motivation}</p>
+                  return (
+                    <div
+                      className="grid gap-8 border-t p-7 md:grid-cols-12 md:gap-10 md:p-10"
+                      style={{ borderColor: "var(--color-border-primary)" }}
+                    >
+                      <div className="md:col-span-5">
+                        <div className="flex items-center gap-3">
+                          <span
+                            className="font-mono text-[10px] tracking-[0.18em]"
+                            style={{ color: "var(--color-accent)" }}
+                          >
+                            {String(activeProjectIndex + 1).padStart(2, "0")} / {String(PROJECTS.length).padStart(2, "0")}
+                          </span>
+                          <span
+                            className="h-px w-8"
+                            style={{ backgroundColor: "var(--color-border-primary)" }}
+                          />
+                          <span
+                            className="font-mono text-[10px] tracking-[0.16em]"
+                            style={{ color: "var(--color-text-dim)" }}
+                          >
+                            {project.technologies[0]}
+                          </span>
                         </div>
-                      )}
-
-                      <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10px]" style={{ color: "var(--color-text-dim)" }}>
-                        {project.technologies.map((tech, techIndex) => (
-                          <span key={tech}>{tech}{techIndex < project.technologies.length - 1 ? " /" : ""}</span>
-                        ))}
+                        <h3 className="mt-4 font-sans text-4xl font-semibold leading-[0.95] tracking-[-0.05em] md:text-5xl">
+                          {project.title}
+                        </h3>
+                        <p
+                          className="mt-3 text-sm font-medium"
+                          style={{ color: "var(--color-text-secondary)" }}
+                        >
+                          {project.tagline}
+                        </p>
                       </div>
 
-                      <div className="mt-6 flex flex-wrap gap-4 text-xs font-semibold">
-                        {project.liveUrl && (
-                          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 transition-colors hover:text-[var(--color-accent)]">
-                            {copy.live}<ArrowUpRight className="h-3.5 w-3.5" />
-                          </a>
+                      <div className="md:col-span-7 md:pl-4">
+                        <p
+                          className="text-sm leading-relaxed md:text-base"
+                          style={{ color: "var(--color-text-muted)" }}
+                        >
+                          {description}
+                        </p>
+
+                        {motivation && (
+                          <div
+                            className="mt-5 border-l-2 pl-4"
+                            style={{ borderColor: "var(--color-accent)" }}
+                          >
+                            <div
+                              className="mb-1.5 font-mono text-[9px] tracking-[0.18em]"
+                              style={{ color: "var(--color-text-dim)" }}
+                            >
+                              {lang === "id" ? "KENAPA DIBUAT" : "WHY I BUILT IT"}
+                            </div>
+                            <p
+                              className="text-xs leading-relaxed"
+                              style={{ color: "var(--color-text-dim)" }}
+                            >
+                              {motivation}
+                            </p>
+                          </div>
                         )}
-                        {project.githubUrl && (
-                          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 transition-colors hover:text-[var(--color-accent)]">
-                            {copy.code}<Github className="h-3.5 w-3.5" />
-                          </a>
-                        )}
+
+                        <div
+                          className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10px]"
+                          style={{ color: "var(--color-text-dim)" }}
+                        >
+                          {project.technologies.map((tech, techIndex) => (
+                            <span key={tech}>
+                              {tech}
+                              {techIndex < project.technologies.length - 1 ? " /" : ""}
+                            </span>
+                          ))}
+                        </div>
+
+                        <div className="mt-6 flex flex-wrap gap-4 text-xs font-semibold">
+                          {project.liveUrl && (
+                            <a
+                              href={project.liveUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-1.5 transition-colors hover:text-[var(--color-accent)]"
+                            >
+                              {copy.live}
+                              <ArrowUpRight className="h-3.5 w-3.5" />
+                            </a>
+                          )}
+                          {project.githubUrl && (
+                            <a
+                              href={project.githubUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="flex items-center gap-1.5 transition-colors hover:text-[var(--color-accent)]"
+                            >
+                              {copy.code}
+                              <Github className="h-3.5 w-3.5" />
+                            </a>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })()}
+                  );
+                })()}
+              </div>
             </motion.div>
           </div>
         </section>

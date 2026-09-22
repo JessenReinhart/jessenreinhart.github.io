@@ -323,22 +323,27 @@ const AccordionGallery = ({
             </span>
 
             {showLabels && (
-              <span className="ag-panel__label" aria-hidden="true">
-                <span
-                  className="ag-panel__bar"
-                  ref={(element) => {
-                    barRefs.current[index] = element;
-                  }}
-                />
-                <span
-                  className="ag-panel__text"
-                  ref={(element) => {
-                    textRefs.current[index] = element;
-                  }}
-                >
+              <>
+                <span className="ag-panel__label" aria-hidden="true">
+                  <span
+                    className="ag-panel__bar"
+                    ref={(element) => {
+                      barRefs.current[index] = element;
+                    }}
+                  />
+                  <span
+                    className="ag-panel__text"
+                    ref={(element) => {
+                      textRefs.current[index] = element;
+                    }}
+                  >
+                    {item.label}
+                  </span>
+                </span>
+                <span className="ag-panel__hover-label" aria-hidden="true">
                   {item.label}
                 </span>
-              </span>
+              </>
             )}
           </Tag>
         );

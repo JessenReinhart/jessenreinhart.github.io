@@ -3,6 +3,7 @@ import {
   useEffect,
   useLayoutEffect,
   useRef,
+  useState,
   type Attributes,
   type Key,
   type ReactNode,
@@ -67,6 +68,9 @@ const ScrollStack = ({
   const animationFrameRef = useRef<number | null>(null);
   const lenisRef = useRef<Lenis | null>(null);
   const isUpdatingRef = useRef(false);
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia("(max-width: 720px)").matches,
+  );
 
   const calculateProgress = useCallback(
     (scrollTop: number, start: number, end: number) => {
@@ -284,6 +288,33 @@ const ScrollStack = ({
       });
     };
 
+    const mobileQuery = window.matchMedia("(max-width: 720px)");
+    const handleMobileChange = (event: MediaQueryListEvent) => {
+      setIsMobile(event.matches);
+    };
+    mobileQuery.addEventListener("change", handleMobileChange);
+
+    const resetNormalCardStyles = () => {
+      cardsRef.current.forEach((card) => {
+        card.style.marginBottom = "0";
+        card.style.willChange = "auto";
+        card.style.transformOrigin = "";
+        card.style.backfaceVisibility = "";
+        card.style.transform = "none";
+        card.style.filter = "";
+        card.style.zIndex = "auto";
+        card.style.perspective = "";
+        card.style.webkitPerspective = "";
+      });
+    };
+
+    if (isMobile) {
+      resetNormalCardStyles();
+      return () => {
+        mobileQuery.removeEventListener("change", handleMobileChange);
+      };
+    }
+
     resetCardStyles();
     measureOffsets();
     scheduleUpdate();
@@ -312,6 +343,7 @@ const ScrollStack = ({
       return () => {
         window.removeEventListener("scroll", handleScroll);
         window.removeEventListener("resize", handleResize);
+        mobileQuery.removeEventListener("change", handleMobileChange);
         ro?.disconnect();
         if (animationFrameRef.current !== null) {
           cancelAnimationFrame(animationFrameRef.current);
@@ -350,10 +382,11 @@ const ScrollStack = ({
         cancelAnimationFrame(animationFrameRef.current);
         animationFrameRef.current = null;
       }
+      mobileQuery.removeEventListener("change", handleMobileChange);
       lenis.destroy();
       lenisRef.current = null;
     };
-  }, [itemDistance, measureOffsets, scheduleUpdate, useWindowScroll]);
+  }, [isMobile, itemDistance, measureOffsets, scheduleUpdate, useWindowScroll]);
 
   useEffect(
     () => () => {

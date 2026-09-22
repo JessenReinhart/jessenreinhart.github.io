@@ -10,16 +10,16 @@ export const translations = {
     navContact: "CONTACT",
     navServices: "SERVICES",
     navGetInTouch: "GET IN TOUCH",
-    navAvailable: "Available for contracts & full-time roles",
+    navAvailable: "Open to frontend work and full-time roles",
 
     // Hero
     heroTag: "SENIOR FRONTEND ENGINEER",
     heroSubtitle: "Production frontends: from company websites to platforms serving 30M users",
-    heroDesc: "Seven years shipping production web apps for banking platforms, merchant dashboards, and content management systems across Southeast Asia.",
+    heroDesc: "Seven years building production web apps, from merchant checkout and banking operations to React systems serving regional users.",
     heroViewWork: "VIEW MY WORK",
     heroDownloadCv: "DOWNLOAD CV",
     heroScroll: "SCROLL",
-    heroAvailable: "AVAILABLE FOR NEW PROJECTS //",
+    heroAvailable: "OPEN TO NEW WORK //",
     heroExpertise: "EXPERTISE",
 
     // Marquee
@@ -32,17 +32,17 @@ export const translations = {
 
     // About
     aboutSection: "01 // BIOGRAPHY",
-    aboutTitle: "Shipping Web Systems Since 2019",
-    aboutSubtitle: "Frontend engineer with seven years building web applications, tuning client performance, and structuring modular codebases.",
-    aboutHeading: "Jessen makes web apps fast, maintainable, and ready for millions of users.",
-    aboutP1: "I build the interfaces behind banking platforms, merchant dashboards, and content systems. The kind of software where slow load times or broken layouts mean real people can't do their jobs. I focus on making those interfaces load fast, work reliably, and stay maintainable as teams and features grow.",
-    aboutP2: "My work ranges from tuning page load performance to structuring codebases so new features don't break old ones. I care about the details: server-rendered pages that load in under a second, TypeScript configs that catch bugs before they ship, and components that work across different brands and languages.",
+    aboutTitle: "Frontend work with a real job to do",
+    aboutSubtitle: "Banking, commerce, CMS, and dashboard work across seven years of building for production.",
+    aboutHeading: "I like frontend work when the interface is part of a real system.",
+    aboutP1: "I build interfaces for systems people actually have to use: bank staff managing cards, merchants running online stores, and content teams publishing without developer help. That changes what I care about. A broken layout is not just ugly when someone is trying to finish a real task.",
+    aboutP2: "A lot of my work is the unglamorous frontend layer: reusable components, multi-brand theming, performance fixes, and keeping one codebase working across different products. At SIRCLO that meant storefronts and checkout. At Wide it meant one React platform for multiple banks.",
     aboutSpecializations: "SPECIALIZATIONS",
 
     // Services
     svcSection: "02 // SERVICES",
-    svcTitle: "What I Can Build For You",
-    svcSubtitle: "PRACTICAL WEB WORK FOR SMALL TEAMS & BUSINESSES.",
+    svcTitle: "What I Build",
+    svcSubtitle: "WEB APPS, FRONTENDS, AND PRODUCT WORK.",
     svcProofTitle: "Trusted track record",
     svcProofDesc: "Shipped to production for 30M users.",
     svcLinkedinRecs: "Read LinkedIn recommendations",
@@ -70,7 +70,7 @@ export const translations = {
     // Experience
     expSection: "03 // PROFESSIONAL JOURNEY",
     expTitle: "Professional Experience",
-    expSubtitle: "Five roles, each building on the last. From library dashboards to platforms serving 30 million users.",
+    expSubtitle: "From library dashboards to banking operations and multi-tenant commerce, across roles since 2019.",
     expRoleDetails: "ROLE DETAILS",
     expStackDeployed: "STACK DEPLOYED",
 
@@ -97,7 +97,7 @@ export const translations = {
 
     // Contact
     contactSection: "07 // GET IN TOUCH",
-    contactTitle: "Let's work together.",
+    contactTitle: "Have a project in mind?",
     contactDesc: "Web application development, CMS solutions, or contract consulting.",
     contactEmail: "Direct Email",
     contactLinkedin: "LinkedIn Professional",
@@ -143,16 +143,16 @@ export const translations = {
     navContact: "KONTAK",
     navServices: "LAYANAN",
     navGetInTouch: "HUBUNGI SAYA",
-    navAvailable: "Tersedia untuk kontrak & full-time",
+    navAvailable: "Terbuka untuk pekerjaan frontend & full-time",
 
     // Hero
     heroTag: "SENIOR FRONTEND ENGINEER",
     heroSubtitle: "Frontend produksi: dari website perusahaan hingga platform berskala 30 juta pengguna",
-    heroDesc: "Tujuh tahun mengembangkan aplikasi web di lingkungan produksi untuk platform perbankan, dashboard merchant, dan CMS di Asia Tenggara.",
+    heroDesc: "Tujuh tahun membangun aplikasi web untuk produksi, dari checkout merchant dan operasi perbankan sampai sistem React yang dipakai pengguna di berbagai wilayah.",
     heroViewWork: "LIHAT PROYEK SAYA",
     heroDownloadCv: "UNDUH CV",
     heroScroll: "GULIR",
-    heroAvailable: "TERSEDIA UNTUK PROYEK BARU //",
+    heroAvailable: "TERBUKA UNTUK PEKERJAAN BARU //",
     heroExpertise: "KEAHLIAN",
 
     // Marquee
@@ -165,17 +165,17 @@ export const translations = {
 
     // About
     aboutSection: "01 // BIOGRAFI",
-    aboutTitle: "Membangun Sistem Web Sejak 2019",
-    aboutSubtitle: "Engineer frontend dengan tujuh tahun pengalaman membangun aplikasi web, mengoptimalkan performa klien, dan menyusun kode modular.",
-    aboutHeading: "Jessen membuat aplikasi web cepat, mudah dirawat, dan siap untuk jutaan pengguna.",
-    aboutP1: "Saya membangun antarmuka di balik platform perbankan, dashboard merchant, dan sistem konten. Jenis perangkat lunak di mana waktu muat yang lambat atau tata letak yang rusak berarti orang sungguhan tidak bisa melakukan pekerjaan mereka. Saya fokus membuat antarmuka tersebut cepat dimuat, berjalan andal, dan tetap mudah dirawat seiring pertumbuhan tim dan fitur.",
-    aboutP2: "Pekerjaan saya mencakup pengoptimalan waktu muat halaman hingga menata basis kode agar fitur baru tidak merusak yang lama. Saya peduli pada detail: halaman server-rendered yang dimuat dalam hitungan detik, konfigurasi TypeScript yang menangkap bug sebelum rilis, dan komponen yang bekerja lintas merek dan bahasa.",
+    aboutTitle: "Frontend yang punya pekerjaan nyata",
+    aboutSubtitle: "Pekerjaan banking, commerce, CMS, dan dashboard selama tujuh tahun membangun produk untuk produksi.",
+    aboutHeading: "Saya suka pekerjaan frontend ketika antarmukanya menjadi bagian dari sistem yang benar-benar dipakai.",
+    aboutP1: "Saya membangun antarmuka untuk sistem yang benar-benar dipakai: staf bank yang mengelola kartu, merchant yang menjalankan toko online, dan tim konten yang perlu mempublikasikan tanpa bantuan developer. Itu mengubah hal yang saya perhatikan. Layout rusak bukan cuma jelek ketika seseorang sedang menyelesaikan pekerjaan.",
+    aboutP2: "Banyak pekerjaan saya ada di lapisan frontend yang kurang glamor: komponen reusable, multi-brand theming, perbaikan performa, dan menjaga satu codebase tetap bekerja di beberapa produk. Di SIRCLO itu berarti storefront dan checkout. Di Wide itu berarti satu platform React untuk banyak bank.",
     aboutSpecializations: "SPESIALISASI",
 
     // Services
     svcSection: "02 // LAYANAN",
-    svcTitle: "Yang Bisa Saya Buat Untuk Anda",
-    svcSubtitle: "LAYANAN WEB UNTUK TIM KECIL & BISNIS.",
+    svcTitle: "Yang Saya Bangun",
+    svcSubtitle: "WEB APP, FRONTEND, DAN PRODUCT WORK.",
     svcProofTitle: "Rekam jejak terpercaya",
     svcProofDesc: "Telah digunakan 30 juta pengguna di 20 bank, bukan sekadar demo.",
     svcLinkedinRecs: "Baca rekomendasi LinkedIn",
@@ -203,7 +203,7 @@ export const translations = {
     // Experience
     expSection: "03 // PERJALANAN PROFESIONAL",
     expTitle: "Pengalaman Profesional",
-    expSubtitle: "Lima peran, masing-masing dibangun dari yang sebelumnya. Dari dashboard perpustakaan hingga platform yang melayani 30 juta pengguna.",
+    expSubtitle: "Dari dashboard perpustakaan hingga operasi perbankan dan commerce multi-tenant, dengan pengalaman sejak 2019.",
     expRoleDetails: "DETAIL PERAN",
     expStackDeployed: "STACK DIGUNAKAN",
 
@@ -230,7 +230,7 @@ export const translations = {
 
     // Contact
     contactSection: "07 // HUBUNGI SAYA",
-    contactTitle: "Ayo bekerja sama.",
+    contactTitle: "Punya proyek di kepala?",
     contactDesc: "Pengembangan aplikasi web, solusi CMS, atau konsultasi.",
     contactEmail: "Email Langsung",
     contactLinkedin: "LinkedIn",

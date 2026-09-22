@@ -267,7 +267,7 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
                 parallax={0.25}
                 tilt={4}
                 stagger={0.05}
-                trigger="hover"
+                trigger="click"
                 height={420}
                 gap={4}
                 radius={0}

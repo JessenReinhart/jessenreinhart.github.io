@@ -131,7 +131,7 @@ const AccordionGallery = ({
               x: vertical ? 0 : isActive ? 0 : shift,
               y: vertical ? (isActive ? 0 : shift) : 0,
               "--ag-gray": gray,
-              "--ag-dim": isActive ? 0 : 0.35,
+              "--ag-dim": isActive ? 0 : 0.42,
               duration: dur,
               ease,
             },
@@ -242,10 +242,10 @@ const AccordionGallery = ({
   const handleKeyDown = (index: number, event: KeyboardEvent<HTMLElement>) => {
     if (event.key === "ArrowRight" || event.key === "ArrowDown") {
       event.preventDefault();
-      setActive((index + 1) % count);
+      activate((index + 1) % count);
     } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
       event.preventDefault();
-      setActive((index - 1 + count) % count);
+      activate((index - 1 + count) % count);
     } else if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
       activate(index);
@@ -290,7 +290,7 @@ const AccordionGallery = ({
             href={item.link || undefined}
             onClick={(event) => handleClick(index, event)}
             onMouseEnter={() => handleEnter(index)}
-            onFocus={() => setActive(index)}
+            onFocus={() => activate(index)}
             onKeyDown={(event) => handleKeyDown(index, event)}
             role="listitem"
             tabIndex={0}

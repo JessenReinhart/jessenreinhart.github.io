@@ -35,7 +35,7 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
         intro: "Tujuh tahun membangun aplikasi web untuk produksi, dari checkout merchant dan operasi perbankan sampai platform React yang dipakai di berbagai wilayah.",
         sideKicker: "PEKERJAAN YANG BENAR-BENAR SAYA KERJAKAN",
         sideBody: "Staf bank, merchant, dan pengguna bergantung pada sistem yang saya kerjakan. Saya peduli pada detail frontend yang membuat alur kerja tetap jelas saat produknya tumbuh.",
-        viewWork: "Lihat karya"
+        viewWork: "Lihat karya",
         resume: "Buka résumé"
         selectedWork: "Proyek Pilihan",
         selectedWorkDesc: "Build yang masih saya kerjakan, dari AI tooling dan browser RTS sampai tool kecil yang saya buat sendiri.",
@@ -56,7 +56,7 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
         intro: "Seven years building production web apps, from merchant checkout and banking operations to React platforms used across the region.",
         sideKicker: "WORK I ACTUALLY SHIP",
         sideBody: "Bank staff, merchants, and customers rely on the systems I work on. I care about the frontend details that keep those workflows usable as the product grows.",
-        viewWork: "See the work"
+        viewWork: "See the work",
         resume: "Open résumé"
         selectedWork: "Featured Work",
         selectedWorkDesc: "Builds I keep working on, from AI tooling to a browser RTS and small tools I made for myself.",

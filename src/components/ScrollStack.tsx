@@ -278,7 +278,7 @@ const ScrollStack = ({
         card.style.backfaceVisibility = "hidden";
         card.style.transform = "translate3d(0, 0, 0) scale(1) rotate(0deg)";
         card.style.filter = "";
-        card.style.zIndex = String(100 - i);
+        card.style.zIndex = String(Math.max(1, 40 - i));
         card.style.perspective = "1000px";
         card.style.webkitPerspective = "1000px";
       });

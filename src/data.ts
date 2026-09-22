@@ -254,7 +254,7 @@ export const PROJECTS: Project[] = [
     tagline: "Watch your terminal from your phone",
     description: "I wanted to glance at a running dev server or long log from my phone without SSH or tmux. share-term mirrors the terminal over local Wi-Fi after one QR scan.",
     descriptionId: "Saya ingin melihat server dev atau log panjang dari ponsel tanpa SSH atau tmux. share-term menampilkan terminal lewat Wi-Fi lokal setelah satu kali scan QR.",
-    motivation: "I use this in my own development workflow. I wanted to glance at a running dev server or long log from my phone without SSH-ing in, and I did not want another app installed on the laptop."
+    motivation: "I use this in my own development workflow. I wanted to glance at a running dev server or long log from my phone without SSH-ing in, and I did not want another app installed on the laptop.",
     motivationId: "Saya memakai ini dalam alur kerja development sendiri. Saya ingin melihat server dev atau log panjang dari ponsel tanpa SSH, dan tidak ingin memasang aplikasi lain di laptop.",
     technologies: ["Node.js", "TypeScript", "node-pty", "WebSocket", "xterm.js", "QR"],
     features: [

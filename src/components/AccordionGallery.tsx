@@ -77,6 +77,7 @@ const AccordionGallery = ({
   const [active, setActive] = useState(
     Math.min(Math.max(defaultIndex, 0), Math.max(count - 1, 0)),
   );
+  const [hovered, setHovered] = useState<number | null>(null);
 
   const prefersReduced =
     typeof window !== "undefined" && window.matchMedia
@@ -285,11 +286,19 @@ const AccordionGallery = ({
             ref={(element) => {
               panelRefs.current[index] = element;
             }}
-            className={"ag-panel" + (isActive ? " ag-panel--active" : "")}
+            className={
+              "ag-panel" +
+              (isActive ? " ag-panel--active" : "") +
+              (hovered === index ? " ag-panel--hovered" : "")
+            }
             style={{ borderRadius: radius + "px" }}
             href={item.link || undefined}
             onClick={(event) => handleClick(index, event)}
-            onMouseEnter={() => handleEnter(index)}
+            onMouseEnter={() => {
+              setHovered(index);
+              handleEnter(index);
+            }}
+            onMouseLeave={() => setHovered(null)}
             onFocus={() => activate(index)}
             onKeyDown={(event) => handleKeyDown(index, event)}
             role="listitem"

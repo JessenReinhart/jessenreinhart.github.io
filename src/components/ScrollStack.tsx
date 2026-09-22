@@ -300,7 +300,7 @@ const ScrollStack = ({
     const scroller = scrollerRef.current;
     if (!scroller) return;
 
-    const cards = Array.from(
+    const cards: HTMLDivElement[] = Array.from(
       scroller.querySelectorAll<HTMLDivElement>(".scroll-stack-card"),
     );
 

@@ -4,6 +4,7 @@ import {
   useLayoutEffect,
   useRef,
   type Attributes,
+  type Key,
   type ReactNode,
 } from "react";
 import Lenis from "lenis";
@@ -11,6 +12,7 @@ import "./ScrollStack.css";
 
 export interface ScrollStackItemProps extends Attributes {
   children: ReactNode;
+  key?: Key;
   itemClassName?: string;
 }
 
@@ -327,7 +329,6 @@ const ScrollStack = ({
       touchMultiplier: 2,
       infinite: false,
       gestureOrientation: "vertical",
-      normalizeWheel: true,
       wheelMultiplier: 1,
       touchInertiaMultiplier: 35,
       lerp: 0.1,

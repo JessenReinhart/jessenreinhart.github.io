@@ -136,9 +136,8 @@ async function testMobile(browser) {
     assert(card.height >= 550, `Card ${index + 1} is unexpectedly short: ${card.height}`);
   }
 
-  const projectTop = await page.evaluate(() => document.getElementById("projects")?.getBoundingClientRect().top ?? 0);
   const sampleScrollY = await page.evaluate(() => window.scrollY + 350);
-  await page.evaluate((top) => window.scrollTo({ top, behavior: "instant" }), Math.max(projectTop + window.scrollY, sampleScrollY));
+  await page.evaluate((top) => window.scrollTo({ top, behavior: "instant" }), sampleScrollY);
   await page.waitForTimeout(250);
 
   const firstTransforms = await page.evaluate(() =>

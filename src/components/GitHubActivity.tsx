@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowUpRight, Code2, GitFork, Github, Star } from "lucide-react";
+import { ArrowUpRight, Code2, GitFork, Star } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useTheme } from "../contexts/ThemeContext";
 import { translations } from "../i18n/translations";

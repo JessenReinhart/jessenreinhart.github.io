@@ -255,6 +255,8 @@ const AccordionGallery = ({
 
   if (count === 0) return null;
 
+  const hoveredItem = hovered !== null && hovered !== active ? items[hovered] : null;
+
   const rootStyle = {
     "--ag-accent": accentColor,
     "--ag-overlay": overlayColor,
@@ -265,9 +267,22 @@ const AccordionGallery = ({
   } as CSSProperties;
 
   return (
-    <div
-      ref={rootRef}
-      className={
+    <div className="accordion-gallery-shell">
+      <div
+        className={"ag-hover-rail" + (hoveredItem ? " ag-hover-rail--visible" : "")}
+        aria-live="polite"
+        aria-hidden={!hoveredItem}
+      >
+        <span className="ag-hover-rail__marker" aria-hidden="true" />
+        <span>
+          {hoveredItem
+            ? String(hovered + 1).padStart(2, "0") + " / " + String(count).padStart(2, "0") + " · " + hoveredItem.label
+            : "\u00a0"}
+        </span>
+      </div>
+      <div
+        ref={rootRef}
+        className={
         "accordion-gallery" +
         (vertical ? " accordion-gallery--vertical" : "") +
         (className ? " " + className : "")
@@ -299,7 +314,10 @@ const AccordionGallery = ({
               handleEnter(index);
             }}
             onMouseLeave={() => setHovered(null)}
-            onFocus={() => activate(index)}
+            onFocus={() => {
+              setHovered(index);
+              activate(index);
+            }}
             onKeyDown={(event) => handleKeyDown(index, event)}
             role="listitem"
             tabIndex={0}
@@ -339,9 +357,6 @@ const AccordionGallery = ({
                   >
                     {item.label}
                   </span>
-                </span>
-                <span className="ag-panel__hover-label" aria-hidden="true">
-                  {item.label}
                 </span>
               </>
             )}

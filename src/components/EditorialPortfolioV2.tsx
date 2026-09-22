@@ -247,8 +247,7 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
 
             <motion.div
               {...reveal}
-              className="overflow-hidden border"
-              style={{ borderColor: "var(--color-border-primary)", backgroundColor: "var(--color-bg-card)" }}
+              className="overflow-visible"
             >
               <AccordionGallery
                 items={PROJECTS.map((project) => ({

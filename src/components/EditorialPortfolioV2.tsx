@@ -35,12 +35,12 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
         intro: "Tujuh tahun membangun aplikasi web untuk produksi, dari checkout merchant dan operasi perbankan sampai platform React yang dipakai di berbagai wilayah.",
         sideKicker: "PEKERJAAN YANG BENAR-BENAR SAYA KERJAKAN",
         sideBody: "Staf bank, merchant, dan pengguna bergantung pada sistem yang saya kerjakan. Saya peduli pada detail frontend yang membuat alur kerja tetap jelas saat produknya tumbuh.",
-        viewWork: "Lihat proyek pilihan",
-        resume: "Lihat résumé",
+        viewWork: "Lihat karya"
+        resume: "Buka résumé"
         selectedWork: "Proyek Pilihan",
-        selectedWorkDesc: "Builds I keep working on, from AI tooling to a browser RTS and small tools I made for myself.",
-        live: "Live demo",
-        code: "Source",
+        selectedWorkDesc: "Build yang masih saya kerjakan, dari AI tooling dan browser RTS sampai tool kecil yang saya buat sendiri.",
+        live: "Coba",
+        code: "GitHub",
         experience: "Pengalaman",
         experienceDesc: "Dari dashboard perpustakaan hingga operasi perbankan dan commerce multi-tenant, dengan pengalaman sejak 2019.",
         aboutTitle: "Saya suka frontend yang punya pekerjaan nyata.",
@@ -56,12 +56,12 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
         intro: "Seven years building production web apps, from merchant checkout and banking operations to React platforms used across the region.",
         sideKicker: "WORK I ACTUALLY SHIP",
         sideBody: "Bank staff, merchants, and customers rely on the systems I work on. I care about the frontend details that keep those workflows usable as the product grows.",
-        viewWork: "View selected work",
-        resume: "View résumé",
+        viewWork: "See the work"
+        resume: "Open résumé"
         selectedWork: "Featured Work",
         selectedWorkDesc: "Builds I keep working on, from AI tooling to a browser RTS and small tools I made for myself.",
-        live: "Live demo",
-        code: "Source",
+        live: "Try it",
+        code: "GitHub",
         experience: "Experience",
         experienceDesc: "From library dashboards to banking operations and multi-tenant commerce, across roles since 2019.",
         aboutTitle: "I like frontend work when the interface has a real job to do.",
@@ -186,7 +186,7 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
                     initial={reduceMotion ? false : { opacity: 0, scale: 0.94 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: reduceMotion ? 0 : 0.7, delay: reduceMotion ? 0 : 0.16, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute right-[1%] top-[5%] h-[56%] w-[66%] rounded-[38px]"
+                    className="absolute right-[1%] top-[5%] h-[56%] w-[66%]"
                     style={{ backgroundColor: "color-mix(in srgb, var(--color-accent) 6%, var(--color-bg-secondary))" }}
                     aria-hidden="true"
                   />
@@ -194,7 +194,7 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
                     initial={reduceMotion ? false : { opacity: 0, x: -16, y: 10 }}
                     animate={{ opacity: 1, x: 0, y: 0 }}
                     transition={{ duration: reduceMotion ? 0 : 0.72, delay: reduceMotion ? 0 : 0.24, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute bottom-[12%] left-[5%] h-[43%] w-[60%] rounded-[34px]"
+                    className="absolute bottom-[12%] left-[5%] h-[43%] w-[60%]"
                     style={{ backgroundColor: "color-mix(in srgb, var(--color-accent) 4%, var(--color-bg-surface))" }}
                     aria-hidden="true"
                   />
@@ -218,8 +218,8 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
                     initial={reduceMotion ? false : { opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: reduceMotion ? 0 : 0.56, delay: reduceMotion ? 0 : 0.42, ease: [0.16, 1, 0.3, 1] }}
-                    className="absolute bottom-3 right-0 z-20 flex items-start gap-3 rounded-tl-2xl px-4 py-3 text-right sm:bottom-5 sm:px-5"
-                    style={{ backgroundColor: "color-mix(in srgb, var(--color-bg-primary) 90%, transparent)" }}
+                    className="absolute bottom-3 right-0 z-20 flex items-start gap-3 border-l border-t px-4 py-3 text-right sm:bottom-5 sm:px-5"
+                    style={{ backgroundColor: "var(--color-bg-primary)", borderColor: "var(--color-border-primary)" }}
                   >
                     <span className="mt-2 h-px w-8 shrink-0" style={{ backgroundColor: "var(--color-accent)" }} />
                     <div>
@@ -284,7 +284,7 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
                       </div>
                       <div className="flex flex-col justify-between p-7 md:p-10 lg:col-span-5">
                         <div>
-                          <div className="mb-5 flex items-center gap-3 font-mono text-[9px] tracking-[0.22em]" style={{ color: "var(--color-accent)" }}><span>{String(index + 1).padStart(2, "0")}</span><span className="h-px w-7" style={{ backgroundColor: "var(--color-accent)" }} /></div>
+                          <div className="mb-5 h-px w-7" style={{ backgroundColor: "var(--color-accent)" }} />
                           <h3 className="font-sans text-3xl font-semibold tracking-[-0.045em] md:text-4xl">{project.title}</h3>
                           <p className="mt-2 text-base font-medium" style={{ color: "var(--color-text-secondary)" }}>{project.tagline}</p>
                           <p className="mt-6 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>{description}</p>

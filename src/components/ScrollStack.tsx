@@ -219,7 +219,7 @@ const ScrollStack = ({
         card.style.transform =
           `translate3d(0, ${next.translateY}px, 0) scale(${next.scale}) rotate(${next.rotation}deg)`;
         card.style.filter = next.blur > 0 ? `blur(${next.blur}px)` : "";
-        card.style.zIndex = String(100 - i);
+        card.style.zIndex = String(Math.max(1, 40 - i));
         lastTransformsRef.current.set(i, next);
       }
 

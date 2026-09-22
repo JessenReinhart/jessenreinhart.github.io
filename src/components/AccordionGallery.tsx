@@ -63,6 +63,7 @@ const AccordionGallery = ({
   className = "",
   onSelect,
 }: AccordionGalleryProps) => {
+  const shellRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   const panelRefs = useRef<Array<HTMLElement | null>>([]);
   const mediaRefs = useRef<Array<HTMLSpanElement | null>>([]);
@@ -78,6 +79,7 @@ const AccordionGallery = ({
     Math.min(Math.max(defaultIndex, 0), Math.max(count - 1, 0)),
   );
   const [hovered, setHovered] = useState<number | null>(null);
+  const [hoverX, setHoverX] = useState<number | null>(null);
 
   const prefersReduced =
     typeof window !== "undefined" && window.matchMedia
@@ -224,6 +226,16 @@ const AccordionGallery = ({
     [],
   );
 
+  const updateHoverPosition = (element: HTMLElement) => {
+    const shell = shellRef.current;
+    if (!shell || vertical) return;
+
+    const panelRect = element.getBoundingClientRect();
+    const shellRect = shell.getBoundingClientRect();
+
+    setHoverX(panelRect.left - shellRect.left + panelRect.width / 2);
+  };
+
   const activate = (index: number) => {
     setActive(index);
     onSelect?.(index, items[index]);
@@ -255,7 +267,8 @@ const AccordionGallery = ({
 
   if (count === 0) return null;
 
-  const hoveredItem = hovered !== null && hovered !== active ? items[hovered] : null;
+  const hoveredItem =
+    hovered !== null && hovered !== active ? items[hovered] : null;
 
   const rootStyle = {
     "--ag-accent": accentColor,
@@ -267,81 +280,102 @@ const AccordionGallery = ({
   } as CSSProperties;
 
   return (
-    <div className="accordion-gallery-shell">
+    <div className="accordion-gallery-shell" ref={shellRef}>
       <div
-        className={"ag-hover-rail" + (hoveredItem ? " ag-hover-rail--visible" : "")}
+        className={
+          "ag-hover-popover" +
+          (hoveredItem ? " ag-hover-popover--visible" : "")
+        }
+        style={
+          {
+            "--ag-hover-x": hoverX !== null ? hoverX + "px" : "50%",
+          } as CSSProperties
+        }
         aria-live="polite"
         aria-hidden={!hoveredItem}
       >
-        <span className="ag-hover-rail__marker" aria-hidden="true" />
-        <span>
+        <span className="ag-hover-popover__marker" aria-hidden="true" />
+        <span className="ag-hover-popover__index">
           {hoveredItem
-            ? String(hovered + 1).padStart(2, "0") + " / " + String(count).padStart(2, "0") + " · " + hoveredItem.label
+            ? String(hovered + 1).padStart(2, "0") +
+              " / " +
+              String(count).padStart(2, "0")
             : "\u00a0"}
         </span>
+        <span className="ag-hover-popover__separator" aria-hidden="true">
+          ·
+        </span>
+        <span className="ag-hover-popover__label">
+          {hoveredItem?.label ?? "\u00a0"}
+        </span>
       </div>
+
       <div
         ref={rootRef}
         className={
-        "accordion-gallery" +
-        (vertical ? " accordion-gallery--vertical" : "") +
-        (className ? " " + className : "")
-      }
-      style={rootStyle}
-      role="list"
-      aria-label="Project gallery"
-    >
+          "accordion-gallery" +
+          (vertical ? " accordion-gallery--vertical" : "") +
+          (className ? " " + className : "")
+        }
+        style={rootStyle}
+        role="list"
+        aria-label="Project gallery"
+      >
         {items.map((item, index) => {
-        const isActive = index === active;
-        const Tag = item.link ? "a" : "div";
+          const isActive = index === active;
+          const Tag = item.link ? "a" : "div";
 
-        return (
-          <Tag
-            key={item.label ?? index}
-            ref={(element) => {
-              panelRefs.current[index] = element;
-            }}
-            className={
-              "ag-panel" +
-              (isActive ? " ag-panel--active" : "") +
-              (hovered === index ? " ag-panel--hovered" : "")
-            }
-            style={{ borderRadius: radius + "px" }}
-            href={item.link || undefined}
-            onClick={(event) => handleClick(index, event)}
-            onMouseEnter={() => {
-              setHovered(index);
-              handleEnter(index);
-            }}
-            onMouseLeave={() => setHovered(null)}
-            onFocus={() => {
-              setHovered(index);
-              activate(index);
-            }}
-            onKeyDown={(event) => handleKeyDown(index, event)}
-            role="listitem"
-            tabIndex={0}
-            aria-current={isActive ? "true" : undefined}
-            aria-label={item.label}
-          >
-            <span className="ag-panel__frame">
-              <span
-                className="ag-panel__media"
-                ref={(element) => {
-                  mediaRefs.current[index] = element;
-                }}
-              >
-                <img
-                  src={item.image}
-                  alt={item.alt ?? item.label ?? ""}
-                  draggable={false}
-                />
+          return (
+            <Tag
+              key={item.label ?? index}
+              ref={(element) => {
+                panelRefs.current[index] = element;
+              }}
+              className={
+                "ag-panel" +
+                (isActive ? " ag-panel--active" : "") +
+                (hovered === index ? " ag-panel--hovered" : "")
+              }
+              style={{ borderRadius: radius + "px" }}
+              href={item.link || undefined}
+              onClick={(event) => handleClick(index, event)}
+              onMouseEnter={(event) => {
+                setHovered(index);
+                updateHoverPosition(event.currentTarget);
+                handleEnter(index);
+              }}
+              onMouseLeave={() => {
+                setHovered(null);
+                setHoverX(null);
+              }}
+              onFocus={(event) => {
+                setHovered(index);
+                updateHoverPosition(event.currentTarget);
+                activate(index);
+              }}
+              onKeyDown={(event) => handleKeyDown(index, event)}
+              role="listitem"
+              tabIndex={0}
+              aria-current={isActive ? "true" : undefined}
+              aria-label={item.label}
+            >
+              <span className="ag-panel__frame">
+                <span
+                  className="ag-panel__media"
+                  ref={(element) => {
+                    mediaRefs.current[index] = element;
+                  }}
+                >
+                  <img
+                    src={item.image}
+                    alt={item.alt ?? item.label ?? ""}
+                    draggable={false}
+                  />
+                </span>
+                <span className="ag-panel__overlay" aria-hidden="true" />
               </span>
-              <span className="ag-panel__overlay" aria-hidden="true" />
-            </span>
 
-            {showLabels && (
-              <>
+              {showLabels && (
                 <span className="ag-panel__label" aria-hidden="true">
                   <span
                     className="ag-panel__bar"
@@ -358,10 +392,9 @@ const AccordionGallery = ({
                     {item.label}
                   </span>
                 </span>
-              </>
-            )}
-          </Tag>
-        );
+              )}
+            </Tag>
+          );
         })}
       </div>
     </div>

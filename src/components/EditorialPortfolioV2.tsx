@@ -16,6 +16,7 @@ import { useTheme } from "../contexts/ThemeContext";
 import { translations } from "../i18n/translations";
 import Contact from "./Contact";
 import GitHubActivity from "./GitHubActivity";
+import AccordionGallery from "./AccordionGallery";
 
 interface EditorialPortfolioProps {
   onViewResume: () => void;
@@ -23,6 +24,7 @@ interface EditorialPortfolioProps {
 
 export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfolioProps) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
   const reduceMotion = useReducedMotion();
   const { lang, toggleLang } = useLanguage();
   const { theme, toggleTheme } = useTheme();
@@ -236,75 +238,100 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
 
         <section id="projects" className="scroll-mt-24 border-t px-6 py-20 md:px-12 md:py-28" style={{ backgroundColor: "var(--color-bg-secondary)", borderColor: "var(--color-border-primary)" }}>
           <div className="mx-auto max-w-7xl">
-            <motion.div {...reveal} className="mb-12 grid gap-6 md:grid-cols-2 md:items-end">
+            <motion.div {...reveal} className="mb-10 grid gap-6 md:grid-cols-2 md:items-end">
               <div>
-                
                 <h2 className="font-sans text-4xl font-semibold tracking-[-0.05em] md:text-6xl">{copy.selectedWork}</h2>
               </div>
               <p className="max-w-xl text-sm leading-relaxed md:justify-self-end" style={{ color: "var(--color-text-muted)" }}>{copy.selectedWorkDesc}</p>
             </motion.div>
 
-            <div className="space-y-5">
-              {PROJECTS.map((project, index) => {
+            <motion.div
+              {...reveal}
+              className="overflow-hidden border"
+              style={{ borderColor: "var(--color-border-primary)", backgroundColor: "var(--color-bg-card)" }}
+            >
+              <AccordionGallery
+                items={PROJECTS.map((project) => ({
+                  image: project.imageSrc,
+                  label: project.title,
+                  alt: project.title + " preview",
+                }))}
+                defaultIndex={0}
+                accentColor="var(--color-accent)"
+                overlayColor="#0a0a0a"
+                textColor="#ffffff"
+                grayscale
+                showLabels
+                duration={0.55}
+                ease="power3.out"
+                parallax={0.25}
+                tilt={4}
+                stagger={0.05}
+                trigger="hover"
+                height={420}
+                gap={4}
+                radius={0}
+                expandRatio={0.48}
+                onSelect={(index) => setActiveProjectIndex(index)}
+                className="project-gallery"
+              />
+
+              {PROJECTS[activeProjectIndex] && (() => {
+                const project = PROJECTS[activeProjectIndex];
                 const description = lang === "id" && project.descriptionId ? project.descriptionId : project.description;
                 const motivation = lang === "id" && project.motivationId ? project.motivationId : project.motivation;
-                const isShareTerm = project.id === "proj-shareterm";
+
                 return (
-                  <motion.article
-                    key={project.id}
-                    {...reveal}
-                    whileHover={reduceMotion ? undefined : { y: -4 }}
-                    transition={{ duration: reduceMotion ? 0 : 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="overflow-hidden border"
-                    style={{ backgroundColor: "var(--color-bg-card)", borderColor: "var(--color-border-primary)" }}
-                  >
-                    <div className="grid lg:grid-cols-12">
-                      <div className="relative min-h-[280px] overflow-hidden bg-[var(--color-bg-surface)] lg:col-span-7 lg:min-h-[440px]">
-                        {isShareTerm ? (
-                          <div className="absolute inset-0 overflow-hidden bg-[#090b0e]">
-                            <iframe
-                              src="/share-term/"
-                              title="share-term live preview"
-                              loading="lazy"
-                              tabIndex={-1}
-                              aria-hidden="true"
-                              className="pointer-events-none h-[900px] w-[1440px] origin-top-left scale-[0.62] border-0 sm:scale-[0.72] lg:scale-[0.58] xl:scale-[0.68]"
-                            />
-                            <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/5" />
+                  <div className="grid gap-8 border-t p-7 md:grid-cols-12 md:gap-10 md:p-10" style={{ borderColor: "var(--color-border-primary)" }}>
+                    <div className="md:col-span-5">
+                      <div className="flex items-center gap-3">
+                        <span className="font-mono text-[10px] tracking-[0.18em]" style={{ color: "var(--color-accent)" }}>
+                          {String(activeProjectIndex + 1).padStart(2, "0")} / {String(PROJECTS.length).padStart(2, "0")}
+                        </span>
+                        <span className="h-px w-8" style={{ backgroundColor: "var(--color-border-primary)" }} />
+                        <span className="font-mono text-[10px] tracking-[0.16em]" style={{ color: "var(--color-text-dim)" }}>
+                          {project.technologies[0]}
+                        </span>
+                      </div>
+                      <h3 className="mt-4 font-sans text-4xl font-semibold leading-[0.95] tracking-[-0.05em] md:text-5xl">{project.title}</h3>
+                      <p className="mt-3 text-sm font-medium" style={{ color: "var(--color-text-secondary)" }}>{project.tagline}</p>
+                    </div>
+
+                    <div className="md:col-span-7 md:pl-4">
+                      <p className="text-sm leading-relaxed md:text-base" style={{ color: "var(--color-text-muted)" }}>{description}</p>
+
+                      {motivation && (
+                        <div className="mt-5 border-l-2 pl-4" style={{ borderColor: "var(--color-accent)" }}>
+                          <div className="mb-1.5 font-mono text-[9px] tracking-[0.18em]" style={{ color: "var(--color-text-dim)" }}>
+                            {lang === "id" ? "KENAPA DIBUAT" : "WHY I BUILT IT"}
                           </div>
-                        ) : (
-                          <motion.img
-                            src={project.imageSrc}
-                            alt={`${project.title} preview`}
-                            className="absolute inset-0 h-full w-full object-cover object-top"
-                            whileHover={reduceMotion ? undefined : { scale: 1.025 }}
-                            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                          />
+                          <p className="text-xs leading-relaxed" style={{ color: "var(--color-text-dim)" }}>{motivation}</p>
+                        </div>
+                      )}
+
+                      <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10px]" style={{ color: "var(--color-text-dim)" }}>
+                        {project.technologies.map((tech, techIndex) => (
+                          <span key={tech}>{tech}{techIndex < project.technologies.length - 1 ? " /" : ""}</span>
+                        ))}
+                      </div>
+
+                      <div className="mt-6 flex flex-wrap gap-4 text-xs font-semibold">
+                        {project.liveUrl && (
+                          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 transition-colors hover:text-[var(--color-accent)]">
+                            {copy.live}<ArrowUpRight className="h-3.5 w-3.5" />
+                          </a>
+                        )}
+                        {project.githubUrl && (
+                          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 transition-colors hover:text-[var(--color-accent)]">
+                            {copy.code}<Github className="h-3.5 w-3.5" />
+                          </a>
                         )}
                       </div>
-                      <div className="flex flex-col justify-between p-7 md:p-10 lg:col-span-5">
-                        <div>
-                          <div className="mb-5 h-px w-7" style={{ backgroundColor: "var(--color-accent)" }} />
-                          <h3 className="font-sans text-3xl font-semibold tracking-[-0.045em] md:text-4xl">{project.title}</h3>
-                          <p className="mt-2 text-base font-medium" style={{ color: "var(--color-text-secondary)" }}>{project.tagline}</p>
-                          <p className="mt-6 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>{description}</p>
-                          {motivation && <div className="mt-5"><div className="mb-1.5 font-mono text-[9px] tracking-[0.18em]" style={{ color: "var(--color-text-dim)" }}>{lang === "id" ? "KENAPA DIBUAT" : "WHY I BUILT IT"}</div><p className="text-xs leading-relaxed" style={{ color: "var(--color-text-dim)" }}>{motivation}</p></div>}
-                        </div>
-                        <div className="mt-8">
-                          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10px]" style={{ color: "var(--color-text-dim)" }}>
-                            {project.technologies.slice(0, 5).map((tech, techIndex) => <span key={tech}>{tech}{techIndex < Math.min(project.technologies.length, 5) - 1 ? " /" : ""}</span>)}
-                          </div>
-                          <div className="mt-6 flex flex-wrap gap-4 text-xs font-semibold">
-                            {project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 transition-colors hover:text-[var(--color-accent)]">{copy.live}<ArrowUpRight className="h-3.5 w-3.5" /></a>}
-                            {project.githubUrl && <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 transition-colors hover:text-[var(--color-accent)]">{copy.code}<Github className="h-3.5 w-3.5" /></a>}
-                          </div>
-                        </div>
-                      </div>
                     </div>
-                  </motion.article>
+                  </div>
                 );
-              })}
-            </div>
+              })()}
+            </motion.div>
           </div>
         </section>
 

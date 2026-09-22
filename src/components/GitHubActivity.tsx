@@ -235,7 +235,6 @@ export default function GitHubActivity() {
   const copy =
     lang === "id"
       ? {
-          kicker: "BUILD IN PUBLIC",
           description:
             "Jejak engineering publik dari repository, kontribusi, dan aktivitas terbaru saya di GitHub.",
           contributions: "kontribusi / aktivitas dalam 6 bulan terakhir",
@@ -246,7 +245,6 @@ export default function GitHubActivity() {
           quiet: "Aktivitas publik terbaru belum tersedia.",
         }
       : {
-          kicker: "BUILD IN PUBLIC",
           description:
             "A live-ish view of my public engineering work across repositories, contributions, and recent GitHub activity.",
           contributions: "contributions / public events in the last 6 months",
@@ -282,17 +280,6 @@ export default function GitHubActivity() {
           className="mb-10 grid gap-6 md:grid-cols-2 md:items-end"
         >
           <div>
-            <div
-              className="mb-4 flex items-center gap-3 font-mono text-[10px] tracking-[0.22em]"
-              style={{ color: "var(--color-accent)" }}
-            >
-              <Github className="h-3.5 w-3.5" />
-              <span>{copy.kicker}</span>
-              <span
-                className="h-px w-8"
-                style={{ backgroundColor: "var(--color-accent)" }}
-              />
-            </div>
             <h2 className="font-sans text-4xl font-semibold tracking-[-0.05em] md:text-6xl">
               {t.ghTitle}
             </h2>
@@ -365,7 +352,7 @@ export default function GitHubActivity() {
 
         <motion.div
           {...reveal}
-          className="mb-5 rounded-xl border p-5 md:p-6"
+          className="mb-5 border p-5 md:p-6"
           style={{
             backgroundColor: "var(--color-bg-card)",
             borderColor: "var(--color-border-primary)",
@@ -377,7 +364,7 @@ export default function GitHubActivity() {
         <div className="grid gap-5 lg:grid-cols-12">
           <motion.div
             {...reveal}
-            className="rounded-xl border p-6 lg:col-span-7"
+            className="border p-6 lg:col-span-7"
             style={{
               backgroundColor: "var(--color-bg-card)",
               borderColor: "var(--color-border-primary)",
@@ -466,7 +453,7 @@ export default function GitHubActivity() {
 
           <motion.div
             {...reveal}
-            className="rounded-xl border p-6 lg:col-span-5"
+            className="border p-6 lg:col-span-5"
             style={{
               backgroundColor: "var(--color-bg-card)",
               borderColor: "var(--color-border-primary)",

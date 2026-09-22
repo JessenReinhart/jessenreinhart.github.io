@@ -1,3 +1,37 @@
+.accordion-gallery-shell {
+  width: 100%;
+}
+
+.ag-hover-rail {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: 30px;
+  margin-bottom: 7px;
+  color: var(--color-text-dim, #8a8a86);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+}
+
+.ag-hover-rail--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.ag-hover-rail__marker {
+  width: 3px;
+  height: 14px;
+  flex: 0 0 auto;
+  background: var(--ag-accent);
+}
+
 .accordion-gallery {
   --ag-accent: #ffffff;
   --ag-overlay: #060010;
@@ -161,11 +195,6 @@
   --ag-hover: 1;
 }
 
-.ag-panel--hovered:not(.ag-panel--active) .ag-panel__hover-label {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
-
 .ag-panel--active {
   cursor: pointer;
   z-index: 2;
@@ -187,24 +216,6 @@
 
 .ag-panel--active .ag-panel__overlay {
   opacity: 0.82;
-}
-
-.ag-panel__hover-label {
-  position: absolute;
-  left: 18px;
-  right: 18px;
-  bottom: 18px;
-  z-index: 4;
-  color: var(--ag-text);
-  font-family: inherit;
-  font-size: clamp(0.95rem, 1.2vw, 1.2rem);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  opacity: 0;
-  transform: translate3d(0, 8px, 0);
-  transition: opacity 0.22s ease, transform 0.22s ease;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.72);
-  pointer-events: none;
 }
 
 .ag-panel--active .ag-panel__text {
@@ -234,5 +245,12 @@
   .ag-panel,
   .ag-panel__media {
     will-change: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ag-hover-rail {
+    transition: none;
+    transform: none;
   }
 }

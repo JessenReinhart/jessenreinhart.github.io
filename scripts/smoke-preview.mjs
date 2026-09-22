@@ -46,7 +46,8 @@ async function stubGithubApi(page) {
 
 async function testDesktop(browser) {
   const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
-  await stubGithubApi(page);\n  page.on("pageerror", (error) => errors.push(`DESKTOP PAGE ERROR: ${error.stack || error.message}`));
+  await stubGithubApi(page);
+  page.on("pageerror", (error) => errors.push(`DESKTOP PAGE ERROR: ${error.stack || error.message}`));
   page.on("console", (message) => {
     if (message.type() === "error") errors.push(`DESKTOP CONSOLE ERROR: ${message.text()}`);
   });
@@ -77,7 +78,8 @@ async function testMobile(browser) {
     hasTouch: true,
   });
 
-  await stubGithubApi(page);\n  page.on("pageerror", (error) => errors.push(`MOBILE PAGE ERROR: ${error.stack || error.message}`));
+  await stubGithubApi(page);
+  page.on("pageerror", (error) => errors.push(`MOBILE PAGE ERROR: ${error.stack || error.message}`));
   page.on("console", (message) => {
     if (message.type() === "error") errors.push(`MOBILE CONSOLE ERROR: ${message.text()}`);
   });

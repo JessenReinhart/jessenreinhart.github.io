@@ -64,8 +64,8 @@ export const EXPERIENCES: Experience[] = [
       "Membangun d-camp, dashboard evaluasi startup (React 19 + TanStack Router) dengan scorecard, pipeline view, dan perbandingan evaluasi AI vs manual",
       "Mengirimkan Wonderslaw, aplikasi hukum bertenaga AI untuk kasus hukum Korea (React + TanStack Query, backend NestJS), termasuk auto-logout saat token kadaluarsa dan penanganan redirect"
     ],
-    narrative: "Wonderslab needed frontend support across three products. I built Planet Advisor's real-estate AI chat UI for Korean property pricing and analysis, the d-camp startup-evaluation dashboard, and Wonderslaw's AI-powered legal document flows for Korean cases — all done remotely.",
-    narrativeId: "Wonderslab butuh bantuan frontend untuk tiga produk. Saya membangun UI chat AI Planet Advisor untuk pengecekan harga dan analisis properti Korea, dashboard evaluasi startup d-camp, serta alur dokumen hukum bertenaga AI Wonderslaw untuk kasus hukum Korea — seluruhnya dikerjakan secara remote."
+    narrative: "Wonderslab needed frontend support across three products. I built Planet Advisor's real-estate AI chat UI for Korean property pricing and analysis, the d-camp startup-evaluation dashboard, and Wonderslaw's legal document flows for Korean cases. All three were built remotely."
+    narrativeId: "Wonderslab butuh bantuan frontend untuk tiga produk. Saya membangun UI chat AI Planet Advisor untuk harga dan analisis properti Korea, dashboard evaluasi startup d-camp, serta alur dokumen hukum Wonderslaw untuk kasus hukum Korea. Ketiganya dikerjakan secara remote."
   },
   {
     id: "exp-wide",
@@ -84,8 +84,8 @@ export const EXPERIENCES: Experience[] = [
       "Menambahkan dukungan multi-bahasa agar pengguna regional dapat bekerja dalam bahasa pilihan mereka",
       "Membuat komponen UI reusable yang digunakan tim R&D di semua modul perbankan"
     ],
-    narrative: "Twenty different banks in Southeast Asia needed the same platform but each with their own branding and layout. I built the React layer that let one codebase serve all of them. Swap colors, logo, and layout per tenant without forking the code. The platform went live for 30 million users.",
-    narrativeId: "Dua puluh bank berbeda di Asia Tenggara membutuhkan platform yang sama tetapi masing-masing dengan branding dan tata letak sendiri. Saya membangun lapisan React yang memungkinkan satu basis kode melayani semuanya. Mengganti warna, logo, dan tata letak per penyewa tanpa memfork kode. Platform ini digunakan oleh 30 juta pengguna."
+    narrative: "Twenty banks in Southeast Asia needed the same platform with different branding and layouts. I built the React layer so one codebase could serve them all without forking each tenant. The result was one platform running for 30 million users.",
+    narrativeId: "Dua puluh bank di Asia Tenggara membutuhkan platform yang sama dengan branding dan layout yang berbeda. Saya membangun layer React agar satu codebase bisa melayani semuanya tanpa memfork tiap tenant. Hasilnya, satu platform digunakan oleh 30 juta pengguna."
   },
   {
     id: "exp-inspigo",
@@ -147,11 +147,11 @@ export const PROJECTS: Project[] = [
   {
     id: "proj-tripcore",
     title: "TripCore",
-    tagline: "Collaborative Trip Planner",
-    description: "A Firebase-powered trip planning app with real-time collaborative itineraries, budget splitting, and guest invitation sharing.",
-    descriptionId: "Aplikasi perencana perjalanan berbasis Firebase dengan itinerari kolaboratif real-time, pembagian anggaran, dan berbagi undangan tamu.",
-    motivation: "I travel with friends often. Trip notes, itineraries, and savings goals used to live in Excel or WhatsApp and got buried. TripCore puts everything in one collaborative app where each member can update progress, add itinerary ideas, and track the next destination.",
-    motivationId: "Saya sering bepergian dengan teman. Catatan perjalanan, itinerari, dan target tabungan dulu tersebar di Excel atau WhatsApp dan mudah terlupakan. TripCore menyatukan semuanya dalam satu aplikasi kolaboratif di mana setiap anggota dapat memperbarui progres, menambahkan ide itinerari, dan melacak destinasi berikutnya.",
+    tagline: "Plan a trip with friends",
+    description: "Trip plans kept ending up in Excel and WhatsApp. I built one place where everyone could update the itinerary, split costs, and invite the rest of the group in real time."
+    descriptionId: "Rencana perjalanan kami sering berakhir di Excel dan WhatsApp. Saya membuat satu tempat agar semua orang bisa memperbarui itinerary, membagi biaya, dan mengundang anggota lain secara real-time."
+    motivation: "I travel with friends often, and the planning usually ended up scattered across Excel and WhatsApp. I wanted one app where the group could keep the itinerary and costs together."
+    motivationId: "Saya sering bepergian dengan teman, dan rencananya biasanya tersebar di Excel dan WhatsApp. Saya ingin satu aplikasi untuk menyatukan itinerary dan biaya perjalanan."
     technologies: ["ReactJS", "TypeScript", "Vite", "Firebase", "Real-time Sync"],
     features: [
       "Real-time collaborative itinerary builder via Firebase",
@@ -173,11 +173,11 @@ export const PROJECTS: Project[] = [
   {
     id: "proj-invoicr",
     title: "Invoicr",
-    tagline: "Time Tracker & Billing Utility",
-    description: "A billing manager and session tracker designed for freelancer use. Features automated timer triggers, custom client directories, and client-side data synchronization.",
-    descriptionId: "Pengelola penagihan dan pelacak sesi yang dirancang untuk freelancer. Dilengkapi pemicu timer otomatis, direktori klien kustom, dan sinkronisasi data sisi klien.",
-    motivation: "As a freelancer alongside my day job, I struggled to set fair fees and track hours. I ended up underpaid or afraid of overcharging. Invoicr makes billing objective and easier to communicate to clients.",
-    motivationId: "Sebagai freelancer di samping pekerjaan utama, saya kesulitan menetapkan tarif yang wajar dan melacak jam kerja. Saya sering dibayar rendah atau takut mengenakan biaya berlebihan. Invoicr membuat penagihan lebih objektif dan mudah dikomunikasikan kepada klien.",
+    tagline: "Track time, then bill it",
+    description: "I built a small billing tool around the part of freelancing I kept putting off: tracking time and turning it into a clear invoice."
+    descriptionId: "Saya membuat tool billing kecil untuk bagian freelance yang paling sering saya tunda: mencatat waktu kerja lalu mengubahnya menjadi invoice yang jelas."
+    motivation: "As a freelancer alongside my day job, I kept second-guessing rates and hours. I wanted the invoice to come from recorded work instead of guesswork."
+    motivationId: "Sebagai freelancer di samping pekerjaan utama, saya sering ragu soal tarif dan jam kerja. Saya ingin invoice berasal dari pekerjaan yang benar-benar tercatat, bukan perkiraan."
     technologies: ["React", "TypeScript", "Vite", "TailwindCSS", "PDF Generation"],
     features: [
       "Trigger-based automated billing timers",
@@ -199,9 +199,9 @@ export const PROJECTS: Project[] = [
   {
     id: "proj-wedding",
     title: "Wedding E-Invitation",
-    tagline: "Interactive RSVP & Guestbook Platform",
-    description: "A digital invitation portal to coordinate guest replies, find geographic locations, display group schedules, and post real-time guest notes.",
-    descriptionId: "Portal undangan digital untuk mengoordinasikan balasan tamu, menemukan lokasi geografis, menampilkan jadwal grup, dan memposting catatan tamu real-time.",
+    tagline: "RSVP + guestbook for a wedding",
+    description: "A wedding invitation I could actually control: RSVP, map location, event details, and a guestbook in one page."
+    descriptionId: "Undangan pernikahan yang bisa saya atur sendiri: RSVP, lokasi di peta, detail acara, dan guestbook dalam satu halaman."
     motivation: "Built for my own wedding. I wanted something personal, not the typical over-the-top commercial template, with features I wanted but couldn't find in existing tools.",
     motivationId: "Dibuat untuk pernikahan saya sendiri. Saya menginginkan sesuatu yang personal, bukan template komersial yang berlebihan, dengan fitur yang saya inginkan tetapi tidak ditemukan di alat yang ada.",
     technologies: ["React", "TailwindCSS", "Leaflet Maps API", "CSS Motion"],
@@ -225,9 +225,9 @@ export const PROJECTS: Project[] = [
   {
     id: "proj-soulsync",
     title: "SoulSync",
-    tagline: "Personal Log & Goal Tracker",
-    description: "An offline tracker to record logs, set markers, and graph progress trends using local device storage.",
-    descriptionId: "Pelacak offline untuk mencatat log, menetapkan penanda, dan membuat grafik tren progres menggunakan penyimpanan lokal perangkat.",
+    tagline: "A private offline journal",
+    description: "A private, offline place to write short logs, mark progress, and keep the data on the device."
+    descriptionId: "Tempat pribadi dan offline untuk menulis log singkat, menandai progres, dan menyimpan data di perangkat."
     motivation: "I went through a rough period and needed a private space to log my thoughts. I built it for myself, hoping it would help.",
     motivationId: "Saya melalui masa sulit dan membutuhkan ruang pribadi untuk mencatat pikiran saya. Saya membuatnya untuk diri sendiri, berharap ia bisa membantu.",
     technologies: ["React", "TailwindCSS", "Local Storage", "Recharts"],
@@ -251,11 +251,11 @@ export const PROJECTS: Project[] = [
   {
     id: "proj-shareterm",
     title: "share-term",
-    tagline: "Stream Your Terminal to Your Phone",
-    description: "A zero-config CLI that mirrors your terminal (or any log stream) to your phone over local Wi-Fi by scanning a QR code — rendered as a real terminal emulator with full ANSI colors.",
-    descriptionId: "Sebuah CLI tanpa konfigurasi yang menampilkan terminal (atau aliran log apa pun) ke ponsel melalui Wi-Fi lokal dengan memindai kode QR — dirender sebagai emulator terminal sungguhan dengan warna ANSI lengkap.",
-    motivation: "I use this personally in my own development workflow — I wanted to glance at a running dev server or a long log from my phone without SSH-ing in or scraping tmux. share-term turns any terminal into a shareable, live view in one command — no tmux, no app install on the laptop.",
-    motivationId: "Saya menggunakan ini secara pribadi dalam alur kerja pengembangan saya — saya ingin melihat server dev yang berjalan atau log panjang dari ponsel tanpa SSH atau tmux. share-term mengubah terminal apa pun menjadi tampilan langsung yang bisa dibagikan dalam satu perintah — tanpa tmux, tanpa instalasi aplikasi di laptop.",
+    tagline: "Watch your terminal from your phone",
+    description: "I wanted to glance at a running dev server or long log from my phone without SSH or tmux. share-term mirrors the terminal over local Wi-Fi after one QR scan."
+    descriptionId: "Saya ingin melihat server dev atau log panjang dari ponsel tanpa SSH atau tmux. share-term menampilkan terminal lewat Wi-Fi lokal setelah satu kali scan QR."
+    motivation: "I use this in my own development workflow. I wanted to glance at a running dev server or long log from my phone without SSH-ing in, and I did not want another app installed on the laptop."
+    motivationId: "Saya memakai ini dalam alur kerja development sendiri. Saya ingin melihat server dev atau log panjang dari ponsel tanpa SSH, dan tidak ingin memasang aplikasi lain di laptop."
     technologies: ["Node.js", "TypeScript", "node-pty", "WebSocket", "xterm.js", "QR"],
     features: [
       "Live terminal sharing via QR — no tmux required (uses node-pty / ConPTY)",

@@ -53,13 +53,13 @@
 
 .ag-panel__media {
   --ag-gray: 1;
-  --ag-dim: 0.35;
+  --ag-dim: 0.42;
   position: absolute;
   top: 50%;
   left: 50%;
   width: var(--ag-media-size);
   height: 100%;
-  filter: grayscale(var(--ag-gray));
+  filter: grayscale(var(--ag-gray)) contrast(calc(1 + (var(--ag-dim) * 0.16)));
   will-change: transform, filter;
 }
 

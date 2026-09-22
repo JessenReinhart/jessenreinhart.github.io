@@ -291,7 +291,7 @@ const AccordionGallery = ({
       role="list"
       aria-label="Project gallery"
     >
-      {items.map((item, index) => {
+        {items.map((item, index) => {
         const isActive = index === active;
         const Tag = item.link ? "a" : "div";
 
@@ -362,7 +362,8 @@ const AccordionGallery = ({
             )}
           </Tag>
         );
-      })}
+        })}
+      </div>
     </div>
   );
 };

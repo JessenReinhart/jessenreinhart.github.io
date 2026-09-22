@@ -32,7 +32,7 @@ export const EXPERIENCES: Experience[] = [
   {
     id: "exp-pgi",
     role: "Software Engineer",
-    company: "LG Sinarmas — via PGI Data",
+    company: "LG Sinarmas, via PGI Data",
     period: "Nov 2025 - Present",
     location: "Jakarta Raya, Indonesia",
     technologies: ["Java", "Spring Boot", "Thymeleaf", "PostgreSQL"],

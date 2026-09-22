@@ -150,7 +150,7 @@ export const PROJECTS: Project[] = [
     tagline: "Plan a trip with friends",
     description: "Trip plans kept ending up in Excel and WhatsApp. I built one place where everyone could update the itinerary, split costs, and invite the rest of the group in real time.",
     descriptionId: "Rencana perjalanan kami sering berakhir di Excel dan WhatsApp. Saya membuat satu tempat agar semua orang bisa memperbarui itinerary, membagi biaya, dan mengundang anggota lain secara real-time.",
-    motivation: "I travel with friends often, and the planning usually ended up scattered across Excel and WhatsApp. I wanted one app where the group could keep the itinerary and costs together."
+    motivation: "I travel with friends often, and the planning usually ended up scattered across Excel and WhatsApp. I wanted one app where the group could keep the itinerary and costs together.",
     motivationId: "Saya sering bepergian dengan teman, dan rencananya biasanya tersebar di Excel dan WhatsApp. Saya ingin satu aplikasi untuk menyatukan itinerary dan biaya perjalanan.",
     technologies: ["ReactJS", "TypeScript", "Vite", "Firebase", "Real-time Sync"],
     features: [
@@ -176,7 +176,7 @@ export const PROJECTS: Project[] = [
     tagline: "Track time, then bill it",
     description: "I built a small billing tool around the part of freelancing I kept putting off: tracking time and turning it into a clear invoice.",
     descriptionId: "Saya membuat tool billing kecil untuk bagian freelance yang paling sering saya tunda: mencatat waktu kerja lalu mengubahnya menjadi invoice yang jelas.",
-    motivation: "As a freelancer alongside my day job, I kept second-guessing rates and hours. I wanted the invoice to come from recorded work instead of guesswork."
+    motivation: "As a freelancer alongside my day job, I kept second-guessing rates and hours. I wanted the invoice to come from recorded work instead of guesswork.",
     motivationId: "Sebagai freelancer di samping pekerjaan utama, saya sering ragu soal tarif dan jam kerja. Saya ingin invoice berasal dari pekerjaan yang benar-benar tercatat, bukan perkiraan.",
     technologies: ["React", "TypeScript", "Vite", "TailwindCSS", "PDF Generation"],
     features: [

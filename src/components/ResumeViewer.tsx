@@ -236,12 +236,22 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
             <div>
-              <h4 className="text-[8.5pt] font-bold text-neutral-900">Invoicr</h4>
+              <h4 className="text-[8.5pt] font-bold text-neutral-900">dsh-tokenslash</h4>
               <p className="text-[7.5pt] text-neutral-700 leading-snug">
-                Invoice &amp; time tracker with hourly billing, PDF export, dark/light themes.
+                Prompt optimization plugin for DeepSeek Harness (DSH): trims bloated prompts and prunes tools.
               </p>
               <div className="text-[7pt] font-mono text-neutral-600">
-                React, TypeScript, Vite, TailwindCSS
+                TypeScript, Node.js, Cordis, DSH Plugin API
+              </div>
+            </div>
+
+            <div>
+              <h4 className="text-[8.5pt] font-bold text-neutral-900">dsh-snapcompact</h4>
+              <p className="text-[7.5pt] text-neutral-700 leading-snug">
+                Bitmap-frame context compression plugin for DSH: deterministic pixel-font visual archiving.
+              </p>
+              <div className="text-[7pt] font-mono text-neutral-600">
+                JavaScript, Node.js, Canvas, Cordis, DSH Plugin API
               </div>
             </div>
 

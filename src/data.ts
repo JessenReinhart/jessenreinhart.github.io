@@ -10,7 +10,6 @@ import ss00 from "./assets/images/soulync-images/split_0_0.webp";
 import ss01 from "./assets/images/soulync-images/split_0_1.webp";
 import ss10 from "./assets/images/soulync-images/split_1_0.webp";
 const tripcoreLive = "/screenshots/tripcore-live.jpg";
-const invoicrLive = "/screenshots/invoicr-live.jpg";
 const weddingLive = "/screenshots/wedding-live.jpg";
 const soulsyncLive = "/screenshots/soulsync-live.jpg";
 
@@ -171,30 +170,52 @@ export const PROJECTS: Project[] = [
     githubUrl: "https://github.com/JessenReinhart/tripcore",
   },
   {
-    id: "proj-invoicr",
-    title: "Invoicr",
-    tagline: "Track time, then bill it",
-    description: "I built a small billing tool around the part of freelancing I kept putting off: tracking time and turning it into a clear invoice.",
-    descriptionId: "Saya membuat tool billing kecil untuk bagian freelance yang paling sering saya tunda: mencatat waktu kerja lalu mengubahnya menjadi invoice yang jelas.",
-    motivation: "As a freelancer alongside my day job, I kept second-guessing rates and hours. I wanted the invoice to come from recorded work instead of guesswork.",
-    motivationId: "Sebagai freelancer di samping pekerjaan utama, saya sering ragu soal tarif dan jam kerja. Saya ingin invoice berasal dari pekerjaan yang benar-benar tercatat, bukan perkiraan.",
-    technologies: ["React", "TypeScript", "Vite", "TailwindCSS", "PDF Generation"],
+    id: "proj-dsh-tokenslash",
+    title: "dsh-tokenslash",
+    tagline: "Cut prompt token overhead in DSH",
+    description: "A prompt optimization plugin for DeepSeek Harness (DSH) that trims bloated system prompts, prunes unused tools, and routes subagents to cut token costs by up to 85%.",
+    descriptionId: "Plugin optimasi prompt untuk DeepSeek Harness (DSH) yang memangkas prompt sistem berlebih, membersihkan tool yang tidak dipakai, dan merutekan subagent untuk memotong biaya token hingga 85%.",
+    motivation: "Multi-agent workflows in DeepSeek Harness were burning through context limits and wasting tokens on irrelevant tools. I wanted an automated, deterministic optimizer that prunes unused context before inference.",
+    motivationId: "Alur kerja multi-agent di DeepSeek Harness sering menghabiskan batas konteks dan membuang token pada tool yang tidak relevan. Saya ingin pengoptimal otomatis dan deterministik yang memangkas konteks sebelum inferensi.",
+    technologies: ["TypeScript", "Node.js", "Cordis", "DeepSeek Harness", "LLM Optimization"],
     features: [
-      "Trigger-based automated billing timers",
-      "Dynamic PDF generation formatting clean bill styles",
-      "High-contrast color modes to reduce screen fatigue",
-      "Client-side synchronization writing to browser storage"
+      "Automatic tool pruning based on conversation relevance",
+      "System prompt stripping and subagent model routing",
+      "Structural code skeleton generation via tokenslash_index",
+      "Batch tool call execution with isolated failure handling"
     ],
     featuresId: [
-      "Timer penagihan otomatis berbasis pemicu",
-      "Pembuatan PDF dinamis dengan format tagihan yang rapi",
-      "Mode warna kontras tinggi untuk mengurangi kelelahan mata",
-      "Sinkronisasi sisi klien menggunakan penyimpanan browser"
+      "Pemangkasan tool otomatis berdasarkan relevansi percakapan",
+      "Pembersihan prompt sistem dan perutean model subagent",
+      "Generasi kerangka kode struktural via tokenslash_index",
+      "Eksekusi batch tool call dengan isolasi kegagalan"
     ],
-    imageSrc: invoicrLive,
-    images: [invoicrLive],
-    liveUrl: "https://invoicr-eight.vercel.app",
-    githubUrl: "https://github.com/JessenReinhart/invoicr",
+    imageSrc: "",
+    githubUrl: "https://github.com/JessenReinhart/dsh-tokenslash",
+  },
+  {
+    id: "proj-dsh-snapcompact",
+    title: "dsh-snapcompact",
+    tagline: "Bitmap-frame context compression for DSH",
+    description: "A local, deterministic context compression plugin for DeepSeek Harness that rasterizes discarded conversation history into compact pixel-font PNG frames for vision LLMs.",
+    descriptionId: "Plugin kompresi konteks lokal dan deterministik untuk DeepSeek Harness yang merender riwayat percakapan lama menjadi frame PNG pixel-font untuk model vision.",
+    motivation: "LLM-generated text summaries introduce latency, cost, and hallucination risks. Rendering conversation transcripts into compact bitmap frames lets vision models read verbatim history with zero summary overhead.",
+    motivationId: "Ringkasan teks dari LLM menambah latensi, biaya, dan risiko halusinasi. Merender transkrip percakapan ke dalam frame bitmap memungkinkan model vision membaca riwayat asli tanpa beban ringkasan.",
+    technologies: ["JavaScript", "Node.js", "Canvas", "Cordis", "DeepSeek Harness"],
+    features: [
+      "High-throughput transcript rasterization using pixel-font glyphs",
+      "Provider-aware shapes tuned for Anthropic, Google, and OpenAI vision budgets",
+      "Structured transcript serialization for user, think, ai, and tool calls",
+      "Direct integration with DeepSeek Harness context compaction pipeline"
+    ],
+    featuresId: [
+      "Rasterisasi transkrip berkecepatan tinggi menggunakan font pixel",
+      "Ukuran frame spesifik yang disesuaikan untuk budget token vision Anthropic, Google, dan OpenAI",
+      "Serialisasi transkrip terstruktur untuk user, think, ai, dan pemanggilan tool",
+      "Integrasi langsung dengan pipeline pemadatan konteks DeepSeek Harness"
+    ],
+    imageSrc: "",
+    githubUrl: "https://github.com/JessenReinhart/dsh-snapcompact",
   },
   {
     id: "proj-wedding",
@@ -347,7 +368,7 @@ export const SERVICES: Service[] = [
     icon: "webapp",
     examples: [
       { label: "TripCore", labelId: "TripCore", url: "https://tripcore-beta.vercel.app" },
-      { label: "Invoicr", labelId: "Invoicr", url: "https://invoicr-eight.vercel.app" }
+      { label: "SoulSync", labelId: "SoulSync", url: "https://soulsync-gamma.vercel.app" }
     ]
   },
   {

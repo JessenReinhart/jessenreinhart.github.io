@@ -10,8 +10,10 @@ import {
 import { gsap } from "gsap";
 
 import "./AccordionGallery.css";
+import { renderProjectIcon } from "../utils/projectIcons";
 
 export interface AccordionGalleryItem {
+  id?: string;
   image: string;
   label?: string;
   link?: string;
@@ -80,6 +82,7 @@ const AccordionGallery = ({
   );
   const [hovered, setHovered] = useState<number | null>(null);
   const [hoverX, setHoverX] = useState<number | null>(null);
+  const [failedImages, setFailedImages] = useState<Record<number, boolean>>({});
 
   const prefersReduced =
     typeof window !== "undefined" && window.matchMedia
@@ -366,11 +369,25 @@ const AccordionGallery = ({
                     mediaRefs.current[index] = element;
                   }}
                 >
-                  <img
-                    src={item.image}
-                    alt={item.alt ?? item.label ?? ""}
-                    draggable={false}
-                  />
+                  {Boolean(item.image) && !failedImages[index] ? (
+                    <img
+                      src={item.image}
+                      alt={item.alt ?? item.label ?? ""}
+                      draggable={false}
+                      onError={() =>
+                        setFailedImages((prev) => ({ ...prev, [index]: true }))
+                      }
+                    />
+                  ) : (
+                    <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-b from-[#181d24] to-[#0c0e12] select-none p-4 text-center">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-[var(--color-accent)] shadow-inner transition-transform group-hover:scale-105">
+                        {renderProjectIcon(item.id ?? item.label, "h-7 w-7")}
+                      </div>
+                      <span className="font-mono text-[10px] font-semibold tracking-widest uppercase text-white/50">
+                        {item.label}
+                      </span>
+                    </div>
+                  )}
                 </span>
                 <span className="ag-panel__overlay" aria-hidden="true" />
               </span>

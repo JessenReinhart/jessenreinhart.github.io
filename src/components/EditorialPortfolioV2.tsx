@@ -18,6 +18,7 @@ import Contact from "./Contact";
 import GitHubActivity from "./GitHubActivity";
 import AccordionGallery from "./AccordionGallery";
 import ScrollStack, { ScrollStackItem } from "./ScrollStack";
+import { renderProjectIcon } from "../utils/projectIcons";
 
 interface EditorialPortfolioProps {
   onViewResume: () => void;
@@ -26,6 +27,7 @@ interface EditorialPortfolioProps {
 export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfolioProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+  const [mobileFailedImages, setMobileFailedImages] = useState<Record<string, boolean>>({});
   const reduceMotion = useReducedMotion();
   const { lang, toggleLang } = useLanguage();
   const { theme, toggleTheme } = useTheme();
@@ -233,7 +235,6 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
                 </div>
               </motion.div>
             </div>
-
           </div>
         </section>
 
@@ -252,29 +253,30 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
             >
               <div className="hidden md:block">
                 <AccordionGallery
-                items={PROJECTS.map((project) => ({
-                  image: project.imageSrc,
-                  label: project.title,
-                  alt: project.title + " preview",
-                }))}
-                defaultIndex={0}
-                accentColor="var(--color-accent)"
-                overlayColor="#0a0a0a"
-                textColor="#ffffff"
-                grayscale
-                showLabels
-                duration={0.55}
-                ease="power3.out"
-                parallax={0.25}
-                tilt={4}
-                stagger={0.05}
-                trigger="click"
-                height={420}
-                gap={4}
-                radius={0}
-                expandRatio={0.48}
-                onSelect={(index) => setActiveProjectIndex(index)}
-                className="project-gallery"
+                  items={PROJECTS.map((project) => ({
+                    id: project.id,
+                    image: project.imageSrc,
+                    label: project.title,
+                    alt: project.title + " preview",
+                  }))}
+                  defaultIndex={0}
+                  accentColor="var(--color-accent)"
+                  overlayColor="#0a0a0a"
+                  textColor="#ffffff"
+                  grayscale
+                  showLabels
+                  duration={0.55}
+                  ease="power3.out"
+                  parallax={0.25}
+                  tilt={4}
+                  stagger={0.05}
+                  trigger="click"
+                  height={420}
+                  gap={4}
+                  radius={0}
+                  expandRatio={0.48}
+                  onSelect={(index) => setActiveProjectIndex(index)}
+                  className="project-gallery"
                 />
               </div>
 
@@ -306,11 +308,28 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
                         itemClassName="project-scroll-stack-card"
                       >
                         <div className="scroll-stack-card__media">
-                          <img
-                            src={project.imageSrc}
-                            alt={project.title + " preview"}
-                            draggable={false}
-                          />
+                          {Boolean(project.imageSrc) && !mobileFailedImages[project.id] ? (
+                            <img
+                              src={project.imageSrc}
+                              alt={project.title + " preview"}
+                              draggable={false}
+                              onError={() =>
+                                setMobileFailedImages((prev) => ({
+                                  ...prev,
+                                  [project.id]: true,
+                                }))
+                              }
+                            />
+                          ) : (
+                            <div className="flex h-full w-full flex-col items-center justify-center gap-3 bg-gradient-to-b from-[#181d24] to-[#0c0e12] select-none p-4 text-center">
+                              <div className="flex h-14 w-14 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-[var(--color-accent)] shadow-inner">
+                                {renderProjectIcon(project.id, "h-7 w-7")}
+                              </div>
+                              <span className="font-mono text-[10px] font-semibold tracking-widest uppercase text-white/50">
+                                {project.title}
+                              </span>
+                            </div>
+                          )}
                         </div>
                         <div className="scroll-stack-card__body">
                           <div className="scroll-stack-card__meta">
@@ -481,7 +500,6 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
           <div className="mx-auto max-w-7xl">
             <motion.div {...reveal} className="mb-12 grid gap-6 md:grid-cols-2 md:items-end">
               <div>
-                
                 <h2 className="font-sans text-4xl font-semibold tracking-[-0.05em] md:text-6xl">{copy.experience}</h2>
               </div>
               <p className="max-w-xl text-sm leading-relaxed md:justify-self-end" style={{ color: "var(--color-text-muted)" }}>{copy.experienceDesc}</p>
@@ -513,7 +531,6 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
         <section id="about" className="scroll-mt-24 border-t px-6 py-20 md:px-12 md:py-28" style={{ backgroundColor: "var(--color-bg-secondary)", borderColor: "var(--color-border-primary)" }}>
           <motion.div {...reveal} className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-12">
             <div className="lg:col-span-5">
-              
               <h2 className="font-sans text-4xl font-semibold leading-[0.98] tracking-[-0.055em] md:text-6xl">{copy.aboutTitle}</h2>
             </div>
             <div className="lg:col-span-7 lg:pl-12">

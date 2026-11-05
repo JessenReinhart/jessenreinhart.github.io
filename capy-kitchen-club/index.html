@@ -1,0 +1,476 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#fbf4e8" />
+  <meta name="description" content="A cozy 30-day meal journey with Capy Lulu. Menu rumahan seimbang, resep praktis, dan perjalanan makan yang menyenangkan." />
+  <title>Capy Kitchen Club · 30 Days of Little Good Things</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='55' r='38' fill='%23f6c66a'/%3E%3Cellipse cx='50' cy='62' rx='17' ry='12' fill='%23dc8a5b'/%3E%3Ccircle cx='37' cy='45' r='3'/%3E%3Ccircle cx='63' cy='45' r='3'/%3E%3C/svg%3E">
+  <style>
+    :root {
+      --cream: #fbf4e8;
+      --paper: #fffdf8;
+      --ink: #4d463a;
+      --muted: #8f8878;
+      --green: #6f8b62;
+      --green-dark: #506d4a;
+      --green-pale: #e5eddc;
+      --orange: #ee985e;
+      --orange-pale: #fae5d4;
+      --yellow: #f5ce76;
+      --blue: #b9dce0;
+      --pink: #f3c4b7;
+      --line: #e9dfce;
+      --shadow: 0 18px 50px rgba(88, 69, 37, .09);
+      --radius: 26px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--cream); color: var(--ink); font-family: 'Nunito', sans-serif; overflow-x: hidden; }
+    button { font: inherit; }
+    .site-shell { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; padding: 20px 0; gap: 20px; }
+    .brand { display:flex; align-items:center; gap: 11px; color:var(--ink); text-decoration:none; }
+    .brand-mark { display:grid; place-items:center; width:43px; height:43px; border-radius:15px; background:#f6d98e; border:2px solid #efc875; transform:rotate(-7deg); }
+    .brand-mark svg { width:31px; height:31px; }
+    .brand-name { font:600 19px 'Fredoka', sans-serif; letter-spacing:.1px; }
+    .brand-name span { color:var(--green); }
+    .top-note { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:12px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; }
+    .top-note .dot { width:7px; height:7px; border-radius:50%; background:#8da77c; box-shadow:0 0 0 4px #e6eddf; }
+    .hero { position:relative; display:grid; grid-template-columns:1.08fr .92fr; gap:30px; align-items:center; min-height:440px; padding:48px 64px 42px; background:#f8e9ce; border-radius:34px; overflow:hidden; box-shadow:var(--shadow); }
+    .hero::before,.hero::after { content:""; position:absolute; border-radius:50%; pointer-events:none; }
+    .hero::before { width:340px;height:340px; background:rgba(255,255,255,.24); right:-75px; top:-150px; }
+    .hero::after { width:210px;height:210px; background:rgba(232,169,116,.12); left:42%; bottom:-140px; }
+    .hero-copy { position:relative; z-index:2; max-width:590px; }
+    .eyebrow { display:inline-flex; align-items:center; gap:8px; padding:8px 13px; border-radius:999px; background:rgba(255,255,255,.55); color:#8a7046; font-size:11px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; }
+    h1 { font:600 clamp(42px, 5.6vw, 70px)/.99 'Fredoka',sans-serif; letter-spacing:-.035em; margin:19px 0 17px; color:#534b3e; }
+    h1 em { font-style:normal; color:var(--green); }
+    .hero-copy p { max-width:490px; font-size:16px; line-height:1.7; color:#766c59; margin:0 0 24px; }
+    .hero-actions { display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+    .primary-btn,.soft-btn { border:0; cursor:pointer; border-radius:999px; padding:14px 20px; font-weight:900; transition:transform .2s, box-shadow .2s, background .2s; }
+    .primary-btn { background:var(--green); color:#fffdf6; box-shadow:0 8px 0 #526f4a; }
+    .primary-btn:hover { transform:translateY(-3px); box-shadow:0 11px 0 #526f4a; }
+    .soft-btn { background:rgba(255,255,255,.58); color:#776a55; }
+    .soft-btn:hover { background:white; transform:translateY(-2px); }
+    .hero-meta { display:flex; gap:17px; margin-top:25px; color:#8a7c63; font-size:12px; font-weight:800; }
+    .hero-meta span { display:flex; align-items:center; gap:6px; }
+    .hero-art { position:relative; z-index:1; min-height:300px; display:grid; place-items:center; }
+    .sun-disc { position:absolute; width:285px; height:285px; border-radius:50%; background:#f9d88e; opacity:.8; }
+    .hero-capy { width:min(100%,350px); position:relative; z-index:2; filter:drop-shadow(0 18px 18px rgba(144,95,47,.14)); animation:floaty 4.5s ease-in-out infinite; }
+    @keyframes floaty { 0%,100%{transform:translateY(0) rotate(-1deg)} 50%{transform:translateY(-9px) rotate(1deg)} }
+    .float-tag { position:absolute; z-index:3; padding:9px 13px; border-radius:14px; background:#fffdf7; color:#7d725f; font-size:12px; font-weight:900; box-shadow:0 8px 20px rgba(91,70,38,.1); }
+    .tag-one { top:24px; right:0; transform:rotate(5deg); }.tag-two { bottom:30px; left:7px; transform:rotate(-5deg); }
+    .tiny-spark { position:absolute; color:#e69a57; font-size:24px; }.spark-one{top:10px;left:17%;}.spark-two{right:6%;bottom:26%;font-size:17px;color:#8da77c;}
+    .section-head { display:flex; align-items:flex-end; justify-content:space-between; gap:20px; padding:61px 2px 22px; }
+    .section-kicker { margin:0 0 5px; text-transform:uppercase; letter-spacing:.15em; font-size:10px; color:var(--green); font-weight:1000; }
+    h2 { margin:0; font:600 clamp(28px,3.2vw,39px)/1.05 'Fredoka',sans-serif; letter-spacing:-.02em; }
+    .section-desc { max-width:360px; color:var(--muted); font-size:13px; line-height:1.6; margin:0; }
+    .progress-wrap { padding:18px 22px; border-radius:20px; background:var(--paper); border:1px solid #f0e7d8; display:flex; align-items:center; gap:18px; margin-bottom:27px; box-shadow:0 7px 22px rgba(90,72,43,.035); }
+    .progress-capy { width:49px; flex:0 0 49px; }
+    .progress-copy { flex:1; min-width:0; }
+    .progress-line { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:9px; font-size:13px; font-weight:900; }
+    .progress-line span:last-child { color:var(--green); font-family:'Fredoka',sans-serif; font-size:17px; }
+    .progress-track { height:9px; border-radius:99px; background:#eee8dc; overflow:hidden; }
+    .progress-fill { width:0%; height:100%; background:linear-gradient(90deg,#9ab18a,#6f8b62); border-radius:99px; transition:width .5s ease; }
+    .map-card { position:relative; background:#fdfaf2; border:1px solid #efe5d5; border-radius:30px; overflow:hidden; box-shadow:var(--shadow); }
+    .map-top { display:flex; justify-content:space-between; align-items:center; gap:15px; padding:22px 28px; border-bottom:1px solid #f0e8dc; }
+    .map-top strong { font:600 20px 'Fredoka',sans-serif; }
+    .map-top small { color:var(--muted); font-weight:800; font-size:11px; }
+    .map-legend { display:flex; align-items:center; gap:13px; color:#988d7c; font-size:11px; font-weight:800; }
+    .legend-dot { width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:5px; background:#e9a166; }
+    .map-scroll { position:relative; overflow:hidden; }
+    #trail { position:relative; width:min(100%, 900px); margin:0 auto; height:4440px; }
+    #routeSvg { position:absolute; inset:0; width:100%; height:100%; overflow:visible; pointer-events:none; }
+    #routePath { fill:none; stroke:#d9cba9; stroke-width:7; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:1; stroke-dashoffset:1; }
+    #routePathInner { fill:none; stroke:#fffdf7; stroke-width:2; stroke-linecap:round; stroke-dasharray:2 18; opacity:.9; }
+    .week-stamp { position:absolute; left:50%; transform:translateX(-50%) rotate(-3deg); padding:9px 17px; border-radius:14px; background:#e9efdf; border:1px solid #d7e2cd; color:#69805b; font:600 14px 'Fredoka',sans-serif; white-space:nowrap; box-shadow:0 4px 0 #d5e0c9; }
+    .week-stamp:nth-of-type(even) { background:#fbe9d8; color:#b47a4d; border-color:#f4dac0; box-shadow:0 4px 0 #f0d7bd; }
+    .day-node { position:absolute; width:60px; height:60px; border:0; background:transparent; padding:0; transform:translate(-50%,-50%); cursor:pointer; z-index:2; transition:filter .2s, transform .2s; }
+    .day-node .node-blob { position:absolute; inset:2px; border-radius:45% 55% 52% 48% / 50% 42% 58% 50%; display:grid; place-items:center; background:#f5cd7c; border:3px solid #fffaf0; box-shadow:0 5px 0 #e8b765,0 8px 15px rgba(114,85,45,.13); color:#725734; font:600 20px 'Fredoka',sans-serif; transition:transform .25s,background .25s; }
+    .day-node:nth-of-type(3n) .node-blob { background:#bcd9ce; box-shadow:0 5px 0 #9dbfaf,0 8px 15px rgba(114,85,45,.13); color:#4d7060; }
+    .day-node:nth-of-type(4n) .node-blob { background:#f1c7b6; box-shadow:0 5px 0 #dfa996,0 8px 15px rgba(114,85,45,.13); color:#8a594b; }
+    .day-node:hover { z-index:5; filter:saturate(1.08); }
+    .day-node:hover .node-blob { transform:scale(1.13) rotate(-7deg); }
+    .day-node.done .node-blob { background:#88a77a; box-shadow:0 5px 0 #6e8c60,0 8px 15px rgba(114,85,45,.13); color:white; }
+    .day-node.done .node-blob::after { content:'✓'; position:absolute; top:-7px;right:-6px; width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:#fffdf7;color:#648258;font:900 12px 'Nunito';border:1px solid #d7e5ce; }
+    .node-label { position:absolute; top:50%; transform:translateY(-50%); width:114px; padding:8px 10px; border-radius:12px; background:rgba(255,253,247,.93); border:1px solid #eee4d3; color:#8b806e; text-align:left; font-size:10px; line-height:1.25; font-weight:900; box-shadow:0 4px 12px rgba(85,69,43,.04); pointer-events:none; }
+    .day-node.label-right .node-label { left:calc(100% + 9px); }.day-node.label-left .node-label { right:calc(100% + 9px); text-align:right; }
+    .node-label b { display:block; color:#5f7252; font:600 13px 'Fredoka',sans-serif; margin-bottom:2px; }
+    .map-end { position:absolute; bottom:38px; left:50%; transform:translateX(-50%); text-align:center; padding:13px 18px; background:#f8e8c8; border-radius:18px; color:#8d744c; font:600 16px 'Fredoka',sans-serif; white-space:nowrap; }
+    .map-end span { display:block; font:800 10px 'Nunito',sans-serif; letter-spacing:.1em; text-transform:uppercase; margin-top:2px; }
+    .bottom-note { margin:22px 0 68px; padding:23px 25px; border-radius:24px; background:#e7eee0; display:grid; grid-template-columns:46px 1fr; gap:14px; align-items:start; }
+    .note-icon { width:42px;height:42px;border-radius:15px;background:#d4e1ca;display:grid;place-items:center;font-size:21px; }
+    .bottom-note h3 { font:600 18px 'Fredoka',sans-serif; margin:0 0 5px; color:#5f7655; }
+    .bottom-note p { margin:0; color:#71816a; font-size:12px; line-height:1.65; }
+    footer { padding:24px 0 35px; display:flex; justify-content:space-between; gap:15px; color:#a39a89; font-size:11px; font-weight:800; border-top:1px solid #e9dfce; }
+    .footer-heart { color:#df9a75; }
+    .modal-backdrop { position:fixed; inset:0; z-index:20; background:rgba(56,51,41,.32); backdrop-filter:blur(7px); display:none; align-items:center; justify-content:center; padding:22px; }
+    .modal-backdrop.open { display:flex; }
+    .modal { width:min(680px,100%); max-height:min(86vh,850px); overflow:auto; position:relative; border-radius:28px; background:var(--paper); box-shadow:0 24px 80px rgba(43,37,26,.25); padding:26px; animation:pop .32s cubic-bezier(.2,.8,.2,1) both; }
+    @keyframes pop { from{opacity:0;transform:translateY(18px) scale(.97)} to{opacity:1;transform:translateY(0) scale(1)} }
+    .modal-topline { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:15px; }
+    .modal-kicker { color:#9b8e7c; font-size:10px; font-weight:1000; letter-spacing:.14em; text-transform:uppercase; }
+    .close-btn,.back-btn { border:0; cursor:pointer; width:38px;height:38px;border-radius:13px;background:#f5f0e6;color:#827866;display:grid;place-items:center;font-size:18px; }
+    .back-btn { width:auto; padding:0 13px; display:flex; gap:7px; align-items:center; font-size:12px; font-weight:900; }
+    .modal h2 { font-size:35px; margin:0 0 7px; }
+    .modal-intro { color:var(--muted); font-size:13px; line-height:1.6; margin:0 0 20px; }
+    .meal-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:11px; }
+    .meal-card { text-align:left; border:1px solid #eee5d7; border-radius:18px; background:#fffaf1; padding:15px 13px; cursor:pointer; min-height:168px; transition:transform .2s,border .2s,box-shadow .2s; }
+    .meal-card:hover { transform:translateY(-4px); border-color:#d8e2cc; box-shadow:0 10px 20px rgba(80,100,60,.08); }
+    .meal-emoji { width:38px;height:38px;border-radius:13px;display:grid;place-items:center;font-size:19px;background:#f9e6c8;margin-bottom:12px; }
+    .meal-card:nth-child(2) .meal-emoji{background:#dcebe1}.meal-card:nth-child(3) .meal-emoji{background:#f4ddd5}
+    .meal-type { color:#a0927d; text-transform:uppercase; letter-spacing:.12em; font-size:9px; font-weight:1000; }
+    .meal-card strong { display:block; font:600 16px/1.2 'Fredoka',sans-serif; margin:5px 0 8px; color:#5a5144; }
+    .meal-card small { color:#9b907f; font-size:10px; font-weight:800; }
+    .modal-bottom { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-top:19px; padding-top:17px; border-top:1px solid #f0e9de; }
+    .check-label { display:flex; align-items:center; gap:9px; color:#6b7e5f; font-size:12px; font-weight:900; cursor:pointer; }
+    .check-label input { appearance:none; width:19px;height:19px;border:2px solid #a8bd9b;border-radius:6px;background:white;display:grid;place-items:center;cursor:pointer; }
+    .check-label input:checked { background:#7f9a71;border-color:#7f9a71; }
+    .check-label input:checked::after { content:'✓'; color:white; font-size:13px;font-weight:1000; }
+    .recipe-hero { background:#f9e9d1; border-radius:20px; padding:19px 21px; margin:14px 0 19px; }
+    .recipe-hero .recipe-icon { font-size:27px; }
+    .recipe-hero h2 { font-size:30px; margin:7px 0 6px; }
+    .recipe-stats { display:flex; gap:13px; color:#907b5c; font-size:11px; font-weight:900; }
+    .recipe-layout { display:grid; grid-template-columns:.9fr 1.1fr; gap:20px; }
+    .recipe-layout h3 { margin:0 0 10px; font:600 18px 'Fredoka',sans-serif; }
+    .ingredient-list { list-style:none; margin:0; padding:0; display:grid; gap:8px; }
+    .ingredient-list li { display:flex; align-items:flex-start; gap:8px; color:#756c5d; font-size:12px; line-height:1.45; }
+    .ingredient-list li::before { content:'•'; color:#82a174; font-size:17px; line-height:12px; }
+    .steps { margin:0; padding:0; list-style:none; display:grid; gap:11px; counter-reset:step; }
+    .steps li { counter-increment:step; display:grid; grid-template-columns:25px 1fr; gap:9px; color:#756c5d; font-size:12px; line-height:1.55; }
+    .steps li::before { content:counter(step); width:24px;height:24px;border-radius:9px;background:#e8efdf;color:#648157;display:grid;place-items:center;font:900 11px 'Nunito'; }
+    .recipe-tip { margin-top:20px; background:#eaf0e4; border-radius:15px; padding:13px 15px; color:#6b7e61; font-size:11px; line-height:1.55; }
+    .modal-disclaimer { font-size:10px; line-height:1.5; color:#a29a8c; margin:17px 0 0; }
+    .health-panel { position:fixed; z-index:30; inset:0; background:rgba(56,51,41,.32); backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; padding:20px; }
+    .health-panel.open { display:flex; }
+    .health-card { width:min(620px,100%); max-height:85vh; overflow:auto; border-radius:25px; background:#fffdf8; padding:27px; box-shadow:0 24px 80px rgba(43,37,26,.24); }
+    .health-card h2 { margin:0 0 10px; font-size:31px; }
+    .health-card p,.health-card li { color:#786f60; font-size:12px; line-height:1.65; }
+    .health-card ul { padding-left:19px; }
+    .source-list { display:grid; gap:8px; margin-top:15px; }
+    .source-list a { color:#58784f; font-size:12px; font-weight:900; text-decoration:none; border-bottom:1px solid #dce7d5; padding-bottom:7px; }
+    .source-list a:hover { color:#e18e56; }
+    .health-close { float:right; }
+    .mobile-hint { display:none; color:#a59b8a; text-align:center; padding:0 0 18px; font-size:10px; font-weight:800; }
+    @media (max-width:850px) {
+      .site-shell{padding:0 18px}.hero{padding:39px 37px;grid-template-columns:1.1fr .9fr;min-height:390px}.hero-art{min-height:250px}.sun-disc{width:235px;height:235px}.hero-capy{width:290px}.section-head{padding-top:49px}.section-desc{max-width:270px}
+    }
+    @media (max-width:640px) {
+      .site-shell{padding:0 13px}.topbar{padding:14px 1px}.top-note{font-size:9px;letter-spacing:.04em}.brand-name{font-size:17px}.brand-mark{width:38px;height:38px}
+      .hero{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:27px 23px 14px;border-radius:27px;min-height:0}.hero-copy{z-index:2}.eyebrow{font-size:9px;padding:7px 10px}.hero h1{font-size:48px;max-width:420px;margin:15px 0 12px}.hero-copy p{font-size:13px;line-height:1.65;margin-bottom:17px}.hero-actions{gap:9px}.primary-btn,.soft-btn{padding:12px 15px;font-size:12px}.hero-meta{margin-top:17px;gap:12px;font-size:10px}.hero-art{min-height:190px;margin-top:-4px}.sun-disc{width:185px;height:185px}.hero-capy{width:230px}.tag-one{right:2%;top:16px}.tag-two{left:3%;bottom:17px}.float-tag{font-size:10px;padding:7px 10px}
+      .section-head{display:block;padding:42px 3px 17px}.section-desc{font-size:11px;margin-top:8px}.progress-wrap{padding:14px 15px;gap:12px;margin-bottom:18px}.progress-capy{width:40px;flex-basis:40px}.progress-line{font-size:11px}.progress-line span:last-child{font-size:15px}.map-card{border-radius:23px}.map-top{padding:17px 16px}.map-top strong{font-size:17px}.map-top small{font-size:9px}.map-legend{display:none}#trail{height:4440px}.day-node{width:50px;height:50px}.day-node .node-blob{font-size:17px}.node-label{width:96px;padding:7px 8px;font-size:9px}.node-label b{font-size:11px}.map-end{font-size:14px}.mobile-hint{display:block}.bottom-note{margin:17px 0 44px;padding:17px;grid-template-columns:38px 1fr;gap:10px}.note-icon{width:36px;height:36px;font-size:17px}.bottom-note h3{font-size:16px}.bottom-note p{font-size:11px}footer{font-size:9px;padding-bottom:23px}
+      .modal-backdrop{align-items:flex-end;padding:0}.modal{width:100%;max-height:91vh;border-radius:25px 25px 0 0;padding:21px 17px calc(22px + env(safe-area-inset-bottom));}.modal h2{font-size:30px}.meal-grid{grid-template-columns:1fr;gap:8px}.meal-card{min-height:0;display:grid;grid-template-columns:43px 1fr auto;align-items:center;gap:11px;padding:11px 12px}.meal-emoji{margin:0;width:39px;height:39px}.meal-card .meal-type{grid-column:2;grid-row:1}.meal-card strong{grid-column:2;grid-row:2;margin:1px 0 0}.meal-card small{grid-column:3;grid-row:1 / span 2}.recipe-layout{grid-template-columns:1fr;gap:19px}.recipe-hero{padding:16px}.recipe-hero h2{font-size:26px}.health-panel{align-items:flex-end;padding:0}.health-card{width:100%;max-height:90vh;border-radius:24px 24px 0 0;padding:23px 18px calc(25px + env(safe-area-inset-bottom))}
+    }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important} }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a href="#home" class="brand" aria-label="Capy Kitchen Club home">
+        <span class="brand-mark">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="36" rx="23" ry="19" fill="#f4c56f"/><circle cx="19" cy="20" r="6" fill="#eaa95d"/><circle cx="45" cy="20" r="6" fill="#eaa95d"/><ellipse cx="32" cy="39" rx="12" ry="8" fill="#d98a5b"/><circle cx="24" cy="31" r="2.4" fill="#51483b"/><circle cx="40" cy="31" r="2.4" fill="#51483b"/><path d="M29 41q3 3 6 0" fill="none" stroke="#754f3e" stroke-width="1.8" stroke-linecap="round"/><path d="M25 12q7-9 15 0l-3 5H28z" fill="#ef9855"/></svg>
+        </span>
+        <span class="brand-name">capy <span>kitchen club</span></span>
+      </a>
+      <div class="top-note"><i class="dot"></i> little steps, lovely meals</div>
+    </header>
+
+    <main id="home">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow"><span>☀</span> a gentle 30-day food journey</div>
+          <h1 id="hero-title">Good food,<br><em>soft days.</em></h1>
+          <p>Petualangan makan 30 hari bareng Lulu. Ada menu rumahan yang seimbang, resep yang gampang diikuti, dan banyak alasan kecil buat bilang: hari ini aku merawat diriku.</p>
+          <div class="hero-actions">
+    .map-top strong { font:600 20px 'Fredoka',sans-serif; }
+    .map-top small { color:var(--muted); font-weight:800; font-size:11px; }
+    .map-legend { display:flex; align-items:center; gap:13px; color:#988d7c; font-size:11px; font-weight:800; }
+    .legend-dot { width:9px;height:9px;border-radius:50%;display:inline-block;margin-right:5px; background:#e9a166; }
+    .map-scroll { position:relative; overflow:hidden; }
+    #trail { position:relative; width:min(100%, 900px); margin:0 auto; height:4440px; }
+    #routeSvg { position:absolute; inset:0; width:100%; height:100%; overflow:visible; pointer-events:none; }
+    #routePath { fill:none; stroke:#d9cba9; stroke-width:7; stroke-linecap:round; stroke-linejoin:round; stroke-dasharray:1; stroke-dashoffset:1; }
+    #routePathInner { fill:none; stroke:#fffdf7; stroke-width:2; stroke-linecap:round; stroke-dasharray:2 18; opacity:.9; }
+    .week-stamp { position:absolute; left:50%; transform:translateX(-50%) rotate(-3deg); padding:9px 17px; border-radius:14px; background:#e9efdf; border:1px solid #d7e2cd; color:#69805b; font:600 14px 'Fredoka',sans-serif; white-space:nowrap; box-shadow:0 4px 0 #d5e0c9; }
+    .week-stamp:nth-of-type(even) { background:#fbe9d8; color:#b47a4d; border-color:#f4dac0; box-shadow:0 4px 0 #f0d7bd; }
+    .day-node { position:absolute; width:60px; height:60px; border:0; background:transparent; padding:0; transform:translate(-50%,-50%); cursor:pointer; z-index:2; transition:filter .2s, transform .2s; }
+    .day-node .node-blob { position:absolute; inset:2px; border-radius:45% 55% 52% 48% / 50% 42% 58% 50%; display:grid; place-items:center; background:#f5cd7c; border:3px solid #fffaf0; box-shadow:0 5px 0 #e8b765,0 8px 15px rgba(114,85,45,.13); color:#725734; font:600 20px 'Fredoka',sans-serif; transition:transform .25s,background .25s; }
+    .day-node:nth-of-type(3n) .node-blob { background:#bcd9ce; box-shadow:0 5px 0 #9dbfaf,0 8px 15px rgba(114,85,45,.13); color:#4d7060; }
+    .day-node:nth-of-type(4n) .node-blob { background:#f1c7b6; box-shadow:0 5px 0 #dfa996,0 8px 15px rgba(114,85,45,.13); color:#8a594b; }
+    .day-node:hover { z-index:5; filter:saturate(1.08); }
+    .day-node:hover .node-blob { transform:scale(1.13) rotate(-7deg); }
+    .day-node.done .node-blob { background:#88a77a; box-shadow:0 5px 0 #6e8c60,0 8px 15px rgba(114,85,45,.13); color:white; }
+    .day-node.done .node-blob::after { content:'✓'; position:absolute; top:-7px;right:-6px; width:20px;height:20px;border-radius:50%;display:grid;place-items:center;background:#fffdf7;color:#648258;font:900 12px 'Nunito';border:1px solid #d7e5ce; }
+    .node-label { position:absolute; top:50%; transform:translateY(-50%); width:114px; padding:8px 10px; border-radius:12px; background:rgba(255,253,247,.93); border:1px solid #eee4d3; color:#8b806e; text-align:left; font-size:10px; line-height:1.25; font-weight:900; box-shadow:0 4px 12px rgba(85,69,43,.04); pointer-events:none; }
+    .day-node.label-right .node-label { left:calc(100% + 9px); }.day-node.label-left .node-label { right:calc(100% + 9px); text-align:right; }
+    .node-label b { display:block; color:#5f7252; font:600 13px 'Fredoka',sans-serif; margin-bottom:2px; }
+    .map-end { position:absolute; bottom:38px; left:50%; transform:translateX(-50%); text-align:center; padding:13px 18px; background:#f8e8c8; border-radius:18px; color:#8d744c; font:600 16px 'Fredoka',sans-serif; white-space:nowrap; }
+    .map-end span { display:block; font:800 10px 'Nunito',sans-serif; letter-spacing:.1em; text-transform:uppercase; margin-top:2px; }
+    .bottom-note { margin:22px 0 68px; padding:23px 25px; border-radius:24px; background:#e7eee0; display:grid; grid-template-columns:46px 1fr; gap:14px; align-items:start; }
+    .note-icon { width:42px;height:42px;border-radius:15px;background:#d4e1ca;display:grid;place-items:center;font-size:21px; }
+    .bottom-note h3 { font:600 18px 'Fredoka',sans-serif; margin:0 0 5px; color:#5f7655; }
+    .bottom-note p { margin:0; color:#71816a; font-size:12px; line-height:1.65; }
+    footer { padding:24px 0 35px; display:flex; justify-content:space-between; gap:15px; color:#a39a89; font-size:11px; font-weight:800; border-top:1px solid #e9dfce; }
+    .footer-heart { color:#df9a75; }
+    .modal-backdrop { position:fixed; inset:0; z-index:20; background:rgba(56,51,41,.32); backdrop-filter:blur(7px); display:none; align-items:center; justify-content:center; padding:22px; }
+    .modal-backdrop.open { display:flex; }
+    .modal { width:min(680px,100%); max-height:min(86vh,850px); overflow:auto; position:relative; border-radius:28px; background:var(--paper); box-shadow:0 24px 80px rgba(43,37,26,.25); padding:26px; animation:pop .32s cubic-bezier(.2,.8,.2,1) both; }
+    @keyframes pop { from{opacity:0;transform:translateY(18px) scale(.97)} to{opacity:1;transform:translateY(0) scale(1)} }
+    .modal-topline { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:15px; }
+    .modal-kicker { color:#9b8e7c; font-size:10px; font-weight:1000; letter-spacing:.14em; text-transform:uppercase; }
+    .close-btn,.back-btn { border:0; cursor:pointer; width:38px;height:38px;border-radius:13px;background:#f5f0e6;color:#827866;display:grid;place-items:center;font-size:18px; }
+    .back-btn { width:auto; padding:0 13px; display:flex; gap:7px; align-items:center; font-size:12px; font-weight:900; }
+    .modal h2 { font-size:35px; margin:0 0 7px; }
+    .modal-intro { color:var(--muted); font-size:13px; line-height:1.6; margin:0 0 20px; }
+    .meal-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:11px; }
+    .meal-card { text-align:left; border:1px solid #eee5d7; border-radius:18px; background:#fffaf1; padding:15px 13px; cursor:pointer; min-height:168px; transition:transform .2s,border .2s,box-shadow .2s; }
+    .meal-card:hover { transform:translateY(-4px); border-color:#d8e2cc; box-shadow:0 10px 20px rgba(80,100,60,.08); }
+    .meal-emoji { width:38px;height:38px;border-radius:13px;display:grid;place-items:center;font-size:19px;background:#f9e6c8;margin-bottom:12px; }
+    .meal-card:nth-child(2) .meal-emoji{background:#dcebe1}.meal-card:nth-child(3) .meal-emoji{background:#f4ddd5}
+    .meal-type { color:#a0927d; text-transform:uppercase; letter-spacing:.12em; font-size:9px; font-weight:1000; }
+    .meal-card strong { display:block; font:600 16px/1.2 'Fredoka',sans-serif; margin:5px 0 8px; color:#5a5144; }
+    .meal-card small { color:#9b907f; font-size:10px; font-weight:800; }
+    .modal-bottom { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-top:19px; padding-top:17px; border-top:1px solid #f0e9de; }
+    .check-label { display:flex; align-items:center; gap:9px; color:#6b7e5f; font-size:12px; font-weight:900; cursor:pointer; }
+    .check-label input { appearance:none; width:19px;height:19px;border:2px solid #a8bd9b;border-radius:6px;background:white;display:grid;place-items:center;cursor:pointer; }
+    .check-label input:checked { background:#7f9a71;border-color:#7f9a71; }
+    .check-label input:checked::after { content:'✓'; color:white; font-size:13px;font-weight:1000; }
+    .recipe-hero { background:#f9e9d1; border-radius:20px; padding:19px 21px; margin:14px 0 19px; }
+    .recipe-hero .recipe-icon { font-size:27px; }
+    .recipe-hero h2 { font-size:30px; margin:7px 0 6px; }
+    .recipe-stats { display:flex; gap:13px; color:#907b5c; font-size:11px; font-weight:900; }
+    .recipe-layout { display:grid; grid-template-columns:.9fr 1.1fr; gap:20px; }
+    .recipe-layout h3 { margin:0 0 10px; font:600 18px 'Fredoka',sans-serif; }
+    .ingredient-list { list-style:none; margin:0; padding:0; display:grid; gap:8px; }
+    .ingredient-list li { display:flex; align-items:flex-start; gap:8px; color:#756c5d; font-size:12px; line-height:1.45; }
+    .ingredient-list li::before { content:'•'; color:#82a174; font-size:17px; line-height:12px; }
+    .steps { margin:0; padding:0; list-style:none; display:grid; gap:11px; counter-reset:step; }
+    .steps li { counter-increment:step; display:grid; grid-template-columns:25px 1fr; gap:9px; color:#756c5d; font-size:12px; line-height:1.55; }
+    .steps li::before { content:counter(step); width:24px;height:24px;border-radius:9px;background:#e8efdf;color:#648157;display:grid;place-items:center;font:900 11px 'Nunito'; }
+    .recipe-tip { margin-top:20px; background:#eaf0e4; border-radius:15px; padding:13px 15px; color:#6b7e61; font-size:11px; line-height:1.55; }
+    .modal-disclaimer { font-size:10px; line-height:1.5; color:#a29a8c; margin:17px 0 0; }
+    .health-panel { position:fixed; z-index:30; inset:0; background:rgba(56,51,41,.32); backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; padding:20px; }
+    .health-panel.open { display:flex; }
+    .health-card { width:min(620px,100%); max-height:85vh; overflow:auto; border-radius:25px; background:#fffdf8; padding:27px; box-shadow:0 24px 80px rgba(43,37,26,.24); }
+    .health-card h2 { margin:0 0 10px; font-size:31px; }
+    .health-card p,.health-card li { color:#786f60; font-size:12px; line-height:1.65; }
+    .health-card ul { padding-left:19px; }
+    .source-list { display:grid; gap:8px; margin-top:15px; }
+    .source-list a { color:#58784f; font-size:12px; font-weight:900; text-decoration:none; border-bottom:1px solid #dce7d5; padding-bottom:7px; }
+    .source-list a:hover { color:#e18e56; }
+    .health-close { float:right; }
+    .mobile-hint { display:none; color:#a59b8a; text-align:center; padding:0 0 18px; font-size:10px; font-weight:800; }
+    @media (max-width:850px) {
+      .site-shell{padding:0 18px}.hero{padding:39px 37px;grid-template-columns:1.1fr .9fr;min-height:390px}.hero-art{min-height:250px}.sun-disc{width:235px;height:235px}.hero-capy{width:290px}.section-head{padding-top:49px}.section-desc{max-width:270px}
+    }
+    @media (max-width:640px) {
+      .site-shell{padding:0 13px}.topbar{padding:14px 1px}.top-note{font-size:9px;letter-spacing:.04em}.brand-name{font-size:17px}.brand-mark{width:38px;height:38px}
+      .hero{display:flex;flex-direction:column;align-items:stretch;gap:0;padding:27px 23px 14px;border-radius:27px;min-height:0}.hero-copy{z-index:2}.eyebrow{font-size:9px;padding:7px 10px}.hero h1{font-size:48px;max-width:420px;margin:15px 0 12px}.hero-copy p{font-size:13px;line-height:1.65;margin-bottom:17px}.hero-actions{gap:9px}.primary-btn,.soft-btn{padding:12px 15px;font-size:12px}.hero-meta{margin-top:17px;gap:12px;font-size:10px}.hero-art{min-height:190px;margin-top:-4px}.sun-disc{width:185px;height:185px}.hero-capy{width:230px}.tag-one{right:2%;top:16px}.tag-two{left:3%;bottom:17px}.float-tag{font-size:10px;padding:7px 10px}
+      .section-head{display:block;padding:42px 3px 17px}.section-desc{font-size:11px;margin-top:8px}.progress-wrap{padding:14px 15px;gap:12px;margin-bottom:18px}.progress-capy{width:40px;flex-basis:40px}.progress-line{font-size:11px}.progress-line span:last-child{font-size:15px}.map-card{border-radius:23px}.map-top{padding:17px 16px}.map-top strong{font-size:17px}.map-top small{font-size:9px}.map-legend{display:none}#trail{height:4440px}.day-node{width:50px;height:50px}.day-node .node-blob{font-size:17px}.node-label{width:96px;padding:7px 8px;font-size:9px}.node-label b{font-size:11px}.map-end{font-size:14px}.mobile-hint{display:block}.bottom-note{margin:17px 0 44px;padding:17px;grid-template-columns:38px 1fr;gap:10px}.note-icon{width:36px;height:36px;font-size:17px}.bottom-note h3{font-size:16px}.bottom-note p{font-size:11px}footer{font-size:9px;padding-bottom:23px}
+      .modal-backdrop{align-items:flex-end;padding:0}.modal{width:100%;max-height:91vh;border-radius:25px 25px 0 0;padding:21px 17px calc(22px + env(safe-area-inset-bottom));}.modal h2{font-size:30px}.meal-grid{grid-template-columns:1fr;gap:8px}.meal-card{min-height:0;display:grid;grid-template-columns:43px 1fr auto;align-items:center;gap:11px;padding:11px 12px}.meal-emoji{margin:0;width:39px;height:39px}.meal-card .meal-type{grid-column:2;grid-row:1}.meal-card strong{grid-column:2;grid-row:2;margin:1px 0 0}.meal-card small{grid-column:3;grid-row:1 / span 2}.recipe-layout{grid-template-columns:1fr;gap:19px}.recipe-hero{padding:16px}.recipe-hero h2{font-size:26px}.health-panel{align-items:flex-end;padding:0}.health-card{width:100%;max-height:90vh;border-radius:24px 24px 0 0;padding:23px 18px calc(25px + env(safe-area-inset-bottom))}
+    }
+    @media (prefers-reduced-motion: reduce) { *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important} }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="topbar">
+      <a href="#home" class="brand" aria-label="Capy Kitchen Club home">
+        <span class="brand-mark">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="36" rx="23" ry="19" fill="#f4c56f"/><circle cx="19" cy="20" r="6" fill="#eaa95d"/><circle cx="45" cy="20" r="6" fill="#eaa95d"/><ellipse cx="32" cy="39" rx="12" ry="8" fill="#d98a5b"/><circle cx="24" cy="31" r="2.4" fill="#51483b"/><circle cx="40" cy="31" r="2.4" fill="#51483b"/><path d="M29 41q3 3 6 0" fill="none" stroke="#754f3e" stroke-width="1.8" stroke-linecap="round"/><path d="M25 12q7-9 15 0l-3 5H28z" fill="#ef9855"/></svg>
+        </span>
+        <span class="brand-name">capy <span>kitchen club</span></span>
+      </a>
+      <div class="top-note"><i class="dot"></i> little steps, lovely meals</div>
+    </header>
+
+    <main id="home">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <div class="eyebrow"><span>☀</span> a gentle 30-day food journey</div>
+          <h1 id="hero-title">Good food,<br><em>soft days.</em></h1>
+          <p>Petualangan makan 30 hari bareng Lulu. Ada menu rumahan yang seimbang, resep yang gampang diikuti, dan banyak alasan kecil buat bilang: hari ini aku merawat diriku.</p>
+          <div class="hero-actions">
+                      <button class="primary-btn" id="startJourney">Yuk mulai jalan →</button>
+            <button class="soft-btn" id="healthInfoBtn">Baca catatan nutrisi</button>
+          </div>
+          <div class="hero-meta"><span>🍊 30 hari</span><span>🥣 3 waktu makan</span><span>🌿 resep rumahan</span></div>
+        </div>
+        <div class="hero-art" aria-label="Ilustrasi capybara kecil">
+          <div class="sun-disc"></div><span class="tiny-spark spark-one">✳</span><span class="tiny-spark spark-two">✦</span>
+          <span class="float-tag tag-one">one bite at a time ♡</span>
+          <span class="float-tag tag-two">Lulu says: makan dulu!</span>
+          <svg class="hero-capy" viewBox="0 0 380 330" role="img" aria-label="Capybara kuning memakai topi jeruk">
+            <ellipse cx="190" cy="290" rx="108" ry="19" fill="#d9b779" opacity=".25"/>
+            <path d="M96 198q-18 18-16 48 1 23 23 26h35l11-57zM284 198q18 18 16 48-1 23-23 26h-35l-11-57z" fill="#e9b95f"/>
+            <ellipse cx="190" cy="190" rx="107" ry="103" fill="#efc56e"/>
+            <ellipse cx="104" cy="109" rx="24" ry="32" transform="rotate(-22 104 109)" fill="#e7b45e"/><ellipse cx="276" cy="109" rx="24" ry="32" transform="rotate(22 276 109)" fill="#e7b45e"/>
+            <ellipse cx="190" cy="205" rx="78" ry="57" fill="#f4d18a"/>
+            <ellipse cx="190" cy="210" rx="49" ry="34" fill="#d98b5c"/>
+            <ellipse cx="174" cy="204" rx="4.5" ry="5.5" fill="#57473b"/><ellipse cx="206" cy="204" rx="4.5" ry="5.5" fill="#57473b"/>
+            <path d="M184 224q6 7 12 0" fill="none" stroke="#704d3d" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M143 285q-3 18 16 18h24q11-2 10-14l-3-19h-41zM201 285q-1 18 15 18h24q15-1 12-18l-5-16h-44z" fill="#e9ae5b"/>
+            <path d="M152 108q9-42 39-45 33 3 39 45z" fill="#f18f4f" stroke="#e77f3d" stroke-width="3"/>
+            <path d="M188 61q-6-16 3-25 9 12 3 25" fill="none" stroke="#7e9a62" stroke-width="5" stroke-linecap="round"/>
+            <ellipse cx="190" cy="105" rx="43" ry="10" fill="#f7b267"/>
+            <path d="M85 182q-28-2-30 24 16 20 41 6M294 181q29-1 31 24-16 20-41 6" fill="#efc56e" stroke="#dcae5c" stroke-width="3" stroke-linecap="round"/>
+            <path d="M68 210q-11-22-1-31m9 31q-5-18 6-28" stroke="#7f9e6f" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <path d="M310 210q11-22 1-31m-9 31q5-18-6-28" stroke="#7f9e6f" stroke-width="5" stroke-linecap="round" fill="none"/>
+            <circle cx="140" cy="213" r="8" fill="#e7a97d" opacity=".7"/><circle cx="240" cy="213" r="8" fill="#e7a97d" opacity=".7"/>
+          </svg>
+        </div>
+      </section>
+
+      <section id="journey" aria-labelledby="map-heading">
+        <div class="section-head">
+          <div><p class="section-kicker">the little adventure map</p><h2 id="map-heading">30 days, one happy path.</h2></div>
+          <p class="section-desc">Tap satu titik untuk membuka menu harinya. Pilih kartu makan untuk melihat bahan dan cara memasak.</p>
+        </div>
+        <div class="progress-wrap">
+          <svg class="progress-capy" viewBox="0 0 60 55" aria-hidden="true"><ellipse cx="30" cy="31" rx="24" ry="19" fill="#efc56e"/><circle cx="13" cy="15" r="7" fill="#e8b55e"/><circle cx="47" cy="15" r="7" fill="#e8b55e"/><ellipse cx="30" cy="33" rx="12" ry="8" fill="#d98b5c"/><circle cx="23" cy="26" r="2"/><circle cx="37" cy="26" r="2"/><path d="M27 36q3 3 6 0" stroke="#704d3d" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>
+          <div class="progress-copy"><div class="progress-line"><span>Lulu's little progress</span><span id="progressCount">0 / 30 days</span></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></div>
+        </div>
+        <div class="map-card">
+          <div class="map-top"><div><strong>Follow the food trail</strong><br><small>30 tiny stops, no rush at all.</small></div><div class="map-legend"><span><i class="legend-dot"></i>your next stop</span><span>✓ completed</span></div></div>
+          <p class="mobile-hint">Geser ke bawah mengikuti jalurnya ↓</p>
+          <div class="map-scroll"><div id="trail"><svg id="routeSvg" viewBox="0 0 1000 4440" preserveAspectRatio="none" aria-hidden="true"><path id="routePath"/><path id="routePathInner"/></svg><div id="weekStamps"></div><div id="dayNodes"></div><div class="map-end">You made it, little foodie! <span>30 days of care ♡</span></div></div></div>
+        </div>
+      </section>
+
+      <aside class="bottom-note">
+        <div class="note-icon">🌱</div>
+        <div><h3>Gentle reminder from Lulu</h3><p>Ini inspirasi menu seimbang, bukan diet untuk menyembuhkan autoimun. Porsi, garam, protein, kalium, fosfor, dan cairan harus mengikuti kondisi serta arahan dokter/dietisien, terutama bila ada gangguan ginjal atau obat imunosupresan.</p></div>
+      </aside>
+    </main>
+    <footer><span>made with a little extra care <b class="footer-heart">♡</b></span><span>Capy Kitchen Club · 30-day meal map</span></footer>
+  </div>
+
+  <div class="modal-backdrop" id="dayBackdrop" role="dialog" aria-modal="true" aria-label="Menu harian">
+    <div class="modal" id="dayModal"><div id="modalContent"></div></div>
+  </div>
+  <div class="health-panel" id="healthPanel" role="dialog" aria-modal="true" aria-label="Catatan nutrisi dan sumber">
+    <div class="health-card">
+      <button class="close-btn health-close" id="healthClose" aria-label="Tutup">✕</button>
+      <p class="section-kicker">a little note before we eat</p>
+      <h2>Food is care, not a cure.</h2>
+      <p>Menu ini memakai pendekatan makanan rumahan seimbang yang terinspirasi pola Mediterania: sayur dan buah beragam, kacang-kacangan, serealia, ikan, protein bervariasi, serta lemak tak jenuh. Tidak ada bukti kuat bahwa satu menu bisa menyembuhkan SLE atau SpA.</p>
+      <ul>
+        <li><b>Jika SLE:</b> pedoman BSR 2026 menganjurkan pola makan sehat seimbang. Bila ada lupus nefritis, kebutuhan natrium, protein, kalium, fosfor, dan cairan dapat berbeda sesuai fungsi ginjal dan hasil lab.</li>
+        <li><b>Jika SpA:</b> tidak ada diet khusus yang terbukti mengendalikan penyakit. Pola Mediterania dapat mendukung kesehatan umum, tetapi bukti khusus SpA masih terbatas.</li>
+        <li><b>Keamanan pangan:</b> bila sedang memakai obat yang menekan sistem imun, masak telur, ikan, daging, dan ayam sampai matang; hindari kecambah mentah serta produk susu tidak dipasteurisasi; pisahkan bahan mentah dan matang, dan simpan sisa makanan segera di kulkas.</li>
+        <li><b>Obat & suplemen:</b> jangan mulai herbal atau suplemen untuk “anti-inflamasi” tanpa cek dokter/apoteker. Interaksi makanan-obat juga perlu disesuaikan dengan obat yang benar-benar dikonsumsi.</li>
+      </ul>
+      <p>Menu ini sengaja tidak menerapkan diet bebas gluten/susu, diet rendah pati, pembatasan protein, atau target natrium khusus secara otomatis. Itu semua perlu alasan klinis dan penyesuaian individual.</p>
+      <div class="source-list">
+        <a href="https://academic.oup.com/rheumatology/article/65/6/keag223/8713810" target="_blank" rel="noopener">BSR 2026 · Guideline pengelolaan SLE ↗</a>
+        <a href="https://kdigo.org/guidelines/lupus%20nephritis/" target="_blank" rel="noopener">KDIGO 2024 · Lupus nephritis ↗</a>
+        <a href="https://www.arthritis.org/diseases/ankylosing-spondylitis" target="_blank" rel="noopener">Arthritis Foundation · Axial spondyloarthritis ↗</a>
+        <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12450201/" target="_blank" rel="noopener">2025 axSpA clinical practice guideline ↗</a>
+        <a href="https://www.foodsafety.gov/people-at-risk/people-with-weakened-immune-systems" target="_blank" rel="noopener">FoodSafety.gov · Food safety for weakened immune systems ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script>
+    const M = (name, emoji, time, ingredients, steps, tip='') => ({name, emoji, time, ingredients, steps, tip});
+    const R = {
+      oat: M('Oat pisang kayu manis','🥣','10 menit',['40 g rolled oats','200 ml susu pasteurisasi atau susu kedelai fortifikasi','1 pisang matang, iris','1 sdt chia seed (opsional)','Sejumput kayu manis'],['Masukkan oat dan susu ke panci kecil.','Masak dengan api kecil sambil diaduk 5–7 menit hingga lembut.','Tuang ke mangkuk, beri pisang, chia, dan kayu manis.'],'Pilih susu pasteurisasi. Sesuaikan kekentalan dengan tambahan air atau susu.'),
+      eggtoast: M('Roti gandum telur orak-arik bayam','🍳','12 menit',['2 lembar roti gandum','2 telur','Segenggam bayam, cuci bersih','1 sdt minyak zaitun','Merica dan sedikit garam bila sesuai'],['Kocok telur bersama merica.','Tumis bayam sebentar sampai layu, lalu tuang telur.','Aduk perlahan sampai telur matang sempurna. Sajikan dengan roti panggang.'],'Pastikan telur matang, bukan setengah matang.'),
+      porridge: M('Bubur ayam jahe wortel','🍲','25 menit',['100 g beras, cuci','120 g dada ayam tanpa kulit','1 wortel kecil, potong dadu','2 iris jahe','700 ml air','Daun bawang dan bawang putih'],['Rebus beras, air, jahe, dan bawang putih sampai menjadi bubur.','Masukkan ayam dan wortel; masak sampai ayam matang menyeluruh.','Suwir ayam, masukkan kembali, lalu beri daun bawang.'],'Buat rasa dari bawang dan jahe; garam cukup sedikit sesuai kebutuhan.'),
+      bananaPancake: M('Pancake pisang oat','🥞','15 menit',['1 pisang matang','1 telur','4 sdm oat halus','2 sdm susu','Sedikit kayu manis','Minyak untuk olesan'],['Lumatkan pisang, campur telur, oat, susu, dan kayu manis.','Diamkan 3 menit agar adonan mengental.','Masak pancake kecil di wajan anti lengket sampai kedua sisi matang.'],'Sajikan dengan potongan buah, bukan sirup berlebihan.'),
+      sweetpotato: M('Ubi kukus & yogurt buah','🍠','15 menit',['1 ubi ukuran sedang','100 g yogurt plain pasteurisasi','½ buah pir atau pepaya','1 sdm kacang cincang (opsional)'],['Cuci ubi, kukus sampai empuk sekitar 12–15 menit.','Potong buah ukuran kecil.','Sajikan ubi dengan yogurt dan buah di sampingnya.'],'Gunakan yogurt pasteurisasi dan simpan dingin.'),
+      riceegg: M('Nasi telur sayur wajan','🍚','12 menit',['150 g nasi matang','2 telur','½ wortel parut','Daun bawang','1 sdt minyak','Bawang putih cincang'],['Tumis bawang putih dan wortel hingga harum dan lunak.','Masukkan telur, orak-arik sampai matang.','Tambahkan nasi dan daun bawang, aduk rata sampai panas menyeluruh.'],'Pakai nasi yang didinginkan dengan benar; jangan biarkan pada suhu ruang semalaman.'),
+      tofuScramble: M('Tumis tahu lembut & tomat','🍅','12 menit',['150 g tahu putih, hancurkan','1 tomat, potong','Segenggam bayam','Bawang putih','1 sdt minyak'],['Tumis bawang putih hingga harum.','Masukkan tahu dan tomat, masak sampai panas merata.','Tambahkan bayam sampai layu; sajikan hangat.'],'Tahu adalah salah satu opsi protein nabati yang fleksibel.'),
+      cornEgg: M('Sup jagung telur matang','🌽','15 menit',['1 jagung manis, pipil','1 telur, kocok','1 wortel kecil','500 ml air atau kaldu rumahan','Bawang putih dan daun bawang'],['Rebus jagung dan wortel sampai empuk.','Kecilkan api, tuang telur perlahan sambil diaduk.','Masak sampai telur matang sempurna, lalu beri daun bawang.'],'Gunakan kaldu rumahan agar lebih mudah mengatur rasa asin.'),
+      chia: M('Chia pudding mangga','🥭','10 menit + dinginkan',['2 sdm chia seed','180 ml susu pasteurisasi atau susu kedelai fortifikasi','½ mangga matang','Sedikit vanila'],['Aduk chia dan susu sampai tidak menggumpal.','Simpan dalam wadah tertutup di kulkas minimal 3 jam.','Tambahkan mangga potong tepat sebelum disajikan.'],'Simpan selalu di kulkas; cocok dibuat malam sebelumnya.'),
+      toastAvocado: M('Toast alpukat & telur rebus matang','🥑','15 menit',['2 lembar roti gandum','½ alpukat matang','1 telur','Perasan jeruk nipis','Merica'],['Rebus telur hingga putih dan kuningnya matang.','Lumatkan alpukat dengan jeruk nipis dan merica.','Oleskan ke roti panggang, beri irisan telur matang.'],'Gunakan telur matang penuh, terutama saat imunitas sedang ditekan.'),
+
+      fishPepes: M('Pepes ikan kembung kemangi','🐟','30 menit',['2 ikan kembung bersih','Daun pisang bersih untuk membungkus','Bawang merah, bawang putih, kunyit, jahe','Tomat dan kemangi','Jeruk nipis'],['Lumuri ikan dengan jeruk nipis, bilas, lalu balur bumbu halus.','Tambahkan tomat dan kemangi, bungkus rapat dengan daun pisang.','Kukus 20 menit atau sampai ikan matang, lalu panggang sebentar bila suka.'],'Pilih ikan segar dan pastikan matang sampai bagian terdalam.'),
+      chickenLime: M('Ayam panggang jeruk nipis','🍗','30 menit',['250 g dada/paha ayam tanpa kulit','1 sdm air jeruk nipis','Bawang putih, ketumbar, kunyit','1 sdt minyak','Timun dan tomat matang/lalap yang dicuci bersih'],['Lumuri ayam dengan jeruk nipis dan bumbu selama 15 menit.','Panggang di pan tertutup atau oven hingga matang menyeluruh.','Sajikan dengan nasi dan sayur matang.'],'Gunakan talenan terpisah untuk ayam mentah dan bahan siap makan.'),
+      tempeBowl: M('Bowl tempe panggang & sayur','🌿','25 menit',['150 g tempe, potong','100 g nasi merah matang','Buncis dan wortel','Bawang putih, ketumbar, jeruk nipis','1 sdt minyak'],['Kukus tempe 5 menit, lalu lumuri bawang putih dan ketumbar.','Panggang tempe di pan dengan sedikit minyak hingga kecokelatan.','Rebus buncis dan wortel sampai matang; susun bersama nasi.'],'Tempe dimasak sampai panas dan matang merata.'),
+      tofuBowl: M('Tahu saus jahe & brokoli','🥦','20 menit',['200 g tahu putih, potong','1 cangkir brokoli','1 wortel','Jahe parut dan bawang putih','1 sdt kecap rendah natrium (opsional)','1 sdt minyak'],['Kukus atau rebus brokoli dan wortel sampai matang.','Pan-sear tahu dengan sedikit minyak sampai permukaannya keemasan.','Tambahkan jahe, bawang putih, sedikit air dan kecap; masak hingga meresap.'],'Kecap tetap mengandung natrium; bisa dilewati bila perlu pembatasan garam.'),
+      chickenSoup: M('Sup ayam bening sayur','🥕','30 menit',['200 g ayam tanpa kulit','1 wortel','1 kentang kecil','Buncis','Bawang putih, jahe, daun bawang','700 ml air'],['Rebus ayam bersama bawang putih dan jahe sampai matang.','Masukkan wortel dan kentang; lanjutkan hingga empuk.','Masukkan buncis, masak matang, lalu taburi daun bawang.'],'Buang buih dan lemak berlebih; kaldu tidak perlu dibuat terlalu asin.'),
+      tunaRice: M('Nasi hangat tuna tomat','🍅','15 menit',['1 kaleng tuna dalam air, tiriskan (atau tuna segar matang)','1 tomat matang','100–150 g nasi','Bawang putih dan bawang bombai','Daun kemangi'],['Tumis bawang sampai harum, masukkan tomat dan masak hingga lunak.','Masukkan tuna, aduk dan panaskan sampai merata.','Sajikan di atas nasi dengan kemangi.'],'Pilih tuna rendah natrium bila tersedia; variasikan jenis ikan.'),
+      beefSoup: M('Sop daging sayur rumahan','🥣','45 menit',['150 g daging sapi tanpa lemak','Wortel, kentang, kol','Bawang putih, pala, merica','700 ml air','Daun bawang dan seledri'],['Rebus daging sampai empuk, buang buih yang muncul.','Masukkan wortel dan kentang, masak hingga hampir empuk.','Tambahkan kol dan bumbu; masak sampai seluruh bahan matang.'],'Porsi daging secukupnya; lengkapi dengan sayuran.'),
+      fishTomato: M('Ikan kuah tomat kemangi','🐠','25 menit',['2 fillet ikan putih','2 tomat matang','Bawang merah, bawang putih','Kemangi dan jeruk nipis','350 ml air'],['Lumuri ikan dengan jeruk nipis sebentar lalu bilas.','Tumis bawang, masukkan tomat dan air hingga menjadi kuah.','Masukkan ikan dan masak perlahan sampai matang; tambahkan kemangi.'],'Jangan gunakan ikan mentah atau setengah matang.'),
+      chickenStir: M('Ayam tumis paprika & buncis','🫑','20 menit',['200 g ayam tanpa kulit, iris','Paprika merah','Buncis','Bawang putih dan jahe','1 sdt minyak'],['Tumis bawang putih dan jahe sampai harum.','Masukkan ayam; masak hingga tidak ada bagian mentah.','Tambahkan paprika dan buncis, tumis sampai matang namun tetap renyah.'],'Pastikan ayam mencapai kematangan penuh.'),
+      tofuPepes: M('Pepes tahu jamur','🍄','25 menit',['200 g tahu putih, hancurkan','100 g jamur, cincang','Daun kemangi','Bawang merah, bawang putih, kunyit','Daun pisang'],['Campur tahu, jamur, bumbu halus, dan kemangi.','Bungkus dengan daun pisang yang bersih.','Kukus 18–20 menit hingga matang dan padat.'],'Jamur dan tahu harus matang; hindari isian mentah.'),
+      chickenTurmeric: M('Ayam kunyit panggang & sayur','🌼','30 menit',['200 g ayam tanpa kulit','Kunyit, bawang putih, ketumbar','Wortel dan buncis','1 sdt minyak','Jeruk nipis'],['Balur ayam dengan kunyit, bawang putih, ketumbar, dan jeruk nipis.','Panggang di pan tertutup sampai matang menyeluruh.','Rebus sayuran hingga matang dan sajikan bersama ayam.'],'Bumbu kunyit dipakai sebagai bumbu masakan, bukan suplemen dosis tinggi.'),
+      lentil: M('Sup kacang merah tomat','🫘','35 menit',['150 g kacang merah matang','2 tomat','Wortel dan seledri','Bawang putih, paprika bubuk','500 ml air'],['Jika memakai kacang kering, rendam dan rebus sampai benar-benar empuk.','Tumis bawang dan tomat, tambahkan air serta wortel.','Masukkan kacang matang, masak 10 menit dan beri seledri.'],'Gunakan kacang yang dimasak matang; kacang merah mentah tidak aman.'),
+      fishBake: M('Ikan panggang bawang lemon','🍋','25 menit',['2 fillet ikan','1 sdm air lemon/jeruk nipis','Bawang putih cincang','Lada dan oregano','Buncis atau zucchini'],['Lumuri ikan dengan lemon, bawang putih, lada, dan oregano.','Panggang pada suhu sedang sampai ikan mudah terurai dan matang.','Sajikan dengan buncis rebus atau tumis.'],'Ikan harus matang sampai bagian tengah.'),
+
+      vegSoup: M('Sayur bening bayam jagung','🥬','15 menit',['1 ikat bayam, cuci bersih','½ jagung manis','1 ruas temu kunci (opsional)','Bawang merah','500 ml air'],['Rebus air bersama bawang dan jagung sampai jagung matang.','Masukkan bayam dan masak sampai layu serta matang.','Matikan api, sajikan hangat.'],'Masak sayur mendekati waktu makan dan cuci di air mengalir.'),
+      gingerFishSoup: M('Sup ikan jahe hangat','🍲','25 menit',['150 g fillet ikan','1 ruas jahe, iris','Tomat dan wortel','Daun bawang','500 ml air'],['Didihkan air bersama jahe dan wortel.','Masukkan ikan dan tomat; kecilkan api.','Masak sampai ikan matang, lalu beri daun bawang.'],'Kuah ringan tanpa perlu banyak garam.'),
+      tofuVeg: M('Tumis tahu buncis wortel','🥕','18 menit',['180 g tahu putih','Buncis dan wortel','Bawang putih','1 sdt minyak','Sedikit air'],['Potong tahu, buncis, dan wortel dengan ukuran serupa.','Tumis bawang putih, masukkan wortel dan sedikit air.','Tambahkan buncis dan tahu; masak sampai seluruh sayur matang.'],'Bisa disantap dengan nasi hangat.'),
+      chickenPorridge: M('Bubur nasi ayam daun bawang','🍚','25 menit',['150 g nasi matang','100 g ayam tanpa kulit','500 ml air','Bawang putih dan jahe','Daun bawang'],['Rebus nasi dan air sampai lembut.','Masak ayam bersama bawang dan jahe sampai matang, lalu suwir.','Campurkan ayam ke bubur dan beri daun bawang.'],'Gunakan nasi yang disimpan dingin dengan benar atau nasi baru matang.'),
+      eggplantFish: M('Terong panggang & ikan suwir','🍆','25 menit',['1 terong ungu','120 g ikan matang, suwir','Tomat','Bawang merah dan bawang putih','1 sdt minyak'],['Panggang atau kukus terong sampai empuk.','Tumis bawang dan tomat, masukkan ikan matang.','Sajikan terong dengan topping ikan suwir.'],'Gunakan ikan yang dimasak matang dan disimpan dingin dengan benar.'),
+      mushroomRice: M('Nasi jamur bawang & telur matang','🍄','18 menit',['150 g nasi matang','100 g jamur','1 telur','Bawang putih','Daun bawang'],['Tumis jamur dan bawang sampai air jamur menyusut.','Masukkan nasi, aduk hingga panas merata.','Masak telur hingga matang penuh, sajikan di atas nasi.'],'Telur matang penuh lebih aman bila imunitas sedang ditekan.'),
+      chickenWrap: M('Wrap ayam sayur hangat','🌯','20 menit',['2 tortilla gandum','120 g ayam matang suwir','Wortel dan selada yang dicuci bersih','Yogurt plain pasteurisasi','Jeruk nipis'],['Campur yogurt dengan jeruk nipis untuk saus sederhana.','Panaskan tortilla; isi dengan ayam yang dipanaskan, wortel, dan sayur.','Tambahkan saus, lipat, dan sajikan segera.'],'Kalau dokter menyarankan menghindari sayuran mentah, ganti dengan sayur matang.'),
+      sweetCornRice: M('Nasi jagung sayur & tahu','🌽','20 menit',['120 g nasi jagung matang','120 g tahu','Jagung pipil dan wortel','Bawang putih','Daun bawang'],['Pan-sear tahu dengan sedikit minyak hingga matang.','Tumis bawang, wortel, dan jagung sampai empuk.','Sajikan bersama nasi jagung dan tahu.'],'Porsi dan pilihan serealia bisa disesuaikan kenyamanan pencernaan.'),
+      chickenTomato: M('Semur ayam tomat ringan','🍅','30 menit',['200 g ayam tanpa kulit','2 tomat matang','Bawang merah, bawang putih','Pala dan merica','Air secukupnya'],['Tumis bawang hingga harum, masukkan tomat dan bumbu.','Masukkan ayam dan sedikit air, tutup wajan.','Masak sampai ayam matang menyeluruh dan kuah mengental.'],'Tidak perlu menambahkan banyak kecap atau gula.'),
+      tempeSoup: M('Sup tempe sayuran','🥣','22 menit',['120 g tempe kukus, potong','Wortel, kol, dan buncis','Bawang putih dan jahe','600 ml air'],['Rebus bawang dan jahe dalam air.','Masukkan wortel dan tempe, masak sampai matang.','Tambahkan kol dan buncis; masak hingga sayur matang.'],'Kukus tempe sebentar sebelum dimasukkan agar teksturnya lembut.'),
+      pastaTuna: M('Pasta gandum tuna tomat','🍝','20 menit',['120 g pasta gandum','80 g tuna matang','2 tomat matang','Bawang putih','Daun basil atau kemangi'],['Rebus pasta sampai matang sesuai petunjuk kemasan.','Tumis bawang dan tomat sampai membentuk saus.','Masukkan tuna dan pasta; aduk sampai panas merata.'],'Gunakan tuna matang; cek natrium jika menggunakan produk kalengan.'),
+      vegOmelette: M('Omelet sayur & kentang','🥚','20 menit',['2 telur','1 kentang kecil, kukus dan potong','Wortel parut dan bayam','Bawang bombai','1 sdt minyak'],['Tumis bawang dan sayur sampai lunak.','Kocok telur, campur kentang dan sayuran.','Masak dengan api kecil sampai seluruh bagian omelet matang.'],'Pastikan bagian tengah omelet tidak cair.'),
+      chickenGingerRice: M('Nasi ayam jahe kukus','🍚','30 menit',['120 g beras','120 g ayam tanpa kulit','Jahe iris dan bawang putih','Wortel potong kecil','Air secukupnya'],['Cuci beras dan masukkan ke wadah tahan panas.','Tambahkan ayam, jahe, bawang, wortel, dan air secukupnya.','Kukus sampai nasi pulen dan ayam matang menyeluruh.'],'Pastikan ayam di bagian tengah matang sempurna.'),
+      warmVegNoodles: M('Bihun kuah sayur & tahu','🍜','20 menit',['70 g bihun kering','100 g tahu','Sawi dan wortel','Bawang putih','500 ml air'],['Rendam bihun sesuai petunjuk lalu tiriskan.','Didihkan air bersama bawang; masukkan wortel, sawi, dan tahu.','Masukkan bihun, masak sampai panas merata dan sayur matang.'],'Gunakan bihun secukupnya dan perbanyak sayuran.'),
+    };
+
+    const breakfastKeys = ['oat','eggtoast','porridge','bananaPancake','sweetpotato','riceegg','tofuScramble','cornEgg','chia','toastAvocado'];
+    const lunchKeys = ['fishPepes','chickenLime','tempeBowl','tofuBowl','chickenSoup','tunaRice','beefSoup','fishTomato','chickenStir','tofuPepes','chickenTurmeric','lentil','fishBake','chickenTomato','pastaTuna'];
+    const dinnerKeys = ['vegSoup','gingerFishSoup','tofuVeg','chickenPorridge','eggplantFish','mushroomRice','chickenWrap','sweetCornRice','tempeSoup','vegOmelette','chickenGingerRice','warmVegNoodles','chickenSoup','fishTomato','tofuBowl'];
+    const dayTitles = [
+      'Start with something warm','A little green on the plate','Colorful bites','Easy does it','Cozy kitchen day','A bright little bowl','Slow Sunday feeling',
+      'Fresh start again','A little comfort food','Market basket day','Golden & gentle','Garden on a plate','Simple is lovely','A bowl of sunshine',
+      'Halfway picnic','Little fish day','Rooted & balanced','A warm hug meal','Colorful kitchen','Good things grow','A little crunch','Comfort in a bowl',
+      'Mix it up','Sunny plate','Home-cooked happiness','One more lovely day','The cozy table','Fresh and familiar','Almost at the finish','Look how far you came'
+    ];
+    const plan = Array.from({length:30},(_,i)=>({day:i+1,title:dayTitles[i], meals:[breakfastKeys[i%breakfastKeys.length],lunchKeys[(i*7)%lunchKeys.length],dinnerKeys[(i*4+2)%dinnerKeys.length]]}));
+    // Replace a few rotations to improve variety across adjacent days.
+    plan[5].meals=['chia','fishBake','vegSoup']; plan[11].meals=['toastAvocado','lentil','chickenPorridge']; plan[17].meals=['cornEgg','fishTomato','tempeSoup']; plan[23].meals=['bananaPancake','chickenStir','gingerFishSoup']; plan[29].meals=['sweetpotato','chickenTurmeric','mushroomRice'];
+
+    const completed = new Set(JSON.parse(localStorage.getItem('capyMealDone') || '[]'));
+    const nodesEl = document.getElementById('dayNodes');
+    const stampsEl = document.getElementById('weekStamps');
+    const trail = document.getElementById('trail');
+    const routePath = document.getElementById('routePath');
+    const routePathInner = document.getElementById('routePathInner');
+    const xPositions = [50,22,36,72,84,63,29,14,40,75,86,60,25,12,43,77,88,59,26,12,42,76,87,61,25,13,44,78,83,50];
+    const yStart=120, yGap=143;
+    const weekLabels=[{day:1,label:'Week 01 · easy beginnings'},{day:8,label:'Week 02 · little more color'},{day:15,label:'Week 03 · finding your rhythm'},{day:22,label:'Week 04 · keep it lovely'}];
+    weekLabels.forEach(w=>{const s=document.createElement('div');s.className='week-stamp';s.textContent=w.label;s.style.top=(yStart+(w.day-1)*yGap-82)+'px';stampsEl.appendChild(s)});
+    const pts=[];
+    plan.forEach((d,i)=>{
+      const x=xPositions[i],y=yStart+i*yGap;pts.push([x*10,y]);
+      const b=document.createElement('button');b.className='day-node '+(x<50?'label-right':'label-left')+(completed.has(d.day)?' done':'');b.style.left=x+'%';b.style.top=y+'px';b.dataset.day=d.day;b.setAttribute('aria-label',`Buka menu hari ${d.day}`);
+      const label=d.title;
+      b.innerHTML=`<span class="node-blob">${completed.has(d.day)?'✓':d.day}</span><span class="node-label"><b>Day ${String(d.day).padStart(2,'0')}</b>${label}</span>`;
+      b.addEventListener('click',()=>openDay(d.day));nodesEl.appendChild(b);
+    });
+    const curve=(a,b)=>{const mid=(a[1]+b[1])/2;return ` C ${a[0]} ${mid-32}, ${b[0]} ${mid+32}, ${b[0]} ${b[1]}`};
+    let path=`M ${pts[0][0]} ${pts[0][1]}`;for(let i=1;i<pts.length;i++)path+=curve(pts[i-1],pts[i]);
+    routePath.setAttribute('d',path);routePathInner.setAttribute('d',path);
+    const totalLength=routePath.getTotalLength();routePath.style.strokeDasharray=totalLength;routePath.style.strokeDashoffset=totalLength;
+    const modalBackdrop=document.getElementById('dayBackdrop');const modalContent=document.getElementById('modalContent');let activeDay=1;
+    function openDay(day){activeDay=day;const d=plan[day-1];modalContent.innerHTML=`<div class="modal-topline"><span class="modal-kicker">little food adventure · stop ${String(day).padStart(2,'0')} of 30</span><button class="close-btn" data-action="close" aria-label="Tutup">✕</button></div><h2>Day ${String(day).padStart(2,'0')}.</h2><p class="modal-intro">${d.title}. Pilih waktu makan untuk membuka resepnya, Lulu sudah menyiapkan semuanya ♡</p><div class="meal-grid">${d.meals.map((key,i)=>{const r=R[key];return `<button class="meal-card" data-recipe="${key}" data-period="${i}"><span class="meal-emoji">${r.emoji}</span><span><span class="meal-type">${['Breakfast','Lunch','Dinner'][i]}</span><strong>${r.name}</strong></span><small>${r.time} ↗</small></button>`}).join('')}</div><div class="modal-bottom"><label class="check-label"><input type="checkbox" id="doneCheck" ${completed.has(day)?'checked':''}> Tandai hari ini selesai</label><span style="font-size:10px;color:#a59a88;font-weight:800">Tidak harus sempurna. Pelan-pelan saja.</span></div><p class="modal-disclaimer">Menu umum; sesuaikan bahan dan porsi dengan kondisi kesehatan, alergi, obat, dan arahan tenaga kesehatan.</p>`;modalBackdrop.classList.add('open');document.body.style.overflow='hidden';}
+    function openRecipe(key,period){const r=R[key];const d=plan[activeDay-1];const periodName=['Breakfast','Lunch','Dinner'][period];modalContent.innerHTML=`<div class="modal-topline"><button class="back-btn" data-action="back">← Day ${String(activeDay).padStart(2,'0')}</button><button class="close-btn" data-action="close" aria-label="Tutup">✕</button></div><div class="recipe-hero"><div class="recipe-icon">${r.emoji}</div><div class="modal-kicker">${periodName} · day ${String(activeDay).padStart(2,'0')}</div><h2>${r.name}</h2><div class="recipe-stats"><span>◷ ${r.time}</span><span>♧ 2 porsi fleksibel</span><span>♡ home cooked</span></div></div><div class="recipe-layout"><section><h3>Yang disiapkan</h3><ul class="ingredient-list">${r.ingredients.map(x=>`<li>${x}</li>`).join('')}</ul></section><section><h3>Cara membuat</h3><ol class="steps">${r.steps.map(x=>`<li>${x}</li>`).join('')}</ol></section></div>${r.tip?`<div class="recipe-tip"><b>Catatan Lulu:</b> ${r.tip}</div>`:''}<div class="modal-bottom"><span style="font-size:11px;color:#9b907f;font-weight:800">${d.title}</span><button class="soft-btn" data-action="back">← Kembali ke menu</button></div><p class="modal-disclaimer">Porsi bukan target medis. Ikuti anjuran dokter/dietisien bila ada pembatasan khusus.</p>`;}
+    modalContent.addEventListener('click',e=>{const close=e.target.closest('[data-action="close"]');const back=e.target.closest('[data-action="back"]');const recipe=e.target.closest('[data-recipe]');if(close){closeDay();return}if(back){openDay(activeDay);return}if(recipe){openRecipe(recipe.dataset.recipe,Number(recipe.dataset.period));}});
+    modalContent.addEventListener('change',e=>{if(e.target.id==='doneCheck'){if(e.target.checked)completed.add(activeDay);else completed.delete(activeDay);localStorage.setItem('capyMealDone',JSON.stringify([...completed]));refreshProgress();const node=nodesEl.querySelector(`[data-day="${activeDay}"]`);node.classList.toggle('done',completed.has(activeDay));node.querySelector('.node-blob').textContent=completed.has(activeDay)?'✓':activeDay;}});
+    function closeDay(){modalBackdrop.classList.remove('open');document.body.style.overflow='';}
+    modalBackdrop.addEventListener('click',e=>{if(e.target===modalBackdrop)closeDay()});
+    function refreshProgress(){const count=completed.size;document.getElementById('progressCount').textContent=`${count} / 30 days`;document.getElementById('progressFill').style.width=(count/30*100)+'%';}
+    refreshProgress();
+    document.getElementById('startJourney').addEventListener('click',()=>document.getElementById('journey').scrollIntoView({behavior:'smooth'}));
+    const healthPanel=document.getElementById('healthPanel');document.getElementById('healthInfoBtn').addEventListener('click',()=>{healthPanel.classList.add('open');document.body.style.overflow='hidden'});document.getElementById('healthClose').addEventListener('click',()=>{healthPanel.classList.remove('open');document.body.style.overflow=''});healthPanel.addEventListener('click',e=>{if(e.target===healthPanel){healthPanel.classList.remove('open');document.body.style.overflow=''}});
+    if(window.gsap){gsap.registerPlugin(ScrollTrigger);gsap.to(routePath,{strokeDashoffset:0,duration:2.7,ease:'power2.out',scrollTrigger:{trigger:'#trail',start:'top 80%',once:true}});gsap.from('.day-node',{scale:.5,opacity:0,stagger:.045,duration:.35,ease:'back.out(1.8)',scrollTrigger:{trigger:'#trail',start:'top 75%',once:true}});gsap.from('.hero-copy > *',{y:18,opacity:0,stagger:.08,duration:.65,ease:'power2.out',delay:.1});} else {routePath.style.strokeDashoffset=0;}
+    // Close overlays with Escape for keyboard users.
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeDay();healthPanel.classList.remove('open');document.body.style.overflow='';}});
+  </script>
+</body>
+</html>

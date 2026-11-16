@@ -236,7 +236,9 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
             <div>
-              <h4 className="text-[8.5pt] font-bold text-neutral-900">dsh-tokenslash</h4>
+              <h4 className="text-[8.5pt] font-bold text-neutral-900">
+                dsh-tokenslash <span className="font-mono font-normal text-[7pt] text-neutral-600">2026</span>
+              </h4>
               <p className="text-[7.5pt] text-neutral-700 leading-snug">
                 Prompt optimization plugin for DeepSeek Harness (DSH): trims bloated prompts and prunes tools.
               </p>
@@ -246,7 +248,9 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             </div>
 
             <div>
-              <h4 className="text-[8.5pt] font-bold text-neutral-900">dsh-snapcompact</h4>
+              <h4 className="text-[8.5pt] font-bold text-neutral-900">
+                dsh-snapcompact <span className="font-mono font-normal text-[7pt] text-neutral-600">2026</span>
+              </h4>
               <p className="text-[7.5pt] text-neutral-700 leading-snug">
                 Bitmap-frame context compression plugin for DSH: deterministic pixel-font visual archiving.
               </p>
@@ -256,7 +260,9 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             </div>
 
             <div>
-              <h4 className="text-[8.5pt] font-bold text-neutral-900">Wedding E-Invitation</h4>
+              <h4 className="text-[8.5pt] font-bold text-neutral-900">
+                Wedding E-Invitation <span className="font-mono font-normal text-[7pt] text-neutral-600">2026</span>
+              </h4>
               <p className="text-[7.5pt] text-neutral-700 leading-snug">
                 RSVP invitation portal with timelines, maps, guestbook (200+ guests).
               </p>
@@ -266,7 +272,9 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             </div>
 
             <div>
-              <h4 className="text-[8.5pt] font-bold text-neutral-900">TripCore</h4>
+              <h4 className="text-[8.5pt] font-bold text-neutral-900">
+                TripCore <span className="font-mono font-normal text-[7pt] text-neutral-600">2026</span>
+              </h4>
               <p className="text-[7.5pt] text-neutral-700 leading-snug">
                 Firebase trip planner: shared itineraries, budget split, guest invites.
               </p>
@@ -276,7 +284,9 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             </div>
 
             <div>
-              <h4 className="text-[8.5pt] font-bold text-neutral-900">SoulSync</h4>
+              <h4 className="text-[8.5pt] font-bold text-neutral-900">
+                SoulSync <span className="font-mono font-normal text-[7pt] text-neutral-600">2025</span>
+              </h4>
               <p className="text-[7.5pt] text-neutral-700 leading-snug">
                 Offline diary with mood tracking, milestones, Recharts progress.
               </p>

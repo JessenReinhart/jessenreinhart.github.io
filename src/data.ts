@@ -36,21 +36,21 @@ export const EXPERIENCES: Experience[] = [
     location: "Jakarta Raya, Indonesia",
     technologies: ["Java", "Spring Boot", "Thymeleaf", "PostgreSQL"],
     highlights: [
-      "Building the web app bank staff use to manage card issuance, activation, and reporting",
-      "Working across Java/Spring Boot backend and Thymeleaf frontend in a single workflow"
+      "Own the shared common module of the bank's card management platform: authentication, user and access management, business criteria management, and translation/i18n",
+      "Build the general web layer bank staff use to administer card operations across roles and languages, from Spring Boot services through Thymeleaf screens in a regulated banking environment"
     ],
     highlightsId: [
-      "Membangun aplikasi web yang digunakan staf bank untuk mengelola penerbitan, aktivasi, dan pelaporan kartu",
-      "Bekerja secara full-stack di backend Java/Spring Boot dan frontend Thymeleaf dalam satu alur kerja"
+      "Memegang modul common bersama pada platform manajemen kartu bank: autentikasi, manajemen pengguna dan akses, manajemen business criteria, serta terjemahan/i18n",
+      "Membangun lapisan web umum yang dipakai staf bank untuk mengelola operasi kartu lintas peran dan bahasa, dari layanan Spring Boot hingga layar Thymeleaf di lingkungan perbankan yang teregulasi"
     ],
-    narrative: "Banks manage millions of credit and debit cards. Every issuance, activation, and limit change needs a system that handles it without errors. I'm building the web interface that bank staff use for these operations, working full-stack across the backend services and the pages customers see.",
-    narrativeId: "Bank mengelola jutaan kartu kredit dan debit. Setiap penerbitan, aktivasi, dan perubahan limit membutuhkan sistem yang bekerja tanpa kesalahan. Saya membangun antarmuka web yang digunakan staf bank untuk operasi ini, bekerja full-stack di layanan backend dan halaman yang dilihat nasabah."
+    narrative: "A card management platform is only as usable as its shared foundation: who can log in, what each role can reach, which business rules apply, and what language the screen speaks. I own that common module, building the authentication, user and access management, business criteria, and i18n layers that every other card module depends on, working full-stack from Spring Boot services through Thymeleaf screens.",
+    narrativeId: "Platform manajemen kartu hanya sebaik fondasi bersamanya: siapa yang bisa masuk, apa yang boleh diakses tiap peran, aturan bisnis mana yang berlaku, dan bahasa apa yang dipakai layar. Saya memegang modul common tersebut, membangun lapisan autentikasi, manajemen pengguna dan akses, business criteria, serta i18n yang menjadi dasar semua modul kartu lain, bekerja full-stack dari layanan Spring Boot hingga layar Thymeleaf."
   },
   {
     id: "exp-wonderslab",
     role: "Freelance Frontend Engineer (Remote)",
     company: "Wonderslab",
-    period: "Nov 2025 - Jun 2026",
+    period: "Nov 2025 - Jun 2026 (concurrent freelance contract)",
     location: "Remote",
     technologies: ["React", "TypeScript", "Next.js", "TanStack Router", "TanStack Query", "TailwindCSS", "Zustand"],
     highlights: [
@@ -72,16 +72,16 @@ export const EXPERIENCES: Experience[] = [
     company: "PT Wide Technologies Indonesia",
     period: "Sep 2023 - Nov 2025",
     location: "Jakarta Raya, Indonesia",
-    technologies: ["ReactJS", "TypeScript", "i18n", "Banking Architecture"],
+    technologies: ["React", "TypeScript", "i18n", "Banking Architecture"],
     highlights: [
       "Built one React platform that served 20 different banks, each with their own branding",
       "Added multi-language support so regional users could work in their preferred language",
-      "Created reusable UI components the R&D team shared across all banking modules"
+      "Created the reusable UI component library the R&D team adopted across every banking module, setting the shared patterns other teams built on"
     ],
     highlightsId: [
       "Membangun satu platform React yang melayani 20 bank berbeda dengan branding masing-masing",
       "Menambahkan dukungan multi-bahasa agar pengguna regional dapat bekerja dalam bahasa pilihan mereka",
-      "Membuat komponen UI reusable yang digunakan tim R&D di semua modul perbankan"
+      "Membuat library komponen UI reusable yang diadopsi tim R&D di semua modul perbankan, menetapkan pola bersama yang dipakai tim lain"
     ],
     narrative: "Twenty banks in Southeast Asia needed the same platform with different branding and layouts. I built the React layer so one codebase could serve them all without forking each tenant. The result was one platform running for 30 million users.",
     narrativeId: "Dua puluh bank di Asia Tenggara membutuhkan platform yang sama dengan branding dan layout yang berbeda. Saya membangun layer React agar satu codebase bisa melayani semuanya tanpa memfork tiap tenant. Hasilnya, satu platform digunakan oleh 30 juta pengguna."
@@ -92,13 +92,13 @@ export const EXPERIENCES: Experience[] = [
     company: "Inspigo.id",
     period: "Dec 2022 - Sep 2023",
     location: "Remote / Hybrid",
-    technologies: ["Next.js", "Web Audio API", "CMS Development"],
+    technologies: ["Next.js", "Web Audio API", "Content Management Systems"],
     highlights: [
-      "Built a CMS with Next.js so content teams could publish without writing code",
+      "Defined the CMS publishing workflow with content teams so non-technical editors could ship content without developer tickets",
       "Prototyped browser-based voice conferencing using the Web Audio API"
     ],
     highlightsId: [
-      "Membangun CMS dengan Next.js agar tim konten bisa mempublikasi tanpa perlu coding",
+      "Menetapkan alur publikasi CMS bersama tim konten agar editor non-teknis bisa merilis konten tanpa tiket developer",
       "Membuat prototipe konferensi suara berbasis browser menggunakan Web Audio API"
     ],
     narrative: "Content teams at Inspigo couldn't update the app without developer help. I built a Next.js CMS that let non-technical editors publish directly. I also prototyped a browser-based audio conferencing tool using the Web Audio API.",
@@ -110,7 +110,7 @@ export const EXPERIENCES: Experience[] = [
     company: "SIRCLO",
     period: "Nov 2019 - Nov 2022",
     location: "BSD, South Tangerang",
-    technologies: ["ReactJS", "Next.js", "TailwindCSS", "Performance Optimization"],
+    technologies: ["React", "Next.js", "TailwindCSS", "Performance Optimization"],
     highlights: [
       "Built the dashboard 100,000 merchants used to set up and monitor their online stores",
       "Created checkout pages handling 2 million orders every month",
@@ -130,7 +130,7 @@ export const EXPERIENCES: Experience[] = [
     company: "Aksaramaya",
     period: "Mar 2019 - Nov 2019",
     location: "South Jakarta, Indonesia",
-    technologies: ["ReactJS", "ChartJS", "HTML5", "Dashboard Visualization"],
+    technologies: ["React", "ChartJS", "HTML5", "Dashboard Visualization"],
     highlights: [
       "Built data dashboards with interactive charts for 60 regional library systems"
     ],
@@ -151,7 +151,7 @@ export const PROJECTS: Project[] = [
     descriptionId: "Rencana perjalanan kami sering berakhir di Excel dan WhatsApp. Saya membuat satu tempat agar semua orang bisa memperbarui itinerary, membagi biaya, dan mengundang anggota lain secara real-time.",
     motivation: "I travel with friends often, and the planning usually ended up scattered across Excel and WhatsApp. I wanted one app where the group could keep the itinerary and costs together.",
     motivationId: "Saya sering bepergian dengan teman, dan rencananya biasanya tersebar di Excel dan WhatsApp. Saya ingin satu aplikasi untuk menyatukan itinerary dan biaya perjalanan.",
-    technologies: ["ReactJS", "TypeScript", "Vite", "Firebase", "Real-time Sync"],
+    technologies: ["React", "TypeScript", "Vite", "Firebase", "Real-time Sync"],
     features: [
       "Real-time collaborative itinerary builder via Firebase",
       "Split expenses and trip budget estimates",
@@ -304,7 +304,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
   {
     name: "Frontend",
     skills: [
-      "ReactJS",
+      "React",
       "Next.js",
       "TypeScript",
       "Tailwind CSS",
@@ -334,7 +334,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       "Performance Optimization",
       "SSR (Next.js)",
       "i18n (Internationalization)",
-      "CMS Development",
+      "Content Management Systems",
       "Banking Systems Architecture",
       "Lighthouse Auditing",
       "White-label Modules"

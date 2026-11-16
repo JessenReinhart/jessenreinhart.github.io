@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { X, Printer, Mail, Linkedin, Globe, MapPin, Award } from "lucide-react";
+import { X, Printer, Mail, Linkedin, Github, Globe, MapPin, Award } from "lucide-react";
 import { motion } from "motion/react";
 import { EXPERIENCES } from "../data";
 
@@ -141,6 +141,15 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
               jessenreinharts@gmail.com
             </a>
             <a
+              href="https://github.com/JessenReinhart"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-900"
+            >
+              <Github className="w-2.5 h-2.5 print-only-hide" aria-hidden="true" />
+              github.com/JessenReinhart
+            </a>
+            <a
               href="https://linkedin.com/in/jessenreinhart"
               target="_blank"
               rel="noopener noreferrer"
@@ -171,10 +180,12 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             Professional summary
           </h3>
           <p className="text-neutral-800 text-[8.5pt] leading-snug">
-            Software engineer with 7+ years across banking, e-commerce, and CMS platforms. Built
-            customer-facing platforms at Wide Technologies (digital banking for 20+ financial
-            institutions, 30M+ users) and SIRCLO (2M monthly orders, dashboards for 100k+ stores).
-            Currently building a Card Management System at LG Sinarmas.
+            Senior frontend engineer with 7+ years building production React for banking and
+            e-commerce. At Wide Technologies I built the white-label React layer behind digital
+            banking for 20 financial institutions and 30M users. At SIRCLO I shipped storefront and
+            checkout flows handling 2M orders a month and raised Lighthouse from 70 to 95.
+            Currently full-stack on a card management platform for bank staff at LG Sinarmas
+            (via PGI Data). Open to remote roles (GMT+7).
           </p>
         </div>
 
@@ -240,10 +251,11 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
                 dsh-tokenslash <span className="font-mono font-normal text-[7pt] text-neutral-600">2026</span>
               </h4>
               <p className="text-[7.5pt] text-neutral-700 leading-snug">
-                Prompt optimization plugin for DeepSeek Harness (DSH): trims bloated prompts and prunes tools.
+                Token-optimization plugin for an AI coding agent: trims bloated prompts and prunes
+                unused tools.
               </p>
               <div className="text-[7pt] font-mono text-neutral-600">
-                TypeScript, Node.js, Cordis, DSH Plugin API
+                TypeScript, Node.js, Cordis, AI agent plugin API
               </div>
             </div>
 
@@ -252,10 +264,11 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
                 dsh-snapcompact <span className="font-mono font-normal text-[7pt] text-neutral-600">2026</span>
               </h4>
               <p className="text-[7.5pt] text-neutral-700 leading-snug">
-                Bitmap-frame context compression plugin for DSH: deterministic pixel-font visual archiving.
+                Bitmap-frame context compression plugin for an AI coding agent: deterministic
+                pixel-font visual archiving.
               </p>
               <div className="text-[7pt] font-mono text-neutral-600">
-                JavaScript, Node.js, Canvas, Cordis, DSH Plugin API
+                JavaScript, Node.js, Canvas, Cordis, AI agent plugin API
               </div>
             </div>
 
@@ -279,7 +292,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
                 Firebase trip planner: shared itineraries, budget split, guest invites.
               </p>
               <div className="text-[7pt] font-mono text-neutral-600">
-                ReactJS, TypeScript, Vite, Firebase
+                React, TypeScript, Vite, Firebase
               </div>
             </div>
 
@@ -320,12 +333,13 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
           </h3>
           <p className="text-[8pt] text-neutral-800 leading-snug">
             <strong className="font-mono text-neutral-900 tracking-wider">Frontend:</strong>{" "}
-            ReactJS, Next.js, TypeScript, TailwindCSS, HTML5, CSS3, JavaScript (ES6+), Vite.{" "}
+            React, Next.js, TypeScript, TailwindCSS, HTML5, CSS3, JavaScript (ES6+), Vite,
+            Web Components, TanStack Query, Zustand.{" "}
             <strong className="font-mono text-neutral-900 tracking-wider">Backend &amp; DB:</strong>{" "}
-            Java, Spring Boot, PostgreSQL, Thymeleaf.{" "}
+            Java, Spring Boot, PostgreSQL, Thymeleaf, Node.js.{" "}
             <strong className="font-mono text-neutral-900 tracking-wider">Specialties:</strong>{" "}
-            Performance Optimization, SSR, CMS Development, Banking Architecture, i18n, Reusable
-            Component Libraries.
+            Performance Optimization, SSR, Content Management Systems, Banking Architecture,
+            i18n, Reusable Component Libraries, Testing (Jest, Vitest, Playwright).
           </p>
         </div>
       </div>

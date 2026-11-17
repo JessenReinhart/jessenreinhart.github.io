@@ -229,7 +229,7 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             languages. At Wide Technologies I built the white-label React layer behind digital
             banking for 20 financial institutions. At SIRCLO I built the merchant dashboard and
             checkout flows behind 100,000 stores. Currently owning the Common and web channel
-            modules that 13 card business domains at Bank Sinarmas OneCard depend on.
+            modules that 13 card business domains at CardPerfect depend on.
           </p>
         </div>
 

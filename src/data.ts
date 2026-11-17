@@ -36,17 +36,17 @@ export const EXPERIENCES: Experience[] = [
     location: "Jakarta Raya, Indonesia",
     technologies: ["Java", "Spring Boot", "Thymeleaf", "PostgreSQL"],
     highlights: [
-      "Own the Common (CMM) module of Bank Sinarmas OneCard: authentication, RBAC screen authority, metadata, common codes, business criteria, and bilingual i18n, the foundation all 13 other card business domains build on",
+      "Own the Common (CMM) module of CardPerfect: authentication, RBAC screen authority, metadata, common codes, business criteria, and bilingual i18n, the foundation all 13 other card business domains build on",
       "Own the FinAst_Card_Web active-active channel tier: Spring Boot services, DTOs, screen/domain/API controllers, and shared JS utilities (GridUtil, CommonUtil) rendered through Thymeleaf",
       "Integrate the platform with Core Banking, VISA, MasterCard, UnionPay, and GPN, plus ATM and EDC terminals through FEP, in a regulated enterprise banking environment"
     ],
     highlightsId: [
-      "Memegang modul Common (CMM) pada Bank Sinarmas OneCard: autentikasi, otorisasi layar berbasis RBAC, metadata, common code, business criteria, dan i18n bilingual, fondasi yang dipakai 13 domain bisnis kartu lainnya",
+      "Memegang modul Common (CMM) pada CardPerfect: autentikasi, otorisasi layar berbasis RBAC, metadata, common code, business criteria, dan i18n bilingual, fondasi yang dipakai 13 domain bisnis kartu lainnya",
       "Memegang tier channel FinAst_Card_Web yang active-active: layanan Spring Boot, DTO, controller screen/domain/API, serta utilitas JS bersama (GridUtil, CommonUtil) yang dirender lewat Thymeleaf",
       "Mengintegrasikan platform dengan Core Banking, VISA, MasterCard, UnionPay, dan GPN, serta terminal ATM dan EDC melalui FEP, di lingkungan perbankan enterprise yang teregulasi"
     ],
-    narrative: "Bank Sinarmas OneCard is built on a shared foundation: who can log in, which screens each role can reach, what metadata and common codes apply, what the business criteria permit, and which language the screen speaks. I own that Common (CMM) module and the FinAst_Card_Web active-active channel tier, working full-stack from Spring Boot services through Thymeleaf screens and shared JS utilities. All 13 other card business domains build on top of it, with integrations into Core Banking, VISA, MasterCard, UnionPay, GPN, and ATM/EDC through FEP.",
-    narrativeId: "Bank Sinarmas OneCard berdiri di atas fondasi bersama: siapa yang bisa masuk, layar mana yang bisa diakses tiap peran, metadata dan common code mana yang berlaku, business criteria apa yang diizinkan, dan bahasa apa yang dipakai layar. Saya memegang modul Common (CMM) serta tier channel FinAst_Card_Web yang active-active, bekerja full-stack dari layanan Spring Boot hingga layar Thymeleaf dan utilitas JS bersama. Seluruh 13 domain bisnis kartu lainnya dibangun di atasnya, dengan integrasi ke Core Banking, VISA, MasterCard, UnionPay, GPN, serta ATM/EDC melalui FEP."
+    narrative: "CardPerfect is built on a shared foundation: who can log in, which screens each role can reach, what metadata and common codes apply, what the business criteria permit, and which language the screen speaks. I own that Common (CMM) module and the FinAst_Card_Web active-active channel tier, working full-stack from Spring Boot services through Thymeleaf screens and shared JS utilities. All 13 other card business domains build on top of it, with integrations into Core Banking, VISA, MasterCard, UnionPay, GPN, and ATM/EDC through FEP.",
+    narrativeId: "CardPerfect berdiri di atas fondasi bersama: siapa yang bisa masuk, layar mana yang bisa diakses tiap peran, metadata dan common code mana yang berlaku, business criteria apa yang diizinkan, dan bahasa apa yang dipakai layar. Saya memegang modul Common (CMM) serta tier channel FinAst_Card_Web yang active-active, bekerja full-stack dari layanan Spring Boot hingga layar Thymeleaf dan utilitas JS bersama. Seluruh 13 domain bisnis kartu lainnya dibangun di atasnya, dengan integrasi ke Core Banking, VISA, MasterCard, UnionPay, GPN, serta ATM/EDC melalui FEP."
   },
   {
     id: "exp-wide",

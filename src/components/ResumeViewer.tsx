@@ -1,7 +1,8 @@
 import { useEffect, useRef } from "react";
 import { X, Printer, Mail, Linkedin, Github, Globe, MapPin, Award } from "lucide-react";
 import { motion } from "motion/react";
-import { EXPERIENCES } from "../data";
+import { Experience } from "../types";
+import { EXPERIENCES, FREELANCE_EXPERIENCES } from "../data";
 
 interface ResumeViewerProps {
   onClose: () => void;
@@ -9,6 +10,49 @@ interface ResumeViewerProps {
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+
+function ResumeJob({ exp }: { exp: Experience; key?: string }) {
+  return (
+    <div className="resume-job">
+      <div className="flex flex-row items-baseline justify-between gap-2">
+        <div className="min-w-0 flex items-baseline gap-1.5 flex-wrap">
+          <h4 className="text-[9pt] font-bold text-neutral-900 leading-tight">
+            {exp.role}
+          </h4>
+          <span className="text-[7.5pt] font-mono font-semibold text-neutral-700 tracking-wide">
+            {exp.company}
+          </span>
+        </div>
+        <div className="text-right flex-shrink-0">
+          <span className="text-[7.5pt] font-mono text-neutral-600 block whitespace-nowrap">
+            {exp.period} · {exp.location}
+          </span>
+        </div>
+      </div>
+
+      {/* Narrative is screen-only; print keeps bullets for 1-page ATS density */}
+      {exp.narrative && (
+        <p className="print-only-hide text-[8pt] leading-snug text-neutral-700 mt-0.5 mb-0.5">
+          {exp.narrative}
+        </p>
+      )}
+      {exp.highlights && exp.highlights.length > 0 && (
+        <ul className="pl-3 list-disc text-neutral-800">
+          {exp.highlights.map((item, idx) => (
+            <li key={idx} className="text-[8pt] leading-snug py-px">
+              {item}
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <div className="font-mono text-[7pt] text-neutral-600 mt-0.5">
+        <span className="font-semibold text-neutral-700 select-none">Stack: </span>
+        {exp.technologies.join(", ")}
+      </div>
+    </div>
+  );
+}
 
 export default function ResumeViewer({ onClose }: ResumeViewerProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -197,44 +241,20 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
 
           <div className="space-y-1">
             {EXPERIENCES.map((exp) => (
-              <div key={exp.id} className="resume-job">
-                <div className="flex flex-row items-baseline justify-between gap-2">
-                  <div className="min-w-0 flex items-baseline gap-1.5 flex-wrap">
-                    <h4 className="text-[9pt] font-bold text-neutral-900 leading-tight">
-                      {exp.role}
-                    </h4>
-                    <span className="text-[7.5pt] font-mono font-semibold text-neutral-700 tracking-wide">
-                      {exp.company}
-                    </span>
-                  </div>
-                  <div className="text-right flex-shrink-0">
-                    <span className="text-[7.5pt] font-mono text-neutral-600 block whitespace-nowrap">
-                      {exp.period} · {exp.location}
-                    </span>
-                  </div>
-                </div>
+              <ResumeJob key={exp.id} exp={exp} />
+            ))}
+          </div>
+        </div>
 
-                {/* Narrative is screen-only; print keeps bullets for 1-page ATS density */}
-                {exp.narrative && (
-                  <p className="print-only-hide text-[8pt] leading-snug text-neutral-700 mt-0.5 mb-0.5">
-                    {exp.narrative}
-                  </p>
-                )}
-                {exp.highlights && exp.highlights.length > 0 && (
-                  <ul className="pl-3 list-disc text-neutral-800">
-                    {exp.highlights.map((item, idx) => (
-                      <li key={idx} className="text-[8pt] leading-snug py-px">
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                )}
+        {/* ── Freelance (separate from career history) ── */}
+        <div className="resume-section mb-3">
+          <h3 className="text-[8pt] font-mono tracking-[0.12em] font-bold text-neutral-600 uppercase pb-px mb-1 select-none">
+            Freelance
+          </h3>
 
-                <div className="font-mono text-[7pt] text-neutral-600 mt-0.5">
-                  <span className="font-semibold text-neutral-700 select-none">Stack: </span>
-                  {exp.technologies.join(", ")}
-                </div>
-              </div>
+          <div className="space-y-1">
+            {FREELANCE_EXPERIENCES.map((exp) => (
+              <ResumeJob key={exp.id} exp={exp} />
             ))}
           </div>
         </div>

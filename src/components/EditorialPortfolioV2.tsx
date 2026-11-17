@@ -10,7 +10,7 @@ import {
   Sun,
   X,
 } from "lucide-react";
-import { EXPERIENCES, PORTRAIT_IMAGE, PROJECTS, SKILL_CATEGORIES } from "../data";
+import { EXPERIENCES, FREELANCE_EXPERIENCES, PORTRAIT_IMAGE, PROJECTS, SKILL_CATEGORIES } from "../data";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useTheme } from "../contexts/ThemeContext";
 import { translations } from "../i18n/translations";
@@ -48,6 +48,8 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
         code: "GitHub",
         experience: "Pengalaman",
         experienceDesc: "Dari dashboard perpustakaan hingga operasi perbankan dan commerce multi-tenant, dengan pengalaman sejak 2019.",
+        freelance: "Freelance",
+        freelanceDesc: "Kontrak sampingan yang dikerjakan bersamaan dengan peran utama.",
         aboutTitle: "Saya suka frontend yang punya pekerjaan nyata.",
         stack: "Core stack",
         statLabels: ["institusi keuangan", "order / bulan", "online stores"],
@@ -69,6 +71,8 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
         code: "GitHub",
         experience: "Experience",
         experienceDesc: "From library dashboards to banking operations and multi-tenant commerce, across roles since 2019.",
+        freelance: "Freelance",
+        freelanceDesc: "Concurrent contract work alongside the main career history.",
         aboutTitle: "I like frontend work when the interface has a real job to do.",
         stack: "Core stack",
         statLabels: ["financial institutions", "orders / month", "online stores"],
@@ -524,6 +528,35 @@ export default function EditorialPortfolioV2({ onViewResume }: EditorialPortfoli
                   </motion.article>
                 );
               })}
+            </div>
+
+            <div className="mt-12">
+              <motion.div {...reveal} className="grid gap-4 border-b pb-5 md:grid-cols-12 md:gap-8" style={{ borderColor: "var(--color-border-primary)" }}>
+                <div className="md:col-span-2">
+                  <h3 className="font-mono text-[11px] tracking-[0.22em] uppercase" style={{ color: "var(--color-text-secondary)" }}>{copy.freelance}</h3>
+                </div>
+                <p className="text-sm leading-relaxed md:col-span-10" style={{ color: "var(--color-text-muted)" }}>{copy.freelanceDesc}</p>
+              </motion.div>
+
+              <div className="border-t" style={{ borderColor: "var(--color-border-primary)" }}>
+                {FREELANCE_EXPERIENCES.map((exp) => {
+                  const highlights = lang === "id" && exp.highlightsId ? exp.highlightsId : exp.highlights;
+                  return (
+                    <motion.article key={exp.id} {...reveal} className="grid gap-4 border-b py-7 md:grid-cols-12 md:gap-8" style={{ borderColor: "var(--color-border-primary)" }}>
+                      <div className="text-xs font-mono leading-relaxed md:col-span-2" style={{ color: "var(--color-text-dim)" }}>{exp.period}</div>
+                      <div className="md:col-span-4">
+                        <h3 className="text-lg font-semibold tracking-[-0.02em]">{exp.role}</h3>
+                        <p className="mt-1 text-sm" style={{ color: "var(--color-accent)" }}>{exp.company}</p>
+                        <p className="mt-2 text-xs" style={{ color: "var(--color-text-dim)" }}>{exp.location}</p>
+                      </div>
+                      <div className="md:col-span-6">
+                        {highlights?.slice(0, 3).map((highlight) => <p key={highlight} className="mb-2 text-sm leading-relaxed" style={{ color: "var(--color-text-muted)" }}>• {highlight}</p>)}
+                        <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 font-mono text-[10px]" style={{ color: "var(--color-text-dim)" }}>{exp.technologies.map((tech) => <span key={tech}>{tech}</span>)}</div>
+                      </div>
+                    </motion.article>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </section>

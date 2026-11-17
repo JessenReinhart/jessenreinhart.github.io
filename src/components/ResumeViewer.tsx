@@ -225,11 +225,11 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
           </h3>
           <p className="text-neutral-800 text-[8.5pt] leading-snug">
             Senior frontend engineer with 7+ years building production React for banking and
-            e-commerce. At Wide Technologies I built the white-label React layer behind digital
-            banking for 20 financial institutions and 30M users. At SIRCLO I shipped storefront and
-            checkout flows handling 2M orders a month and raised Lighthouse from 70 to 95.
-            Currently full-stack on a card management platform at LG Sinarmas
-            (via PGI Data).
+            e-commerce. Strongest at platform work: one codebase, many tenants, many roles, many
+            languages. At Wide Technologies I built the white-label React layer behind digital
+            banking for 20 financial institutions. At SIRCLO I built the merchant dashboard and
+            checkout flows behind 100,000 stores. Currently owning the Common and web channel
+            modules that 13 card business domains at Bank Sinarmas OneCard depend on.
           </p>
         </div>
 
@@ -327,6 +327,18 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
                 React, TailwindCSS, Local Storage, Recharts
               </div>
             </div>
+
+            <div>
+              <h4 className="text-[8.5pt] font-bold text-neutral-900">
+                share-term <span className="font-mono font-normal text-[7pt] text-neutral-600">2026</span>
+              </h4>
+              <p className="text-[7.5pt] text-neutral-700 leading-snug">
+                Mirror a live terminal to a phone over local Wi-Fi after one QR scan.
+              </p>
+              <div className="text-[7pt] font-mono text-neutral-600">
+                Node.js, TypeScript, node-pty, WebSocket, xterm.js
+              </div>
+            </div>
           </div>
         </div>
 
@@ -359,7 +371,8 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             Java, Spring Boot, PostgreSQL, Thymeleaf, Node.js.{" "}
             <strong className="font-mono text-neutral-900 tracking-wider">Specialties:</strong>{" "}
             Performance Optimization, SSR, Content Management Systems, Banking Architecture,
-            i18n, Reusable Component Libraries, Testing (Jest, Vitest, Playwright).
+            Card Management Systems, RBAC, i18n, Reusable Component Libraries, Testing (Jest,
+            Vitest, Playwright).
           </p>
         </div>
       </div>

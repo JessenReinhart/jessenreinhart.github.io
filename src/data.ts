@@ -36,17 +36,17 @@ export const EXPERIENCES: Experience[] = [
     location: "Jakarta Raya, Indonesia",
     technologies: ["Java", "Spring Boot", "Thymeleaf", "PostgreSQL"],
     highlights: [
-      "Own CardPerfect's shared foundation: authentication, RBAC screen authority, metadata, common codes, business criteria, and bilingual i18n, on which all 13 other card business domains are built",
-      "Own the web channel layer bank staff use to run card operations: Spring Boot services, DTOs, screen/domain/API controllers, and shared JS utilities for grids and common helpers, rendered through Thymeleaf",
+      "Own CardPerfect's shared foundation: authentication, role-based screen access, shared metadata and reference codes, business rules, and bilingual i18n, on which all 13 other card business domains are built",
+      "Own the web channel layer all 13 card business domains ship on, from Spring Boot services and controllers to the shared grid and helper utilities every screen uses, rendered through Thymeleaf",
       "Build against the platform's card scheme and terminal integrations (VISA, MasterCard, UnionPay, GPN, ATM and EDC through FEP), in a regulated enterprise banking environment"
     ],
     highlightsId: [
-      "Memegang fondasi bersama CardPerfect: autentikasi, otorisasi layar berbasis RBAC, metadata, common code, business criteria, dan i18n bilingual, yang menjadi dasar 13 domain bisnis kartu lainnya",
-      "Memegang lapisan channel web yang dipakai staf bank untuk menjalankan operasi kartu: layanan Spring Boot, DTO, controller screen/domain/API, serta utilitas JS bersama untuk grid dan helper umum, yang dirender lewat Thymeleaf",
+      "Memegang fondasi bersama CardPerfect: autentikasi, akses layar berbasis peran, metadata dan kode referensi bersama, aturan bisnis, dan i18n bilingual, yang menjadi dasar 13 domain bisnis kartu lainnya",
+      "Memegang lapisan channel web tempat seluruh 13 domain bisnis kartu dirilis, dari layanan dan controller Spring Boot hingga utilitas grid dan helper bersama yang dipakai setiap layar, dirender lewat Thymeleaf",
       "Membangun di atas integrasi card scheme dan terminal platform (VISA, MasterCard, UnionPay, GPN, ATM dan EDC melalui FEP), di lingkungan perbankan enterprise yang teregulasi"
     ],
-    narrative: "CardPerfect is built on a shared foundation: who can log in, which screens each role can reach, what metadata and common codes apply, what the business criteria permit, and which language the screen speaks. I own that shared foundation and the web channel layer bank staff use to run card operations, working full-stack from Spring Boot services through Thymeleaf screens and shared JS utilities. All 13 other card business domains build on top of it, alongside the platform's card scheme and terminal integrations (VISA, MasterCard, UnionPay, GPN, and ATM/EDC through FEP).",
-    narrativeId: "CardPerfect berdiri di atas fondasi bersama: siapa yang bisa masuk, layar mana yang bisa diakses tiap peran, metadata dan common code mana yang berlaku, business criteria apa yang diizinkan, dan bahasa apa yang dipakai layar. Saya memegang fondasi bersama tersebut serta lapisan channel web yang dipakai staf bank untuk menjalankan operasi kartu, bekerja full-stack dari layanan Spring Boot hingga layar Thymeleaf dan utilitas JS bersama. Seluruh 13 domain bisnis kartu lainnya dibangun di atasnya, dengan integrasi card scheme dan terminal platform (VISA, MasterCard, UnionPay, GPN, serta ATM/EDC melalui FEP)."
+    narrative: "CardPerfect is built on a shared foundation: who can log in, which screens each role can reach, what metadata and reference codes apply, what the business rules allow, and which language the screen speaks. I own that shared foundation and the web channel layer all 13 card business domains ship on, working full-stack from Spring Boot services through Thymeleaf screens and shared JS utilities, alongside the platform's card scheme and terminal integrations (VISA, MasterCard, UnionPay, and ATM/EDC through FEP).",
+    narrativeId: "CardPerfect berdiri di atas fondasi bersama: siapa yang bisa masuk, layar mana yang bisa diakses tiap peran, metadata dan kode referensi mana yang berlaku, aturan bisnis apa yang diizinkan, dan bahasa apa yang dipakai layar. Saya memegang fondasi bersama tersebut serta lapisan channel web tempat seluruh 13 domain bisnis kartu dirilis, bekerja full-stack dari layanan Spring Boot hingga layar Thymeleaf dan utilitas JS bersama, dengan integrasi card scheme dan terminal platform (VISA, MasterCard, UnionPay, GPN, serta ATM/EDC melalui FEP)."
   },
   {
     id: "exp-wide",
@@ -65,8 +65,8 @@ export const EXPERIENCES: Experience[] = [
       "Menambahkan dukungan multi-bahasa agar pengguna regional dapat bekerja dalam bahasa pilihan mereka",
       "Membuat library komponen UI reusable yang diadopsi tim R&D di semua modul perbankan, menetapkan pola bersama yang dipakai tim lain"
     ],
-    narrative: "Twenty banks in Southeast Asia needed the same platform with different branding and layouts. I built the React layer so one codebase could serve them all without forking each tenant. The result was one platform running for 30 million users.",
-    narrativeId: "Dua puluh bank di Asia Tenggara membutuhkan platform yang sama dengan branding dan layout yang berbeda. Saya membangun layer React agar satu codebase bisa melayani semuanya tanpa memfork tiap tenant. Hasilnya, satu platform digunakan oleh 30 juta pengguna."
+    narrative: "Twenty banks in Southeast Asia needed the same platform with different branding and layouts. I built the React layer so one codebase could serve them all without forking each tenant. The platform those banks ran on served 30 million end users; my React layer shipped to all 20 tenants.",
+    narrativeId: "Dua puluh bank di Asia Tenggara membutuhkan platform yang sama dengan branding dan layout yang berbeda. Saya membangun layer React agar satu codebase bisa melayani semuanya tanpa memfork tiap tenant. Platform yang dijalankan bank-bank tersebut melayani 30 juta pengguna akhir; layer React saya dikirim ke seluruh 20 tenant."
   },
   {
     id: "exp-inspigo",
@@ -129,18 +129,18 @@ export const FREELANCE_EXPERIENCES: Experience[] = [
     id: "exp-wonderslab",
     role: "Freelance Frontend Engineer (Remote)",
     company: "Wonderslab",
-    period: "Nov 2025 - Jun 2026 (concurrent freelance contract)",
+    period: "Nov 2025 - Jun 2026",
     location: "Remote",
     technologies: ["React", "TypeScript", "Next.js", "TanStack Router", "TanStack Query", "TailwindCSS", "Zustand"],
     highlights: [
       "Shipped Planet Advisor, a real-estate AI app for checking Korean property prices and running analysis via AI chat (Next.js 14), with streaming responses and infinite scroll",
       "Built d-camp, a startup-evaluation dashboard (React 19 + TanStack Router), with scorecards, pipeline views, and AI-vs-manual evaluation comparison",
-      "Delivered Wonderslaw, an AI-powered legal app for Korean legal cases (React + TanStack Query, NestJS backend), including token-expiry auto-logout and redirect handling"
+      "Delivered Wonderslaw, an AI-assisted legal research app for Korean case law (React + TanStack Query over a NestJS backend), including resilient auth session handling for long-running AI responses"
     ],
     highlightsId: [
       "Mengerjakan Planet Advisor, aplikasi AI untuk sektor properti yang membantu mengecek harga dan menganalisis properti di Korea lewat chat AI (Next.js 14), dengan respons streaming dan infinite scroll",
       "Membangun d-camp, dashboard evaluasi startup (React 19 + TanStack Router) dengan scorecard, pipeline view, dan perbandingan evaluasi AI vs manual",
-      "Mengirimkan Wonderslaw, aplikasi hukum bertenaga AI untuk kasus hukum Korea (React + TanStack Query, backend NestJS), termasuk auto-logout saat token kadaluarsa dan penanganan redirect"
+      "Mengirimkan Wonderslaw, aplikasi riset hukum berbantuan AI untuk kasus hukum Korea (React + TanStack Query di atas backend NestJS), termasuk penanganan sesi auth yang tangguh untuk respons AI berdurasi panjang"
     ],
     narrative: "Wonderslab needed frontend support across three products. I built Planet Advisor's real-estate AI chat UI for Korean property pricing and analysis, the d-camp startup-evaluation dashboard, and Wonderslaw's legal document flows for Korean cases. All three were built remotely.",
     narrativeId: "Wonderslab butuh bantuan frontend untuk tiga produk. Saya membangun UI chat AI Planet Advisor untuk harga dan analisis properti Korea, dashboard evaluasi startup d-camp, serta alur dokumen hukum Wonderslaw untuk kasus hukum Korea. Ketiganya dikerjakan secara remote."
@@ -254,8 +254,6 @@ export const PROJECTS: Project[] = [
     tagline: "A private offline journal",
     description: "A private, offline place to write short logs, mark progress, and keep the data on the device.",
     descriptionId: "Tempat pribadi dan offline untuk menulis log singkat, menandai progres, dan menyimpan data di perangkat.",
-    motivation: "I went through a rough period and needed a private space to log my thoughts. I built it for myself, hoping it would help.",
-    motivationId: "Saya melalui masa sulit dan membutuhkan ruang pribadi untuk mencatat pikiran saya. Saya membuatnya untuk diri sendiri, berharap ia bisa membantu.",
     technologies: ["React", "TailwindCSS", "Local Storage", "Recharts"],
     features: [
       "Daily diary stream with visual mood ratings",
@@ -399,7 +397,7 @@ export const SERVICES: Service[] = [
     outcomeId: "Pembaruan & pemantauan setiap bulan.",
     icon: "maintenance",
     examples: [
-      { label: "Monthly care plans", labelId: "Paket perawatan bulanan" }
+      { label: "Updates and monitoring", labelId: "Pembaruan dan pemantauan" }
     ]
   }
 ];

@@ -6,7 +6,6 @@ import {
   Heart,
   Activity,
   Terminal,
-  Bot,
   Gamepad2,
   Code,
   type LucideProps,
@@ -21,7 +20,6 @@ export function getProjectIcon(idOrTitle?: string): React.ComponentType<LucidePr
   if (key.includes("wedding")) return Heart;
   if (key.includes("soulsync")) return Activity;
   if (key.includes("shareterm") || key.includes("share-term")) return Terminal;
-  if (key.includes("chef")) return Bot;
   if (key.includes("civstrategy")) return Gamepad2;
 
   return Code;

@@ -3,35 +3,6 @@ import type { Project } from "./types";
 
 const FEATURED_PROJECTS: Project[] = [
   {
-    id: "proj-chef",
-    title: "Chef",
-    tagline: "Coordinate coding agents in one workspace",
-    description:
-      "I wanted one workspace where coding agents, terminals, context, approvals, and artifacts could stay connected instead of living in separate sessions. Chef is the local-first TypeScript runtime I built around that idea.",
-    descriptionId:
-      "Saya ingin satu workspace tempat agent coding, terminal, context, approval, dan artifact tetap terhubung, bukan tersebar di sesi yang berbeda. Chef adalah runtime TypeScript local-first yang saya bangun untuk itu.",
-    motivation:
-      "I was tired of treating each AI coding session as a separate workspace. Chef is my attempt to make the work observable and coordinated while keeping the human in control.",
-    motivationId:
-      "Saya bosan memperlakukan setiap sesi coding AI sebagai workspace terpisah. Chef adalah usaha saya membuat pekerjaan lebih mudah dipantau dan dikoordinasikan, sambil tetap menempatkan manusia sebagai pengendali.",
-    technologies: ["TypeScript", "React", "XYFlow", "Node.js", "SQLite"],
-    features: [
-      "Mission orchestration across multiple AI workers and terminal harnesses",
-      "Live React/XYFlow workspace with durable nodes and scoped context",
-      "Embedded terminal, browser, approval, artifact, and collaboration surfaces",
-      "SQLite-backed persistence, live SSE events, and repeatable automations",
-    ],
-    featuresId: [
-      "Orkestrasi mission di banyak AI worker dan terminal harness",
-      "Workspace React/XYFlow dengan node persisten dan scoped context",
-      "Terminal, browser, approval, artifact, dan collaboration surface dalam satu workspace",
-      "Persistensi berbasis SQLite, live SSE events, dan automation berulang",
-    ],
-    imageSrc:
-      "https://raw.githubusercontent.com/JessenReinhart/chef/master/docs/mockups/LIVING_WORKSPACE_NORTH_STAR.svg",
-    githubUrl: "https://github.com/JessenReinhart/chef",
-  },
-  {
     id: "proj-civstrategy",
     title: "CivStrategy: Ancient Realms",
     tagline: "Build and fight in a browser RTS",
@@ -63,7 +34,7 @@ const FEATURED_PROJECTS: Project[] = [
 ];
 
 /**
- * Keep the portfolio's existing data source intact while promoting the two
+ * Keep the portfolio's existing data source intact while promoting the
  * current flagship builds everywhere PROJECTS is consumed (editorial work,
  * legacy project views, and hire-intent lookup). The ID guard makes this safe
  * under React/Vite hot module reloads.

@@ -228,8 +228,8 @@ export default function ResumeViewer({ onClose }: ResumeViewerProps) {
             e-commerce. At Wide Technologies I built the white-label React layer behind digital
             banking for 20 financial institutions and 30M users. At SIRCLO I shipped storefront and
             checkout flows handling 2M orders a month and raised Lighthouse from 70 to 95.
-            Currently full-stack on a card management platform for bank staff at LG Sinarmas
-            (via PGI Data). Open to remote roles (GMT+7).
+            Currently full-stack on a card management platform at LG Sinarmas
+            (via PGI Data).
           </p>
         </div>
 
